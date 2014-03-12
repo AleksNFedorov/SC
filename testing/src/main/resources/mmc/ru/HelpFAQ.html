@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Часто задаваемые вопросы</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Помощь</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Часто задаваемые вопросы</b>
+<br/>
+
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - Часто задаваемые вопросы</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>Часто задаваемые вопросы</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>1. Как защищена информация в системе «Мой Киевстар»?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>2. Могу ли я войти в систему «Мой Киевстар» с любого компьютера?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>3. Какой браузер я могу использовать для входа в систему «Мой Киевстар»?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>4. Сколько стоит пользование системой «Мой Киевстар»?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>5. Почему при просмотре детализации вызовов не отображаются имена из адресной книги?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>6. Почему я не вижу детализацию вызовов за предыдущий месяц?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>7. Почему я не вижу суммарные затраты за предыдущий месяц?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>8. Почему я не вижу отчеты за предыдущий месяц?</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>9. На моё имя зарегистрирован лицевой счет с несколькими номерами, могу ли я использовать один логин для
+            просмотра информации по всем номерам?
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>10. На моё имя зарегистрировано несколько лицевых счетов, могу ли я использовать один логин для просмотра
+            информации по этим лицевым счетам?
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>11. Почему при нажатии на ссылку &lt;название раздела&gt; произошел переход на страницу &lt;Вход в систему&gt;?</td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+
+Открытые элементы:
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[1]</span>1. Как защищена
+        информация в Системе?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[2]</span>2. Могу ли я войти в
+        систему «Мой Киевстар» с любого компьютера?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[3]</span>3. Какой браузер я
+        могу использовать для входа в систему «Мой Киевстар»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[4]</span>4. Сколько стоит
+        пользование системой «Мой Киевстар»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[5]</span>5. Почему при
+        просмотре детализации вызовов не отображаются имена из адресной книги?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[6]</span>6. Почему я не вижу
+        детализацию вызовов за предыдущий месяц?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[7]</span>7. Почему я не вижу
+        суммарные затраты за предыдущий месяц?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[8]</span>8. Почему я не вижу
+        отчеты за предыдущий месяц?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[9]</span>9. На моё имя
+        зарегистрирован лицевой счет с несколькими номерами, могу ли я использовать один логин для просмотра информации
+        по всем номерам?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[10]</span>10. На моё имя
+        зарегистрировано несколько лицевых счетов, могу ли я использовать один логин для просмотра информации по этим
+        лицевым счетам?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[11]</span>11. Почему при
+        нажатии на ссылку &lt;название раздела&gt; произошел переход на страницу &lt;Вход в систему&gt;?
+    </li>
+
+</ul>
+
+<!--
+Загрузка содержимого
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Сохранить в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Загрузить"</li>
+</ul>
+-->
+
+</body>
+</html>

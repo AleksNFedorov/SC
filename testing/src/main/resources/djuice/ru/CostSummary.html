@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Суммарно</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="2"]/a</a>Нажато
+    "Затраты"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="2_1"]/a</a>Нажато "Суммарно"
+</p>
+<br/>
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой DJUICE - Суммарно</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Суммарно за период</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Начисления</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Звонки</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Звонки абонентам сети Киевстар</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Звонки абонентам Djuice</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Звонки абонентам Beeline и Голден Телеком</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Городские, междугородние звонки и звонки на номера других операторов мобильной связи Украины</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Международные звонки</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Дополнительные услуги</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>SMS - услуги (текстовые сообщения)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>MMS - услуги (мультимедийные сообщения)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Услуги передачи данных с использованием технологий GPRS/EDGE (Internet, WAP, Mobile TV)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Заказ/получение дополнительных сервисов и услуг (логотипы, мелодии, 8900 и т.д.)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Услуги роуминга</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Ежемесячные и прочие начисления</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Итого, грн.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Получено платежей:</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>за период:</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>сохранить в файл</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>версия для печати</td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+<br/>
+
+Загрузка содержимого
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/a[1]</span>Нажато
+        "Сохранить в файл"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/table/tbody/tr/td[3]/input</span>Нажато
+        "Загрузить"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/table/tbody/tr/td[2]/select/option[2]</span>Выбран
+        "XML"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/table/tbody/tr/td[3]/input</span>Нажато
+        "Загрузить"
+    </li>
+
+</ul>
+
+</body>
+</html>

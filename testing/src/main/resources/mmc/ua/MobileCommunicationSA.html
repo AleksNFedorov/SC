@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Нове підключення</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Нове підключення</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Договір на надання послуг мобільного
+    зв’язку</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Документи на підключення</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Документи на підключення</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Бланки договорів про надання послуг мобільного зв’язку</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Київ)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Дніпропетровськ)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Одеса)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Харків)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Львів)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Крим)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Приклад заповнення</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Приклад заповнення</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+<br/>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Найбільш розповсюджені запитання</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Допомога</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Найбільш розповсюджені запитання</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Найбільш розповсюджені запитання</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Найбільш розповсюджені запитання</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>1. Як захищена інформація у системі «Мій Київстар»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>2. Чи можете Ви увійти до системи «Мій Київстар» з будь-якого комп’ютера?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>3. Якій браузер можна використовувати для входу в систему «Мій Київстар»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>4. Скільки коштує користування системою «Мій Київстар»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>5. Чому під час перегляду деталізації викликів не відображаються імена з адресної книги?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>6. Чому я не бачу деталізацію викликів за попередній місяць?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>7. Чому я не можу отримати дані про сумарні витрати за попередній місяць?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>8. Чому я не бачу звіти за попередній місяць?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>9. На моє ім’я зареєстровано один особовий рахунок з кількома номерами на ньому. Чи можу я використовувати
+            один логін для перегляду інформації по всіх номерах на особовому рахунку?
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>10. На моє ім’я зареєстровано кілька особових рахунків. Чи можу я отримати один логін для отримання
+            інформації по всіх особових рахунках відразу?
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>11. Чому, скориставшись посиланням &lt;назва розділу&gt;, я потрапив на сторінку &lt;Вхід до системи&gt;?
+        </td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+<br/>
+
+Відкриті елементи:
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[1]</span>1. Як захищена
+        інформація у системі «Мій Київстар»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[2]</span>2. Чи можете Ви
+        увійти до системи «Мій Київстар» з будь-якого комп’ютера?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[3]</span>3. Якій браузер можна
+        використовувати для входу в систему «Мій Київстар»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[4]</span>4. Скільки коштує
+        користування системою «Мій Київстар»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[5]</span>5. Чому під час
+        перегляду деталізації викликів не відображаються імена з адресної книги?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[6]</span>6. Чому я не бачу
+        деталізацію викликів за попередній місяць?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[7]</span>7. Чому я не можу
+        отримати дані про сумарні витрати за попередній місяць?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[8]</span>8. Чому я не бачу
+        звіти за попередній місяць?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[9]</span>9. На моє ім’я
+        зареєстровано один особовий рахунок з кількома номерами на ньому. Чи можу я використовувати один логін для
+        перегляду інформації по всіх номерах на особовому рахунку?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[10]</span>10. На моє ім’я
+        зареєстровано кілька особових рахунків. Чи можу я отримати один логін для отримання інформації по всіх особових
+        рахунках відразу?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[11]</span>11. Чому,
+        скориставшись посиланням &lt;назва розділу&lt;, я потрапив на сторінку &lt;Вхід до системи&lt;?
+    </li>
+
+</ul>
+
+</body>
+</html>

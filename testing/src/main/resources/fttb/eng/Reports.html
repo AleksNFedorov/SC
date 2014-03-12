@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Reports</title>
+</head>
+<body>
+
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Statement</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Reports</b>
+<br/>
+
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Reports</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Cost of provided services is not fiscal information and can be used only to assess and plan the customer
+            expenses.
+        </td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Usage of International roaming services can be updated after receiving the relevant information from the
+            roaming partner.
+        </td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>For calls made in roaming (except for Internet sessions), date and time correspond to the local time of the
+            country from which such calls were made.
+        </td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>agreement number</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>display the selected report</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>The data in the column are sorted in ascending order</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>The data in the column are sorted in descending order</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Click on the column header to sort by the selected column</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>The data in the column which is highlighted in gray color are sorted.</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Direct arrow to bonus usage type icon for description. Detailed description is available in Bonus usage
+            types manual .
+        </td>
+        <td>Present</td>
+    </tr>
+
+</table>
+
+<!--
+Open elements::
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+-->
+
+
+Data charge
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td/a[1]</span>
+        Click on the "Data was saved to the file" button
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[3]/input</span>Click
+        on the "Download"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[2]/select/option[2]</span>Selected
+        XML
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[3]/input</span>Click
+        on the "Download" button
+    </li>
+</ul>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Mmpp segment test for chrome</title>
+</head>
+
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+<body>
+Запущен браузер <b concordion:assertTrue="openBrowser(#TEXT)">Chrome</b>
+<br/>
+
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="MmppLogin.html">Авторизируемся на сайте ${mmpp.url}</a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ru/MmppRU.html">Проверка русской локализации сайта ${mmpp.url}</a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ua/MmppUA.html">Проверка украинской локализации сайта ${mmpp.url}</a>
+<hr/>
+
+<span concordion:assertTrue="close()">Закрытие</span> окна браузера
+<br/>
+Браузер (<b concordion:assertEquals="getBrowserState()">Closed</b>)
+</body>
+</html>

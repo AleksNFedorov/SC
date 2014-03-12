@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Детализация начислений</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Затраты</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">По номеру</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Детализация начислений</b>
+<br/>
+
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - По номеру</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>По номеру</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Информация о стоимости предоставленных абоненту услуг, находящаяся в системе, не является фискальной и может
+            использоваться лишь для оценки и планирования расходов абонента.
+        </td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Данные об услугах международного роуминга могут обновляться после получения соответствующей информации от
+            роуминг-партнера.
+        </td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Для вызовов (за исключением Интернет сессий), совершенных в роуминге, дата и время соответствуют местному
+            времени страны, из которой они были совершены.
+        </td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>сохранить в файл</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>версия для печати</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>лицевой счет:</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>за квартал:</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>за период:</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>абонентский номер:</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Детализация начислений по лицевому счету</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Дата</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Время</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Тип</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Сумма, грн.</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Итого, грн.</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Данные в столбце отсортированы по возрастанию.</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Данные в столбце отсортированы по убыванию.</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Нажмите на заголовок столбца, чтоб отсортировать по выбранному столбцу.</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Данные в cтолбце, который выделен серым цветом, отсортированы.</td>
+        <td>Присутсвует</td>
+    </tr>
+    <tr>
+        <td>Суммы указаны с учетом всех налогов. Услуги, которые предусматривают переадресацию звонков с прямого
+            городского номера на мобильный номер, не облагаются сбором в Пенсионный фонд.
+        </td>
+        <td>Присутсвует</td>
+    </tr>
+
+</table>
+<br/>
+
+Завантаження вмісту:
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/a[1]</span>Нажато
+        "сохранить в файл"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/table/tbody/tr/td[3]/input</span>Нажато
+        "Загрузить"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/table/tbody/tr/td[2]/select/option[2]</span>Выбран
+        XML
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/table/tbody/tr/td[3]/input</span>Нажато
+        "Загрузить"
+    </li>
+
+</ul>
+
+</body>
+</html>

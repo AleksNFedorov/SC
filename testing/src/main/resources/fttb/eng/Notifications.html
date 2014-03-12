@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Notifications</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Profile</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Notification</b>
+
+Browser's window title <b concordion:assertEquals="getTitle()">My Kyivstar - Notification</b>
+<br/>
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Notification</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Please, check the corresponding checkbox to change notification settings. Then click the button "Save".</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Services</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>New services and special proposals</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Profile</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Change Profile</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>SMS</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>To receive SMS-notifications you must specify your mobile phone on User adjustments page</td>
+        <td>Present</td>
+    </tr>
+
+</table>
+<hr/>
+
+Buttons on the page:
+<table concordion:execute="#result = findTextInInputs(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Save</td>
+        <td>Present</td>
+    </tr>
+
+</table>
+<hr/>
+
+Selected following notification by email:
+<ul>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">newServicesAndFeaturesEmail</span>New
+        services
+    </li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">changeProfile</span>Profile
+    </li>
+</ul>
+
+Selected following notification SMS:
+<ul>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">newServicesAndFeaturesSMS</span>New
+        services
+    </li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">changeProfileSMS</span>Profile
+    </li>
+</ul>
+
+<br/>
+<a concordion:assertTrue="clickElementByXPath(#value)"><span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table/tbody/tr[5]/td/input[2]</span>Button
+    "Save" was clicked</a>
+
+</body>
+</html>

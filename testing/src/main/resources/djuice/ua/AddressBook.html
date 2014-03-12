@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Адресна книга</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="3"]/a</a>Натиснуто
+    "Профіль"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="3_4"]/a</a>Натиснуто "Адресна
+    книга"</p>
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій DJUICE - Адресна книга</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Адресна книга</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>додати новий контакт</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Для зміни даних контакта, будь ласка, натисніть на його псевдонім.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>фільтр:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>пошук:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Записи в адресній книзі</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Псевдонім</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>ПІБ</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Група</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер телефону</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+<hr/>
+
+Додано новий контакт:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr/td[1]/a</span>Натиснуто
+        Додати новий контакт
+    </li>
+
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">phoneNumber</span>Введено номер телефону<b
+            concordion:set="#value">0986662211</b></li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">alias</span>Введено псевдонім<b concordion:set="#value">0986662211</b>
+    </li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">name</span>Введено ПІБ<b
+            concordion:set="#value">0986662211</b></li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">department</span>Введена група<b concordion:set="#value">0986662211</b>
+    </li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">comment</span>Введено коментар<b concordion:set="#value">0986662211</b>
+    </li>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none"
+              concordion:set="#value">//*[@id="maxDiv"]/form/p[2]/table/tbody/tr[6]/td[2]/input[1]</span>Натиснуто
+        Зберегти
+    </li>
+
+</ul>
+
+</body>
+</html>

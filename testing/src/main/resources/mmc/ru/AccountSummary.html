@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Затраты - По лицевому счету</title>
+</head>
+<body>
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Затраты</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">По лицевому счету</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Суммарно</b>
+<br/>
+
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - По лицевому счету</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>По лицевому счету</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Информация о стоимости предоставленных абоненту услуг, находящаяся в системе, не является фискальной и может
+            использоваться лишь для оценки и планирования расходов абонента.
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Данные об услугах международного роуминга могут обновляться после получения соответствующей информации от
+            роуминг-партнера.
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Для вызовов (за исключением Интернет сессий), совершенных в роуминге, дата и время соответствуют местному
+            времени страны, из которой они были совершены.
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>счет</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>сохранить в файл</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>версия для печати</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>лицевой счет</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>за период</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Суммарно по лицевому счету</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Всего, без скидки</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Всего, со скидкой</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Всего</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Всего за период</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Суммы указаны с учетом всех налогов. Услуги, которые предусматривают переадресацию звонков с прямого
+            городского номера на мобильный номер, не облагаются сбором в Пенсионный фонд.
+        </td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+<br/>
+
+Загрузка содержимого
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">.//*[@id='mainContentBlock']/table[2]/tbody/tr/td[2]/a[2]</span>Нажато
+        "Сохранить в файл"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">.//*[@id='mainContentBlock']/table[2]/tbody/tr/td[2]/form/div/input</span>Нажато
+        "Загрузить"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">.//*[@id='mainContentBlock']/table[2]/tbody/tr/td[2]/form/div/select/option[2]</span>Выбран
+        XML
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">.//*[@id='mainContentBlock']/table[2]/tbody/tr/td[2]/form/div/input</span>Нажато
+        "Загрузить"
+    </li>
+
+</ul>
+<hr/>
+
+</body>
+</html>

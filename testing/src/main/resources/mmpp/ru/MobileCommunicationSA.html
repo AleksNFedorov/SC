@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Контрактное подключение</title>
+</head>
+<body>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Контрактное подключение</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Договор о предоставлении услуг мобильной
+    связи</b>
+<br/>
+
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - Документы на подключение</b>
+<br/>
+
+<hr/>
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>Документы на подключение</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Бланки договоров о предоставлении услуг мобильной связи</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи (Киев)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи (Днепропетровск)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи (Одесса)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи (Харьков)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи (Львов)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи (Крым)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Пример заполнения</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Пример заполнения</td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+<hr/>
+
+</body>
+</html>

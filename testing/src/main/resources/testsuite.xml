@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+
+
+    <test>
+        <specification location="/djuice/DjuiceHeadSpecification.html">
+            <includes>
+                <specification location="DjuiceHeadSpecificationIE.html">
+                    <includes>
+                        <specification location="DjuiceLogin.html"/>
+                        <specification location="ru/DjuiceRU.html">
+                            <includes>
+                                <specification location="Payment.html"/>
+                            </includes>
+                        </specification>
+                    </includes>
+                </specification>
+            </includes>
+        </specification>
+    </test>
+
+<!--    <test>
+        <specification location="/fttb/FttbHeadSpecification.html">
+            <includes>
+                <specification location="FttbHeadSpecificationChrome.html">
+                    <includes>
+                    </includes>
+                </specification>
+            </includes>
+        </specification>
+    </test>-->
+
+</suite>

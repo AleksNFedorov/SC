@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мой DJUICE - Карта сайта</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Нажато
+    "Обзор"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="8"]/a</a>Нажато
+    "Карта сайта"</p>
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Карта сайта</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Карта сайта</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Обзор</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Затраты</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Суммарно</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Детализация вызовов</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Вызовы за текущий месяц</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Прочие затраты</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Отчеты</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Профиль</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Настройки пользователя</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Уведомления</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Адресная книга</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Платежи</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Услуги и акции</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Управление услугами</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Архив заявок</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Контрактное подключение</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Договор о предоставлении услуг мобильной связи</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Аппликационная форма</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Пополнение счета</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Перевод средств</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Пополнение счета</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Помощь</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Обратная связь</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>FAQ</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Руководство пользователя</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Условия использования</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Карта сайта</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

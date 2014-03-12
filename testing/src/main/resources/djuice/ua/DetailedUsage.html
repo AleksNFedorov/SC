@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Деталізація викликів</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="2"]/a</a>Натиснуто
+    "Витрати"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="2_2"]/a</a>Натиснуто
+    "Деталізація викликів"</p><br/>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Деталізація викликів</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Інформація про вартість отриманих абонентом послуг, наявна у системі, не є фіскальною та може
+            використовуватися лише для оцінки та планування витрат абонента.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані про послуги міжнародного роумінгу можуть оновлюватися після отримання відповідної інформації від
+            роумінг-партнера.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Для викликів (за виключенням Інтернет сесій), здійснених у роумінгу, дата та час вказані згідно з місцевим
+            часом країни, з якої такі виклики було здійснено.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>зберегти в файл</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>версія для друку</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>за період:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Деталізація викликів за період</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>заховати імена</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дата</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Час</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Тип</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Тривалість, сек./ Обсяг, Кбайт</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Всього (з урахуванням всіх податків), грн.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Бонусний баланс</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Всього за місяць, грн.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані у стовпці відсортовані за зростанням.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані у стовпці відсортовані за спаданням.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Натисніть на заголовок стовпця, щоб відсортувати по обраному стовпцю.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані в стовпці, що виділений сірим кольором, відсортовані.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Підведи курсор миші до іконки, що вказує на тип виклику, для перегляду його опису. Більш докладний опис
+            типів викликів ти можеш отримати з Довідника типів викликів .
+        </td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+Завантаження вмісту
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/a[1]</span>Натиснуто
+        "Зберегти у файл"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/table/tbody/tr/td[3]/input</span>Натиснуто
+        "Завантажити"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/table/tbody/tr/td[2]/select/option[2]</span>Вибраний
+        "XML"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="maxDiv"]/table[1]/tbody/tr/td/table/tbody/tr/td[3]/input</span>Натиснуто
+        "Завантажити"
+    </li>
+
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Overview</title>
+</head>
+<body>
+
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Overview</b>
+
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Overview</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>User adjustments</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>First name, last name and patronymic:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Agreement number:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Connection address:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Mobile phone number:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>E-mail address:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Account status</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Account:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Account status:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Current balance:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Deactivation threshold:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Service information</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Rate package:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Service status:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Connection date:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Connection type:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Bonuses</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Balance</td>
+        <td>Present</td>
+    </tr>
+</table>
+
+<!--
+Open elements:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+  -->
+
+</body>
+</html>

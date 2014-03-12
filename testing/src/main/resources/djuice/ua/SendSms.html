@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Надіслати повідомлення</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Натиснуто
+    "Огляд"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="11"]/a</a>Натиснуто "Надіслати
+    повідомлення"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="11_1"]/a</a>Натиснуто
+    "Надіслати повідомлення"</p><br/><br/><br/>
+
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Надіслати повідомлення</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Надіслати повідомлення</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Кожне SMS-повідомлення оплачується згідно з Вашим тарифним планом.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Формати введення номеру: +380ХХХХХХХ, 380ХХХХХХХ, 0ХХХХХХХХХ.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Розділювальним знаком у списку абонентських номерів є «;».</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Увага.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>SMS-повідомлення на короткі номери та на міжнародні напрямки не надсилаються.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Від:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Кому:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Додати контакт з:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Текст:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Символів:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Повідомлень:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Надіслати</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

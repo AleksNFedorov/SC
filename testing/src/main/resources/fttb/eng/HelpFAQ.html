@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>FAQ</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Help</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">FAQ</b>
+<br/>
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>FAQ</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>1. How is the information in the System protected?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>2. Can I log in “My Kyivstar” system using any computer?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>3. How much does using “My Kyivstar” system cost?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>4. Can I be connected on current service conditions if I change my address?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>5. Where can I see service conditions of my current tariff plan?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>6. How can I change the tariff plan by myself?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>7. How is line rental for “Home Internet” service charged?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>8. What should I do if the service has been disconnected because of the lack of money?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>9. How can I refill my account?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>10. What should I do if the money wasn’t transferred to my account immediately after refilling?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>11. How can I set up “Home Internet” service?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>12. If I’ve bought a new router, how can I set it up by myself?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>13. What should I do if the Internet has been disconnected?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>14. Why can’t I use the Internet?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>15. How can I refuse to use “Home Internet” service?</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>HTTPS protocol, which supports encryption while transferring data, is used in the system. Designing and
+            installing of program and technical complexes were done using professional and high quality equipment of
+            home and foreign producers. The system can be logged in only using a personal log-in and password.
+        </td>
+        <td>Present</td>
+    </tr>
+
+</table>
+
+Open elements:
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[1]</span>1. How is the
+        information in the System protected?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[2]</span>2. Can I log in “My
+        Kyivstar” system using any computer?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[3]</span>3. How much does
+        using “My Kyivstar” system cost?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[4]</span>4. Can I be connected
+        on current service conditions if I change my address?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[5]</span>5. Where can I see
+        service conditions of my current tariff plan?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[6]</span>6. How can I change
+        the tariff plan by myself?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[7]</span>7. How is line rental
+        for “Home Internet” service charged?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[8]</span>8. What should I do
+        if the service has been disconnected because of the lack of money?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[9]</span>9. How can I refill
+        my account?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[10]</span>10. What should I do
+        if the money wasn’t transferred to my account immediately after refilling?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[11]</span>11. How can I set up
+        “Home Internet” service?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[12]</span>12. If I’ve bought a
+        new router, how can I set it up by myself?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[13]</span>13. What should I do
+        if the Internet has been disconnected?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[14]</span>14. Why can’t I use
+        the Internet?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[15]</span>15. How can I refuse
+        to use “Home Internet” service?
+    </li>
+
+</ul>
+
+<!--
+Data charge
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Click on the "Data was saved to the file" button</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Click on the "Download"</li>
+</ul>
+-->
+
+</body>
+</html>

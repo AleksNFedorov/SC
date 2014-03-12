@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Довідник користувача</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Допомога</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Довідник користувача</b>
+<br/>
+
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Довідник користувача</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+
+<!--
+Відкриті елемента:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+-->
+
+<!--
+Завантаження вмісту:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натиснуто "Зберегти в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натиснуто "Завантажити"</li>
+</ul>
+-->
+
+</body>
+</html>

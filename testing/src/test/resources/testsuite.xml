@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+
+
+    <test>
+        <specification location="/com/areon/autotests/tests/djuice/DjuiceHeadSpecification.html" resultPrefix="djuice">
+            <includes>
+                <specification location="DjuiceHeadSpecificationChrome.html" resultPrefix="chrome">
+                    <includes>
+                        <specification location="chrome/ru/DjuiceRU.html" resultPrefix="ru">
+                            <includes>
+                                <specification location="OverviewPage.html">
+                                    <includes>
+                                        <specification location="SubOverview.html" resultPrefix="unreachable"/>
+                                    </includes>
+                                </specification>
+                            </includes>
+                        </specification>
+                        <specification location="chrome/ua/DjuiceUA.html" resultPrefix="ua"/>
+                    </includes>
+                </specification>
+            </includes>
+        </specification>
+    </test>
+
+    <test class="java.lang.String">
+        <specification location="/com/areon/autotests/tests/djuice/DjuiceHeadSpecification.html">
+            <includes>
+                <specification location="DjuiceHeadSpecificationChrome.html">
+                    <includes>
+                        <specification location="chrome/ru/DjuiceRU.html">
+                            <includes>
+                                <specification location="OverviewPage.html"/>
+                            </includes>
+                        </specification>
+                    </includes>
+                </specification>
+            </includes>
+        </specification>
+    </test>
+
+
+</suite>

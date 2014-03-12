@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Надіслані повідомлення</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Натиснуто
+    "Огляд"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="11"]/a</a>Натиснуто "Надіслати
+    повідомлення"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="11_2"]/a</a>Натиснуто
+    "Надіслані повідомлення"</p><br/><br/><br/>
+
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Надіслані повідомлення</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Надіслані повідомлення</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Ви можете переглядати детальну інформацію про відправлені SMS, а також, у разі необхідності, відправляти їх
+            повторно.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Термін зберігання повідомлень - 7 днів.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>фільтр:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>пошук:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>показати імена</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані у стовпці відсортовані за зростанням.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані у стовпці відсортовані за спаданням.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Натисніть на заголовок стовпця, щоб відсортувати по обраному стовпцю.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані в стовпці, що виділений сірим кольором, відсортовані.</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

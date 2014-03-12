@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Договір на надання послуг мобільного зв’язку</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="9"]/a</a>Натиснуто "Контрактне підключення"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="9_1"]/a</a>Натиснуто "Договір на надання послуг мобільного зв’язку"</p>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Договір на надання послуг мобільного зв’язку</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Договір на надання послуг мобільного зв’язку</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Бланки договорів про надання послуг мобільного зв’язку</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Київ)</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Дніпропетровськ)</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Одеса)</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Харків)</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Львів)</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір про надання послуг мобільного зв’язку (Крим)</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Приклад заповнення</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Приклад заповнення</td>
+        <td>Присутнє</td>
+    </tr>
+</table>
+
+<!--
+Открытые элементы:
+
+<ul>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[2]/td[3]/p/a</span>
+       Договор о предоставлении услуг мобильной связи (Киев)</li>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[3]/td[3]/p/a</span>
+       Договор о предоставлении услуг мобильной связи (Днепропетровск)</li>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[4]/td[3]/p/a</span>
+       Договор о предоставлении услуг мобильной связи (Одесса)</li>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[5]/td[3]/p/a</span>
+       Договор о предоставлении услуг мобильной связи (Харьков)</li>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[6]/td[3]/p/a</span>
+       Договор о предоставлении услуг мобильной связи (Львов)</li>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[7]/td[3]/p/a</span>
+       Договор о предоставлении услуг мобильной связи (Крым)</li>
+   <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[9]/td[3]/p/a</span>
+       Пример заполнения</li>
+</ul>
+ -->
+
+</body>
+</html>

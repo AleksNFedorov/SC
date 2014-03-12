@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Повідомлення</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Профіль</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Повідомлення</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Повідомлення</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Повідомлення</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Для зміни параметрів отримання повідомлень встановіть прапорець напроти відповідного типу повідомлення.
+            Потім натисніть на кнопку "Зберегти".
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Послуги</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Нові послуги та акції</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Підсумкова інформація про витрати за попередній місяць доступна в Системі</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Профіль</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Зміна профілю</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Електронна пошта</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>SMS</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Для того, щоб отримувати повідомлення, вкажіть та активуйте електронну адресу на сторінці</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+<hr/>
+
+Вибрані наступні повідомлення по email:
+<ul>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">newServicesAndFeaturesEmail</span>Нові
+        послуги та акції - email
+    </li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none"
+                                                                 concordion:set="#value">billReady</span>Підсумкова
+        інформація про витрати за попередній місяць доступна в Системі - email
+    </li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">changeProfile</span>Зміна
+        профілю - email
+    </li>
+</ul>
+
+Вибрані наступні повідомлення по SMS:
+<ul>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">newServicesAndFeaturesSMS</span>Нові
+        послуги та акції - sms
+    </li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">billReadySMS</span>Підсумкова
+        інформація про витрати за попередній місяць доступна в Системі - sms
+    </li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">changeProfileSMS</span>Зміна
+        профілю - sms
+    </li>
+</ul>
+
+<br/>
+<a concordion:assertTrue="clickElementByXPath(#value)"><span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table/tbody/tr[6]/td/input[2]</span>Натиснена
+    кнопка зберегти</a>
+
+</body>
+</html>

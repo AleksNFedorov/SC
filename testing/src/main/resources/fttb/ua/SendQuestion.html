@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Зворотній зв’язок</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Допомога</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Зворотній зв’язок</b>
+<br/>
+
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Зворотній зв’язок</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Шановний абоненте! Відповідь на Ваше питання про систему «Мій Київстар» ймовірно вже є серед</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>найбільш розповсюджених питань</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Не знайшли відповіді? Запитайте в оператора прямо зараз.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Розпочати чат з оператором.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>А ще, можна отримати відповідь на Email протягом 2-х діб.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Також, для Вас працює інформаційно-довідкова служба компанії "Київстар". Наші спеціалісти завжди раді
+            допомогти Вам та надати кваліфіковану консультацію з будь-яких питань стосовно Системи, а також інших послуг
+            компанії "Київстар"!
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>З нами можна зв’язатись цілодобово, 7 днів на тиждень, зателефонувавши:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>460 (дзвінки з номерів мереж "Київстар" та "Beeline" не тарифікуються)</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>0 800 300 460 (дзвінки з номерів фіксованого зв’язку не тарифікуються, дзвінки з номерів мереж інших
+            операторів мобільного зв’язку — згідно з чинними тарифами)
+        </td>
+        <td>присутнє</td>
+    </tr>
+</table>
+
+<!--
+Відкриті елементи:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+-->
+
+<!--
+Завантаження вмісту:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>"Натиснуто "Збрегти в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натистуто "Завантажити"</li>
+</ul>
+-->
+
+</body>
+</html>

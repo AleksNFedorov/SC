@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мой DJUICE - Обзор</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Нажато
+    "Обзор"</p>
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Обзор</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Фамилия, имя, отчество:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Номер:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Последний визит в систему:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Адрес электронной почты:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Состояние</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Тарифный план:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Номер действует до:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Остаток на счету:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Дополнительная информация</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Бонусный баланс</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+<br/>
+
+</body>
+</html>

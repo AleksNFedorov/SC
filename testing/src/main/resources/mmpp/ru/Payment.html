@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Платежи</title>
+</head>
+<body>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Платежи</b>
+<br/>
+
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - Платежи</b>
+<br/>
+
+<hr/>
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>Платежи</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>сохранить в файл</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>версия для печати</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>за период</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Дата</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Тип платежа</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Дополнительная информация</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Сумма, грн.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Данные в столбце отсортированы по возрастанию.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Данные в столбце отсортированы по убыванию.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Нажмите на заголовок столбца, чтоб отсортировать по выбранному столбцу.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Данные в cтолбце, который выделен серым цветом, отсортированы.</td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+<hr/>
+
+Загрузка содержимого
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td/a[1]</span>Нажато
+        "Сохранить в файл"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[3]/input</span>Нажато
+        "Загрузить"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[2]/select/option[2]</span>Выбран
+        XML
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[3]/input</span>Нажато
+        "Загрузить"
+    </li>
+
+</ul>
+<hr/>
+
+</body>
+</html>

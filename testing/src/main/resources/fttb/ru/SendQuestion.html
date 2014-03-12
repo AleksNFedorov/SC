@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Обратная связь</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Помощь</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Обратная связь</b>
+<br/>
+
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>Обратная связь</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Уважаемый абонент! Ответ на Ваш вопрос по системе «Мой Киевстар», предположительно уже есть среди</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>часто задаваемых вопросов</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Не нашли ответ? Спросите у оператора прямо сейчас.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Начать чат с оператором.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>А еще, можно получить ответ на Email на протяжении 2-х суток.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Также, для Вас работает информационно-справочная служба компании "Киевстар". Наши специалисты всегда рады
+            помочь Вам и предоставить квалифицированную консультацию по любым вопросам относительно Системы, а также
+            других услуг компании "Киевстар"!
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>С нами можно связаться круглосуточно, 7 дней в неделю, по номеру:</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>460 (звонки с номеров сетей "Киевстар" и "Beeline" не тарифицируются)</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>0 800 300 460 (звонки с номеров фиксированной связи не тарифицируются, звонки с номеров сетей других
+            операторов мобильной связи — согласно действующим тарифам)
+        </td>
+        <td>присутствует</td>
+    </tr>
+</table>
+
+<!--
+Открытые элементы:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+-->
+
+<!--
+Загрузка содержимого
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Сохранить в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Загрузить"</li>
+</ul>
+-->
+
+</body>
+</html>

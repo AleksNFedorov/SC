@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Карта сайту</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Натиснуто
+    "Огляд"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="8"]/a</a>Натиснуто
+    "Карта сайту"</p>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Карта сайту</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Карта сайту</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Огляд</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Витрати</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Сумарно</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Деталізація викликів</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Виклики за поточний місяць</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Інші витрати</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Звіти</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Профіль</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Настройки користувача</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Повідомлення</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Адресна книга</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Платежі</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Послуги та акції</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Управління послугами</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Архів заявок</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Контрактне підключення</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Договір на надання послуг мобільного зв’язку</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Аплікаційна форма</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Поповнення рахунка</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Переказ коштів</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Поповнення рахунка</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Допомога</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Зворотній зв’язок</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>FAQ</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Довідник користувача</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Умови користування</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Карта сайту</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

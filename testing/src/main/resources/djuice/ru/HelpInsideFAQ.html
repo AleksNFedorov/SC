@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Часто задаваемые вопросы </title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="7"]/a</a>Нажато "Помощь"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="7_2"]/a</a>Нажато "Часто задаваемые вопросы"</p><br/><br/><br/><br/>
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Часто задаваемые вопросы</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Часто задаваемые вопросы</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>1. Как защищена информация в cистеме «Мой DJUICE»?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>2. Могу ли я войти в систему «Мой DJUICE» с любого компьютера?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>3. Какой браузер я могу использовать для входа в систему «Мой DJUICE»?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>4. Сколько стоит пользование системой «Мой DJUICE»?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>5. Почему при просмотре детализации вызовов не отображаются имена из адресной книги?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>6. Почему я не вижу детализацию вызовов за предыдущий месяц?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>7. Почему я не вижу суммарные затраты за предыдущий месяц?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>8. Почему я не вижу отчеты за предыдущий месяц?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>9. Почему у меня суммарные затраты одни, а детализированные другие?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>10. Почему при нажатии на ссылку &lt;название раздела> произошел переход на страницу &lt;Вход в систему>?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>11. Почему в системе не отображены мои затраты на услуги мобильной связи с даты моего подключения к сети «Киевстар»?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>12. Почему сумма средств, переведенных на мой номер с другого, в разделе «Затраты» отображается со знаком «минус»?</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>В разделе «Затраты» сумма средств, потраченная на услуги связи с Вашего номера, отображается положительным числом. Сумма, которая была переведена на Ваш счет с другого номера, отображается отрицательным числом, то есть это не снятие денег, а их зачисление. В итоге, Вы видите сумму, потраченную в течение месяца с учетом переведенных Вам средств. Если итоговая сумма затрат получается с минусом – это остаток переведенных Вам средств после оплаты использованных услуг, то есть положительный баланс.</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+<hr/>
+
+Открытые элементы:
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[1]</span>1. Как защищена информация в cистеме «Мой DJUICE»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[2]</span>2. Могу ли я войти в систему «Мой DJUICE» с любого компьютера?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[3]</span>3. Какой браузер я могу использовать для входа в систему «Мой DJUICE»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[4]</span>4. Сколько стоит пользование системой «Мой DJUICE»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[5]</span>5. Почему при просмотре детализации вызовов не отображаются имена из адресной книги?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[6]</span>6. Почему я не вижу детализацию вызовов за предыдущий месяц?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[7]</span>7. Почему я не вижу суммарные затраты за предыдущий месяц?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[8]</span>8. Почему я не вижу отчеты за предыдущий месяц?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[9]</span>9. Почему у меня суммарные затраты одни, а детализированные другие?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[10]</span>10. Почему при нажатии на ссылку &lt;название раздела> произошел переход на страницу &lt;Вход в систему>?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[11]</span>11. Почему в системе не отображены мои затраты на услуги мобильной связи с даты моего подключения к сети «Киевстар»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[12]</span>12. Почему сумма средств, переведенных на мой номер с другого, в разделе «Затраты» отображается со знаком «минус»?</li>
+
+</ul>
+
+</body>
+</html>

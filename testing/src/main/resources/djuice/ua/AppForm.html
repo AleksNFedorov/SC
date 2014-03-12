@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Аплікаційна форма</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="9"]/a</a>Натиснуто "Контрактне підключення"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="9_2"]/a</a>Натиснуто "Аплікаційна форма"</p><br/>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Аплікаційна форма</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Аплікаційна форма</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Бланк аплікаційної форми</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Приклад заповнення</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+ <!--
+Открытые элементы:
+
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[1]/td[2]/p/a</span>Бланк аппликационной формы</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[2]/td[2]/p/a</span>Пример заполнения</li>
+</ul>
+   -->
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Управління послугами</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="5"]/a</a>Натиснуто "Послуги та акції"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="5_1"]/a</a>Натиснуто "Управління послугами"</p><br/>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Управління послугами</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Управління послугами</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані користувача</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>П.І.Б. користувача:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Абонентський номер:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Статус абонентського номера:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Тарифний план</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Поточний тарифний план:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Базові послуги</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Голосові послуги</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Послуги передачі даних</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Інформаційні послуги</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Послуги обміну повідомленнями</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Роумінг</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Тарифи наведені в гривнях без урахування збору до Пенсійного фонду, який складає 7,5% від вартості послуги без ПДВ і сплачується абонентом у момент споживання послуг.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Акції</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Підключені акції</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Доступні акції</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

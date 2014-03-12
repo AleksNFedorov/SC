@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Address Book</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Click on<b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Profile</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Click on<b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Address Book</b>
+<br/>
+
+Browser's window title <b concordion:assertEquals="getTitle()">My Kyivstar - Address Book</b>
+<br/>
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Address Book</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Please, click on alias to change contact profile.</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>filter by:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Alias</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Group</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Service Agreement</td>
+        <td>Present</td>
+    </tr>
+</table>
+
+Buttons on the page:
+<table concordion:execute="#result = findTextInInputs(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Clear address book</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Delete</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>All book`s contacts</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Show</td>
+        <td>Present</td>
+    </tr>
+</table>
+
+Contact was added:
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table/tbody/tr/td[1]/a</span>"add
+        new contact" link was clicked
+    </li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">phoneNumber</span>Telephon number was put<b
+            concordion:set="#value">0986662211</b></li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">alias</span>Alias was added<b concordion:set="#value">0986662211</b>
+    </li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">name</span>Name was added<b concordion:set="#value">0986662211</b>
+    </li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">department</span>Group was added<b concordion:set="#value">0986662211</b>
+    </li>
+    <li concordion:assertTrue="setValueToElementByName(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">comment</span>Comment was added<b concordion:set="#value">0986662211</b>
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value"> //*[@id="mainContentBlock"]/form/p[2]/table/tbody/tr[6]/td[2]/input[1]</span>Button
+        "Save" was clicked
+    </li>
+
+</ul>
+
+
+<!--
+Data charge
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Click on the "Data was saved to the file" button</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Click on the "Download"</li>
+</ul>
+-->
+
+</body>
+</html>

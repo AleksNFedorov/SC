@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мой DJUICE - Руководство пользователя</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="7"]/a</a>Нажато "Помощь"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="7_4"]/a</a>Нажато "Руководство пользователя"</p><br/><br/><br/><br/>
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Руководство пользователя</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Руководство пользователя</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Руководство пользователя может отличаться от существующей функциональности системы самообслуживания «Мой DJUICE», в связи с регулярным обновлением системы.</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Руководство пользователя Djuice.</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

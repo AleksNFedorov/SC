@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Управління послугами</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Послуги та акції</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Управління послугами</b>
+<br/>
+
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Управління послугами</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані користувача</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>П.І.Б. користувача:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер договору:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Статус послуги:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Стан особового рахунка</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Поріг відключення:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Статус особового рахунка:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Тарифний пакет</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Поточний тарифний пакет:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Додаткові послуги</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Вартість підключення послуги:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Термін підключення з моменту подачі заявки:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Тарифи наведено у гривнях з урахуванням ПДВ.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Замовити послугу</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+
+<!--
+Відкриті елементи:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+-->
+
+<!--
+Завантаження вмісту:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натиснуто "Зберегти в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натиснуто "Завантажити"</li>
+</ul>
+-->
+
+</body>
+</html>

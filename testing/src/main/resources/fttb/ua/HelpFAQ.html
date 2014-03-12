@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Найбільш розповсюджені запитання</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Допомога</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Найбільш розповсюджені запитання</b>
+<br/>
+
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Найбільш розповсюджені запитання</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>1. Як захищена інформація в Системі?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>2. Чи можу я увійти в систему «Мій Київстар» з будь-якого комп’ютеру?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>3. Скільки коштує користування системою «Мій Київстар»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>4. Чи можу я підключитись на поточних умовах обслуговування за новою адресою проживання?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>5. Де я можу переглянути умови обслуговування мого діючого тарифного пакету?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>6. Як я можу самостійно змінити тарифний пакет?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>7. Як нараховується абонентська плата за послугу «Домашній Інтернет»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>8. Що робити, якщо через нестачу коштів послуга відключилась?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>9. Як я можу поповнити свій рахунок?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>10. Що робити, якщо після поповнення кошти не потрапили одразу на рахунок?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>11. Як налаштувати роботу послуги «Домашній Інтернет»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>12. Я придбав новий роутер. Як мені його самостійно налаштувати?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>13. Що робити, якщо зникло підключення до Інтернету?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>14. Чому я не можу скористатись Інтернетом?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>15. Як відмовитись від послуги «Домашній Інтернет»?</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>У системі використовується протокол HTTPS, який підтримує шифрування при передачі даних. Проектування та
+            установка програмного та технічного комплексів виконувалось на базі професійного та високоякісного
+            обладнання вітчизняних та зарубіжних виробників. Вхід в систему здійснюється тільки по персональному логіну
+            та паролю. Для збереження інформації та попередження шахрайства, будь ласка, не розголошуйте ці дані третім
+            особам.
+        </td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+
+
+Відкриті елементи:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[1]</span>1. Як захищена
+        інформація в Системі?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[2]</span>2. Чи можу я увійти в
+        систему «Мій Київстар» з будь-якого комп’ютеру?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[3]</span>3. Скільки коштує
+        користування системою «Мій Київстар»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[4]</span>4. Чи можу я
+        підключитись на поточних умовах обслуговування за новою адресою проживання?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[5]</span>5. Де я можу
+        переглянути умови обслуговування мого діючого тарифного пакету?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[6]</span>6. Як я можу
+        самостійно змінити тарифний пакет?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[7]</span>7. Як нараховується
+        абонентська плата за послугу «Домашній Інтернет»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[8]</span>8. Що робити, якщо
+        через нестачу коштів послуга відключилась?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[9]</span>9. Як я можу
+        поповнити свій рахунок?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[10]</span>10. Що робити, якщо
+        після поповнення кошти не потрапили одразу на рахунок?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[11]</span>11. Як налаштувати
+        роботу послуги «Домашній Інтернет»?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[12]</span>12. Я придбав новий
+        роутер. Як мені його самостійно налаштувати?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[13]</span>13. Що робити, якщо
+        зникло підключення до Інтернету?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[14]</span>14. Чому я не можу
+        скористатись Інтернетом?
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/a[15]</span>15. Як відмовитись
+        від послуги «Домашній Інтернет»?
+    </li>
+
+</ul>
+
+
+<!--
+Загрузка содержимого
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Сохранить в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Загрузить"</li>
+</ul>
+-->
+
+</body>
+</html>

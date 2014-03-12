@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Найбільш розповсюджені запитання</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="7"]/a</a>Натиснуто "Допомога"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="7_2"]/a</a>Натиснуто "Найбільш розповсюджені запитання"</p><br/><br/><br/><br/>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Найбільш розповсюджені запитання</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Найбільш розповсюджені запитання</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>1. Як захищена інформація у системі «Мій DJUICE»?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>2. Чи можу я увійти до системи «Мій DJUICE» з будь-якого комп’ютера?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>3. Який браузер я можу використовувати для входу до системи «Мій DJUICE»?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>4. Скільки коштує користування системою «Мій DJUICE»?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>5. Чому під час перегляду деталізації викликів не відображаються імена з адресної книги?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>6. Чому я не бачу деталізацію викликів за попередній місяць?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>7. Чому я не бачу сумарні витрати за попередній місяць?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>8. Чому я не бачу звіти за попередній місяць?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>9. Чому у мене сумарні витрати одні, а деталізовані інші?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>10. Чому, клікнувши на посилання</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>11. Чому у системі не відображені мої витрати на послуги мобільного зв’язку з дати мого підключення до мережі «Київстар»?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>12. Чому сума коштів, переведених на мій номер з іншого, в розділі «Витрати» відображається зі знаком «мінус»?</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>У розділі «Витрати» сума коштів, витрачена на послуги зв'язку з Вашого номера, відображається позитивним числом. Сума, яка була переведена на Ваш рахунок з іншого номера, відображається негативним числом, тобто це не зняття коштів, а їх зарахування. В результаті, Ви бачите суму, витрачену протягом місяця з урахуванням переведених Вам коштів. Якщо у підсумку сума витрат виходить з мінусом - це залишок переведених Вам коштів після оплати використаних послуг, тобто позитивний баланс.</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+Відкриті елементи:
+
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[1]</span>1. Як захищена інформація у системі «Мій DJUICE»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[2]</span>2. Чи можу я увійти до системи «Мій DJUICE» з будь-якого комп’ютера?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[3]</span>3. Який браузер я можу використовувати для входу до системи «Мій DJUICE»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[4]</span>4. Скільки коштує користування системою «Мій DJUICE»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[5]</span>5. Чому під час перегляду деталізації викликів не відображаються імена з адресної книги?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[6]</span>6. Чому я не бачу деталізацію викликів за попередній місяць?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[7]</span>7. Чому я не бачу сумарні витрати за попередній місяць?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[8]</span>8. Чому я не бачу звіти за попередній місяць?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[9]</span>9. Чому у мене сумарні витрати одні, а деталізовані інші?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[10]</span>10. Чому, клікнувши на посилання &lt;назва розділу> я перейшов на сторінку &lt;Вхід до системи>?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[11]</span>11. Чому у системі не відображені мої витрати на послуги мобільного зв’язку з дати мого підключення до мережі «Київстар»?</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/a[12]</span>12. Чому сума коштів, переведених на мій номер з іншого, в розділі «Витрати» відображається зі знаком «мінус»?</li>
+
+</ul>
+
+
+</body>
+</html>

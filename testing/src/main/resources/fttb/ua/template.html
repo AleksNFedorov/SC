@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>title</title>
+</head>
+<body>
+
+<div style="display: none;" concordion:set="#url">${fttb.url}url</div>
+<b concordion:assertTrue="goToAddress(#url)">Открыта страница "page"</b>
+<br/>
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - Часто задаваемые вопросы</b>
+<br/>
+
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>елемент</td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+
+<!--
+Открытые элементы:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>
+  -->
+
+</body>
+</html>

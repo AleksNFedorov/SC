@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Настройки користувача</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="3"]/a</a>Натиснуто
+    "Профіль"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="3_1"]/a</a>Натиснуто "Настройки
+    користувача"</p>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Настройки користувача</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Настройки користувача</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Логін:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Ім'я:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>По батькові:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дата народження:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Стать:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Абонентський номер:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Область:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Район:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Населений пункт:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Вулиця:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Будинок:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Квартира:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Індекс:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Робочий телефон:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Домашній телефон:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Рід занять:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Адреса електронної пошти:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Перевірити електронну пошту:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Видалення облікового запису</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Ваш обліковий запис буде видалений із системи "Мій Djuice". Всі Ваші дані будуть видалені без можливості
+            відновлення. Для подальшої роботи з системою Вам необхідно буде повторно пройти процедуру реєстрації.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+<hr/>
+
+Профіль відредагований:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[24]/td[2]/input</span>Натиснуто
+        Редагувати
+    </li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="firstName_field"]</span>Ім'я:<b
+            concordion:set="#value">John</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="firstName_field"] </span>Прізвище<b
+            concordion:set="#value">Smith</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="patronymic_field"]</span>По батькові<b
+            concordion:set="#value">White</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="businessTelephone_field"]</span>Мобільний телефон<b
+            concordion:set="#value">7777777</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="homeTelephone_field"]</span>Домашній телефон<b
+            concordion:set="#value">666666666</b></li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="saveBtn"]</span>Натиснуто Зберегти
+    </li>
+</ul>
+
+</body>
+</html>

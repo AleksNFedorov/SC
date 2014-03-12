@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Mmc segment test for Opera browser</title>
+</head>
+
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+<body>
+Запущен браузер <b concordion:assertTrue="openBrowser(#TEXT)">Opera</b>
+<br/>
+
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="MmcLogin.html">Авторизируемся на сайте ${mmc.url}</a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ru/MmcRU.html">Проверка русской локализации сайта ${mmc.url}</a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ua/MmcUA.html">Проверка украинской локализации сайта ${mmc.url}</a>
+<hr/>
+
+<span concordion:assertTrue="close()">закрытие</span> окна браузера
+<br/>
+Браузер (<b concordion:assertEquals="getBrowserState()">Closed</b>)
+</body>
+</html>

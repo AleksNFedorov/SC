@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Виклики за поточний місяць</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="2"]/a</a>Натиснуто
+    "Витрати"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="2_3"]/a</a>Натиснуто "Виклики
+    за поточний місяць"</p>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Виклики за поточний місяць</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Виклики за поточний місяць</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Інформація про вартість отриманих абонентом послуг, наявна у системі, не є фіскальною та може
+            використовуватися лише для оцінки та планування витрат абонента.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані про послуги міжнародного роумінгу можуть оновлюватися після отримання відповідної інформації від
+            роумінг-партнера.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Для викликів (за виключенням Інтернет сесій), здійснених у роумінгу, дата та час вказані згідно з місцевим
+            часом країни, з якої такі виклики було здійснено.
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>за період:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Впродовж поточного періоду Ви ще не оплачували деталізацію. Для перегляду деталізації натисніть
+            "Отримати".
+        </td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Вартість отримання даних на цій сторінці становить 5.00 грн*.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>* з урахуванням ПДВ та без урахування збору до Пенсійного Фонду.</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Отримати</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>FTTB ua test</title>
+</head>
+
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+<body>
+Смена локализации на:
+<div style="display: none">
+    <p concordion:execute="#main = createByXpath(#TEXT)">//*[@id="icons"]/table/tbody/tr/td[2]/p</p>
+    <p concordion:set="#clicked">UKR</p>
+    <p concordion:set="#path">*</p>
+</div>
+
+<b concordion:assertTrue="clickIfNotClicked(#main,#clicked,#path)">УКР</b>
+<br/>
+
+<p style="text-align: center;margin: 0px; max-width: none;  font-size: 18px;">
+    Запуск тестов</p>
+<br/>
+
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="Overview.html">Проверка страници <b>Обзор</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="WirelessNumberSummary.html">Проверка страници <b>По номеру договора</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="UnbilledUsage.html">Проверка страници <b>Трафик за текущий месяц</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="Reports.html">Проверка страници <b>Отчеты</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ProfileSettings.html">Проверка страници <b>Настройки пользователя</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="Notifications.html">Проверка страници <b>Уведомления</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="AddressBook.html">Проверка страници <b>Адресная книга</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="Payment.html">Проверка страници <b>Платежи</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ServiceManager.html">Проверка страници <b>Управление услугами</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ArchiveOrders.html">Проверка страници <b>Архив заявок</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="HelpFAQ.html">Проверка страници <b>Часто задаваемые вопросы</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="UserManual.html">Проверка страници <b>Руководство пользователя</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="SendQuestion.html">Проверка страници <b>Обратная связь</b></a>
+<hr/>
+<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="TermsConditions.html">Проверка страници <b>Условия использования</b></a>
+
+</body>
+</html>

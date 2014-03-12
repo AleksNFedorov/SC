@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій Київстар - Поповнення рахунка - Переказати кошти</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Поповнення рахунка</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Переказ коштів</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Переказати кошти</b>
+<br/>
+
+<hr/>
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Переказати кошти</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер отримувача:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Сума переказу:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Сума коштів для переказу може становити від 1 до 200 грн. без копійок.</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+<hr/>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мой DJUICE - Архив заявок</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="5"]/a</a>Нажато "Услуги и акции"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="5_3"]/a</a>Нажато "Архив заявок"</p><br/><br/>
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Архив заявок</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Архив заявок</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Архив заявок</td>
+        <td>Присутствует</td>
+    </tr>
+</table>
+
+<br/>
+<a concordion:assertTrue="clickElementByXPath(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/div[1]/form/table/tbody/tr[1]/td/input</span>Нажата на кнопка "Найти"</a>
+
+</body>
+</html>

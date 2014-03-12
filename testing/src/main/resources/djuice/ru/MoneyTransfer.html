@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Перевести средства</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="6"]/a</a>Нажато "Пополнение счета"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="6_1"]/a</a>Нажато "Перевод средства"</p><br/>
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой DJUICE - Перевести средства</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Перевести средства</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Номер получателя</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Сумма перевода</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Сумма средств для перевода может составлять от 1 до 200 грн. без копеек.</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

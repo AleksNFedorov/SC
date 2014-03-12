@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Аплікаційна форма</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Нове підключення</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Аплікаційна форма</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Документи на підключення</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Документи на підключення</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Бланк аплікаційної форми</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Приклад заповнення</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+<br/>
+
+</body>
+</html>

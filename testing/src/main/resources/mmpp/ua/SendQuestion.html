@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій Київстар - Допомога - Зворотній зв’язок</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Допомога</b>
+<br/>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Зворотній зв’язок</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Зворотній зв’язок</b>
+<br/>
+
+<hr/>
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Зворотній зв’язок</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Шановний абоненте! Відповідь на Ваше питання про систему «Мій Київстар» ймовірно вже є серед</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>найбільш розповсюджених питань</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Не знайшли відповіді? Запитайте в оператора прямо зараз.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Розпочати чат з оператором.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>А ще, можна отримати відповідь на Email протягом 2-х діб.</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Написати Email</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Також, для Вас працює інформаційно-довідкова служба компанії "Київстар". Наші спеціалісти завжди раді
+            допомогти Вам та надати кваліфіковану консультацію з будь-яких питань стосовно Системи, а також інших послуг
+            компанії "Київстар"!
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>З нами можна зв’язатись цілодобово, 7 днів на тиждень, зателефонувавши:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>(044) 466 0 466 (дзвінки зі стаціонарного телефону тарифікуються відповідно до тарифів оператора
+            стаціонарного зв’язку)
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>466 (з мобільних телефонів, безкоштовно у зоні обслуговування мережі "Київстар")</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+<hr/>
+
+</body>
+</html>

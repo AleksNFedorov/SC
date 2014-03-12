@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Огляд</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Натиснуто "Огляд"</p><br/>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Огляд</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Огляд</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані користувача</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Прізвище, ім'я, по-батькові:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Останній візит у систему:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Адреса електронної пошти:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Стан</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Тарифний план:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер діє до:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Залишок на рахунку:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Бонусний баланс</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>По номеру договору</title>
+</head>
+<body>
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Витрати</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">По номеру договору</b>
+<br/>
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - По номеру договору</b>
+<br/>
+
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>По номеру договору</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Інформація про вартість отриманих абонентом послуг, наявна у системі, не є фіскальною та може
+            використовуватися лише для оцінки та планування витрат абонента.
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані про послуги міжнародного роумінгу можуть оновлюватися після отримання відповідної інформації від
+            роумінг-партнера.
+        </td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Для викликів (за виключенням Інтернет сесій), здійснених у роумінгу, дата та час вказані згідно з місцевим
+            часом країни, з якої такі виклики було здійснено.
+        </td>
+        <td>присутнє</td>
+    </tr>
+
+
+</table>
+
+
+Відкриті елементи:
+<div>
+    <hr/>
+    <p concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none"
+              concordion:set="#value">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul/li[1]/b/a</span>Сумарно </p>
+    Завантаження вмісту:
+    <ul>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/a[2]</span>Натиснуто
+            "Зберегти в файл"
+        </li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/form/div/input</span>Натиснуто
+            "Завантажити"
+        </li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/form/div/select/option[2]</span>Вибраний
+            XML
+        </li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/form/div/input</span>Натиснуто
+            "Завантажити"
+        </li>
+    </ul>
+    <hr/>
+    <!--
+    <p concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul/li[2]/a</span>Деталізація нарахувань</p>
+    Завантаження вмісту:
+    <ul>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/a[1]</span>Натиснуто "Зберегти в файл"</li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/form/div/input</span>Натиснуто "Завантажити"</li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/form/div/select/option[2]</span>Вибраний XML</li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/form/div/input</span>Натиснуто "Завантажити"</li>
+    </ul>
+    <hr/>
+    -->
+    <p concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="mainContentTable"]/tbody/tr/td[1]/ul/li[3]/a</span>Деталізація
+        нарахувань</p>
+    Завантаження вмісту:
+    <ul>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/a[1]</span>Натиснуто
+            "Зберегти в файл"
+        </li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/table/tbody/tr/td[3]/input</span>Натиснуто
+            "Завантажити"
+        </li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/table/tbody/tr/td[2]/select/option[2]</span>Вибраний
+            XML
+        </li>
+        <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                               concordion:set="#value">//*[@id="mainContentBlock"]/table[2]/tbody/tr/td[2]/table/tbody/tr/td[3]/input</span>Натиснуто
+            "Завантажити"
+        </li>
+    </ul>
+    <hr/>
+</div>
+
+
+<!--
+Завантаження вмісту:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натиснуто "Зберегти в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Натиснуто "Завантажити"</li>
+</ul>
+-->
+
+</body>
+</html>

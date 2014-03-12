@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Payment</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Payments</b>
+<br/>
+
+Browser's window title<b concordion:assertEquals="getTitle()">My Kyivstar - Payments</b>
+<br/>
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>Payments</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>download</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>print version</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>agreement number:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>quarter:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>statement period:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>payment type:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Date</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Payment Type</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Amount, UAH</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>The data in the column are sorted in ascending order.</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>The data in the column are sorted in descending order.</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Click on the column header to sort by the selected column.</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>The data in the column which is highlighted in gray color are sorted.</td>
+        <td>Present</td>
+    </tr>
+
+</table>
+
+<!--Open elements:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+    <span style="display: none" concordion:set="#value">xpath</span>NAME</li>
+
+</ul>-->
+
+Data charge
+<ul>
+
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="mainContentBlock"]/table[1]/tbody/tr/td/a[1]</span>Click
+        on the "Data was saved to the file" button
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[3]/input</span>Click
+        on the "Download"
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[2]/select/option[2]</span>Selected
+        XML
+    </li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none"
+                                                                           concordion:set="#value">//*[@id="download_options"]/tbody/tr/td[3]/input</span>Click
+        on the "Download"
+    </li>
+
+</ul>
+
+</body>
+</html>

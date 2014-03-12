@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Уведомления</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="3"]/a</a>Нажато "Профиль"</p>
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="3_3"]/a</a>Нажато "Уведомления"</p><br/>
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Уведомления</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Уведомления</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Для изменения параметров получения уведомлений установите флажок напротив соответствующего типа уведомления. Сохраните настройки, нажав на кнопку "Сохранить".</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Услуги</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Новые услуги и акции</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Профиль</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Изменение профиля</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Электронная почта</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>SMS</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Чтобы получать уведомления, укажите и активируйте электронный адрес на странице</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+<hr/>
+
+Выбраны следуйщие уведомления по email:
+<ul>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">newServicesAndFeaturesEmail</span>Новые услуги</li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">changeProfile</span>Профайл</li>
+</ul>
+
+Выбраны следуйщие уведомления по SMS:
+<ul>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">newServicesAndFeaturesSMS</span>Новые услуги</li>
+    <li concordion:assertTrue="clickElementByName(#value)"><span style="display: none" concordion:set="#value">changeProfileSMS</span>Профайл</li>
+</ul>
+
+<br/>
+<a concordion:assertTrue="clickElementByXPath(#value)"><span style="display: none" concordion:set="#value">//*[@id="maxDiv"]/table/tbody/tr[5]/td/input[2]</span>Нажата кнопка сохранить</a>
+
+</body>
+</html>

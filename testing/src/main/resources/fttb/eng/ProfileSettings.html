@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>User adjustments</title>
+</head>
+<body>
+
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Profile</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Click on <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">User adjustments</b>
+
+<hr/>
+
+Browser's window title <b concordion:assertEquals="getTitle()">My Kyivstar - User adjustments</b>
+<br/>
+
+
+Elements on the page:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Value</th>
+        <th concordion:assertTrue="#result">Present</th>
+    </tr>
+    <tr>
+        <td>User adjustments</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Login</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>First name</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Last name</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Patronymic</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Date of birth</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Sex</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Agreement number</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Account</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Region</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>District</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Settlement</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Street</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>House</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Apartment</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Zip</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Mobile phone number</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Test mobile phone number</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Home phone number</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Occupation</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>E-mail address:</td>
+        <td>Present</td>
+    </tr>
+    <tr>
+        <td>Test email address:</td>
+        <td>Present</td>
+    </tr>
+</table>
+
+
+Profile was edited:
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none"
+              concordion:set="#value">//*[@id="mainContentBlock"]/table/tbody/tr[24]/td[2]/input</span> Click on the
+        "Edit" button
+    </li>
+
+
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="firstName_field"]</span>First Name<b
+            concordion:set="#value">John</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="lastName_field"]</span>Last Name<b
+            concordion:set="#value">Smith</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="patronymic_field"]</span>Patronymic<b
+            concordion:set="#value">White</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="businessTelephone_field"]</span> Mobile phone
+        number<b concordion:set="#value">7777777</b></li>
+    <li concordion:assertTrue="setValueToElementByXPath(#xpath,#value)">
+        <span style="display: none" concordion:set="#xpath">//*[@id="homeTelephone_field"]</span> Home phone number<b
+            concordion:set="#value">666666666</b></li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)">
+        <span style="display: none" concordion:set="#value">//*[@id="saveBtn"]</span> Click in the "Save" button
+    </li>
+</ul>
+
+
+<!--
+Загрузка содержимого
+<ul>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Сохранить в файл"</li>
+    <li concordion:assertTrue="checkElementByXpathClickable(#value)"><span style="display: none" concordion:set="#value">xpath</span>Нажато "Загрузить"</li>
+</ul>
+-->
+
+</body>
+</html>

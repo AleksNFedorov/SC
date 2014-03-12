@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мой DJUICE - Отправить сообщение</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="1"]/a</a>Нажато
+    "Обзор"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="11"]/a</a>Нажато "Отправить
+    сообщение"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="11_1"]/a</a>Нажато "Отправить
+    сообщение"</p><br/><br/><br/>
+
+Окно браузера имеет заголовок<b concordion:assertEquals="getTitle()">Мой DJUICE - Отправить сообщение</b>
+<br/>
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутствует</th>
+    </tr>
+    <tr>
+        <td>Отправить сообщение</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Каждое SMS-сообщение оплачивается в соответствии с Вашим тарифным планом.</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Форматы ввода номера: +380ХХХХХХХ, 380ХХХХХХХ, 0ХХХХХХХХХ.</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Разделителем в списке абонентских номеров является «;».</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Внимание.</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>SMS-сообщения на короткие номера контент-провайдеров и международные направления не отправляются.</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>От:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Кому:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Добавить контакт из:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Текст:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Символов:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Сообщений:</td>
+        <td>Присутствует</td>
+    </tr>
+    <tr>
+        <td>Отправить</td>
+        <td>Присутствует</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

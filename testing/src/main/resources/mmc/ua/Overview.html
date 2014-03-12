@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Огляд</title>
+</head>
+<body>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+
+Натиснуто <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Огляд</b>
+<br/>
+
+Вікно браузера має заголовок <b concordion:assertEquals="getTitle()">Мій Київстар - Огляд</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Огляд</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Дані користувача</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Прізвище, ім'я, по-батькові:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Адреса електронної пошти:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Стан особового рахунка</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Особовий рахунок:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Статус особового рахунка:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Поточний баланс:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Поріг відключення:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Інформація по абонентському номеру</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>виберіть абонентський номер:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Абонентський номер</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Тарифний план:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Статус телефону:</td>
+        <td>присутнє</td>
+    </tr>
+    <tr>
+        <td>Додаткова інформація</td>
+        <td>присутнє</td>
+    </tr>
+
+</table>
+<br/>
+
+</body>
+</html>

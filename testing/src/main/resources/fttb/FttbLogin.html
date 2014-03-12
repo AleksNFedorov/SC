@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>FTTB segment test</title>
+</head>
+
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+<body>
+Выполнен переход на <b concordion:assertTrue="goToAddress(#TEXT)">${fttb.url}</b>
+<br/>
+Авторизация:
+<br/>
+<a>логин: </a> <span concordion:assertTrue="setValueToElementByXPath(#xpath, #login)">
+                <b concordion:set="#login">${fttb.login}</b>
+                <span class="hide" concordion:set="#xpath">//*[@id="login"]</span>
+              </span>
+
+<a> пароль: </a> <span concordion:assertTrue="setValueToElementByName(#name, #password)">
+                <b concordion:set="#password">${fttb.password}</b>
+                <span class="hide" concordion:set="#name">password</span>
+             </span>
+<br/>
+Нажимаем кнопку
+<b><span concordion:assertTrue="clickElementByName(#name)">
+   <span class="hide" concordion:set="#name">Submit</span>входа</span></b>
+<hr/>
+
+</body>
+</html>

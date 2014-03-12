@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Мій DJUICE - Переказати кошти</title>
+</head>
+<body>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none" concordion:set="#path">//*[@id="6"]/a</a>Натиснуто
+    "Поповнення рахунка"</p>
+
+<p concordion:assertTrue="clickElementByXPath(#path)"><a style="display: none"
+                                                         concordion:set="#path">//*[@id="6_1"]/a</a>Натиснуто
+    "Переказати кошти"</p><br/>
+Вікно браузера має заголовок<b concordion:assertEquals="getTitle()">Мій DJUICE - Переказати кошти</b>
+<br/>
+
+Елементи на сторінці:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значення</th>
+        <th concordion:assertTrue="#result">Присутнє</th>
+    </tr>
+    <tr>
+        <td>Переказати кошти</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Номер отримувача:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Сума переказу:</td>
+        <td>Присутнє</td>
+    </tr>
+    <tr>
+        <td>Сума коштів для переказу може становити від 1 до 200 грн. без копійок.</td>
+        <td>Присутнє</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

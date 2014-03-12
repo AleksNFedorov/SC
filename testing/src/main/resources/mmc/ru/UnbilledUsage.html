@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Вызовы за текущий месяц</title>
+</head>
+<body>
+
+<div style="display: none">
+    <!-- сначала жмем главное меню потом второстепенное-->
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/table/tbody/tr</a>
+    <a concordion:set="#xpath">td/ul/li/*</a>
+</div>
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Затраты</b>
+
+<div style="display: none">
+    <a concordion:execute="#mainXpath = createByXpath(#TEXT)">//*[@id="navigation"]/td[1]/table/tbody/tr/td/ul</a>
+    <a concordion:set="#xpath">li/*</a>
+</div>
+Нажато <b concordion:assertTrue="clickIfNotClicked(#mainXpath,#TEXT,#xpath)">Вызовы за текущий месяц</b>
+<br/>
+Окно браузера имеет заголовок <b concordion:assertEquals="getTitle()">Мой Киевстар - Вызовы за текущий месяц</b>
+<br/>
+
+
+Элементы на странице:
+<table concordion:execute="#result = checkTextOnPage(#value)">
+    <tr>
+
+        <th concordion:set="#value">Значение</th>
+        <th concordion:assertTrue="#result">Присутсвует</th>
+    </tr>
+    <tr>
+        <td>Вызовы за текущий месяц</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Информация о стоимости предоставленных абоненту услуг, находящаяся в системе, не является фискальной и может
+            использоваться лишь для оценки и планирования расходов абонента.
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Данные об услугах международного роуминга могут обновляться после получения соответствующей информации от
+            роуминг-партнера.
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Для вызовов (за исключением Интернет сессий), совершенных в роуминге, дата и время соответствуют местному
+            времени страны, из которой они были совершены.
+        </td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>Данные за последние два часа не отображаются в детализации вызовов за текущий месяц.</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>лицевой счет</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>абонентский номер</td>
+        <td>присутствует</td>
+    </tr>
+    <tr>
+        <td>за период</td>
+        <td>присутствует</td>
+    </tr>
+
+</table>
+<br/>
+
+</body>
+</html>
