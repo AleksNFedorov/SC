@@ -1,0 +1,8 @@
+.idea/
+*.iml
+*.ipr
+*.log.*
+testResults/
+logs/
+target/
+resources/testing.xml
