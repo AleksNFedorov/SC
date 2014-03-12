@@ -15,11 +15,11 @@
 Запущен браузер <b concordion:assertTrue="openBrowser(#TEXT)">Opera</b>
 <br/>
 
-<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="MmcLogin.html">Авторизируемся на сайте ${mmc.url}</a>
+<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="MmcLogin.html">Авторизируемся на сайте ${mmc.url}</a>
 <hr/>
-<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ru/MmcRU.html">Проверка русской локализации сайта ${mmc.url}</a>
+<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="ru/MmcRU.html">Проверка русской локализации сайта ${mmc.url}</a>
 <hr/>
-<a concordion:run="com.areon.autotests.core.integration.ChildTestRunner" href="ua/MmcUA.html">Проверка украинской локализации сайта ${mmc.url}</a>
+<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="ua/MmcUA.html">Проверка украинской локализации сайта ${mmc.url}</a>
 <hr/>
 
 <span concordion:assertTrue="close()">закрытие</span> окна браузера
