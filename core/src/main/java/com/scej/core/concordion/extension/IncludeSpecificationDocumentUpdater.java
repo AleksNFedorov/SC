@@ -1,8 +1,8 @@
-package com.scej.core.integration.extension;
+package com.scej.core.concordion.extension;
 
+import com.scej.core.concordion.TestContext;
 import com.scej.core.config.Specification;
 import com.scej.core.config.SpecificationLocatorService;
-import com.scej.core.integration.GlobalTestContext;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -17,13 +17,13 @@ import org.slf4j.LoggerFactory;
  */
 public class IncludeSpecificationDocumentUpdater implements DocumentParsingListener {
 
-    private static Logger LOG = LoggerFactory.getLogger(ExceptionLogger.class);
+    private static Logger LOG = LoggerFactory.getLogger(IncludeSpecificationDocumentUpdater.class);
 
 
     @Override
     public void beforeParsing(Document document) {
         LOG.debug("method invoked");
-        Specification specification = GlobalTestContext.getInstance().getCurrentTestContext().getSpecification();
+        Specification specification = TestContext.getInstance().getCurrentSpecificationContext().getSpecification();
         Nodes allHrefNodes = document.query("//a[@href]");
         LOG.info("Found [{}]", allHrefNodes.size());
         for(int i=0; i<allHrefNodes.size();++i) {

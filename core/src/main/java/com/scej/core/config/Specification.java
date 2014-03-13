@@ -1,6 +1,8 @@
 
 package com.scej.core.config;
 
+import org.concordion.internal.util.Check;
+
 import javax.xml.bind.annotation.*;
 
 
@@ -50,6 +52,9 @@ public class Specification {
     @XmlTransient
     private String realPath;
 
+    @XmlTransient
+    private Boolean isTopLevelSpecification = Boolean.FALSE;
+
     public Specification() {
         tmpFileSuffix = generateSuffix();
     }
@@ -61,7 +66,7 @@ public class Specification {
 
     private String generateSuffix() {
         suffixSequence++;
-        return MIDDLE_SUFFIX+suffixSequence;
+        return MIDDLE_SUFFIX + suffixSequence;
     }
 
     void setRealPath(String realPath) {
@@ -116,6 +121,15 @@ public class Specification {
 
     public String getRealPath() {
         return realPath;
+    }
+
+    public Boolean isTopLevelSpecification() {
+        return isTopLevelSpecification;
+    }
+
+    void setTopLevelSpecification() {
+        Check.isFalse(this.isTopLevelSpecification, "Top level sign already defined");
+        isTopLevelSpecification = Boolean.TRUE;
     }
 
     @Override

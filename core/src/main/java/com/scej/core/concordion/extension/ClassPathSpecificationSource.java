@@ -1,4 +1,4 @@
-package com.scej.core.integration.extension;
+package com.scej.core.concordion.extension;
 
 import com.scej.core.config.SpecificationLocatorService;
 import org.concordion.api.Resource;

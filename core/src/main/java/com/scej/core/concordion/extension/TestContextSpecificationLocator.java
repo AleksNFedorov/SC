@@ -1,6 +1,7 @@
-package com.scej.core.integration.extension;
+package com.scej.core.concordion.extension;
 
-import com.scej.core.integration.GlobalTestContext;
+import com.scej.core.concordion.TestContext;
+import com.scej.core.config.Specification;
 import org.concordion.api.Resource;
 import org.concordion.api.SpecificationLocator;
 import org.concordion.internal.util.Check;
@@ -20,7 +21,7 @@ public class TestContextSpecificationLocator implements SpecificationLocator {
         LOG.debug("method invoked [{}]", fixture);
         try {
             LOG.debug("Getting global test context");
-            GlobalTestContext.SpecificationContext specificationContext = GlobalTestContext.getInstance().getCurrentTestContext();
+            TestContext.SpecificationContext specificationContext = TestContext.getInstance().getCurrentSpecificationContext();
             LOG.info("Test context aquired");
             LOG.debug("Test context [{}]", specificationContext);
             return buildSpecificationResource(specificationContext);
@@ -32,18 +33,18 @@ public class TestContextSpecificationLocator implements SpecificationLocator {
         }
     }
 
-    private Resource buildSpecificationResource(GlobalTestContext.SpecificationContext context) {
+    private Resource buildSpecificationResource(TestContext.SpecificationContext context) {
         LOG.debug("method invoked [{}]", context);
         Check.notNull(context, "Context is null");
         try {
-            String specificationHref = context.getSpecification().getRealPath();
+            Specification specification = context.getSpecification();
             Resource specificationResource;
-            if(isRelativePath(specificationHref)) {
-                LOG.info("Specification href detected as relative");
-                specificationResource = buildRelativePathSpecificationResource(context);
-            } else {
-                LOG.info("Specification href detected as not relative");
+            if(specification.isTopLevelSpecification()) {
+                LOG.info("Specification detected as top level");
                 specificationResource = buildAbsolutePathSpecificationResource(context);
+            } else {
+                LOG.info("Specification detected as child");
+                specificationResource = buildRelativePathSpecificationResource(context);
             }
 
             LOG.debug("method finished, [{}]", specificationResource);
@@ -56,7 +57,7 @@ public class TestContextSpecificationLocator implements SpecificationLocator {
         }
     }
 
-    private Resource buildAbsolutePathSpecificationResource(GlobalTestContext.SpecificationContext context) {
+    private Resource buildAbsolutePathSpecificationResource(TestContext.SpecificationContext context) {
         LOG.debug("method invoked [{}]", context);
         String specificationHref = context.getSpecification().getRealPath();
         Resource absolutePathSpecResource = new Resource(specificationHref);
@@ -65,7 +66,7 @@ public class TestContextSpecificationLocator implements SpecificationLocator {
         return absolutePathSpecResource;
     }
 
-    private Resource buildRelativePathSpecificationResource(GlobalTestContext.SpecificationContext context) {
+    private Resource buildRelativePathSpecificationResource(TestContext.SpecificationContext context) {
         LOG.debug("method invoked [{}]", context);
         Resource invokerResource = context.getCurrentTestResource();
         String specificationHref = context.getSpecification().getRealPath();
@@ -78,7 +79,4 @@ public class TestContextSpecificationLocator implements SpecificationLocator {
         return specificationResource;
     }
 
-    public static boolean isRelativePath(String path) {
-        return !path.startsWith("/");
-    }
 }

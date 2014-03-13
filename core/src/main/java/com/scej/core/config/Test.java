@@ -45,6 +45,10 @@ public class Test {
         this.clazz = clazz;
     }
 
+    void init() {
+        getSpecification().setTopLevelSpecification();
+    }
+
     /**
      * Gets the value of the specification property.
      * 

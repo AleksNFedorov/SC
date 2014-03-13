@@ -1,16 +1,13 @@
 package com.scej.core.runner;
 
+import com.scej.core.concordion.TestContext;
 import com.scej.core.config.SuiteConfiguration;
 import com.scej.core.config.Test;
-import com.scej.core.integration.GlobalTestContext;
 import org.junit.runner.JUnitCore;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
- * Date: 03.01.14
- * Time: 11:56
- * To change this template use File | Settings | File Templates.
  */
 public class SuiteRunner {
 
@@ -19,7 +16,7 @@ public class SuiteRunner {
             SuiteConfiguration.initConfiguration(args[0]);
             SuiteConfiguration suiteConfiguration = SuiteConfiguration.getInstance();
             for (Test test : suiteConfiguration.getSuiteTests()) {
-                GlobalTestContext.createGlobalContext(test);
+                TestContext.createTestContext(test);
                 JUnitCore.runClasses(test.getClazz());
             }
         } catch (Exception ex) {

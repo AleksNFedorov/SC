@@ -1,4 +1,4 @@
-package com.scej.core.integration;
+package com.scej.core.concordion;
 
 import com.scej.core.config.Specification;
 import com.scej.core.config.SpecificationLocatorService;
@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class ChildTestRunner extends DefaultConcordionRunner {
+public class SpecificationRunner extends DefaultConcordionRunner {
 
-    private static Logger LOG = LoggerFactory.getLogger(ChildTestRunner.class);
+    private static Logger LOG = LoggerFactory.getLogger(SpecificationRunner.class);
 
     @Override
     public RunnerResult execute(Resource resource, String href) throws Exception {
@@ -24,17 +24,15 @@ public class ChildTestRunner extends DefaultConcordionRunner {
         try {
             Specification specification = resolveSpecification(href);
 
-
             if (specification == null) {
                 return new RunnerResult(Result.IGNORED);
             } else {
-                GlobalTestContext.getInstance().createNewTestContext(resource, specification);
+                TestContext.getInstance().createNewSpecificationContext(resource, specification);
                 LOG.info("Test context created");
                 RunnerResult result = super.execute(resource, href);
                 LOG.info("Result is ready [{}]", result);
                 return result;
             }
-
         } catch (RuntimeException ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
             throw ex;
@@ -46,7 +44,7 @@ public class ChildTestRunner extends DefaultConcordionRunner {
     public Specification resolveSpecification(String href) {
         LOG.debug("method invoked [{}]", href);
         Check.notNull(href, "Link to specification cna`t be null");
-        GlobalTestContext.SpecificationContext specificationContext = GlobalTestContext.getInstance().getCurrentTestContext();
+        TestContext.SpecificationContext specificationContext = TestContext.getInstance().getCurrentSpecificationContext();
         Specification currentSpecification = specificationContext.getSpecification();
         Specification specByHref = SpecificationLocatorService.getService().getChildSpecificationByRealLocation(currentSpecification, href);
         LOG.info("Child specification has been resolved as [{}]", specByHref);
@@ -58,7 +56,7 @@ public class ChildTestRunner extends DefaultConcordionRunner {
     protected Class<?> findTestClass(Resource resource, String href) throws ClassNotFoundException {
         LOG.debug("method invoked [{}], [{}]", resource, href);
         try {
-            return GlobalTestContext.getInstance().getTest().getClazz();
+            return TestContext.getInstance().getTest().getClazz();
         } catch (RuntimeException ex) {
             LOG.error("Exception during test class specification lookup [{}]", ex.getMessage());
             throw ex;

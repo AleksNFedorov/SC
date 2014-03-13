@@ -1,4 +1,4 @@
-package com.scej.core.integration;
+package com.scej.core.concordion;
 
 import com.scej.core.config.Specification;
 import com.scej.core.config.Test;
@@ -13,11 +13,11 @@ import java.util.Stack;
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class GlobalTestContext {
+public class TestContext {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GlobalTestContext.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
 
-    private static GlobalTestContext inst;
+    private static TestContext inst;
 
     private Test test;
 
@@ -28,7 +28,7 @@ public class GlobalTestContext {
         private final Specification specification;
 
         private SpecificationContext(Resource currentTestResource, Specification specification) {
-            LOG.debug("constructor invoked [{}], [{}]", currentTestResource, currentTestResource);
+            LOG.debug("constructor invoked [{}], [{}]", currentTestResource, specification);
             Check.notNull(specification, "Specification can't be null");
 
             this.currentTestResource = currentTestResource;
@@ -52,23 +52,26 @@ public class GlobalTestContext {
         }
     }
 
-    public static void createGlobalContext(Test test) {
+    public static void createTestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
+        LOG.info("Initializing new context");
 
         Check.notNull(test, "Test can't be null");
+        Check.isTrue(inst==null, "Test context already initialized");
 
-        LOG.info("Initializing new context");
-        inst = new GlobalTestContext(test);
-        LOG.info("test context instance created");
+        inst = new TestContext(test);
+
+        LOG.info("New test context instance created");
+
         LOG.debug("method finished");
     }
 
-    public static GlobalTestContext getInstance() {
+    public static TestContext getInstance() {
         LOG.debug("method invoked");
         return inst;
     }
 
-    private GlobalTestContext(Test test) {
+    private TestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
         this.test = test;
         createTopLevelTestContext();
@@ -86,7 +89,7 @@ public class GlobalTestContext {
         return test;
     }
 
-    public void createNewTestContext(Resource resource, Specification specification) {
+    public void createNewSpecificationContext(Resource resource, Specification specification) {
         LOG.debug("method invoked [{}], [{}]", resource, specification);
         SpecificationContext context = new SpecificationContext(resource, specification);
         LOG.info("new test context created [{}]", context);
@@ -95,7 +98,7 @@ public class GlobalTestContext {
         LOG.debug("method finished");
     }
 
-    public SpecificationContext getCurrentTestContext() {
+    public SpecificationContext getCurrentSpecificationContext() {
         LOG.debug("method invoked");
         SpecificationContext currentSpecificationContext = contextStack.peek();
         LOG.debug("method finished");
@@ -103,7 +106,7 @@ public class GlobalTestContext {
     }
 
 
-    public void destroyCurrentTestContext() {
+    public void destroyCurrentSpecificationContext() {
         LOG.debug("method invoked");
         contextStack.pop();
         if(contextStack.size() == 0) {
@@ -117,7 +120,7 @@ public class GlobalTestContext {
 
     @Override
     public String toString() {
-        return "GlobalTestContext{" +
+        return "TestContext{" +
                 ", stack size='" + contextStack.size()
                 + '}';
     }

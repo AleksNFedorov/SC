@@ -78,6 +78,7 @@ public class SuiteConfiguration {
         LOG.debug("method invoked");
         for (Test test : suite.getTests()) {
             LOG.info("new mapping created [{}], [{}]", test.getClazz(), test);
+            test.init();
             Specification testRootSpecification = test.getSpecification();
             testRootSpecification.setRealPath(testRootSpecification.getLocation());
         }
