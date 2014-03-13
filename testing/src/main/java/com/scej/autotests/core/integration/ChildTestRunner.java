@@ -21,10 +21,6 @@ public class ChildTestRunner extends DefaultConcordionRunner {
 
     private static Logger LOG = LoggerFactory.getLogger(ChildTestRunner.class);
 
-    {
-        LOG.info("Initialized");
-    }
-
     @Override
     public RunnerResult execute(Resource resource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]", href, resource);
