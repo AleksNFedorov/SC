@@ -12,30 +12,13 @@ import org.junit.runner.JUnitCore;
  */
 public class SuiteRunner {
 
-    private void init() {
-        addExtensionProperty();
-    }
-
-    private void addExtensionProperty() {
-        String extensionProp = System.getProperty("concordion.extensions");
-        if(extensionProp != null) {
-            extensionProp = extensionProp+",";
-        } else {
-            extensionProp = "";
-        }
-        extensionProp += ScejExtensions.class.getCanonicalName();
-        System.setProperty("concordion.extensions", extensionProp);
-
-    }
-
-
     private void runTests(String pathToSpecification) {
         try {
             SuiteConfiguration.initConfiguration(pathToSpecification);
             SuiteConfiguration suiteConfiguration = SuiteConfiguration.getInstance();
             for (Test test : suiteConfiguration.getSuiteTests()) {
                 TestContext.createTestContext(test);
-                JUnitCore.runClasses(test.getClazz());
+                JUnitCore.runClasses(test.getDefaultTestClass());
                 System.out.println("Suite finished");
             }
         } catch (Exception ex) {
@@ -48,7 +31,6 @@ public class SuiteRunner {
 
     public static void main(String... args) {
         SuiteRunner newRunner = new SuiteRunner();
-//        newRunner.init();
         newRunner.runTests(args[0]);
     }
 

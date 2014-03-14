@@ -1,6 +1,7 @@
 
 package com.scej.core.config;
 
+import com.scej.core.CoreTest;
 import org.concordion.internal.util.Check;
 
 import javax.xml.bind.annotation.*;
@@ -55,6 +56,10 @@ public class Specification {
     @XmlTransient
     private Boolean isTopLevelSpecification = Boolean.FALSE;
 
+    @XmlAttribute(name = "testClass", required = false)
+    protected Class<? extends CoreTest> clazz;
+
+
     public Specification() {
         tmpFileSuffix = generateSuffix();
     }
@@ -74,43 +79,18 @@ public class Specification {
     }
 
 
-    /**
-     * Gets the value of the includes property.
-     *
-     * @return possible object is
-     *         {@link Includes }
-     */
     Includes getIncludes() {
         return includes;
     }
 
-    /**
-     * Gets the value of the excludes property.
-     *
-     * @return possible object is
-     *         {@link Excludes }
-     */
     Excludes getExcludes() {
         return excludes;
     }
 
-
-    /**
-     * Gets the value of the location property.
-     *
-     * @return possible object is
-     *         {@link String }
-     */
     public String getLocation() {
         return location;
     }
 
-    /**
-     * Sets the value of the location property.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
     void setLocation(String value) {
         this.location = value;
     }
@@ -130,6 +110,10 @@ public class Specification {
     void setTopLevelSpecification() {
         Check.isFalse(this.isTopLevelSpecification, "Top level sign already defined");
         isTopLevelSpecification = Boolean.TRUE;
+    }
+
+    public Class<? extends CoreTest> getTestClass() {
+        return clazz;
     }
 
     @Override

@@ -77,11 +77,28 @@ public class SuiteConfiguration {
     private void initTestsMapping(){
         LOG.debug("method invoked");
         for (Test test : suite.getTests()) {
-            LOG.info("new mapping created [{}], [{}]", test.getClazz(), test);
+            LOG.info("new mapping created [{}], [{}]", test.getDefaultTestClass(), test);
             test.init();
-            Specification testRootSpecification = test.getSpecification();
-            testRootSpecification.setRealPath(testRootSpecification.getLocation());
+            initTestRootSpecification(test);
+
         }
+        LOG.debug("method finished");
+    }
+
+    private void initTestRootSpecification(Test test) {
+        LOG.debug("method invoked");
+        Specification testRootSpecification = test.getSpecification();
+
+        testRootSpecification.setTopLevelSpecification();
+
+        String rootSpecificationLocation = testRootSpecification.getLocation();
+
+        Check.isTrue(rootSpecificationLocation.startsWith("/"), "Root specification ["+rootSpecificationLocation+"] must starts with '/'");
+
+        testRootSpecification.setRealPath(rootSpecificationLocation);
+
+
+
         LOG.debug("method finished");
     }
 

@@ -56,12 +56,29 @@ public class SpecificationRunner extends DefaultConcordionRunner {
     protected Class<?> findTestClass(Resource resource, String href) throws ClassNotFoundException {
         LOG.debug("method invoked [{}], [{}]", resource, href);
         try {
-            return TestContext.getInstance().getTest().getClazz();
+            return resolveCurrentSpecificationClass();
         } catch (RuntimeException ex) {
             LOG.error("Exception during test class specification lookup [{}]", ex.getMessage());
             throw ex;
         } finally {
             LOG.debug("method finished");
         }
+    }
+
+    private Class<?> resolveCurrentSpecificationClass() {
+        LOG.debug("method invoked ");
+        Specification currentSpecification = TestContext.getInstance().getCurrentSpecificationContext().getSpecification();
+        LOG.info("Specification instance acquired [{}]", currentSpecification);
+
+        Class<?> resolvedClass;
+        if(currentSpecification.getTestClass() != null) {
+            LOG.info("Getting test class from specification");
+            resolvedClass = currentSpecification.getTestClass();
+        } else {
+            LOG.info("Getting test class from test");
+            resolvedClass = TestContext.getInstance().getTest().getDefaultTestClass();
+        }
+        LOG.debug("method finished");
+        return resolvedClass;
     }
 }
