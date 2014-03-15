@@ -7,7 +7,7 @@
     </appender>
 
     <appender name="develomentServerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/uitest.log</file>
+        <file>test/results/logs/uitest.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>uitest.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
