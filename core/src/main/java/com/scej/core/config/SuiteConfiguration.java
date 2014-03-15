@@ -26,12 +26,12 @@ public class SuiteConfiguration {
 
     private static SuiteConfiguration configuration;
 
-    private SuiteConfiguration(String pathToConfiguration)  {
+    private SuiteConfiguration(String pathToConfiguration) {
         LOG.debug("method invoked [{}]", pathToConfiguration);
         try {
             suite = loadSuiteConfiguration(pathToConfiguration);
             LOG.info("Suite configuration has been loaded [{}]", suite);
-            initTestsMapping();
+            initTests();
         } catch (Exception ex) {
             LOG.error("Exception during configuration creation [{}]", ex.getMessage(), ex);
             throw new RuntimeException(ex);
@@ -40,7 +40,7 @@ public class SuiteConfiguration {
         }
     }
 
-    public static void initConfiguration(String pathToConfiguration)  {
+    public static void initConfiguration(String pathToConfiguration) {
         LOG.debug("Method invoked [{}]", pathToConfiguration);
         Check.notNull(pathToConfiguration, "Path to configuration is mandatory");
         configuration = new SuiteConfiguration(pathToConfiguration);
@@ -65,7 +65,7 @@ public class SuiteConfiguration {
 
         Unmarshaller unmarshaller = suiteContext.createUnmarshaller();
         unmarshaller.setSchema(schema);
-        Suite restoredTestSuite = (Suite)unmarshaller.unmarshal(new File(pathToConfigurationFile));
+        Suite restoredTestSuite = (Suite) unmarshaller.unmarshal(new File(pathToConfigurationFile));
 
         LOG.info("Test suite created [{}]", restoredTestSuite);
 
@@ -74,7 +74,7 @@ public class SuiteConfiguration {
         return restoredTestSuite;
     }
 
-    private void initTestsMapping(){
+    private void initTests() {
         LOG.debug("method invoked");
         for (Test test : suite.getTests()) {
             LOG.info("new mapping created [{}], [{}]", test.getDefaultTestClass(), test);
@@ -93,10 +93,9 @@ public class SuiteConfiguration {
 
         String rootSpecificationLocation = testRootSpecification.getLocation();
 
-        Check.isTrue(rootSpecificationLocation.startsWith("/"), "Root specification ["+rootSpecificationLocation+"] must starts with '/'");
+        Check.isTrue(rootSpecificationLocation.startsWith("/"), "Root specification [" + rootSpecificationLocation + "] location must starts with '/'");
 
         testRootSpecification.setRealPath(rootSpecificationLocation);
-
 
 
         LOG.debug("method finished");

@@ -15,13 +15,17 @@
 Запущен браузер <b concordion:assertTrue="openBrowser(#TEXT)">Opera</b>
 <br/>
 
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="FttbLogin.html">Авторизируемся на сайте ${fttb.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="FttbLogin.html">Авторизируемся на сайте
+    ${fttb.url}</a>
 <hr/>
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="ru/FttbRU.html">Проверка русской локализации сайта ${fttb.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="ru/FttbRU.html">Проверка русской локализации сайта
+    ${fttb.url}</a>
 <hr/>
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="ua/FttbUA.html">Проверка украинской локализации сайта ${fttb.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="ua/FttbUA.html">Проверка украинской локализации
+    сайта ${fttb.url}</a>
 <hr/>
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="eng/FttbENG.html">Проверка английской локализации сайта ${fttb.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="eng/FttbENG.html">Проверка английской локализации
+    сайта ${fttb.url}</a>
 <hr/>
 
 <span concordion:assertTrue="close()">закрытие</span> окна браузера

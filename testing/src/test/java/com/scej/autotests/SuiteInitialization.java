@@ -1,8 +1,8 @@
 package com.scej.autotests;
 
-import com.scej.autotests.core.WebCoreTest;
-import com.scej.autotests.core.config.SuiteConfiguration;
-import com.scej.autotests.core.config.Test;
+import com.scej.core.WebCoreTest;
+import com.scej.core.config.SuiteConfiguration;
+import com.scej.core.config.Test;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -17,7 +17,6 @@ import java.util.Collection;
  * To change this template use File | Settings | File Templates.
  */
 public class SuiteInitialization {
-
 
 
     @BeforeClass
@@ -42,7 +41,6 @@ public class SuiteInitialization {
         Assert.assertEquals(WebCoreTest.class, firstTest.getClazz());
         Assert.assertEquals(String.class, secondTest.getClazz());
     }
-
 
 
 }

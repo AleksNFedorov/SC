@@ -12,15 +12,16 @@ import java.util.regex.Pattern;
  */
 public class SpecificationLocatorService {
 
-    private static Logger LOG = LoggerFactory.getLogger(SpecificationLocatorService.class);
+    private Logger LOG = LoggerFactory.getLogger(getClass());
 
     private static final SpecificationLocatorService impl = new SpecificationLocatorService();
 
-    private static Pattern suffixPattern = Pattern.compile(".*"+Specification.MIDDLE_SUFFIX+"\\d{1,}.*");
-    private static Pattern suffixCleanPattern = Pattern.compile(Specification.MIDDLE_SUFFIX+"\\d{1,}");
+    private static Pattern suffixPattern = Pattern.compile(".*" + Specification.MIDDLE_SUFFIX + "\\d{1,}.*");
+    private static Pattern suffixCleanPattern = Pattern.compile(Specification.MIDDLE_SUFFIX + "\\d{1,}");
 
 
-    private SpecificationLocatorService() {}
+    private SpecificationLocatorService() {
+    }
 
     public static final SpecificationLocatorService getService() {
         return impl;
@@ -41,16 +42,36 @@ public class SpecificationLocatorService {
         Check.notNull(pathToChildSpecification, "Path to child specification can't b e null");
 
         String specificationSuffix = parentSpecification.getTmpFileSuffix();
-        String link = pathToChildSpecification.replace(".html", specificationSuffix+".html");
+        String link = appendSuffixToPath(pathToChildSpecification, specificationSuffix);
         LOG.info("Replacing old value [{}] with new [{}]", parentSpecification, link);
         LOG.debug("method finished");
         return link;
     }
 
+    private String appendSuffixToPath(String pathToChildSpecification, String specificationSuffix) {
+        String extension = null;
+        if (pathToChildSpecification.endsWith(Specification.VALID_EXTENSION_HTML)) {
+            extension = Specification.VALID_EXTENSION_HTML;
+        } else if (pathToChildSpecification.endsWith(Specification.VALID_EXTENSION_HTM)) {
+            extension = Specification.VALID_EXTENSION_HTM;
+        } else {
+            LOG.error("Unknown specification [{}] extension, expected [{}][{}]",
+                    new Object[]{pathToChildSpecification,
+                            Specification.VALID_EXTENSION_HTML,
+                            Specification.VALID_EXTENSION_HTM});
+
+            throw new RuntimeException("Unknown specification [" + pathToChildSpecification + "] extension, expected [" +
+                    Specification.VALID_EXTENSION_HTM + "][" +
+                    Specification.VALID_EXTENSION_HTML + "]");
+        }
+
+        return pathToChildSpecification.replace(extension, specificationSuffix + extension);
+    }
+
     public String buildRealPathByUniqueHREF(String linkToSpecificationFromDocument) {
         LOG.debug("method invoked [{}]", linkToSpecificationFromDocument);
         Check.notNull(linkToSpecificationFromDocument, "Link to specification can't be null");
-        if(containsGeneratedSuffix(linkToSpecificationFromDocument)) {
+        if (containsGeneratedSuffix(linkToSpecificationFromDocument)) {
             String realResourcePath = cleanSuffix(linkToSpecificationFromDocument);
             LOG.info("link has been cleaned, new link [{}]", realResourcePath);
             return realResourcePath;
@@ -93,8 +114,6 @@ public class SpecificationLocatorService {
         LOG.debug("method finished");
         return null;
     }
-
-
 
 
     public boolean isSpecExcluded(Specification specification, Specification child) {

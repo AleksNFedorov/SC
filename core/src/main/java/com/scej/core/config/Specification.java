@@ -1,7 +1,6 @@
 
 package com.scej.core.config;
 
-import com.scej.core.CoreTest;
 import org.concordion.internal.util.Check;
 
 import javax.xml.bind.annotation.*;
@@ -33,6 +32,11 @@ import javax.xml.bind.annotation.*;
 })
 public class Specification {
 
+    public static final String VALID_EXTENSION_HTML = ".html";
+    public static final String VALID_EXTENSION_HTM = ".htm";
+
+    private class StubClass {
+    }
 
     private static Integer suffixSequence = new Integer(0);
     public static final String MIDDLE_SUFFIX = "__aurora_";
@@ -57,7 +61,7 @@ public class Specification {
     private Boolean isTopLevelSpecification = Boolean.FALSE;
 
     @XmlAttribute(name = "testClass", required = false)
-    protected Class<? extends CoreTest> clazz;
+    protected Class clazz = StubClass.class;
 
 
     public Specification() {
@@ -67,6 +71,37 @@ public class Specification {
     public Specification(String location) {
         this();
         setLocation(location);
+    }
+
+    void init() {
+
+        initSpecification();
+        initChildSpecifications();
+
+    }
+
+    private void initSpecification() {
+        if (getTestClass() == null) {
+            //null possible only when class assigned in config is unknown for jaxb unmarshaller
+            throw new RuntimeException("Unknown test class in specification [" + getLocation() + "]");
+        } else if (getTestClass().equals(StubClass.class)) {
+            // no need to user stub class outside specification
+            clazz = null;
+        }
+
+
+    }
+
+    private void initChildSpecifications() {
+        if (getExcludes() != null)
+            for (Specification specification : getExcludes().getSpecifications()) {
+                specification.init();
+            }
+
+        if (getIncludes() != null)
+            for (Specification specification : getIncludes().getSpecifications()) {
+                specification.init();
+            }
     }
 
     private String generateSuffix() {
@@ -79,11 +114,11 @@ public class Specification {
     }
 
 
-    Includes getIncludes() {
+    public Includes getIncludes() {
         return includes;
     }
 
-    Excludes getExcludes() {
+    public Excludes getExcludes() {
         return excludes;
     }
 
@@ -92,7 +127,15 @@ public class Specification {
     }
 
     void setLocation(String value) {
+        validateSpecificationExtension(value);
         this.location = value;
+    }
+
+    private void validateSpecificationExtension(String pathToSpecification) {
+        if (pathToSpecification.endsWith(VALID_EXTENSION_HTM) ||
+                pathToSpecification.endsWith(VALID_EXTENSION_HTML))
+            return;
+        throw new RuntimeException("Incorrect specification file extension [" + pathToSpecification + "], expected .html or .htm");
     }
 
     public String getTmpFileSuffix() {
@@ -112,7 +155,7 @@ public class Specification {
         isTopLevelSpecification = Boolean.TRUE;
     }
 
-    public Class<? extends CoreTest> getTestClass() {
+    public Class getTestClass() {
         return clazz;
     }
 

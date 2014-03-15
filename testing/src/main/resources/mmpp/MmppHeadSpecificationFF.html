@@ -15,11 +15,14 @@
 Запущен браузер <b concordion:assertTrue="openBrowser(#TEXT)">FireFox</b>
 <br/>
 
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="MmppLogin.html">Авторизируемся на сайте ${mmpp.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="MmppLogin.html">Авторизируемся на сайте
+    ${mmpp.url}</a>
 <hr/>
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="ru/MmppRU.html">Проверка русской локализации сайта ${mmpp.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="ru/MmppRU.html">Проверка русской локализации сайта
+    ${mmpp.url}</a>
 <hr/>
-<a concordion:run="com.scej.autotests.core.integration.ChildTestRunner" href="ua/MmppUA.html">Проверка украинской локализации сайта ${mmpp.url}</a>
+<a concordion:run="com.scej.core.integration.ChildTestRunner" href="ua/MmppUA.html">Проверка украинской локализации
+    сайта ${mmpp.url}</a>
 <hr/>
 
 <span concordion:assertTrue="close()">Закрытие</span> окна браузера

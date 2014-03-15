@@ -10,9 +10,9 @@ import org.concordion.api.extension.ConcordionExtension;
 public class ScejExtensions implements ConcordionExtension {
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
-        concordionExtender.withSpecificationLocator(new TestContextSpecificationLocator());
+        concordionExtender.withSpecificationLocator(new HierarchySpecificationLocator());
         concordionExtender.withTarget(new FileTargetWithDateTimePrefix());
-        concordionExtender.withDocumentParsingListener(new IncludeSpecificationDocumentUpdater());
+        concordionExtender.withDocumentParsingListener(new ChildSpecificationLinkUpdater());
         concordionExtender.withSource(new ClassPathSpecificationSource());
     }
 }

@@ -9,26 +9,22 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Test", propOrder = {
-    "specification"
+        "specification"
 })
 public class Test {
 
     @XmlElement(required = true)
     protected Specification specification;
     @XmlAttribute(name = "defaultTestClass", required = false)
-    protected Class<? extends CoreTest> clazz = CoreTest.class;
+    protected Class clazz = CoreTest.class;
 
     public Test() {
-    }
-
-    public Test(Specification specification, Class<? extends CoreTest> clazz) {
-        this.specification = specification;
-        this.clazz = clazz;
     }
 
     void init() {
         Check.notNull(getDefaultTestClass(), "Default test class have not been resolved correctly");
         Check.notNull(getSpecification(), "Nothing to test, please add specification");
+        getSpecification().init();
     }
 
 
@@ -36,7 +32,7 @@ public class Test {
         return specification;
     }
 
-    public Class<? extends CoreTest> getDefaultTestClass() {
+    public Class getDefaultTestClass() {
         return clazz;
     }
 

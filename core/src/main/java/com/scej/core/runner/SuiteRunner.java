@@ -1,7 +1,7 @@
 package com.scej.core.runner;
 
-import com.scej.core.concordion.TestContext;
-import com.scej.core.concordion.extension.ScejExtensions;
+import com.scej.core.TestContext;
+import com.scej.core.concordion.ChildSpecificationRunner;
 import com.scej.core.config.SuiteConfiguration;
 import com.scej.core.config.Test;
 import org.junit.runner.JUnitCore;
@@ -18,7 +18,7 @@ public class SuiteRunner {
             SuiteConfiguration suiteConfiguration = SuiteConfiguration.getInstance();
             for (Test test : suiteConfiguration.getSuiteTests()) {
                 TestContext.createTestContext(test);
-                JUnitCore.runClasses(test.getDefaultTestClass());
+                JUnitCore.runClasses(ChildSpecificationRunner.resolveSpecificationClassByContext());
                 System.out.println("Suite finished");
             }
         } catch (Exception ex) {

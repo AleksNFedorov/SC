@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+
+    <test defaultTestClass="java.lang.Runtime">
+        <specification location="/HeadSpecification.html" testClass="java.lang.String">
+            <includes>
+                <specification location="HeadSpecificationChrome.html"/>
+            </includes>
+            <excludes>
+                <specification location="HeadSpecificationFF.html" testClass="java.lang.Integer"/>
+            </excludes>
+        </specification>
+    </test>
+
+
+    <test>
+        <specification location="/HeadSpecification.html"/>
+    </test>
+
+
+</suite>
