@@ -39,7 +39,7 @@ public class ScejSuiteRunner extends Runner {
 
             SuiteConfiguration.initConfiguration(pathToSuiteConfigFile);
             SuiteConfiguration suiteConfiguration = SuiteConfiguration.getInstance();
-            for (Test test : suiteConfiguration.getSuiteTests()) {
+            for (Test test : suiteConfiguration.getSuite().getTests()) {
                 TestContext.createTestContext(test);
                 JUnitCore.runClasses(ChildSpecificationRunner.resolveSpecificationClassByContext());
                 System.out.println("Suite finished");

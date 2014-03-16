@@ -1,5 +1,6 @@
 package com.scej.core.concordion.extension;
 
+import com.scej.core.concordion.extension.exception.SuiteFailFastExceptionListener;
 import com.scej.core.concordion.extension.filetarget.FileTargetWithCustomPrefix;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
@@ -15,5 +16,6 @@ public class ScejExtensions implements ConcordionExtension {
         concordionExtender.withTarget(new FileTargetWithCustomPrefix());
         concordionExtender.withDocumentParsingListener(new ChildSpecificationLinkUpdater());
         concordionExtender.withSource(new ClassPathSpecificationSource());
+        concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
     }
 }

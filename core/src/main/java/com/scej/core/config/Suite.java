@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * <p>Java class for Suite complex type.
- * 
+ * <p/>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="Suite">
  *   &lt;complexContent>
@@ -26,37 +26,33 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class Suite {
+public class Suite extends ExceptionsHolder {
 
     @XmlElement(required = true, name = "test")
     protected List<Test> tests;
 
     /**
      * Gets the value of the tests property.
-     * 
-     * <p>
+     * <p/>
+     * <p/>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the tests property.
-     * 
-     * <p>
+     * <p/>
+     * <p/>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getTests().add(newItem);
      * </pre>
-     * 
-     * 
-     * <p>
+     * <p/>
+     * <p/>
+     * <p/>
      * Objects of the following type(s) are allowed in the list
      * {@link Test }
-     * 
-     * 
      */
     public List<Test> getTests() {
         if (tests == null) {
@@ -65,4 +61,8 @@ public class Suite {
         return this.tests;
     }
 
+    @Override
+    public Exceptions getExceptions() {
+        throw new UnsupportedOperationException();
+    }
 }

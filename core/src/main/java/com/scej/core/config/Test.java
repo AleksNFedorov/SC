@@ -11,10 +11,11 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "Test", propOrder = {
         "specification"
 })
-public class Test {
+public class Test extends ExceptionsHolder {
 
     @XmlElement(required = true)
     protected Specification specification;
+
     @XmlAttribute(name = "defaultTestClass", required = false)
     protected Class clazz = CoreTest.class;
 
@@ -26,7 +27,6 @@ public class Test {
         Check.notNull(getSpecification(), "Nothing to test, please add specification");
         getSpecification().init();
     }
-
 
     public Specification getSpecification() {
         return specification;

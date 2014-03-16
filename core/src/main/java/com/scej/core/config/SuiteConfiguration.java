@@ -12,7 +12,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
-import java.util.Collection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,7 +56,7 @@ public class SuiteConfiguration {
         LOG.debug("method invoked [{}]", pathToConfigurationFile);
 
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = sf.newSchema(this.getClass().getClassLoader().getResource("testsuite.xsd"));
+        Schema schema = sf.newSchema(this.getClass().getClassLoader().getResource("scejsuite.xsd"));
 
         LOG.info("validation schema loaded [{}]", schema);
 
@@ -101,7 +100,7 @@ public class SuiteConfiguration {
         LOG.debug("method finished");
     }
 
-    public Collection<Test> getSuiteTests() {
-        return suite.getTests();
+    public Suite getSuite() {
+        return suite;
     }
 }

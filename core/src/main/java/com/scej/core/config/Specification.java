@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.*;
         "includes",
         "excludes"
 })
-public class Specification {
+public class Specification extends ExceptionsHolder {
 
     public static final String VALID_EXTENSION_HTML = ".html";
     public static final String VALID_EXTENSION_HTM = ".htm";
@@ -42,11 +42,12 @@ public class Specification {
     public static final String MIDDLE_SUFFIX = "__aurora_";
 
 
-    @XmlElement
+    @XmlElement(required = false)
     protected Includes includes;
 
-    @XmlElement
+    @XmlElement(required = false)
     protected Excludes excludes;
+
 
     @XmlAttribute(required = true)
     protected String location;
@@ -88,8 +89,6 @@ public class Specification {
             // no need to user stub class outside specification
             clazz = null;
         }
-
-
     }
 
     private void initChildSpecifications() {
@@ -112,7 +111,6 @@ public class Specification {
     void setRealPath(String realPath) {
         this.realPath = realPath;
     }
-
 
     public Includes getIncludes() {
         return includes;

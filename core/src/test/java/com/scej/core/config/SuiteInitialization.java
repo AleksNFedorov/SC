@@ -54,7 +54,7 @@ public class SuiteInitialization {
 
         SuiteConfiguration.initConfiguration(file);
 
-        Collection<Test> tests = SuiteConfiguration.getInstance().getSuiteTests();
+        Collection<Test> tests = SuiteConfiguration.getInstance().getSuite().getTests();
         Assert.assertEquals(2, tests.size());
 
         Test[] testsArray = tests.toArray(new Test[2]);
