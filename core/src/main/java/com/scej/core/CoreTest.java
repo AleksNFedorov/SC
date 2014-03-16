@@ -1,7 +1,7 @@
 package com.scej.core;
 
 import com.scej.core.concordion.extension.ScejExtensions;
-import com.scej.core.runner.ScejTestRunner;
+import com.scej.core.runner.ScejSpecificationTestRunner;
 import org.concordion.api.extension.Extensions;
 import org.junit.runner.RunWith;
 
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
  * User: Fedorovaleks
  */
 
-@RunWith(ScejTestRunner.class)
+@RunWith(ScejSpecificationTestRunner.class)
 @Extensions(value = ScejExtensions.class)
 //@FailFast(onExceptionType = {UnreachableBrowserException.class, NoSuchWindowException.class})
 public class CoreTest {

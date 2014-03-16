@@ -10,9 +10,9 @@ import org.junit.runners.model.InitializationError;
  * User: Fedorovaleks
  * Date: 13.03.14
  */
-public class ScejTestRunner extends ConcordionRunner {
+public class ScejSpecificationTestRunner extends ConcordionRunner {
 
-    public ScejTestRunner(Class<?> fixtureClass) throws InitializationError {
+    public ScejSpecificationTestRunner(Class<?> fixtureClass) throws InitializationError {
         super(fixtureClass);
     }
 
