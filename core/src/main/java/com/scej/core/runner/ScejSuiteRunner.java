@@ -10,7 +10,7 @@ import org.junit.runner.JUnitCore;
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class SuiteRunner {
+public class ScejSuiteRunner {
 
     private void runTests(String pathToSpecification) {
         try {
@@ -30,7 +30,7 @@ public class SuiteRunner {
     }
 
     public static void main(String... args) {
-        SuiteRunner newRunner = new SuiteRunner();
+        ScejSuiteRunner newRunner = new ScejSuiteRunner();
         newRunner.runTests(args[0]);
     }
 

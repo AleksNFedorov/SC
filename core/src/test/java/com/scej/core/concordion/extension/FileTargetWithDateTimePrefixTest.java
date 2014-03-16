@@ -1,11 +1,10 @@
 package com.scej.core.concordion.extension;
 
+import com.scej.core.concordion.extension.filetarget.FileTargetWithCustomPrefix;
 import org.concordion.api.Resource;
-import org.concordion.internal.FileTarget;
+import org.concordion.api.Target;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,23 +16,39 @@ public class FileTargetWithDateTimePrefixTest {
     public void testTargetPrefixWithExplicitLogFolder() {
 
         System.setProperty("concordion.output.dir", "someTestFolder");
-        FileTarget target = new FileTargetWithDateTimePrefix();
+        Target target = new FileTargetWithCustomPrefix();
         Resource testResource = new Resource("/someResource");
-        File resultFile = target.getFile(testResource);
+        String resultFile = target.resolvedPathFor(testResource);
 
-        Assert.assertTrue(resultFile.getPath().endsWith("someResource"));
-        Assert.assertTrue(resultFile.getParent().matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
+        Assert.assertTrue(resultFile.endsWith("someResource"));
+        Assert.assertTrue(resultFile.matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
     }
 
     @Test
     public void testTargetPrefixWithDefault() {
 
-        FileTarget target = new FileTargetWithDateTimePrefix();
+        Target target = new FileTargetWithCustomPrefix();
         Resource testResource = new Resource("/someResource");
-        File resultFile = target.getFile(testResource);
+        String resultFile = target.resolvedPathFor(testResource);
 
-        Assert.assertTrue(resultFile.getPath().endsWith("someResource"));
-        Assert.assertTrue(resultFile.getParent().matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
+        Assert.assertTrue(resultFile.endsWith("someResource"));
+        Assert.assertTrue(resultFile.matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
+    }
+
+    @Test
+    public void fileTargetWithCustomPattern() {
+
+        System.setProperty(FileTargetWithCustomPrefix.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR, "12345");
+
+        Target target = new FileTargetWithCustomPrefix();
+        Resource testResource = new Resource("/someResource");
+        String resultFile = target.resolvedPathFor(testResource);
+
+        Assert.assertTrue(resultFile.endsWith("someResource"));
+        Assert.assertTrue(resultFile.matches(".*12345.*"));
+
+        System.clearProperty(FileTargetWithCustomPrefix.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
+
     }
 
 }
