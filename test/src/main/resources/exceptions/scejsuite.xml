@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+
+    <!-- No fail fast exceptions test -->
+    <test defaultTestClass="exceptions.NoFileFastExceptionTest">
+        <specification location="/exceptions/HeadSpecification.html">
+            <includes>
+                <specification location="SpecificationOne.html"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
+    <!--
+
+        &lt;!&ndash; Specification file fase exception &ndash;&gt;
+        <test defaultTestClass="com.scej.core.CoreTest">
+            <specification location="/HeadSpecification.html">
+                <includes>
+                    <specification location="SpecificationOne.html"/>
+                    <specification location="SpecificationTwo.html"/>
+                </includes>
+            </specification>
+        </test>
+
+        &lt;!&ndash; Test fail fast exceptions &ndash;&gt;
+        <test defaultTestClass="com.scej.core.CoreTest">
+            <specification location="/HeadSpecification.html">
+                <includes>
+                    <specification location="SpecificationOne.html"/>
+                    <specification location="SpecificationTwo.html"/>
+                </includes>
+            </specification>
+        </test>
+
+
+        &lt;!&ndash; Suite fail fast exception &ndash;&gt;
+        <test defaultTestClass="com.scej.core.CoreTest">
+            <specification location="/HeadSpecification.html">
+                <includes>
+                    <specification location="SpecificationOne.html"/>
+                    <specification location="SpecificationTwo.html"/>
+                </includes>
+            </specification>
+        </test>
+
+    -->
+
+</suite>

@@ -27,6 +27,7 @@ public class FileTargetWithDateTimePrefixTest {
     @Test
     public void testTargetPrefixWithDefault() {
 
+
         Target target = new FileTargetWithCustomPrefix();
         Resource testResource = new Resource("/someResource");
         String resultFile = target.resolvedPathFor(testResource);
@@ -48,6 +49,20 @@ public class FileTargetWithDateTimePrefixTest {
         Assert.assertTrue(resultFile.matches(".*12345.*"));
 
         System.clearProperty(FileTargetWithCustomPrefix.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
+
+    }
+
+    @Test
+    public void multipleTestInSameLocation() {
+
+        Target target = new FileTargetWithCustomPrefix();
+        Resource testResource = new Resource("/someResource");
+        String resultFile = target.resolvedPathFor(testResource);
+
+        Target target2 = new FileTargetWithCustomPrefix();
+        String resultFile2 = target.resolvedPathFor(testResource);
+
+        Assert.assertEquals(resultFile, resultFile2);
 
     }
 

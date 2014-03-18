@@ -60,9 +60,4 @@ public class Suite extends ExceptionsHolder {
         }
         return this.tests;
     }
-
-    @Override
-    public Exceptions getExceptions() {
-        throw new UnsupportedOperationException();
-    }
 }
