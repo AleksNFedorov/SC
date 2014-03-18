@@ -16,11 +16,10 @@ public class FileTargetWithCustomPrefix extends FileTarget {
     public static final String PROPERTY_OUTPUT_DIR = "concordion.output.dir";
     public static final String PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR = "scej.launch.result.folder.pattern";
 
-    public static final File baseOutDir = getBaseOutputDir();
-
+    private static final File resultBaseDir = getBaseOutputDir();
 
     public FileTargetWithCustomPrefix() {
-        super(baseOutDir);
+        super(resultBaseDir);
     }
 
     private static File getBaseOutputDir() {

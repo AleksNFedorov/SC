@@ -1,4 +1,4 @@
-package com.scej.core.concordion.extension;
+package com.scej.core.concordion.extension.documentparsing;
 
 import com.scej.core.TestContext;
 import com.scej.core.config.Specification;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ChildSpecificationLinkUpdater implements DocumentParsingListener {
 
-    private Logger LOG = LoggerFactory.getLogger(getClass());
+    private static final Logger LOG = LoggerFactory.getLogger(ChildSpecificationLinkUpdater.class);
 
 
     @Override
