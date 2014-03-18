@@ -1,4 +1,4 @@
-package com.scej.core.concordion.extension.filetarget;
+package com.scej.core.concordion.extension;
 
 import org.concordion.internal.FileTarget;
 
