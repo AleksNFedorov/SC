@@ -60,7 +60,7 @@ public class SuiteConfiguration {
 
         LOG.info("validation schema loaded [{}]", schema);
 
-        JAXBContext suiteContext = JAXBContext.newInstance(Suite.class);
+        JAXBContext suiteContext = JAXBContext.newInstance(Suite.class, ExceptionsHolder.class);
 
         Unmarshaller unmarshaller = suiteContext.createUnmarshaller();
         unmarshaller.setSchema(schema);

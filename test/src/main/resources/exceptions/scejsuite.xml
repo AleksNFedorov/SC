@@ -3,14 +3,22 @@
 <suite>
 
     <!-- No fail fast exceptions test -->
+
+
     <test defaultTestClass="exceptions.NoFileFastExceptionTest">
         <specification location="/exceptions/HeadSpecification.html">
             <includes>
-                <specification location="SpecificationOne.html"/>
+                <specification testClass="exceptions.SpecificationFileFastExceptionTest"
+                               location="SpecificationOne.html">
+                    <exceptions>
+                        <exception>java.lang.IllegalArgumentException</exception>
+                    </exceptions>
+                </specification>
                 <specification location="SpecificationTwo.html"/>
             </includes>
         </specification>
     </test>
+
 
     <!--
 

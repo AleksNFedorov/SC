@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,11 +16,11 @@ import java.util.List;
 public class Exceptions {
 
     @XmlElement(required = false, name = "exception")
-    protected List<Class> exceptions = Collections.emptyList();
+    protected List<Class> exceptions;
 
     public boolean isRegistered(Throwable exceptionToCheck) {
 
-        Class exceptionCheckClass = exceptionToCheck.getClass();
+        Class exceptionCheckClass = exceptionToCheck.getCause().getClass();
 
         for (Class exception : exceptions) {
             if (exceptionCheckClass.isAssignableFrom(exception))

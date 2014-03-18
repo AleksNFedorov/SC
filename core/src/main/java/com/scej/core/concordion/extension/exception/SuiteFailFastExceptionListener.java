@@ -64,8 +64,8 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         if (isExceptionRegisteredInHolder(currentSpecification, exception)) {
             ScejException testRunningException = new ScejSpecificationException(exception);
             currentSpecification.setThrownException(testRunningException);
+//            exception.initCause(testRunningException);
             LOG.warn("Throwing specification fail exception, reason [{}]", exception.getMessage());
-            throw testRunningException;
         }
         LOG.debug("method finished");
     }
