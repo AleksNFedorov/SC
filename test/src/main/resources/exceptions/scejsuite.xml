@@ -12,6 +12,16 @@
         </specification>
     </test>
 
+
+    <test defaultTestClass="exceptions.NoFileFastExceptionTest">
+        <specification location="/exceptions/HeadSpecification.html">
+            <includes>
+                <specification location="SpecificationOne.html"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
     <!--
 
         &lt;!&ndash; Specification file fase exception &ndash;&gt;

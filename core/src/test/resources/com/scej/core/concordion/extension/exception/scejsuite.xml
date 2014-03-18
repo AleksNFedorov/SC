@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+
+    <!-- No fail fast exceptions test -->
+    <test>
+        <specification location="/com/scej/core/concordion/extension/exception/NoFailFast.html"
+                       testClass="com.scej.core.concordion.extension.exceptions.NoFileFastExceptionTest">
+            <includes>
+                <specification location="SpecificationOne.html"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
+
+    <!-- Specification fast exceptions test -->
+    <test>
+        <specification location="/com/scej/core/concordion/extension/exception/SpecificationFailFast.html">
+            <includes>
+                <specification location="SpecificationOne.html" testClass="SpecificationFastExceptionTest"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
+    <!-- Test fast exceptions test -->
+    <test>
+        <specification location="/com/scej/core/concordion/extension/exception/TestFailFast.html">
+            <includes>
+                <specification location="SpecificationOne.html" testClass="TestFailFastExceptionTest"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
+    <!-- Suite fast exceptions test -->
+    <test>
+        <specification location="/com/scej/core/concordion/extension/exception/SuiteFailFast.html">
+            <includes>
+                <specification location="SpecificationOne.html" testClass="SuiteFailFastExceptionTest"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
+    <!-- Suite Unrechable -->
+    <test>
+        <specification location="/com/scej/core/concordion/extension/exception/SuiteFailFastUnreacheble.html">
+            <includes>
+                <specification location="SpecificationOne.html"/>
+                <specification location="SpecificationTwo.html"/>
+            </includes>
+        </specification>
+    </test>
+
+</suite>

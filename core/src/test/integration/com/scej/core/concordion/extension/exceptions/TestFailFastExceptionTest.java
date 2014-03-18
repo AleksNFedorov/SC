@@ -1,7 +1,8 @@
-package exceptions;
+package com.scej.core.concordion.extension.exceptions;
 
 import com.scej.core.concordion.extension.ScejExtensions;
 import com.scej.core.runner.ScejSpecificationTestRunner;
+import org.concordion.api.FailFast;
 import org.concordion.api.extension.Extensions;
 import org.junit.runner.RunWith;
 
@@ -11,9 +12,11 @@ import org.junit.runner.RunWith;
  */
 @RunWith(ScejSpecificationTestRunner.class)
 @Extensions(value = ScejExtensions.class)
-public class NoFileFastExceptionTest extends CoreExceptionTest {
+@FailFast(onExceptionType = NumberFormatException.class)
+public class TestFailFastExceptionTest extends CoreExceptionTest {
 
-    public boolean tryException() {
-        throw new NullPointerException();
+    @Override
+    protected Throwable buildException() {
+        return new NumberFormatException("No fail fast exceptions");
     }
 }

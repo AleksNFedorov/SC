@@ -1,8 +1,7 @@
 package com.scej.core.concordion;
 
 import com.scej.core.TestContext;
-import com.scej.core.config.Specification;
-import com.scej.core.config.SpecificationLocatorService;
+import com.scej.core.config.*;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
@@ -25,7 +24,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         try {
             Specification specification = resolveSpecification(href);
 
-            if (specification == null) {
+            if (canRunSpecification(specification)) {
                 return new RunnerResult(Result.IGNORED);
             } else {
                 TestContext.getInstance().createNewSpecificationContext(resource, specification);
@@ -40,6 +39,15 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         } finally {
             LOG.debug("method finished");
         }
+    }
+
+    private boolean canRunSpecification(Specification specification) {
+        LOG.debug("method invoked [{}]");
+        Suite currentSuite = SuiteConfiguration.getInstance().getSuite();
+        Test currentTest = TestContext.getInstance().getTest();
+        return (specification != null &&
+                currentSuite.getThrownException() == null &&
+                currentTest.getThrownException() == null);
     }
 
     public Specification resolveSpecification(String href) {
