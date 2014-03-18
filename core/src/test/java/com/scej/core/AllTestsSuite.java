@@ -3,6 +3,7 @@ package com.scej.core;
 import com.scej.core.concordion.ChildSpecificationRunnerTest;
 import com.scej.core.concordion.extension.FileTargetWithDateTimePrefixTest;
 import com.scej.core.concordion.extension.HierarchySpecificationLocatorTest;
+import com.scej.core.concordion.extension.documentparsing.DictionarySubstitutionListenerTest;
 import com.scej.core.config.SpecificationLocatorServiceTest;
 import com.scej.core.config.SpecificationTest;
 import com.scej.core.config.SuiteInitialization;
@@ -21,6 +22,7 @@ import org.junit.runners.Suite;
         SpecificationLocatorServiceTest.class,
         ChildSpecificationRunnerTest.class,
         HierarchySpecificationLocatorTest.class,
-        FileTargetWithDateTimePrefixTest.class})
+        FileTargetWithDateTimePrefixTest.class,
+        DictionarySubstitutionListenerTest.class})
 public class AllTestsSuite {
 }

@@ -1,33 +1,28 @@
-package com.scej.core.concordion.extension;
+package com.scej.core.concordion.extension.documentparsing;
 
 import com.scej.core.TestContext;
-import com.scej.core.concordion.extension.documentparsing.ChildSpecificationLinkUpdater;
 import com.scej.core.config.Specification;
-import com.scej.core.config.SpecificationLocatorService;
 import com.scej.core.config.Test;
-import nu.xom.Attribute;
 import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Nodes;
 import org.concordion.internal.XMLParser;
-import org.junit.Assert;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * User: Fedorovaleks
- * Date: 15.03.14
+ * Date: 3/18/14
  */
-public class ChildSpecificationLinkUpdaterTest {
+public class DictionarySubstitutionListenerTest {
+
 
     @org.junit.Test
     public void specificationFileUpdateTest() throws IOException {
 
-        String specificationLocation = "/HeadSpecification.html";
+        String specificationLocation = "com/scej/core/concordion/extension/documentparsing/SubstitutionTest.html";
 
         Specification specification = new Specification(specificationLocation);
 
@@ -35,15 +30,29 @@ public class ChildSpecificationLinkUpdaterTest {
 
         when(test.getSpecification()).thenReturn(specification);
 
+        DictionaryLoaderService dictionaryLoaderService = mock(DictionaryLoaderService.class);
+
+        Properties dictionary = new Properties();
+        dictionary.put("parameter1", "parameter1Value");
+        dictionary.put("parameter2", "parameter2Value");
+
+        when(dictionaryLoaderService.buildSubstitutionDictionary()).thenReturn(dictionary);
+
         TestContext.createTestContext(test);
 
 
         String pathToSpecificationFile = getClass().getClassLoader().
-                getResource("com/scej/core/concordion/extension/HeadSpecification.html").getFile();
+                getResource("com/scej/core/concordion/extension/documentparsing/SubstitutionTest.html").getFile();
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecificationFile));
 
-        new ChildSpecificationLinkUpdater().beforeParsing(parsedDocument);
 
+        DictionarySubstitutionListener dictionarySubstitutionListener = spy(new DictionarySubstitutionListener());
+
+        when(dictionarySubstitutionListener.getDictionaryLoaderService()).thenReturn(dictionaryLoaderService);
+
+        dictionarySubstitutionListener.beforeParsing(parsedDocument);
+
+/*
         Nodes allHrefNodes = parsedDocument.query("//a[@href]");
 
         for (int i = 0; i < allHrefNodes.size(); ++i) {
@@ -51,6 +60,7 @@ public class ChildSpecificationLinkUpdaterTest {
             Attribute hrefAttribute = currentNode.getAttribute("href");
             Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(hrefAttribute.getValue()));
         }
+*/
 
         TestContext.getInstance().destroyCurrentSpecificationContext();
 

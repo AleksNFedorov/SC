@@ -13,9 +13,10 @@ import java.util.Stack;
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class TestContext {
+public class TestContext extends Context {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
+
 
     private static TestContext inst;
 

@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * User: Fedorovaleks
  * Date: 16.03.14
  */
+//TODO cover with unit tests
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ExceptionsHolder {
 

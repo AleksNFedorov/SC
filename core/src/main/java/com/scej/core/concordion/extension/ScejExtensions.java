@@ -1,5 +1,6 @@
 package com.scej.core.concordion.extension;
 
+import com.scej.core.concordion.extension.documentparsing.ChildSpecificationLinkUpdater;
 import com.scej.core.concordion.extension.exception.SuiteFailFastExceptionListener;
 import com.scej.core.concordion.extension.filetarget.FileTargetWithCustomPrefix;
 import org.concordion.api.extension.ConcordionExtender;

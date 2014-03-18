@@ -1,4 +1,3 @@
-
 package com.scej.core.config;
 
 import com.scej.core.CoreTest;
@@ -19,6 +18,9 @@ public class Test extends ExceptionsHolder {
     @XmlAttribute(name = "defaultTestClass", required = false)
     protected Class clazz = CoreTest.class;
 
+    @XmlAttribute(name = "substitutionDictionary", required = false)
+    private String substitutionDictionary;
+
     public Test() {
     }
 
@@ -32,8 +34,11 @@ public class Test extends ExceptionsHolder {
         return specification;
     }
 
+    public String getSubstitutionDictionary() {
+        return substitutionDictionary;
+    }
+
     public Class getDefaultTestClass() {
         return clazz;
     }
-
 }
