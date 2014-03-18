@@ -1,6 +1,5 @@
 package com.scej.core.concordion.extension;
 
-import com.scej.core.concordion.extension.filetarget.FileTargetWithCustomPrefix;
 import org.concordion.api.Resource;
 import org.concordion.api.Target;
 import org.junit.Assert;
