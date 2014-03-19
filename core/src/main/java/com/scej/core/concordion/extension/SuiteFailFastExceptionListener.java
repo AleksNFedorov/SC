@@ -1,4 +1,4 @@
-package com.scej.core.concordion.extension.exception;
+package com.scej.core.concordion.extension;
 
 import com.scej.core.TestContext;
 import com.scej.core.config.*;
@@ -22,7 +22,6 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
 
         checkSuiteExceptions(event.getThrowable());
         checkTestExceptions(event.getThrowable());
-        checkSpecificationExceptions(event.getThrowable());
 
         LOG.info("Thrown exception is not registered as fail fast exception");
         LOG.debug("method finished");
@@ -33,10 +32,8 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         Suite runningSuite = SuiteConfiguration.getInstance().getSuite();
         LOG.info("Checking exceptions for running suite");
         if (isExceptionRegisteredInHolder(runningSuite, exception)) {
-            ScejException runningSuiteExceptions = new ScejSuiteException(exception);
-            runningSuite.setThrownException(runningSuiteExceptions);
+            runningSuite.setThrownException(exception);
             LOG.warn("Throwing suite fail exception, reason [{}]", exception.getMessage());
-            throw runningSuiteExceptions;
         }
         LOG.debug("method finished");
     }
@@ -46,28 +43,11 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         Test currentSuiteTest = TestContext.getInstance().getTest();
         LOG.info("Checking exceptions for current test");
         if (isExceptionRegisteredInHolder(currentSuiteTest, exception)) {
-            ScejException testRunningException = new ScejTestException(exception);
-            currentSuiteTest.setThrownException(testRunningException);
+            currentSuiteTest.setThrownException(exception);
             LOG.warn("Throwing test fail exception, reason [{}]", exception.getMessage());
-            throw testRunningException;
         }
         LOG.debug("method finished");
 
-    }
-
-    private void checkSpecificationExceptions(Throwable exception) {
-        LOG.debug("method invoked [{}]", exception);
-        TestContext.SpecificationContext currentTextContext = TestContext.getInstance().getCurrentSpecificationContext();
-        Specification currentSpecification = currentTextContext.getSpecification();
-
-        LOG.info("Checking exceptions for current test");
-        if (isExceptionRegisteredInHolder(currentSpecification, exception)) {
-            ScejException testRunningException = new ScejSpecificationException(exception);
-            currentSpecification.setThrownException(testRunningException);
-//            exception.initCause(testRunningException);
-            LOG.warn("Throwing specification fail exception, reason [{}]", exception.getMessage());
-        }
-        LOG.debug("method finished");
     }
 
     private boolean isExceptionRegisteredInHolder(ExceptionsHolder exHolder, Throwable exception) {

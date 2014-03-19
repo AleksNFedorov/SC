@@ -1,7 +1,6 @@
 package com.scej.core.concordion.extension;
 
 import com.scej.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
-import com.scej.core.concordion.extension.exception.SuiteFailFastExceptionListener;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
 

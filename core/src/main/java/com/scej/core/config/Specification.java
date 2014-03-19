@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.*;
         "includes",
         "excludes"
 })
-public class Specification extends ExceptionsHolder {
+public class Specification {
 
     public static final String VALID_EXTENSION_HTML = ".html";
     public static final String VALID_EXTENSION_HTM = ".htm";
