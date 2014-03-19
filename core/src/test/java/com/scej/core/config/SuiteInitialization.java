@@ -3,7 +3,7 @@ package com.scej.core.config;
 import com.scej.core.CoreTest;
 import org.junit.Assert;
 
-import javax.xml.bind.UnmarshalException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
@@ -28,22 +28,33 @@ public class SuiteInitialization {
         }
     }
 
-    @org.junit.Test
-    public void specificationLoadingValidationTest() throws IOException {
+    @org.junit.Test(expected = RuntimeException.class)
+    public void incorrectDefaultTestClassTest() throws IOException {
 
-        testValidationException("com/scej/core/config/incorrectDefaultTestClass.xml", "Unknown default test class in config");
-        testValidationException("com/scej/core/config/incorrectRootSpecificationLocation.xml", "Incorrect root specification location in config");
-        testValidationException("com/scej/core/config/incorrectSpecificationTestClass.xml", "Incorrect root specification test class in config");
+        testValidationException("com/scej/core/config/incorrectDefaultTestClass.xml", "Unknown default test class in config", RuntimeException.class);
     }
 
-    private void testValidationException(String suiteFilePath, String assertionMessage) {
-        try {
-            SuiteConfiguration.initConfiguration(suiteFilePath);
-            Assert.fail("No suite validation error, exception expected [" + assertionMessage + "]");
-        } catch (RuntimeException ex) {
-            Assert.assertTrue("UnmarshalException as root case expected [" + assertionMessage + "]",
-                    ex.getCause() instanceof UnmarshalException);
-        }
+    @org.junit.Test(expected = RuntimeException.class)
+    public void incorrectRootSpecificationLocationTest() throws IOException {
+
+        testValidationException("com/scej/core/config/incorrectRootSpecificationLocation.xml", "Incorrect root specification location in config", RuntimeException.class);
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void incorrectSpecificationTestTest() throws IOException {
+
+        testValidationException("com/scej/core/config/incorrectSpecificationTestClass.xml", "Incorrect root specification test class in config", RuntimeException.class);
+    }
+
+    private void testValidationException(String suiteFilePath, String assertionMessage, Class expectedExceptionClass) {
+
+        String filePath = Thread.currentThread().
+                getContextClassLoader().getResource(suiteFilePath).getFile();
+
+        Assert.assertTrue("File [" + suiteFilePath + "] does not exist [" + assertionMessage + "]", new File(filePath).exists());
+
+        SuiteConfiguration.initConfiguration(filePath);
+        Assert.fail("No suite validation error, exception expected [" + assertionMessage + "]");
 
     }
 

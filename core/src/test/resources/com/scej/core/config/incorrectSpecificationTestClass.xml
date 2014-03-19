@@ -3,7 +3,7 @@
 <suite>
 
     <test>
-        <specification location="/HeadSpecification.html" testClass="com.scej.core.CoreTest"/>
+        <specification location="/HeadSpecification.html" testClass="com.scej.core.CoreTestUnknown"/>
     </test>
 
 

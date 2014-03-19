@@ -2,6 +2,7 @@ package com.scej.core.runner;
 
 import com.scej.core.TestContext;
 import com.scej.core.concordion.ChildSpecificationRunner;
+import com.scej.core.config.Suite;
 import com.scej.core.config.SuiteConfiguration;
 import com.scej.core.config.Test;
 import org.junit.runner.Description;
@@ -12,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,12 +22,14 @@ import java.net.URL;
  */
 public class ScejSuiteRunner extends Runner {
 
-    private static final String SUITE_CONFIG_PROPERTY_KEY = "scej.suite";
+    public static final String SUITE_CONFIG_PROPERTY_KEY = "scej.suite";
+    public static final String TESTS_TO_RUN_PROPERTY_KEY = "scej.run.tests";
     private static final String DEFAULT_CONFIG_NAME = "scejsuite.xml";
 
     private static final Logger LOG = LoggerFactory.getLogger(ScejSuiteRunner.class);
 
     private final Class testClass;
+    private Set<String> testsToRun;
 
     public ScejSuiteRunner(Class targetTestClass) {
         this.testClass = targetTestClass;
@@ -37,20 +42,61 @@ public class ScejSuiteRunner extends Runner {
 
             LOG.info("Running tests");
 
-            SuiteConfiguration.initConfiguration(pathToSuiteConfigFile);
-            SuiteConfiguration suiteConfiguration = SuiteConfiguration.getInstance();
-            for (Test test : suiteConfiguration.getSuite().getTests()) {
-                TestContext.createTestContext(test);
-                JUnitCore.runClasses(ChildSpecificationRunner.resolveSpecificationClassByContext());
-                System.out.println("Suite finished");
+            Suite currentSuite = initTestSuite(pathToSuiteConfigFile);
+
+            for (Test test : currentSuite.getTests()) {
+                if (needRunTest(test)) {
+                    runTest(test);
+                    LOG.info("Test [{}] finished", test.getName());
+                } else {
+                    LOG.info("Test [{}] skipped", test.getName());
+                }
             }
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             LOG.error("Exception during test running ", ex.getMessage());
             ex.printStackTrace();
-            System.exit(1);
+            throw ex;
         } finally {
-            System.exit(0);
+            LOG.info("Suite successfully finished");
         }
+    }
+
+    protected Suite initTestSuite(String pathToSuiteConfigFile) {
+        SuiteConfiguration.initConfiguration(pathToSuiteConfigFile);
+        SuiteConfiguration suiteConfiguration = SuiteConfiguration.getInstance();
+
+        return suiteConfiguration.getSuite();
+    }
+
+    protected void runTest(Test testToRun) {
+        TestContext.createTestContext(testToRun);
+        JUnitCore.runClasses(ChildSpecificationRunner.resolveSpecificationClassByContext());
+    }
+
+    private boolean needRunTest(Test test) {
+        return testsToRun == null || testsToRun.contains(test.getName());
+    }
+
+    private Set<String> resolveTestsToRunName() {
+        LOG.debug("method invoked");
+        String testsToRunLine = System.getProperty(TESTS_TO_RUN_PROPERTY_KEY);
+        Set<String> testsToRunNames = null;
+        if (testsToRunLine != null) {
+            LOG.info("Tests to run property found [{}]", testsToRunLine);
+            String[] testsToRun = testsToRunLine.split("\\,");
+            testsToRunNames = new TreeSet<String>();
+            for (String testName : testsToRun) {
+                String testNameNoSpaces = testName.trim();
+                testsToRunNames.add(testNameNoSpaces);
+                LOG.info("Test [{}] has been added to run list ", testNameNoSpaces);
+            }
+            LOG.info("There are [{}] test in run list", testsToRunNames.size());
+        }
+
+        LOG.debug("method finished");
+        return testsToRunNames;
+
+
     }
 
     private String getPathToConfig() {
@@ -80,10 +126,11 @@ public class ScejSuiteRunner extends Runner {
 
     @Override
     public void run(RunNotifier notifier) {
+        testsToRun = resolveTestsToRunName();
         runTests();
     }
 
     public static void main(String... args) {
-        new ScejSuiteRunner(null).runTests();
+        new ScejSuiteRunner(null).run(null);
     }
 }

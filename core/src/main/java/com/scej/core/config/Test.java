@@ -21,6 +21,9 @@ public class Test extends ExceptionsHolder {
     @XmlAttribute(name = "substitutionDictionary", required = false)
     private String substitutionDictionary;
 
+    @XmlAttribute(name = "name", required = true)
+    private String name;
+
     public Test() {
     }
 
@@ -28,6 +31,10 @@ public class Test extends ExceptionsHolder {
         Check.notNull(getDefaultTestClass(), "Default test class have not been resolved correctly");
         Check.notNull(getSpecification(), "Nothing to test, please add specification");
         getSpecification().init();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Specification getSpecification() {
@@ -40,5 +47,15 @@ public class Test extends ExceptionsHolder {
 
     public Class getDefaultTestClass() {
         return clazz;
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "specification=" + specification +
+                ", clazz=" + clazz +
+                ", substitutionDictionary='" + substitutionDictionary + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

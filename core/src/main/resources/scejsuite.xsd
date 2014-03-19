@@ -7,6 +7,7 @@
             <xs:element type="Specification" name="specification" minOccurs="1" maxOccurs="1"/>
             <xs:element type="Exceptions" name="exceptions" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
+        <xs:attribute type="xs:string" name="name"/>
         <xs:attribute type="xs:string" name="defaultTestClass"/>
         <xs:attribute type="xs:string" name="substitutionDictionary"/>
     </xs:complexType>
