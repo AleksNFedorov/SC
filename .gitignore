@@ -1,7 +1,7 @@
-.idea/
-*.iml
-*.ipr
-*.log.*
+**/.idea/
+**/*.iml
+**/*.ipr
+**/*.log.*
 testResults/
 logs/
 target/
