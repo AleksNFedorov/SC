@@ -59,7 +59,7 @@ public class DictionarySubstitutionListener implements DocumentParsingListener {
 
     private void setValueToElement(Element element, String content) {
         element.removeChildren();
-        element.appendChild(content);
+        element.appendChild(new nu.xom.Text(content));
         LOG.info("Element value replaced to [{}]", content);
     }
 
