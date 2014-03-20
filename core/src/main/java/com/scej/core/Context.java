@@ -12,7 +12,8 @@ import java.util.TreeMap;
  * Date: 3/18/14
  */
 public class Context {
-    protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
+
+    protected static final Logger LOG = LoggerFactory.getLogger(Context.class);
 
     private final Map attributes = new TreeMap();
 
