@@ -3,18 +3,161 @@ package com.scej.core.concordion;
 import com.scej.core.CoreTest;
 import com.scej.core.config.*;
 import com.scej.core.context.TestContextService;
+import org.concordion.api.Resource;
+import org.concordion.api.Result;
+import org.concordion.api.RunnerResult;
 import org.junit.Assert;
 
 import java.util.Arrays;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
 public class ChildSpecificationRunnerTest extends TestContextService {
+
+
+    @org.junit.Test
+    public void positiveFlow() throws Exception {
+
+        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
+
+        Suite suite = mock(Suite.class);
+        when(suite.getThrownException()).thenReturn(null);
+
+        Specification specification = mock(Specification.class);
+
+        Test test = mock(Test.class);
+        when(test.getThrownException()).thenReturn(null);
+        when(test.getSpecification()).thenReturn(specification);
+
+
+        TestContextService testContextService = new TestContextService();
+        testContextService.createNewTestContext(test);
+
+
+        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
+
+        doReturn(specification).when(runner).resolveSpecification(anyString());
+        doReturn(suite).when(runner).getSuite();
+        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+
+
+        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+
+        Assert.assertEquals(successResult, executionResult);
+
+
+        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+    }
+
+    @org.junit.Test
+    public void suiteFailFastException() throws Exception {
+
+
+        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
+
+        Suite suite = mock(Suite.class);
+        when(suite.getThrownException()).thenReturn(new RuntimeException());
+
+        Specification specification = mock(Specification.class);
+
+        Test test = mock(Test.class);
+        when(test.getThrownException()).thenReturn(null);
+        when(test.getSpecification()).thenReturn(specification);
+
+
+        TestContextService testContextService = new TestContextService();
+        testContextService.createNewTestContext(test);
+
+
+        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
+
+        doReturn(specification).when(runner).resolveSpecification(anyString());
+        doReturn(suite).when(runner).getSuite();
+        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+
+
+        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+
+        Assert.assertEquals(Result.IGNORED, executionResult.getResult());
+
+
+        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+
+    }
+
+    @org.junit.Test
+    public void unknownSpecification() throws Exception {
+
+        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
+
+        Suite suite = mock(Suite.class);
+        when(suite.getThrownException()).thenReturn(null);
+
+        Specification specification = mock(Specification.class);
+
+        Test test = mock(Test.class);
+        when(test.getThrownException()).thenReturn(null);
+        when(test.getSpecification()).thenReturn(specification);
+
+
+        TestContextService testContextService = new TestContextService();
+        testContextService.createNewTestContext(test);
+
+
+        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
+
+        doReturn(null).when(runner).resolveSpecification(anyString());
+        doReturn(suite).when(runner).getSuite();
+        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+
+
+        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+
+        Assert.assertEquals(Result.IGNORED, executionResult.getResult());
+
+
+        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+    }
+
+    @org.junit.Test
+    public void testFailFastException() throws Exception {
+
+
+        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
+
+        Suite suite = mock(Suite.class);
+        when(suite.getThrownException()).thenReturn(null);
+
+        Specification specification = mock(Specification.class);
+
+        Test test = mock(Test.class);
+        when(test.getThrownException()).thenReturn(new RuntimeException());
+        when(test.getSpecification()).thenReturn(specification);
+
+
+        TestContextService testContextService = new TestContextService();
+        testContextService.createNewTestContext(test);
+
+
+        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
+
+        doReturn(specification).when(runner).resolveSpecification(anyString());
+        doReturn(suite).when(runner).getSuite();
+        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+
+
+        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+
+        Assert.assertEquals(Result.IGNORED, executionResult.getResult());
+
+
+        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+
+    }
 
     @org.junit.Test
     public void testIncludeAll() {

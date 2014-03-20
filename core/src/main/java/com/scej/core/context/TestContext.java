@@ -74,6 +74,7 @@ public class TestContext extends Context {
 
     private TestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
+
         this.test = test;
         createTopLevelTestContext();
     }

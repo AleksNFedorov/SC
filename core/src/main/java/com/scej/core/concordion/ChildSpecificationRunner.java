@@ -29,15 +29,15 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     @Override
     public RunnerResult execute(Resource resource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]", href, resource);
+        Check.notNull(href, "Link to specification cna`t be null");
+
         try {
             Specification specification = resolveSpecification(href);
 
             if (canRunSpecification(specification)) {
-                getCurrentTestContext().createNewSpecificationContext(resource, specification);
-                LOG.info("Test context created");
-                RunnerResult result = super.execute(resource, href);
-                LOG.info("Result is ready [{}]", result);
-                return result;
+                return executeSpecification(specification,
+                        resource,
+                        href);
             } else {
                 return new RunnerResult(Result.IGNORED);
             }
@@ -48,6 +48,16 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             LOG.debug("method finished");
         }
     }
+
+    protected RunnerResult executeSpecification(Specification specification, Resource specificationResource, String href) throws Exception {
+        LOG.debug("method invoked [{}], [{}]");
+        getCurrentTestContext().createNewSpecificationContext(specificationResource, specification);
+        LOG.info("Test context created");
+        RunnerResult result = super.execute(specificationResource, href);
+        LOG.info("Result is ready [{}]", result);
+        return result;
+    }
+
 
     private boolean canRunSpecification(Specification specification) {
         LOG.debug("method invoked [{}]");
@@ -62,9 +72,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         return SuiteConfiguration.getInstance().getSuite();
     }
 
-    public Specification resolveSpecification(String href) {
+    protected Specification resolveSpecification(String href) {
         LOG.debug("method invoked [{}]", href);
-        Check.notNull(href, "Link to specification cna`t be null");
         TestContext.SpecificationContext specificationContext = getCurrentTestContext().getCurrentSpecificationContext();
         Specification currentSpecification = specificationContext.getSpecification();
         Specification specByHref = SpecificationLocatorService.getService().getChildSpecificationByRealLocation(currentSpecification, href);
