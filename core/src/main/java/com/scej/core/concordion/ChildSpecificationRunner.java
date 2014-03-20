@@ -25,13 +25,13 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             Specification specification = resolveSpecification(href);
 
             if (canRunSpecification(specification)) {
-                return new RunnerResult(Result.IGNORED);
-            } else {
                 TestContext.getInstance().createNewSpecificationContext(resource, specification);
                 LOG.info("Test context created");
                 RunnerResult result = super.execute(resource, href);
                 LOG.info("Result is ready [{}]", result);
                 return result;
+            } else {
+                return new RunnerResult(Result.IGNORED);
             }
         } catch (RuntimeException ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
