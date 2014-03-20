@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * User: Fedorovaleks
  * Date: 20.03.14
  */
-public class SetGlobalCommand extends SetCommand {
+public class SetGlobalCommand extends SetCommand implements ScejCommand {
 
     private static Logger LOG = LoggerFactory.getLogger(SetGlobalCommand.class);
 
@@ -59,4 +59,8 @@ public class SetGlobalCommand extends SetCommand {
     }
 
 
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.SetGlobalVariable;
+    }
 }
