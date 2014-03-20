@@ -1,8 +1,9 @@
 package com.scej.core.concordion.extension.documentparsing;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.Specification;
 import com.scej.core.config.SpecificationLocatorService;
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -23,7 +24,7 @@ public class ChildSpecificationLinkUpdater implements DocumentParsingListener {
     @Override
     public void beforeParsing(Document document) {
         LOG.debug("method invoked");
-        Specification specification = TestContext.getInstance().getCurrentSpecificationContext().getSpecification();
+        Specification specification = getCurrentTestContext().getCurrentSpecificationContext().getSpecification();
         Nodes allHrefNodes = document.query("//a[@href]");
         LOG.info("Found [{}]", allHrefNodes.size());
         for (int i = 0; i < allHrefNodes.size(); ++i) {
@@ -36,6 +37,10 @@ public class ChildSpecificationLinkUpdater implements DocumentParsingListener {
 
         }
         LOG.debug("method finished");
+    }
+
+    protected TestContext getCurrentTestContext() {
+        return new TestContextService().getCurrentTestContext();
     }
 
     private boolean isConcordionRunnerHrefNode(Element hrefNode) {

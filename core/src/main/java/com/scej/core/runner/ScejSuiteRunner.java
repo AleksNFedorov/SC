@@ -1,10 +1,10 @@
 package com.scej.core.runner;
 
-import com.scej.core.TestContext;
-import com.scej.core.concordion.ChildSpecificationRunner;
+import com.scej.core.config.SpecificationLocatorService;
 import com.scej.core.config.Suite;
 import com.scej.core.config.SuiteConfiguration;
 import com.scej.core.config.Test;
+import com.scej.core.context.TestContextService;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Runner;
@@ -69,8 +69,16 @@ public class ScejSuiteRunner extends Runner {
     }
 
     protected void runTest(Test testToRun) {
-        TestContext.createTestContext(testToRun);
-        JUnitCore.runClasses(ChildSpecificationRunner.resolveSpecificationClassByContext());
+        buildTestContextService().createNewTestContext(testToRun);
+        JUnitCore.runClasses(getSpecificationLocationService().resolveSpecificationClassByContext());
+    }
+
+    protected SpecificationLocatorService getSpecificationLocationService() {
+        return SpecificationLocatorService.getService();
+    }
+
+    protected TestContextService buildTestContextService() {
+        return new TestContextService();
     }
 
     private boolean needRunTest(Test test) {

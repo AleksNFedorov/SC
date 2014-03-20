@@ -1,8 +1,8 @@
 package com.scej.core.concordion;
 
 import com.scej.core.CoreTest;
-import com.scej.core.TestContext;
 import com.scej.core.config.*;
+import com.scej.core.context.TestContextService;
 import org.junit.Assert;
 
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class ChildSpecificationRunnerTest {
+public class ChildSpecificationRunnerTest extends TestContextService {
 
     @org.junit.Test
     public void testIncludeAll() {
@@ -25,7 +25,7 @@ public class ChildSpecificationRunnerTest {
         when(testMock.getSpecification()).thenReturn(rootSpecification);
         when(testMock.getDefaultTestClass()).thenReturn(CoreTest.class);
 
-        TestContext.createTestContext(testMock);
+        createNewTestContext(testMock);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
 
@@ -36,7 +36,7 @@ public class ChildSpecificationRunnerTest {
 
         Assert.assertEquals(childSpecificationOrig, specification.getLocation());
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
     }
 
 
@@ -56,7 +56,7 @@ public class ChildSpecificationRunnerTest {
         when(mockTest.getSpecification()).thenReturn(excludeOnly);
         when(excludeOnly.getExcludes()).thenReturn(excludes);
 
-        TestContext.createTestContext(mockTest);
+        createNewTestContext(mockTest);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
 
@@ -73,7 +73,7 @@ public class ChildSpecificationRunnerTest {
         currentSpec = testRunner.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
 
     }
@@ -97,7 +97,7 @@ public class ChildSpecificationRunnerTest {
         when(includeOnly.getIncludes()).thenReturn(includes);
         when(test.getSpecification()).thenReturn(includeOnly);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
 
@@ -119,7 +119,7 @@ public class ChildSpecificationRunnerTest {
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(specLocationForTest, currentSpec.getLocation());
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
     }
 
 
@@ -143,7 +143,7 @@ public class ChildSpecificationRunnerTest {
 
         when(test.getSpecification()).thenReturn(includeExclude);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
 
@@ -162,7 +162,7 @@ public class ChildSpecificationRunnerTest {
         currentSpec = testRunner.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
     }
 
     @org.junit.Test
@@ -176,13 +176,13 @@ public class ChildSpecificationRunnerTest {
         when(test.getSpecification()).thenReturn(specification);
         when(specification.getTestClass()).thenReturn(String.class);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
         Class testClass = new ChildSpecificationRunner().findTestClass(null, null);
 
         Assert.assertEquals(String.class, testClass);
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
     }
 
@@ -197,13 +197,13 @@ public class ChildSpecificationRunnerTest {
         when(test.getSpecification()).thenReturn(specification);
         when(specification.getTestClass()).thenReturn(null);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
         Class testClass = new ChildSpecificationRunner().findTestClass(null, null);
 
         Assert.assertEquals(Integer.class, testClass);
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
     }
 

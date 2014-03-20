@@ -1,7 +1,8 @@
 package com.scej.core.concordion.extension.documentparsing;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.Test;
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ public class DictionaryLoaderService {
         LOG.debug("method invoked");
 
 
-        Properties globalDictionaryProperties = TestContext.getInstance().getAttribute(GLOBAL_DICTIONARY);
+        Properties globalDictionaryProperties = getCurrentTestContext().getAttribute(GLOBAL_DICTIONARY);
         if (globalDictionaryProperties != null) {
             LOG.info("global properties restored from context");
             return globalDictionaryProperties;
@@ -52,7 +53,7 @@ public class DictionaryLoaderService {
             globalDictionaryProperties = new Properties();
         }
 
-        TestContext.getInstance().addAttribute(GLOBAL_DICTIONARY, globalDictionaryProperties);
+        getCurrentTestContext().addAttribute(GLOBAL_DICTIONARY, globalDictionaryProperties);
         LOG.debug("method finished [{}]", globalDictionaryProperties);
         return globalDictionaryProperties;
     }
@@ -60,7 +61,7 @@ public class DictionaryLoaderService {
     private Properties loadTestDictionary() {
         LOG.debug("method invoked");
 
-        Test currentTest = TestContext.getInstance().getTest();
+        Test currentTest = getCurrentTestContext().getTest();
 
 
         if (currentTest.getSubstitutionDictionary() == null) {
@@ -68,7 +69,7 @@ public class DictionaryLoaderService {
             return new Properties();
         }
 
-        Properties testDictionaryProperties = TestContext.getInstance().getAttribute(currentTest);
+        Properties testDictionaryProperties = getCurrentTestContext().getAttribute(currentTest);
 
 
         if (testDictionaryProperties != null) {
@@ -85,9 +86,13 @@ public class DictionaryLoaderService {
             testDictionaryProperties = new Properties();
         }
 
-        TestContext.getInstance().addAttribute(currentTest, testDictionaryProperties);
+        getCurrentTestContext().addAttribute(currentTest, testDictionaryProperties);
         LOG.debug("method finished [{}]", testDictionaryProperties);
         return testDictionaryProperties;
+    }
+
+    protected TestContext getCurrentTestContext() {
+        return new TestContextService().getCurrentTestContext();
     }
 
     private Properties loadDictionaryFromFile(String globalDictionary) throws IOException {

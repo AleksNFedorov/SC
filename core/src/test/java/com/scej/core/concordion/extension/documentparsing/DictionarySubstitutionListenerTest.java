@@ -1,8 +1,8 @@
 package com.scej.core.concordion.extension.documentparsing;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.Specification;
 import com.scej.core.config.Test;
+import com.scej.core.context.TestContextService;
 import nu.xom.Document;
 import org.concordion.internal.XMLParser;
 
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
  * User: Fedorovaleks
  * Date: 3/18/14
  */
-public class DictionarySubstitutionListenerTest {
+public class DictionarySubstitutionListenerTest extends TestContextService {
 
 
     @org.junit.Test
@@ -38,7 +38,7 @@ public class DictionarySubstitutionListenerTest {
 
         when(dictionaryLoaderService.buildSubstitutionDictionary()).thenReturn(dictionary);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
 
         String pathToSpecificationFile = getClass().getClassLoader().
@@ -62,7 +62,7 @@ public class DictionarySubstitutionListenerTest {
         }
 */
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
     }
 }

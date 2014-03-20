@@ -1,7 +1,8 @@
 package com.scej.core.concordion.extension;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.*;
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import org.concordion.api.listener.ThrowableCaughtEvent;
 import org.concordion.api.listener.ThrowableCaughtListener;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
 
     private void checkTestExceptions(Throwable exception) {
         LOG.debug("method invoked [{}]", exception);
-        Test currentSuiteTest = TestContext.getInstance().getTest();
+        Test currentSuiteTest = getCurrentTestContext().getTest();
         LOG.info("Checking exceptions for current test");
         if (isExceptionRegisteredInHolder(currentSuiteTest, exception)) {
             currentSuiteTest.setThrownException(exception);
@@ -48,6 +49,10 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         }
         LOG.debug("method finished");
 
+    }
+
+    protected TestContext getCurrentTestContext() {
+        return new TestContextService().getCurrentTestContext();
     }
 
     private boolean isExceptionRegisteredInHolder(ExceptionsHolder exHolder, Throwable exception) {

@@ -1,7 +1,8 @@
 package com.scej.core.concordion.extension;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.Specification;
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.SpecificationLocator;
 import org.concordion.internal.util.Check;
@@ -21,7 +22,7 @@ public class HierarchySpecificationLocator implements SpecificationLocator {
         LOG.debug("method invoked [{}]", fixture);
         try {
             LOG.debug("Getting global test context");
-            TestContext.SpecificationContext specificationContext = TestContext.getInstance().getCurrentSpecificationContext();
+            TestContext.SpecificationContext specificationContext = getCurrentTestContext().getCurrentSpecificationContext();
             Check.notNull(specificationContext, "Context is null");
             LOG.info("Test context acquired");
             LOG.debug("Test context [{}]", specificationContext);
@@ -32,6 +33,10 @@ public class HierarchySpecificationLocator implements SpecificationLocator {
         } finally {
             LOG.debug("Method finished");
         }
+    }
+
+    protected TestContext getCurrentTestContext() {
+        return new TestContextService().getCurrentTestContext();
     }
 
     private Resource buildSpecificationResource(TestContext.SpecificationContext context) {

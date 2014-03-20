@@ -1,6 +1,7 @@
 package com.scej.core.concordion.extension.documentparsing;
 
-import com.scej.core.TestContext;
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Nodes;
@@ -31,7 +32,7 @@ public class DictionarySubstitutionListener implements DocumentParsingListener {
         Nodes allHrefNodes = document.query(SUBSTITUTION_NODES_XPATH);
 
         if (allHrefNodes.size() == 0) {
-            LOG.info("Nothing to substitute in specification [{}]", TestContext.getInstance().getCurrentSpecificationContext().getSpecification());
+            LOG.info("Nothing to substitute in specification [{}]", getCurrentTestContext().getCurrentSpecificationContext().getSpecification());
             return;
         }
         LOG.info("Found [{}]", allHrefNodes.size());
@@ -50,6 +51,10 @@ public class DictionarySubstitutionListener implements DocumentParsingListener {
         }
         LOG.debug("method finished");
 
+    }
+
+    protected TestContext getCurrentTestContext() {
+        return new TestContextService().getCurrentTestContext();
     }
 
     private void setValueToElement(Element element, String content) {

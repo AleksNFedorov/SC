@@ -1,4 +1,4 @@
-package com.scej.core;
+package com.scej.core.context;
 
 import com.scej.core.config.Specification;
 import com.scej.core.config.Test;
@@ -53,7 +53,7 @@ public class TestContext extends Context {
         }
     }
 
-    public static void createTestContext(Test test) {
+    static void createTestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
         LOG.info("Initializing new context");
 
@@ -67,7 +67,7 @@ public class TestContext extends Context {
         LOG.debug("method finished");
     }
 
-    public static TestContext getInstance() {
+    static TestContext getInstance() {
         LOG.debug("method invoked");
         return inst;
     }

@@ -1,6 +1,6 @@
 package com.scej.core.runner;
 
-import com.scej.core.TestContext;
+import com.scej.core.context.TestContextService;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.FrameworkMethod;
@@ -21,7 +21,11 @@ public class ScejSpecificationTestRunner extends ConcordionRunner {
         try {
             super.runChild(method, notifier);
         } finally {
-            TestContext.getInstance().destroyCurrentSpecificationContext();
+            buildTestContextService().getCurrentTestContext().destroyCurrentSpecificationContext();
         }
+    }
+
+    protected TestContextService buildTestContextService() {
+        return new TestContextService();
     }
 }

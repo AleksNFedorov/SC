@@ -1,10 +1,10 @@
 package com.scej.core.concordion.extension;
 
-import com.scej.core.TestContext;
 import com.scej.core.concordion.extension.documentparsing.ChildSpecificationLinkUpdater;
 import com.scej.core.config.Specification;
 import com.scej.core.config.SpecificationLocatorService;
 import com.scej.core.config.Test;
+import com.scej.core.context.TestContextService;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
  * User: Fedorovaleks
  * Date: 15.03.14
  */
-public class ChildSpecificationLinkUpdaterTest {
+public class ChildSpecificationLinkUpdaterTest extends TestContextService {
 
     @org.junit.Test
     public void specificationFileUpdateTest() throws IOException {
@@ -35,7 +35,7 @@ public class ChildSpecificationLinkUpdaterTest {
 
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
 
         String pathToSpecificationFile = getClass().getClassLoader().
@@ -52,7 +52,7 @@ public class ChildSpecificationLinkUpdaterTest {
             Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(hrefAttribute.getValue()));
         }
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
     }
 }

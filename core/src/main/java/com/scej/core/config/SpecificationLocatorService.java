@@ -1,5 +1,7 @@
 package com.scej.core.config;
 
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,6 +131,28 @@ public class SpecificationLocatorService {
             return holder.getSpecifications().contains(specification);
         }
         return false;
+    }
+
+    public Class resolveSpecificationClassByContext() {
+        LOG.debug("method invoked ");
+        TestContext testContext = getTestContextService().getCurrentTestContext();
+        Specification currentSpecification = testContext.getCurrentSpecificationContext().getSpecification();
+        LOG.info("Specification instance acquired [{}]", currentSpecification);
+
+        Class<?> resolvedClass;
+        if (currentSpecification.getTestClass() != null) {
+            LOG.info("Getting test class from specification");
+            resolvedClass = currentSpecification.getTestClass();
+        } else {
+            LOG.info("Getting test class from test");
+            resolvedClass = testContext.getTest().getDefaultTestClass();
+        }
+        LOG.debug("method finished");
+        return resolvedClass;
+    }
+
+    protected TestContextService getTestContextService() {
+        return new TestContextService();
     }
 
 

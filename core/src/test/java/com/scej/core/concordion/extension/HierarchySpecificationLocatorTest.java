@@ -1,8 +1,8 @@
 package com.scej.core.concordion.extension;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.Specification;
 import com.scej.core.config.Test;
+import com.scej.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.junit.Assert;
 
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
  * User: Fedorovaleks
  * Date: 16.03.14
  */
-public class HierarchySpecificationLocatorTest {
+public class HierarchySpecificationLocatorTest extends TestContextService {
 
     @org.junit.Test
     public void rootSpecificationResourceResolvingTest() {
@@ -31,7 +31,7 @@ public class HierarchySpecificationLocatorTest {
 
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
 
         HierarchySpecificationLocator locator = new HierarchySpecificationLocator();
@@ -40,7 +40,7 @@ public class HierarchySpecificationLocatorTest {
 
         Assert.assertEquals(specificationRealPath, resource.getPath());
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
     }
 
@@ -57,11 +57,11 @@ public class HierarchySpecificationLocatorTest {
 
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContext.createTestContext(test);
+        createNewTestContext(test);
 
         Resource parentSpecificationResource = new Resource("/some/path/to/parentSpec.html");
 
-        TestContext.getInstance().createNewSpecificationContext(parentSpecificationResource, specification);
+        getCurrentTestContext().createNewSpecificationContext(parentSpecificationResource, specification);
 
 
         HierarchySpecificationLocator locator = new HierarchySpecificationLocator();
@@ -70,9 +70,9 @@ public class HierarchySpecificationLocatorTest {
 
         Assert.assertEquals("/some/path/to/" + specificationRealPath, resource.getPath());
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
-        TestContext.getInstance().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
 
     }
 }

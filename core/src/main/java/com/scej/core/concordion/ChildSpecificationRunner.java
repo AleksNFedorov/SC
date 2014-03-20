@@ -1,7 +1,8 @@
 package com.scej.core.concordion;
 
-import com.scej.core.TestContext;
 import com.scej.core.config.*;
+import com.scej.core.context.TestContext;
+import com.scej.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
@@ -18,6 +19,13 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private static Logger LOG = LoggerFactory.getLogger(ChildSpecificationRunner.class);
 
+    private final TestContextService testContextService;
+
+
+    public ChildSpecificationRunner() {
+        testContextService = buildTestContextService();
+    }
+
     @Override
     public RunnerResult execute(Resource resource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]", href, resource);
@@ -25,7 +33,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             Specification specification = resolveSpecification(href);
 
             if (canRunSpecification(specification)) {
-                TestContext.getInstance().createNewSpecificationContext(resource, specification);
+                getCurrentTestContext().createNewSpecificationContext(resource, specification);
                 LOG.info("Test context created");
                 RunnerResult result = super.execute(resource, href);
                 LOG.info("Result is ready [{}]", result);
@@ -44,7 +52,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     private boolean canRunSpecification(Specification specification) {
         LOG.debug("method invoked [{}]");
         Suite currentSuite = SuiteConfiguration.getInstance().getSuite();
-        Test currentTest = TestContext.getInstance().getTest();
+        Test currentTest = getCurrentTestContext().getTest();
         return (specification != null &&
                 currentSuite.getThrownException() == null &&
                 currentTest.getThrownException() == null);
@@ -53,7 +61,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     public Specification resolveSpecification(String href) {
         LOG.debug("method invoked [{}]", href);
         Check.notNull(href, "Link to specification cna`t be null");
-        TestContext.SpecificationContext specificationContext = TestContext.getInstance().getCurrentSpecificationContext();
+        TestContext.SpecificationContext specificationContext = getCurrentTestContext().getCurrentSpecificationContext();
         Specification currentSpecification = specificationContext.getSpecification();
         Specification specByHref = SpecificationLocatorService.getService().getChildSpecificationByRealLocation(currentSpecification, href);
         LOG.info("Child specification has been resolved as [{}]", specByHref);
@@ -65,7 +73,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     protected Class<?> findTestClass(Resource resource, String href) throws ClassNotFoundException {
         LOG.debug("method invoked [{}], [{}]", resource, href);
         try {
-            return resolveSpecificationClassByContext();
+            return getSpecificationLocationService().resolveSpecificationClassByContext();
         } catch (RuntimeException ex) {
             LOG.error("Exception during test class specification lookup [{}]", ex.getMessage());
             throw ex;
@@ -74,20 +82,18 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         }
     }
 
-    public static Class resolveSpecificationClassByContext() {
-        LOG.debug("method invoked ");
-        Specification currentSpecification = TestContext.getInstance().getCurrentSpecificationContext().getSpecification();
-        LOG.info("Specification instance acquired [{}]", currentSpecification);
 
-        Class<?> resolvedClass;
-        if (currentSpecification.getTestClass() != null) {
-            LOG.info("Getting test class from specification");
-            resolvedClass = currentSpecification.getTestClass();
-        } else {
-            LOG.info("Getting test class from test");
-            resolvedClass = TestContext.getInstance().getTest().getDefaultTestClass();
-        }
-        LOG.debug("method finished");
-        return resolvedClass;
+    protected SpecificationLocatorService getSpecificationLocationService() {
+        return SpecificationLocatorService.getService();
     }
+
+
+    protected TestContext getCurrentTestContext() {
+        return testContextService.getCurrentTestContext();
+    }
+
+    protected TestContextService buildTestContextService() {
+        return new TestContextService();
+    }
+
 }

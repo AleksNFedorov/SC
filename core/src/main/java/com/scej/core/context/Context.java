@@ -1,4 +1,4 @@
-package com.scej.core;
+package com.scej.core.context;
 
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
