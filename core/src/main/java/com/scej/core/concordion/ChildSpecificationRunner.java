@@ -51,11 +51,15 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private boolean canRunSpecification(Specification specification) {
         LOG.debug("method invoked [{}]");
-        Suite currentSuite = SuiteConfiguration.getInstance().getSuite();
+        Suite currentSuite = getSuite();
         Test currentTest = getCurrentTestContext().getTest();
         return (specification != null &&
                 currentSuite.getThrownException() == null &&
                 currentTest.getThrownException() == null);
+    }
+
+    protected Suite getSuite() {
+        return SuiteConfiguration.getInstance().getSuite();
     }
 
     public Specification resolveSpecification(String href) {

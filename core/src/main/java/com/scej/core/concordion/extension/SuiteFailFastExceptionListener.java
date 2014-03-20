@@ -30,7 +30,7 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
 
     private void checkSuiteExceptions(Throwable exception) {
         LOG.debug("method invoked [{}]", exception);
-        Suite runningSuite = SuiteConfiguration.getInstance().getSuite();
+        Suite runningSuite = getSuite();
         LOG.info("Checking exceptions for running suite");
         if (isExceptionRegisteredInHolder(runningSuite, exception)) {
             runningSuite.setThrownException(exception);
@@ -38,6 +38,11 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         }
         LOG.debug("method finished");
     }
+
+    protected Suite getSuite() {
+        return SuiteConfiguration.getInstance().getSuite();
+    }
+
 
     private void checkTestExceptions(Throwable exception) {
         LOG.debug("method invoked [{}]", exception);
