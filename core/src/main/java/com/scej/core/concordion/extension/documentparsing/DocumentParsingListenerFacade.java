@@ -16,11 +16,13 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
     private final DocumentParsingListener childLinkUpdater;
     private final DocumentParsingListener substituteListener;
+    private final DocumentParsingListener registerGlobalsEnricher;
 
     public DocumentParsingListenerFacade() {
 
         childLinkUpdater = new ChildSpecificationLinkUpdater();
         substituteListener = new DictionarySubstitutionListener();
+        registerGlobalsEnricher = new RegisterGlobalsCommandDocumentEnricher();
 
         LOG.info("instance created");
 
@@ -38,6 +40,10 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
         childLinkUpdater.beforeParsing(document);
 
         LOG.info("chile link updater listener finished");
+
+        registerGlobalsEnricher.beforeParsing(document);
+
+        LOG.info("register globals enricher listener finished");
 
         LOG.debug("method finished");
     }

@@ -8,7 +8,7 @@ public interface ScejCommand {
 
     public enum CommandType {
         SetGlobalVariable("setGlobal"),
-        InitGlobalVariables("initGlobals");
+        RegisterGlobalVariables("registerGlobals");
 
         private String specificationCommand;
 

@@ -15,7 +15,7 @@ import static org.mockito.Mockito.spy;
  * User: Fedorovaleks
  * Date: 20.03.14
  */
-public class InitGlobalVariablesCommandTest {
+public class RegisterGlobalVariablesCommandTest {
 
     @Test
     public void initGlobalVariablesTest() {
@@ -28,7 +28,7 @@ public class InitGlobalVariablesCommandTest {
         globalTestContext.addGlobalVariable("#var2", "var2Value");
 
 
-        InitGlobalVariablesCommand initGlobalVariableCommand = spy(new InitGlobalVariablesCommand());
+        RegisterGlobalVariablesCommand initGlobalVariableCommand = spy(new RegisterGlobalVariablesCommand());
 
         doReturn(globalTestContext).when(initGlobalVariableCommand).getTestContext();
 

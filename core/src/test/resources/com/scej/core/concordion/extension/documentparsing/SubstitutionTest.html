@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<html xmlns:concordion="http://www.concordion.org/2007/concordion"
+      xmlns:concordionInner="http://www.concordion.org/2007/concordion">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
@@ -7,7 +8,7 @@
 
 <body>
 <b concordion:assertTrue="some method">${parameter1}</b>
-<b concordion:assertTrue="some method">${parameter1}-${parameter1}-${parameter2}</b>
+<b concordionInner:assertTrue="some method">${parameter1}-${parameter1}-${parameter2}</b>
 <br/>
 
 </body>
