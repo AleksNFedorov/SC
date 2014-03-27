@@ -1,4 +1,4 @@
-package com.scej.core.config;
+package com.scejtesting.core.config;
 
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;

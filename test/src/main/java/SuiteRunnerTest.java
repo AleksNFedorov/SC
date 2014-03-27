@@ -1,4 +1,4 @@
-import com.scej.core.runner.ScejSuiteRunner;
+import com.scejtesting.core.runner.ScejSuiteRunner;
 import org.junit.runner.RunWith;
 
 /**

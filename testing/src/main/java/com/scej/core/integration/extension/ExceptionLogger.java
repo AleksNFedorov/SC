@@ -1,4 +1,4 @@
-package com.scej.core.integration.extension;
+package com.scejtesting.core.integration.extension;
 
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;

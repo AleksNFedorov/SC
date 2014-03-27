@@ -1,7 +1,7 @@
 
-package com.scej.core.config;
+package com.scejtesting.core.config;
 
-import com.scej.core.WebCoreTest;
+import com.scejtesting.core.WebCoreTest;
 
 import javax.xml.bind.annotation.*;
 

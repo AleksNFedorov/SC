@@ -15,13 +15,15 @@
 Запущен браузер <b concordion:assertTrue="openBrowser(#TEXT)">Chrome</b>
 <br/>
 
-<a concordion:run="com.scej.core.integration.ChildTestRunner" href="MmcLogin.html">Авторизируемся на сайте
+<a concordion:run="com.scejtesting.core.integration.ChildTestRunner" href="MmcLogin.html">Авторизируемся на сайте
     ${mmc.url}</a>
 <hr/>
-<a concordion:run="com.scej.core.integration.ChildTestRunner" href="ru/MmcRU.html">Проверка русской локализации сайта
+<a concordion:run="com.scejtesting.core.integration.ChildTestRunner" href="ru/MmcRU.html">Проверка русской локализации
+    сайта
     ${mmc.url}</a>
 <hr/>
-<a concordion:run="com.scej.core.integration.ChildTestRunner" href="ua/MmcUA.html">Проверка украинской локализации сайта
+<a concordion:run="com.scejtesting.core.integration.ChildTestRunner" href="ua/MmcUA.html">Проверка украинской
+    локализации сайта
     ${mmc.url}</a>
 <hr/>
 

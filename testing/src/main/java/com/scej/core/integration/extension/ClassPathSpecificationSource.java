@@ -1,6 +1,6 @@
-package com.scej.core.integration.extension;
+package com.scejtesting.core.integration.extension;
 
-import com.scej.core.config.SpecificationLocatorService;
+import com.scejtesting.core.config.SpecificationLocatorService;
 import org.concordion.api.Resource;
 import org.concordion.internal.ClassPathSource;
 

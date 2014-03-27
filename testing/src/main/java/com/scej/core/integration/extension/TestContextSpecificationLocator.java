@@ -1,6 +1,6 @@
-package com.scej.core.integration.extension;
+package com.scejtesting.core.integration.extension;
 
-import com.scej.core.integration.GlobalTestContext;
+import com.scejtesting.core.integration.GlobalTestContext;
 import org.concordion.api.Resource;
 import org.concordion.api.SpecificationLocator;
 import org.concordion.internal.util.Check;

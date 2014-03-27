@@ -1,8 +1,8 @@
-package com.scej.core.runner;
+package com.scejtesting.core.runner;
 
-import com.scej.core.config.SuiteConfiguration;
-import com.scej.core.config.Test;
-import com.scej.core.integration.GlobalTestContext;
+import com.scejtesting.core.config.SuiteConfiguration;
+import com.scejtesting.core.config.Test;
+import com.scejtesting.core.integration.GlobalTestContext;
 import org.junit.runner.JUnitCore;
 
 /**

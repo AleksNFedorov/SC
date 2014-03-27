@@ -1,8 +1,8 @@
-package com.scej.core.config;
+package com.scejtesting.core.config;
 
-import com.scej.core.WebCoreTest;
-import com.scej.core.integration.ChildTestRunner;
-import com.scej.core.integration.GlobalTestContext;
+import com.scejtesting.core.WebCoreTest;
+import com.scejtesting.core.integration.ChildTestRunner;
+import com.scejtesting.core.integration.GlobalTestContext;
 import org.junit.Assert;
 import org.openqa.selenium.remote.RemoteWebDriver;
 

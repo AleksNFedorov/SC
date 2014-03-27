@@ -1,9 +1,9 @@
-package com.scej.core;
+package com.scejtesting.core;
 
-import com.scej.core.integration.GlobalTestContext;
-import com.scej.core.integration.extension.*;
-import com.scej.core.integration.extension.screenshot.ScreenShotWrapper;
-import com.scej.core.integration.extension.screenshot.SeleniumScreenshotTaker;
+import com.scejtesting.core.integration.GlobalTestContext;
+import com.scejtesting.core.integration.extension.*;
+import com.scejtesting.core.integration.extension.screenshot.ScreenShotWrapper;
+import com.scejtesting.core.integration.extension.screenshot.SeleniumScreenshotTaker;
 import org.concordion.api.FailFast;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;

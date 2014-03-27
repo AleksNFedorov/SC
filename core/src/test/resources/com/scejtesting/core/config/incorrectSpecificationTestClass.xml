@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+
+    <test>
+        <specification location="/HeadSpecification.html" testClass="com.scejtesting.core.CoreTestUnknown"/>
+    </test>
+
+
+</suite>

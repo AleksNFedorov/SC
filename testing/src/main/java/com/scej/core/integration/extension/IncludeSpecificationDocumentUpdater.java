@@ -1,8 +1,8 @@
-package com.scej.core.integration.extension;
+package com.scejtesting.core.integration.extension;
 
-import com.scej.core.config.Specification;
-import com.scej.core.config.SpecificationLocatorService;
-import com.scej.core.integration.GlobalTestContext;
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.SpecificationLocatorService;
+import com.scejtesting.core.integration.GlobalTestContext;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;

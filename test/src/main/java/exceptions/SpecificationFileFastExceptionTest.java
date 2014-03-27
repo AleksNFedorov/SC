@@ -1,7 +1,7 @@
 package exceptions;
 
-import com.scej.core.concordion.extension.ScejExtensions;
-import com.scej.core.runner.ScejSpecificationTestRunner;
+import com.scejtesting.core.concordion.extension.ScejExtensions;
+import com.scejtesting.core.runner.ScejSpecificationTestRunner;
 import org.concordion.api.extension.Extensions;
 import org.junit.runner.RunWith;
 

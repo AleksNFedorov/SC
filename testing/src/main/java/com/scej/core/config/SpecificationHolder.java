@@ -1,4 +1,4 @@
-package com.scej.core.config;
+package com.scejtesting.core.config;
 
 import java.util.List;
 

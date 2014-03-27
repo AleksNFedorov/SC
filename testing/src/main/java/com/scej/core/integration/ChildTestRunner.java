@@ -1,7 +1,7 @@
-package com.scej.core.integration;
+package com.scejtesting.core.integration;
 
-import com.scej.core.config.Specification;
-import com.scej.core.config.SpecificationLocatorService;
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.SpecificationLocatorService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;

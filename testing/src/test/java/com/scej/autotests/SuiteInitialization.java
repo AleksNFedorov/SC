@@ -1,8 +1,8 @@
-package com.scej.autotests;
+package com.scejtesting.autotests;
 
-import com.scej.core.WebCoreTest;
-import com.scej.core.config.SuiteConfiguration;
-import com.scej.core.config.Test;
+import com.scejtesting.core.WebCoreTest;
+import com.scejtesting.core.config.SuiteConfiguration;
+import com.scejtesting.core.config.Test;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

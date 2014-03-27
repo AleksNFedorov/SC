@@ -1,5 +1,5 @@
 
-package com.scej.core.config;
+package com.scejtesting.core.config;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -23,7 +23,7 @@
     <!--
 
         &lt;!&ndash; Specification file fase exception &ndash;&gt;
-        <test defaultTestClass="com.scej.core.CoreTest">
+        <test defaultTestClass="com.scejtestingtesting.core.CoreTest">
             <specification location="/HeadSpecification.html">
                 <includes>
                     <specification location="SpecificationOne.html"/>
@@ -33,7 +33,7 @@
         </test>
 
         &lt;!&ndash; Test fail fast exceptions &ndash;&gt;
-        <test defaultTestClass="com.scej.core.CoreTest">
+        <test defaultTestClass="com.scejtestingtesting.core.CoreTest">
             <specification location="/HeadSpecification.html">
                 <includes>
                     <specification location="SpecificationOne.html"/>
@@ -44,7 +44,7 @@
 
 
         &lt;!&ndash; Suite fail fast exception &ndash;&gt;
-        <test defaultTestClass="com.scej.core.CoreTest">
+        <test defaultTestClass="com.scejtestingtesting.core.CoreTest">
             <specification location="/HeadSpecification.html">
                 <includes>
                     <specification location="SpecificationOne.html"/>

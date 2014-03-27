@@ -1,6 +1,6 @@
-package com.scej.autotests;
+package com.scejtesting.autotests;
 
-import com.scej.core.integration.extension.FileTargetWithDateTimePrefix;
+import com.scejtesting.core.integration.extension.FileTargetWithDateTimePrefix;
 import org.concordion.api.Resource;
 import org.concordion.internal.FileTarget;
 import org.junit.Assert;

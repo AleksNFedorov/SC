@@ -1,4 +1,4 @@
-package com.scej.core.integration.extension.screenshot;
+package com.scejtesting.core.integration.extension.screenshot;
 
 
 import org.concordion.ext.ScreenshotTaker;

@@ -1,4 +1,4 @@
-package com.scej.core;
+package com.scejtesting.core;
 
 import java.io.IOException;
 import java.util.Properties;

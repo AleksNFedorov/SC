@@ -1,4 +1,4 @@
-package com.scej.core;
+package com.scejtesting.core;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

@@ -1,4 +1,4 @@
-package com.scej.core.config;
+package com.scejtesting.core.config;
 
 import org.junit.Assert;
 import org.junit.Test;

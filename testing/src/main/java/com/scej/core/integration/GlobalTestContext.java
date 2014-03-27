@@ -1,7 +1,7 @@
-package com.scej.core.integration;
+package com.scejtesting.core.integration;
 
-import com.scej.core.config.Specification;
-import com.scej.core.config.Test;
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.Test;
 import org.apache.http.annotation.NotThreadSafe;
 import org.concordion.api.Resource;
 import org.concordion.internal.util.Check;
