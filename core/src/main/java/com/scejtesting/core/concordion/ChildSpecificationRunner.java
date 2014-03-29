@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
-    private static Logger LOG = LoggerFactory.getLogger(ChildSpecificationRunner.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ChildSpecificationRunner.class);
 
     private final TestContextService testContextService;
 
