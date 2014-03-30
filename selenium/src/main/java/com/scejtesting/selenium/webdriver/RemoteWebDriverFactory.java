@@ -62,7 +62,7 @@ public class RemoteWebDriverFactory {
         return builderService.getRemoteWebDriver();
     }
 
-    private RemoteWebDriverBuilderService createDriverBuilderService(String driverName) {
+    RemoteWebDriverBuilderService createDriverBuilderService(String driverName) {
         LOG.debug("method invoked");
 
         RemoteWebDriverBuilderService newDriverBuilderService = new RemoteWebDriverBuilderService(driverName);

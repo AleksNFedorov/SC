@@ -4,17 +4,18 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Properties;
 
 /**
  * Created by aleks on 27/3/14.
  */
-public final class RemoteWebDriverBuilderService {
+public class RemoteWebDriverBuilderService {
 
     public static final String DRIVER_PROPERTIES_FILE_SUFFIX = ".driver.properties";
+    public static final String DRIVER_DEFAULT_PROPERTIES_FILE_SUFFIX = ".driver.default.properties";
     private final static Logger LOG = LoggerFactory.getLogger(RemoteWebDriverBuilderService.class);
     private final Properties driverProperties = new Properties();
     private final String driverName;
@@ -67,11 +68,9 @@ public final class RemoteWebDriverBuilderService {
         String pathToPropertyFile = getDriverPropertyFilePath();
         LOG.debug("path to driver property file [{}]", pathToPropertyFile);
 
-        File driverPropertyFile = new File(pathToPropertyFile);
-
         try {
-            if (driverPropertyFile.exists()) {
-                driverProperties.load(new FileInputStream(driverPropertyFile));
+            if (pathToPropertyFile != null) {
+                driverProperties.load(new FileInputStream(pathToPropertyFile));
                 driverProperties.putAll(System.getProperties());
 
             } else {
@@ -90,12 +89,24 @@ public final class RemoteWebDriverBuilderService {
 
     private String getDriverPropertyFilePath() {
         String driverPropertyFile = getDriverName() + DRIVER_PROPERTIES_FILE_SUFFIX;
-        String pathToDriverPropertyFiles = System.getProperty(driverPropertyFile);
-        if (pathToDriverPropertyFiles != null) {
-            LOG.info("Driver [{}] property file path [{}] has been fetched from system property", getDriverName(), pathToDriverPropertyFiles);
-            return pathToDriverPropertyFiles;
+        String pathToDriverPropertyFile = System.getProperty(driverPropertyFile);
+        if (pathToDriverPropertyFile != null) {
+            LOG.info("Driver [{}] property file path [{}] has been fetched from system property", getDriverName(), pathToDriverPropertyFile);
+            return pathToDriverPropertyFile;
+        } else {
+            if (getClass().getClassLoader().getResource(driverPropertyFile) != null) {
+                pathToDriverPropertyFile = getClass().getClassLoader().getResource(driverPropertyFile).getFile();
+                LOG.info("Driver [{}] property file found in class path [{}]", getDriverName(), pathToDriverPropertyFile);
+                return pathToDriverPropertyFile;
+            }
         }
-        return getClass().getClassLoader().getResource(driverPropertyFile).getFile();
+
+        LOG.info("No driver [{}] property files found, default will be used", getDriverName());
+
+        URL defaultPropertyFileURL = getClass().getClassLoader().getResource(getDriverName() + DRIVER_DEFAULT_PROPERTIES_FILE_SUFFIX);
+
+        return defaultPropertyFileURL == null ? null : defaultPropertyFileURL.getFile();
+
     }
 
     public RemoteWebDriver getRemoteWebDriver() {
