@@ -20,6 +20,34 @@ public class RemoteWebDriverFactoryTest {
 
     }
 
+    @Test
+    public void incorrectDriverName() {
+
+        RemoteWebDriverFactory factory = new RemoteWebDriverFactory();
+
+        try {
+            factory.buildRemoteWebDriver("#incorrectDrvierName");
+            Assert.fail("Incorrect driver name exception expected");
+        } catch (RuntimeException ex) {
+
+        }
+
+        try {
+            factory.buildRemoteWebDriver(null);
+            Assert.fail("Incorrect driver name exception expected");
+        } catch (RuntimeException ex) {
+
+        }
+
+        try {
+            factory.buildRemoteWebDriver("");
+            Assert.fail("Incorrect driver name exception expected");
+        } catch (RuntimeException ex) {
+
+        }
+
+    }
+
 
     @Test
     public void positiveFlowTest() {

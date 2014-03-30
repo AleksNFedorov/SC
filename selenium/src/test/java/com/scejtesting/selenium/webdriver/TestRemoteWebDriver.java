@@ -33,6 +33,11 @@ public class TestRemoteWebDriver extends RemoteWebDriver {
         this.properties = properties;
     }
 
+    @Override
+    public void quit() {
+
+    }
+
     public int getGetCapabilitiesInvokedTimes() {
         return getCapabilitiesInvokedTimes;
     }

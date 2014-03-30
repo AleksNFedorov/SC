@@ -46,6 +46,7 @@ public class RemoteWebDriverFactory {
         LOG.debug("method invoked");
 
         Check.notEmpty(driverName, "Driver name can't be empty");
+        Check.isTrue(!driverName.startsWith("#"), "Driver name should not start with [#] symbol");
 
 
         RemoteWebDriverBuilderService builderService = allDriverBuilderServices.get(driverName);
