@@ -20,7 +20,7 @@ public class RegisterGlobalsCommandDocumentEnricherTest {
     @Test
     public void positiveFlow() throws IOException {
         String pathToSpecification = getClass().getClassLoader().
-                getResource("com/scej/core/concordion/extension/documentparsing/RegisterGlobalsTest.html").getFile();
+                getResource("com/scejtesting/core/concordion/extension/documentparsing/RegisterGlobalsTest.html").getFile();
 
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecification));
 
@@ -41,7 +41,7 @@ public class RegisterGlobalsCommandDocumentEnricherTest {
     @Test
     public void registerGlobalsNoBody() throws IOException {
         String pathToSpecification = getClass().getClassLoader().
-                getResource("com/scej/core/concordion/extension/documentparsing/RegisterGlobalsNoBodyTest.html").getFile();
+                getResource("com/scejtesting/core/concordion/extension/documentparsing/RegisterGlobalsNoBodyTest.html").getFile();
 
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecification));
 

@@ -1,10 +1,13 @@
 package com.scejtesting.core;
 
 import com.scejtesting.core.concordion.ChildSpecificationRunnerTest;
+import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommandTest;
+import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
 import com.scejtesting.core.concordion.extension.FileTargetWithDateTimePrefixTest;
 import com.scejtesting.core.concordion.extension.HierarchySpecificationLocatorTest;
 import com.scejtesting.core.concordion.extension.SuiteFailFastExceptionListenerTest;
 import com.scejtesting.core.concordion.extension.documentparsing.DictionarySubstitutionListenerTest;
+import com.scejtesting.core.concordion.extension.documentparsing.RegisterGlobalsCommandDocumentEnricherTest;
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
 import com.scejtesting.core.config.SpecificationTest;
 import com.scejtesting.core.config.SuiteInitialization;
@@ -25,7 +28,10 @@ import org.junit.runners.Suite;
         HierarchySpecificationLocatorTest.class,
         FileTargetWithDateTimePrefixTest.class,
         DictionarySubstitutionListenerTest.class,
-        SuiteFailFastExceptionListenerTest.class
+        SuiteFailFastExceptionListenerTest.class,
+        RegisterGlobalsCommandDocumentEnricherTest.class,
+        SetGlobalCommandTest.class,
+        RegisterGlobalVariablesCommandTest.class
 })
 public class AllTestsSuite {
 

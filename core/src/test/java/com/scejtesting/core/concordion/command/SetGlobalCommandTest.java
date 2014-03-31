@@ -6,7 +6,6 @@ import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.internal.SimpleEvaluatorFactory;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Map;
@@ -28,7 +27,6 @@ public class SetGlobalCommandTest {
     }
 
 
-    @Ignore
     @Test
     public void coreFuncValueTest() {
 
