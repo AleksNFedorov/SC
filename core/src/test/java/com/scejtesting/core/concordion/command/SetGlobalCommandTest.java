@@ -68,7 +68,7 @@ public class SetGlobalCommandTest {
         when(commandCall.getExpression()).thenReturn("#var1=getValue()");
         when(commandCall.getElement()).thenReturn(specificationElement);
 
-        SetGlobalCommand setGlobalCommand = spy(new SetGlobalCommand());
+        SetGlobalVariableCommand setGlobalCommand = spy(new SetGlobalVariableCommand());
 
         doReturn(globalTestContext).when(setGlobalCommand).getTestContext();
 
@@ -100,7 +100,7 @@ public class SetGlobalCommandTest {
         when(commandCall.getExpression()).thenReturn("#var1");
         when(commandCall.getElement()).thenReturn(specificationElement);
 
-        SetGlobalCommand setGlobalCommand = spy(new SetGlobalCommand());
+        SetGlobalVariableCommand setGlobalCommand = spy(new SetGlobalVariableCommand());
 
         doReturn(globalTestContext).when(setGlobalCommand).getTestContext();
 
