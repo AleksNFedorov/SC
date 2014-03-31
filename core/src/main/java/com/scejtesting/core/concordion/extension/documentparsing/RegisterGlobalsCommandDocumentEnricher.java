@@ -1,6 +1,6 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
-import com.scejtesting.core.concordion.command.ScejCommand;
+import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommand;
 import com.scejtesting.core.runner.ScejSuiteRunner;
 import nu.xom.Attribute;
 import nu.xom.Document;
@@ -33,7 +33,7 @@ public class RegisterGlobalsCommandDocumentEnricher implements DocumentParsingLi
     private Element buildGlobalIntiCommandElement() {
         Element registerGlobalsCommandElement = new Element("div");
         Attribute registerGlobalsAttribute = new Attribute(
-                ScejCommand.CommandType.RegisterGlobalVariables.getSpecificationCommand(), "");
+                new RegisterGlobalVariablesCommand().getCommandType(), "");
 
         registerGlobalsAttribute.setNamespace(REGISTER_GLOBALS_DEFAULT_NAMESPACE, ScejSuiteRunner.SCEJ_TESTING_NAME_SPACE);
         registerGlobalsCommandElement.addAttribute(registerGlobalsAttribute);

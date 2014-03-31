@@ -17,6 +17,7 @@ import java.util.Map;
  */
 public class RegisterGlobalVariablesCommand extends AbstractCommand implements ScejCommand {
 
+    public static final String COMMAND_NAME = "registerGlobals";
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
 
 
@@ -44,7 +45,7 @@ public class RegisterGlobalVariablesCommand extends AbstractCommand implements S
     }
 
     @Override
-    public CommandType getCommandType() {
-        return CommandType.RegisterGlobalVariables;
+    public String getCommandType() {
+        return COMMAND_NAME;
     }
 }
