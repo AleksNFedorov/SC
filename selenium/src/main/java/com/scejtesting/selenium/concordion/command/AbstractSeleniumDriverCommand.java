@@ -1,7 +1,7 @@
 package com.scejtesting.selenium.concordion.command;
 
 import com.scejtesting.core.concordion.command.ScejCommand;
-import com.scejtesting.selenium.SeleniumCoreTestHelper;
+import com.scejtesting.selenium.SeleniumDriverManagerService;
 import org.concordion.api.AbstractCommand;
 import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
@@ -17,7 +17,7 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
 
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    protected final SeleniumCoreTestHelper seleniumHelper = buildHelper();
+    protected final SeleniumDriverManagerService seleniumDriverManagerService = getDriverManerService();
 
     protected abstract void processDriverCommand(String driverName);
 
@@ -30,7 +30,7 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
         processDriverCommand(driverName);
     }
 
-    protected SeleniumCoreTestHelper buildHelper() {
-        return new SeleniumCoreTestHelper();
+    protected SeleniumDriverManagerService getDriverManerService() {
+        return new SeleniumDriverManagerService();
     }
 }

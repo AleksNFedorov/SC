@@ -9,7 +9,7 @@ public class QuiteDriverCommand extends AbstractSeleniumDriverCommand {
 
     @Override
     protected void processDriverCommand(String driverName) {
-        seleniumHelper.quitDriver(driverName);
+        seleniumDriverManagerService.quitDriver(driverName);
     }
 
     @Override

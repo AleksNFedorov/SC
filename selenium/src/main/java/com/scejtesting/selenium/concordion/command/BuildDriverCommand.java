@@ -8,7 +8,7 @@ public class BuildDriverCommand extends AbstractSeleniumDriverCommand {
 
     @Override
     protected void processDriverCommand(String driverName) {
-        seleniumHelper.buildDriver(driverName);
+        seleniumDriverManagerService.buildDriver(driverName);
     }
 
     @Override

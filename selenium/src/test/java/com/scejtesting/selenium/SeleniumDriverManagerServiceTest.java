@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by aleks on 30/3/14.
  */
-public class SeleniumCoreTestTest {
+public class SeleniumDriverManagerServiceTest {
 
     @BeforeClass
     public static void init() {
@@ -39,7 +39,7 @@ public class SeleniumCoreTestTest {
 
         when(driverFactory.buildRemoteWebDriver(anyString())).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
-        SeleniumCoreTest test = spy(new SeleniumCoreTest());
+        SeleniumDriverManagerService test = spy(new SeleniumDriverManagerService());
 
         doReturn(driverFactory).when(test).buildRemoteWebDriverFactory();
 
@@ -89,7 +89,7 @@ public class SeleniumCoreTestTest {
 
         when(driverFactory.buildRemoteWebDriver(anyString())).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
-        SeleniumCoreTest test = spy(new SeleniumCoreTest());
+        SeleniumDriverManagerService test = spy(new SeleniumDriverManagerService());
 
         doReturn(driverFactory).when(test).buildRemoteWebDriverFactory();
 
@@ -104,7 +104,7 @@ public class SeleniumCoreTestTest {
     @org.junit.Test(expected = RuntimeException.class)
     public void unknownDriver() {
 
-        SeleniumCoreTest test = new SeleniumCoreTest();
+        SeleniumDriverManagerService test = new SeleniumDriverManagerService();
 
         test.buildDriver("someUnknown driver" + System.currentTimeMillis());
 
@@ -113,7 +113,7 @@ public class SeleniumCoreTestTest {
     @org.junit.Test(expected = RuntimeException.class)
     public void incorrectCurrentDriver() {
 
-        SeleniumCoreTest test = new SeleniumCoreTest();
+        SeleniumDriverManagerService test = new SeleniumDriverManagerService();
 
         test.setCurrentDriver("someUnknown driver" + System.currentTimeMillis());
     }
@@ -121,7 +121,7 @@ public class SeleniumCoreTestTest {
     @org.junit.Test
     public void notRegisteredDriver() {
 
-        SeleniumCoreTest test = new SeleniumCoreTest();
+        SeleniumDriverManagerService test = new SeleniumDriverManagerService();
 
         Assert.assertNull(test.getCurrentDriver());
         Assert.assertNull(test.getDriver("someUnregisteredDriver"));
@@ -133,7 +133,7 @@ public class SeleniumCoreTestTest {
 
         when(driverFactory.buildRemoteWebDriver(anyString())).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
-        SeleniumCoreTest test = spy(new SeleniumCoreTest());
+        SeleniumDriverManagerService test = spy(new SeleniumDriverManagerService());
 
         doReturn(driverFactory).when(test).buildRemoteWebDriverFactory();
 

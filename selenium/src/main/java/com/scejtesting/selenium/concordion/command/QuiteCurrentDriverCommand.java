@@ -8,6 +8,6 @@ public class QuiteCurrentDriverCommand extends QuiteDriverCommand {
 
     @Override
     protected void processDriverCommand(String driverName) {
-        seleniumHelper.quitCurrentDriver();
+        seleniumDriverManagerService.quitCurrentDriver();
     }
 }

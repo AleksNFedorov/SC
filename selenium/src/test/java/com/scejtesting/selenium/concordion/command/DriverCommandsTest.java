@@ -2,7 +2,7 @@ package com.scejtesting.selenium.concordion.command;
 
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.selenium.SeleniumCoreTestHelper;
+import com.scejtesting.selenium.SeleniumDriverManagerService;
 import com.scejtesting.selenium.webdriver.DriverType;
 import com.scejtesting.selenium.webdriver.TestRemoteWebDriver;
 import org.concordion.api.CommandCall;
@@ -50,7 +50,7 @@ public class DriverCommandsTest {
 
         buildDriverCommand.setUp(commandCall, null, null);
 
-        SeleniumCoreTestHelper helper = new SeleniumCoreTestHelper();
+        SeleniumDriverManagerService helper = new SeleniumDriverManagerService();
 
         TestRemoteWebDriver driverByName = (TestRemoteWebDriver) helper.getDriver(TEST_DRIVER);
         TestRemoteWebDriver currentDriver = (TestRemoteWebDriver) helper.getCurrentDriver();
@@ -70,7 +70,7 @@ public class DriverCommandsTest {
         when(commandCall.hasChildCommands()).thenReturn(Boolean.FALSE);
         when(commandCall.getExpression()).thenReturn(TEST_DRIVER);
 
-        SeleniumCoreTestHelper helper = new SeleniumCoreTestHelper();
+        SeleniumDriverManagerService helper = new SeleniumDriverManagerService();
 
         helper.buildDriver(TEST_DRIVER);
 
@@ -96,7 +96,7 @@ public class DriverCommandsTest {
         when(commandCall.hasChildCommands()).thenReturn(Boolean.FALSE);
         when(commandCall.getExpression()).thenReturn(TEST_DRIVER);
 
-        SeleniumCoreTestHelper helper = new SeleniumCoreTestHelper();
+        SeleniumDriverManagerService helper = new SeleniumDriverManagerService();
 
         helper.buildDriver(TEST_DRIVER);
 
@@ -122,7 +122,7 @@ public class DriverCommandsTest {
         when(commandCall.hasChildCommands()).thenReturn(Boolean.FALSE);
         when(commandCall.getExpression()).thenReturn(TEST_DRIVER_2);
 
-        SeleniumCoreTestHelper helper = new SeleniumCoreTestHelper();
+        SeleniumDriverManagerService helper = new SeleniumDriverManagerService();
 
         helper.buildDriver(TEST_DRIVER_2);
         helper.buildDriver(TEST_DRIVER);

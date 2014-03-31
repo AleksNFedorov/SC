@@ -8,7 +8,7 @@ public class SetCurrentDriverCommand extends AbstractSeleniumDriverCommand {
 
     @Override
     protected void processDriverCommand(String driverName) {
-        seleniumHelper.setCurrentDriver(driverName);
+        seleniumDriverManagerService.setCurrentDriver(driverName);
     }
 
     @Override

@@ -14,18 +14,18 @@ import java.util.TreeMap;
 /**
  * Created by aleks on 27/3/14.
  */
-public class SeleniumCoreTestHelper {
+public class SeleniumDriverManagerService {
 
     public static final String DRIVER_REGISTRY_ATTRIBUTE = "#SELENIUM_OPEN_DRIVERS_REGISTRY";
     public static final String CURRENT_DRIVER = "#SELENIUM_CURRENT";
     public static final String DRIVER_FACTORY = "#SELENIUM_DRIVER_FACTORY";
 
-    private final static Logger LOG = LoggerFactory.getLogger(SeleniumCoreTestHelper.class);
+    private final static Logger LOG = LoggerFactory.getLogger(SeleniumDriverManagerService.class);
 
     private final RemoteWebDriverFactory driverFactory;
     private final TestContextService testContextService;
 
-    public SeleniumCoreTestHelper() {
+    public SeleniumDriverManagerService() {
         testContextService = buildTestContextService();
         driverFactory = getOrBuildRemoteWebDriverFactory();
     }
