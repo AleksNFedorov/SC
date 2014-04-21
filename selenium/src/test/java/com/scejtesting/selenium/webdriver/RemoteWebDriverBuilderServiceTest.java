@@ -1,5 +1,6 @@
 package com.scejtesting.selenium.webdriver;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -78,6 +79,13 @@ public class RemoteWebDriverBuilderServiceTest {
 
         RemoteWebDriverBuilderService builderService = new RemoteWebDriverBuilderService("fakedriver");
         builderService.init();
+    }
+
+    @AfterClass
+    public static void cleanTest() {
+
+        System.clearProperty("fakedriver" + RemoteWebDriverBuilderService.DRIVER_PROPERTIES_FILE_SUFFIX);
+
     }
 
 }

@@ -39,7 +39,7 @@ public class ChildSpecificationLinkUpdaterTest extends TestContextService {
 
 
         String pathToSpecificationFile = getClass().getClassLoader().
-                getResource("com/scej/core/concordion/extension/HeadSpecification.html").getFile();
+                getResource("com/scejtesting/core/concordion/extension/HeadSpecification.html").getFile();
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecificationFile));
 
         new ChildSpecificationLinkUpdater().beforeParsing(parsedDocument);
