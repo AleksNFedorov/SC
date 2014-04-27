@@ -1,0 +1,6 @@
+<div>
+    SUCCESS - [$SUCCESS]
+    FAILURE - [$FAILURE]
+    EXCEPTION - [$EXCEPTION]
+    IGNORED - [$IGNORED]
+</div>
