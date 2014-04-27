@@ -52,17 +52,9 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
         dictionarySubstitutionListener.beforeParsing(parsedDocument);
 
-/*
-        Nodes allHrefNodes = parsedDocument.query("//a[@href]");
-
-        for (int i = 0; i < allHrefNodes.size(); ++i) {
-            Element currentNode = (Element) allHrefNodes.get(i);
-            Attribute hrefAttribute = currentNode.getAttribute("href");
-            Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(hrefAttribute.getValue()));
-        }
-*/
-
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
     }
+
+
 }

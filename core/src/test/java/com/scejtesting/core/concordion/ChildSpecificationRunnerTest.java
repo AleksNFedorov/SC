@@ -2,6 +2,7 @@ package com.scejtesting.core.concordion;
 
 import com.scejtesting.core.CoreTest;
 import com.scejtesting.core.config.*;
+import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
@@ -18,6 +19,46 @@ import static org.mockito.Mockito.*;
  */
 public class ChildSpecificationRunnerTest extends TestContextService {
 
+    @org.junit.Test
+    public void saveResultOnException() throws Exception {
+
+        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
+
+        Suite suite = mock(Suite.class);
+        when(suite.getThrownException()).thenReturn(null);
+
+        Specification specification = mock(Specification.class);
+
+        Test test = mock(Test.class);
+        when(test.getThrownException()).thenReturn(null);
+        when(test.getSpecification()).thenReturn(specification);
+        doThrow((new IllegalStateException("Thrown for test purpose"))).when(runner).executeSpecification(eq(specification),
+                any(Resource.class), anyString());
+
+
+        TestContextService testContextService = new TestContextService();
+        testContextService.createNewTestContext(test);
+
+        doReturn(specification).when(runner).resolveSpecification(anyString());
+        doReturn(suite).when(runner).getSuite();
+
+
+        try {
+            runner.execute(new Resource("/somePath"), "Some href");
+            Assert.fail();
+        } catch (IllegalStateException ex) {
+
+        }
+
+        SpecificationResultRegistry registry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+
+
+        Assert.assertEquals(1, (int) registry.getResultsAmount(Result.EXCEPTION));
+
+
+        testContextService.destroyTestContext();
+
+    }
 
     @org.junit.Test
     public void positiveFlow() throws Exception {
@@ -49,8 +90,11 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(successResult, executionResult);
 
+        SpecificationResultRegistry registry = testContextService.getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
-        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+        Assert.assertEquals(1, (int) registry.getResultsAmount(successResult.getResult()));
+
+        testContextService.destroyTestContext();
     }
 
     @org.junit.Test
@@ -84,8 +128,11 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
+        SpecificationResultRegistry registry = testContextService.getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
-        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+        Assert.assertEquals(1, (int) registry.getResultsAmount(executionResult.getResult()));
+
+        testContextService.destroyTestContext();
 
     }
 
@@ -120,7 +167,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
 
-        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+        testContextService.destroyTestContext();
     }
 
     @org.junit.Test
@@ -155,7 +202,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
 
-        testContextService.getCurrentTestContext().destroyCurrentSpecificationContext();
+        testContextService.destroyTestContext();
 
     }
 
@@ -179,7 +226,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(childSpecificationOrig, specification.getLocation());
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
     }
 
 
@@ -216,7 +263,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         currentSpec = testRunner.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
 
     }
@@ -262,7 +309,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(specLocationForTest, currentSpec.getLocation());
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
     }
 
 
@@ -305,7 +352,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         currentSpec = testRunner.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
     }
 
     @org.junit.Test
@@ -325,7 +372,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(String.class, testClass);
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
     }
 
@@ -346,7 +393,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Integer.class, testClass);
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
     }
 

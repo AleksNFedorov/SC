@@ -18,7 +18,9 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
     private final DocumentParsingListener substituteListener;
     private final DocumentParsingListener registerGlobalsEnricher;
 
+
     public DocumentParsingListenerFacade() {
+
 
         childLinkUpdater = new ChildSpecificationLinkUpdater();
         substituteListener = new DictionarySubstitutionListener();
@@ -47,4 +49,6 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
         LOG.debug("method finished");
     }
+
+
 }

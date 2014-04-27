@@ -40,7 +40,7 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
 
         Assert.assertEquals(specificationRealPath, resource.getPath());
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
     }
 
@@ -72,7 +72,7 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
 
         getCurrentTestContext().destroyCurrentSpecificationContext();
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
     }
 }

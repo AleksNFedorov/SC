@@ -1,8 +1,7 @@
-package com.scejtesting.core;
+package com.scejtesting.core.context;
 
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
-import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.junit.Assert;
 
@@ -29,7 +28,7 @@ public class TestContextTest extends TestContextService {
 
         }
         Assert.assertNotNull(getCurrentTestContext());
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
         Assert.assertNull(getCurrentTestContext());
     }
 
@@ -39,12 +38,47 @@ public class TestContextTest extends TestContextService {
         when(fakeTest.getSpecification()).thenReturn(new Specification());
 
         createNewTestContext(fakeTest);
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+
+        destroyTestContext();
         createNewTestContext(fakeTest);
 
         Assert.assertNotNull(getCurrentTestContext());
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
         Assert.assertNull(getCurrentTestContext());
+
+    }
+
+
+    @org.junit.Test
+    public void incorrectDestroy() {
+
+
+        Test fakeTest = mock(Test.class);
+        when(fakeTest.getSpecification()).thenReturn(new Specification());
+
+        createNewTestContext(fakeTest);
+        try {
+            getCurrentTestContext().destroyCurrentSpecificationContext();
+            Assert.fail("incorrect destroy exception expected");
+        } catch (RuntimeException ex) {
+
+        }
+
+
+        getCurrentTestContext().createNewSpecificationContext(new Resource("/path"), new Specification());
+
+        try {
+            destroyTestContext();
+            Assert.fail("Incorrect destroy exception expected");
+        } catch (RuntimeException ex) {
+
+        }
+
+        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
+
+        Assert.assertNull(getCurrentTestContext());
+
 
     }
 
@@ -68,7 +102,7 @@ public class TestContextTest extends TestContextService {
         getCurrentTestContext().destroyCurrentSpecificationContext();
 
         Assert.assertNotNull(getCurrentTestContext());
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
         Assert.assertNull(getCurrentTestContext());
 
     }
@@ -92,7 +126,7 @@ public class TestContextTest extends TestContextService {
         }
 
         Assert.assertNotNull(getCurrentTestContext());
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
         Assert.assertNull(getCurrentTestContext());
 
     }

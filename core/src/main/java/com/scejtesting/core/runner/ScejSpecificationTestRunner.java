@@ -1,5 +1,6 @@
 package com.scejtesting.core.runner;
 
+import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.notification.RunNotifier;
@@ -21,8 +22,22 @@ public class ScejSpecificationTestRunner extends ConcordionRunner {
         try {
             super.runChild(method, notifier);
         } finally {
-            buildTestContextService().getCurrentTestContext().destroyCurrentSpecificationContext();
+            completeSpecExecution();
         }
+    }
+
+    private void completeSpecExecution() {
+        TestContextService service = buildTestContextService();
+
+        SpecificationResultRegistry finishedSpecificationRegistry = service.getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+
+        buildTestContextService().getCurrentTestContext().destroyCurrentSpecificationContext();
+
+        SpecificationResultRegistry parentSpecificationRegistry = service.getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+
+        parentSpecificationRegistry.addAll(finishedSpecificationRegistry);
+
+
     }
 
     protected TestContextService buildTestContextService() {

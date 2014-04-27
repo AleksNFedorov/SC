@@ -31,20 +31,29 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         LOG.debug("method invoked [{}], [{}]", href, resource);
         Check.notNull(href, "Link to specification cna`t be null");
 
+        RunnerResult result = null;
+
         try {
             Specification specification = resolveSpecification(href);
 
+
             if (canRunSpecification(specification)) {
-                return executeSpecification(specification,
+                result = executeSpecification(specification,
                         resource,
                         href);
             } else {
-                return new RunnerResult(Result.IGNORED);
+                result = new RunnerResult(Result.IGNORED);
             }
+
+            LOG.debug("Specification [{}] execution result [{}]", specification, result.getResult());
+
+            return result;
         } catch (RuntimeException ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
+            result = new RunnerResult(Result.EXCEPTION);
             throw ex;
         } finally {
+            getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry().addResult(result);
             LOG.debug("method finished");
         }
     }
@@ -55,6 +64,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         LOG.info("Test context created");
         RunnerResult result = super.execute(specificationResource, href);
         LOG.info("Result is ready [{}]", result);
+
+        getCurrentTestContext().destroyCurrentSpecificationContext();
         return result;
     }
 

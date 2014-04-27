@@ -48,6 +48,16 @@ public class TestContext extends Context {
         return inst;
     }
 
+    public static void destroyTestContext() {
+        LOG.debug("method invoked");
+        Check.notNull(inst, "There is not active test context");
+        Check.isTrue(inst.contextStack.size() == 1, "Attempt to destroy non root context, use [destroyCurrentSpecificationContext] instead");
+        inst.contextStack.pop();
+        LOG.info("Top level specification context has been destroyed, destorying global context");
+        inst = null;
+        LOG.debug("method finished");
+    }
+
     private void createTopLevelTestContext() {
         LOG.debug("method invoked");
         contextStack.push(new SpecificationContext(null, test.getSpecification()));
@@ -78,12 +88,8 @@ public class TestContext extends Context {
 
     public void destroyCurrentSpecificationContext() {
         LOG.debug("method invoked");
+        Check.isTrue(contextStack.size() > 1, "Attempt to destroy root test context");
         contextStack.pop();
-        if (contextStack.size() == 0) {
-            LOG.info("Top level specification context has been destroyed, destorying global context");
-            inst = null;
-        }
-
         LOG.debug("context stack has been updated [{}]", contextStack.size());
         LOG.debug("method finished");
     }
@@ -98,6 +104,7 @@ public class TestContext extends Context {
     public class SpecificationContext {
         private final Resource currentTestResource;
         private final Specification specification;
+        private final SpecificationResultRegistry resultRegistry;
 
         private SpecificationContext(Resource currentTestResource, Specification specification) {
             LOG.debug("constructor invoked [{}], [{}]", currentTestResource, specification);
@@ -105,6 +112,7 @@ public class TestContext extends Context {
 
             this.currentTestResource = currentTestResource;
             this.specification = specification;
+            resultRegistry = new SpecificationResultRegistry();
         }
 
         public Resource getCurrentTestResource() {
@@ -113,6 +121,10 @@ public class TestContext extends Context {
 
         public Specification getSpecification() {
             return specification;
+        }
+
+        public SpecificationResultRegistry getResultRegistry() {
+            return resultRegistry;
         }
 
         @Override

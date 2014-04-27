@@ -15,4 +15,8 @@ public class TestContextService {
     public void createNewTestContext(Test test) {
         TestContext.createTestContext(test);
     }
+
+    public void destroyTestContext() {
+        TestContext.destroyTestContext();
+    }
 }

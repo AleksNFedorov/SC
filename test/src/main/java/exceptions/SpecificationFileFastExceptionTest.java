@@ -1,15 +1,15 @@
 package exceptions;
 
 import com.scejtesting.core.concordion.extension.ScejCoreExtensions;
-import com.scejtesting.core.runner.ScejSpecificationTestRunner;
 import org.concordion.api.extension.Extensions;
+import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.RunWith;
 
 /**
  * User: Fedorovaleks
  * Date: 17.03.14
  */
-@RunWith(ScejSpecificationTestRunner.class)
+@RunWith(ConcordionRunner.class)
 @Extensions(value = ScejCoreExtensions.class)
 public class SpecificationFileFastExceptionTest extends CoreExceptionTest {
 

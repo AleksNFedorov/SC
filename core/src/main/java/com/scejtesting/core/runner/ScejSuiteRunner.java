@@ -75,8 +75,13 @@ public class ScejSuiteRunner extends Runner {
     }
 
     protected void runTest(Test testToRun) {
-        buildTestContextService().createNewTestContext(testToRun);
+        TestContextService testContextService = buildTestContextService();
+
+        testContextService.createNewTestContext(testToRun);
+
         JUnitCore.runClasses(getSpecificationLocationService().resolveSpecificationClassByContext());
+
+        testContextService.destroyTestContext();
     }
 
     protected SpecificationLocatorService getSpecificationLocationService() {

@@ -11,6 +11,8 @@ import com.scejtesting.core.concordion.extension.documentparsing.RegisterGlobals
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
 import com.scejtesting.core.config.SpecificationTest;
 import com.scejtesting.core.config.SuiteInitialization;
+import com.scejtesting.core.context.SpecificationResultRegistryTest;
+import com.scejtesting.core.context.TestContextTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -31,7 +33,8 @@ import org.junit.runners.Suite;
         SuiteFailFastExceptionListenerTest.class,
         RegisterGlobalsCommandDocumentEnricherTest.class,
         SetGlobalCommandTest.class,
-        RegisterGlobalVariablesCommandTest.class
+        RegisterGlobalVariablesCommandTest.class,
+        SpecificationResultRegistryTest.class,
 })
 public class AllTestsSuite {
 
