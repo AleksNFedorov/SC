@@ -78,10 +78,12 @@ public class ScejSuiteRunner extends Runner {
         TestContextService testContextService = buildTestContextService();
 
         testContextService.createNewTestContext(testToRun);
+        LOG.info("Test context created");
 
         JUnitCore.runClasses(getSpecificationLocationService().resolveSpecificationClassByContext());
 
         testContextService.destroyTestContext();
+        LOG.info("Test context destroyed");
     }
 
     protected SpecificationLocatorService getSpecificationLocationService() {

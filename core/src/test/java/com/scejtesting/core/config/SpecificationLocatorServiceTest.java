@@ -16,6 +16,13 @@ public class SpecificationLocatorServiceTest {
     }
 
     @Test
+    public void buildDefaultChildSpecification() {
+        Specification specification = new Specification("/rootSpecification.html");
+        Specification childSpecification = SpecificationLocatorService.getService().getChildSpecificationByRealLocation(specification, "childSpecification.html");
+        Assert.assertNull(childSpecification.getTestClass());
+    }
+
+    @Test
     public void buildUniqueSpecificationHREF() {
         Specification specification = new Specification("/rootSpecification.html");
         String specificationHref = SpecificationLocatorService.getService().buildUniqueSpecificationHREF(specification, "childSpecification.html");

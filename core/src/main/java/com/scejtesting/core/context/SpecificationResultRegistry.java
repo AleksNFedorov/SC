@@ -84,5 +84,10 @@ public class SpecificationResultRegistry {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "SpecificationResultRegistry{" +
+                "resultsMap=" + resultsMap +
+                '}';
+    }
 }

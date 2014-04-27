@@ -17,7 +17,16 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <logger name="com.scejtesting.core.concordion.ChildSpecificationRunner" level="debug">
+        <!--<appender-ref ref="STDOUT"/>-->
+    </logger>
+
+    <logger name="com.scejtesting.core.runner.ScejSuiteRunner" level="debug">
+        <!--<appender-ref ref="STDOUT"/>-->
+    </logger>
+
+
+    <root level="ERROR">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="develomentServerAppender"/>
     </root>

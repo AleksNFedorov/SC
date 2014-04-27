@@ -16,5 +16,6 @@ public class ScejCoreExtensions implements ConcordionExtension {
         concordionExtender.withDocumentParsingListener(new DocumentParsingListenerFacade());
         concordionExtender.withSource(new ClassPathSpecificationSource());
         concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
+        concordionExtender.withSpecificationProcessingListener(new ResultsRenderer());
     }
 }

@@ -108,6 +108,7 @@ public class SpecificationLocatorService {
         } else {
             if (specification.getIncludes() == null) {
                 LOG.info("No includes branch and spec is not excluded, default spec returned");
+                defaultSpecification.init();
                 return defaultSpecification;
             }
         }

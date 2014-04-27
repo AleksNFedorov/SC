@@ -1,6 +1,7 @@
 package com.scejtesting.core.concordion;
 
 import com.scejtesting.core.config.*;
+import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
@@ -21,6 +22,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private final TestContextService testContextService;
 
+    private boolean contextCreated;
+
 
     public ChildSpecificationRunner() {
         testContextService = buildTestContextService();
@@ -32,6 +35,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         Check.notNull(href, "Link to specification cna`t be null");
 
         RunnerResult result = null;
+        contextCreated = false;
 
         try {
             Specification specification = resolveSpecification(href);
@@ -53,20 +57,47 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             result = new RunnerResult(Result.EXCEPTION);
             throw ex;
         } finally {
-            getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry().addResult(result);
+            destroyContextAndPopulateResults(result);
+//            getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry().addResult(result);
             LOG.debug("method finished");
         }
     }
 
     protected RunnerResult executeSpecification(Specification specification, Resource specificationResource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]");
+
         getCurrentTestContext().createNewSpecificationContext(specificationResource, specification);
-        LOG.info("Test context created");
+        LOG.info("Specification context created");
+
+        contextCreated = true;
+
         RunnerResult result = super.execute(specificationResource, href);
         LOG.info("Result is ready [{}]", result);
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
         return result;
+    }
+
+    private void destroyContextAndPopulateResults(RunnerResult result) {
+
+        SpecificationResultRegistry executedSpecificationRegistry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+
+        executedSpecificationRegistry.addResult(result);
+
+        LOG.info("Execution result [{}] stored ", result.getResult());
+
+        if (contextCreated) {
+
+            getCurrentTestContext().destroyCurrentSpecificationContext();
+
+            LOG.info("Specification context destroyed");
+
+            SpecificationResultRegistry parentSpecificationRegistry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+
+            parentSpecificationRegistry.addAll(executedSpecificationRegistry);
+
+            LOG.info("Specification results added to parent registry");
+        }
+
     }
 
 
@@ -97,7 +128,9 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     protected Class<?> findTestClass(Resource resource, String href) throws ClassNotFoundException {
         LOG.debug("method invoked [{}], [{}]", resource, href);
         try {
-            return getSpecificationLocationService().resolveSpecificationClassByContext();
+            Class resolvedClass = getSpecificationLocationService().resolveSpecificationClassByContext();
+            LOG.debug("Specification [{}] test class [{}]", href, resolvedClass);
+            return resolvedClass;
         } catch (RuntimeException ex) {
             LOG.error("Exception during test class specification lookup [{}]", ex.getMessage());
             throw ex;
