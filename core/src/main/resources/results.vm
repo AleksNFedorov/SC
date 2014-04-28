@@ -1,6 +1,6 @@
-<div>
-    SUCCESS - [$SUCCESS]
-    FAILURE - [$FAILURE]
-    EXCEPTION - [$EXCEPTION]
-    IGNORED - [$IGNORED]
+<div id="specresult">
+    #foreach($result in $results.keySet() )
+        <div>$result - $results.get($result)</div>
+    #end
+    <br></br>
 </div>

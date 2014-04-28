@@ -1,0 +1,1 @@
+<div id="unitresult">$results.get("SUCCESS")$results.get("FAILURE")$results.get("EXCEPTION")$results.get("IGNORED")</div>
