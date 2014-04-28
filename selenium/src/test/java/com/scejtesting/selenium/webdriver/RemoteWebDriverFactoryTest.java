@@ -14,7 +14,7 @@ public class RemoteWebDriverFactoryTest {
     @Test(expected = RuntimeException.class)
     public void unknownDriverTest() {
 
-        RemoteWebDriverFactory factory = new RemoteWebDriverFactory();
+        RemoteWebDriverBuilderServiceRegistry factory = new RemoteWebDriverBuilderServiceRegistry();
 
         factory.buildRemoteWebDriver("someUnknownDriver" + System.currentTimeMillis());
 
@@ -23,7 +23,7 @@ public class RemoteWebDriverFactoryTest {
     @Test
     public void incorrectDriverName() {
 
-        RemoteWebDriverFactory factory = new RemoteWebDriverFactory();
+        RemoteWebDriverBuilderServiceRegistry factory = new RemoteWebDriverBuilderServiceRegistry();
 
         try {
             factory.buildRemoteWebDriver("#incorrectDrvierName");
@@ -54,7 +54,7 @@ public class RemoteWebDriverFactoryTest {
 
         System.setProperty("p1", "pv1");
 
-        RemoteWebDriverFactory factory = new RemoteWebDriverFactory();
+        RemoteWebDriverBuilderServiceRegistry factory = new RemoteWebDriverBuilderServiceRegistry();
 
         TestRemoteWebDriver remoteDriver = (TestRemoteWebDriver) factory.buildRemoteWebDriver("fakedriver");
 
@@ -74,7 +74,7 @@ public class RemoteWebDriverFactoryTest {
         RemoteWebDriverBuilderService driverBuilderService = mock(RemoteWebDriverBuilderService.class);
         when(driverBuilderService.getRemoteWebDriver()).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
-        RemoteWebDriverFactory factory = spy(new RemoteWebDriverFactory());
+        RemoteWebDriverBuilderServiceRegistry factory = spy(new RemoteWebDriverBuilderServiceRegistry());
 
         doReturn(driverBuilderService).when(factory).createDriverBuilderService(anyString());
 

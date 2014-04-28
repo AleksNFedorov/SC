@@ -11,14 +11,14 @@ import java.util.TreeMap;
 /**
  * Created by aleks on 27/3/14.
  */
-public class RemoteWebDriverFactory {
+public class RemoteWebDriverBuilderServiceRegistry {
 
-    private final static Logger LOG = LoggerFactory.getLogger(RemoteWebDriverFactory.class);
+    private final static Logger LOG = LoggerFactory.getLogger(RemoteWebDriverBuilderServiceRegistry.class);
 
 
     private Map<String, RemoteWebDriverBuilderService> allDriverBuilderServices = new TreeMap<String, RemoteWebDriverBuilderService>();
 
-    public RemoteWebDriverFactory() {
+    public RemoteWebDriverBuilderServiceRegistry() {
         registerStopAllServicesOnExit();
     }
 

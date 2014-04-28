@@ -1,6 +1,6 @@
 package com.scejtesting;
 
-import com.scejtesting.selenium.webdriver.RemoteWebDriverFactory;
+import com.scejtesting.selenium.webdriver.RemoteWebDriverBuilderServiceRegistry;
 import org.junit.Test;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -55,7 +55,7 @@ public class DriverTest {
     @Test
     public void launchChromeDriver() {
 
-        RemoteWebDriverFactory factory = new RemoteWebDriverFactory();
+        RemoteWebDriverBuilderServiceRegistry factory = new RemoteWebDriverBuilderServiceRegistry();
 
 
         RemoteWebDriver chromeDriver = factory.buildRemoteWebDriver("chrome");

@@ -2,7 +2,7 @@ package com.scejtesting.selenium;
 
 import com.scejtesting.core.context.Context;
 import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.selenium.webdriver.RemoteWebDriverFactory;
+import com.scejtesting.selenium.webdriver.RemoteWebDriverBuilderServiceRegistry;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -16,29 +16,47 @@ import java.util.TreeMap;
  */
 public class SeleniumDriverManagerService {
 
-    public static final String DRIVER_REGISTRY_ATTRIBUTE = "#SELENIUM_OPEN_DRIVERS_REGISTRY";
+    public static final String OPEN_DRIVER_REGISTRY_ATTRIBUTE = "#SELENIUM_OPEN_DRIVERS_REGISTRY";
     public static final String CURRENT_DRIVER = "#SELENIUM_CURRENT";
-    public static final String DRIVER_FACTORY = "#SELENIUM_DRIVER_FACTORY";
+    public static final String DRIVER_REGISTRY = "#SELENIUM_DRIVER_REGISTRY";
 
     private final static Logger LOG = LoggerFactory.getLogger(SeleniumDriverManagerService.class);
 
-    private final RemoteWebDriverFactory driverFactory;
+    private final RemoteWebDriverBuilderServiceRegistry driverBuilderServiceRegistry;
     private final TestContextService testContextService;
 
     public SeleniumDriverManagerService() {
         testContextService = buildTestContextService();
-        driverFactory = getOrBuildRemoteWebDriverFactory();
+        driverBuilderServiceRegistry = getOrBuildRemoteWebDriverRegistry();
+    }
+
+    private RemoteWebDriverBuilderServiceRegistry getOrBuildRemoteWebDriverRegistry() {
+
+        Context currentTestContext = testContextService.getCurrentTestContext();
+
+        RemoteWebDriverBuilderServiceRegistry registry = currentTestContext.getAttribute(DRIVER_REGISTRY);
+        if (registry == null) {
+            LOG.info("No driver registry found, creating new one ");
+            registry = buildRemoteWebDriverRegistry();
+            currentTestContext.addAttribute(DRIVER_REGISTRY, registry);
+            LOG.info("Driver factory has been built");
+        }
+        return registry;
+    }
+
+    protected RemoteWebDriverBuilderServiceRegistry buildRemoteWebDriverRegistry() {
+        return new RemoteWebDriverBuilderServiceRegistry();
     }
 
     public final RemoteWebDriver buildDriver(String driverName) {
         LOG.debug("method invoked [{}]", driverName);
 
 
-        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getDriverRegistry();
+        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getOpenDriverRegistry();
 
         Check.isTrue(driverRegistry.get(driverName) == null, "Another [" + driverName + "] driver already active");
 
-        RemoteWebDriver remoteDriver = driverFactory.buildRemoteWebDriver(driverName);
+        RemoteWebDriver remoteDriver = driverBuilderServiceRegistry.buildRemoteWebDriver(driverName);
 
         LOG.info("Driver [{}] has been built", remoteDriver);
 
@@ -67,7 +85,7 @@ public class SeleniumDriverManagerService {
 
         Check.notNull(driverName, "Driver name must be specified");
 
-        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getDriverRegistry();
+        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getOpenDriverRegistry();
 
         RemoteWebDriverRegistryEntry driverRegistryEntry = driverRegistry.get(driverName);
 
@@ -87,7 +105,7 @@ public class SeleniumDriverManagerService {
 
         LOG.debug("method invoked [{}]", driverName);
 
-        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getDriverRegistry();
+        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getOpenDriverRegistry();
         RemoteWebDriverRegistryEntry currentDriverEntry = driverRegistry.get(driverName);
 
         if (currentDriverEntry == null) {
@@ -116,7 +134,7 @@ public class SeleniumDriverManagerService {
         LOG.info("Driver [{}] successfully quit", driverName);
 
 
-        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getDriverRegistry();
+        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = getOpenDriverRegistry();
 
         // if driver name is CURRENT_DRIVER
         RemoteWebDriverRegistryEntry tmpRegistryEntry = driverRegistry.get(driverName);
@@ -139,35 +157,17 @@ public class SeleniumDriverManagerService {
 
     }
 
-    protected Map<String, RemoteWebDriverRegistryEntry> getDriverRegistry() {
+    protected Map<String, RemoteWebDriverRegistryEntry> getOpenDriverRegistry() {
         Context currentTestContext = testContextService.getCurrentTestContext();
-        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = currentTestContext.getAttribute(DRIVER_REGISTRY_ATTRIBUTE);
+        Map<String, RemoteWebDriverRegistryEntry> driverRegistry = currentTestContext.getAttribute(OPEN_DRIVER_REGISTRY_ATTRIBUTE);
         if (driverRegistry == null) {
             driverRegistry = new TreeMap<String, RemoteWebDriverRegistryEntry>();
-            currentTestContext.addAttribute(DRIVER_REGISTRY_ATTRIBUTE, driverRegistry);
+            currentTestContext.addAttribute(OPEN_DRIVER_REGISTRY_ATTRIBUTE, driverRegistry);
 
             LOG.info("New driver registry has been created");
         }
         return driverRegistry;
 
-    }
-
-    private RemoteWebDriverFactory getOrBuildRemoteWebDriverFactory() {
-
-        Context currentTestContext = testContextService.getCurrentTestContext();
-
-        RemoteWebDriverFactory factory = currentTestContext.getAttribute(DRIVER_FACTORY);
-        if (factory == null) {
-            LOG.info("No driver factory found, creating new one ");
-            factory = buildRemoteWebDriverFactory();
-            currentTestContext.addAttribute(DRIVER_FACTORY, factory);
-            LOG.info("Driver factory has been built");
-        }
-        return factory;
-    }
-
-    protected RemoteWebDriverFactory buildRemoteWebDriverFactory() {
-        return new RemoteWebDriverFactory();
     }
 
     protected TestContextService buildTestContextService() {

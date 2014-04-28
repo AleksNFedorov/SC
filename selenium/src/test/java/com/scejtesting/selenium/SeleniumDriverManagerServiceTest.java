@@ -4,7 +4,7 @@ import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
 import com.scejtesting.selenium.webdriver.DriverType;
-import com.scejtesting.selenium.webdriver.RemoteWebDriverFactory;
+import com.scejtesting.selenium.webdriver.RemoteWebDriverBuilderServiceRegistry;
 import com.scejtesting.selenium.webdriver.TestRemoteWebDriver;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -35,13 +35,13 @@ public class SeleniumDriverManagerServiceTest {
     @org.junit.Test
     public void positiveFlowTest() {
 
-        RemoteWebDriverFactory driverFactory = mock(RemoteWebDriverFactory.class);
+        RemoteWebDriverBuilderServiceRegistry driverFactory = mock(RemoteWebDriverBuilderServiceRegistry.class);
 
         when(driverFactory.buildRemoteWebDriver(anyString())).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
         SeleniumDriverManagerService test = spy(new SeleniumDriverManagerService());
 
-        doReturn(driverFactory).when(test).buildRemoteWebDriverFactory();
+        doReturn(driverFactory).when(test).buildRemoteWebDriverRegistry();
 
         String driver1Name = "coretestdriver1";
         String driver2Name = "coretestdriver2";
@@ -85,13 +85,13 @@ public class SeleniumDriverManagerServiceTest {
     @org.junit.Test(expected = RuntimeException.class)
     public void doubleBuildTest() {
 
-        RemoteWebDriverFactory driverFactory = mock(RemoteWebDriverFactory.class);
+        RemoteWebDriverBuilderServiceRegistry driverFactory = mock(RemoteWebDriverBuilderServiceRegistry.class);
 
         when(driverFactory.buildRemoteWebDriver(anyString())).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
         SeleniumDriverManagerService test = spy(new SeleniumDriverManagerService());
 
-        doReturn(driverFactory).when(test).buildRemoteWebDriverFactory();
+        doReturn(driverFactory).when(test).buildRemoteWebDriverRegistry();
 
         String driver2Name = "coretestdriver2";
 
@@ -127,15 +127,16 @@ public class SeleniumDriverManagerServiceTest {
         Assert.assertNull(test.getDriver("someUnregisteredDriver"));
     }
 
+    @org.junit.Test
     public void quitNonCurrentDriver() {
 
-        RemoteWebDriverFactory driverFactory = mock(RemoteWebDriverFactory.class);
+        RemoteWebDriverBuilderServiceRegistry driverFactory = mock(RemoteWebDriverBuilderServiceRegistry.class);
 
         when(driverFactory.buildRemoteWebDriver(anyString())).thenReturn(new TestRemoteWebDriver(DriverType.Default));
 
         SeleniumDriverManagerService test = spy(new SeleniumDriverManagerService());
 
-        doReturn(driverFactory).when(test).buildRemoteWebDriverFactory();
+        doReturn(driverFactory).when(test).buildRemoteWebDriverRegistry();
 
         String driver1Name = "coretestdriver1";
         String driver2Name = "coretestdriver2";

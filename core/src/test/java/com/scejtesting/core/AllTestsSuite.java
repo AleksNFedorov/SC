@@ -6,6 +6,7 @@ import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
 import com.scejtesting.core.concordion.extension.FileTargetWithDateTimePrefixTest;
 import com.scejtesting.core.concordion.extension.HierarchySpecificationLocatorTest;
 import com.scejtesting.core.concordion.extension.SuiteFailFastExceptionListenerTest;
+import com.scejtesting.core.concordion.extension.VelocityResultsRendererTest;
 import com.scejtesting.core.concordion.extension.documentparsing.DictionarySubstitutionListenerTest;
 import com.scejtesting.core.concordion.extension.documentparsing.RegisterGlobalsCommandDocumentEnricherTest;
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
@@ -35,6 +36,7 @@ import org.junit.runners.Suite;
         SetGlobalCommandTest.class,
         RegisterGlobalVariablesCommandTest.class,
         SpecificationResultRegistryTest.class,
+        VelocityResultsRendererTest.class,
 })
 public class AllTestsSuite {
 
