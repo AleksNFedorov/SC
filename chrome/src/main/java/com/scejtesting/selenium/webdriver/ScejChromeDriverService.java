@@ -21,9 +21,8 @@ public class ScejChromeDriverService extends ScejDriverService {
     private ChromeDriverService service;
 
 
-    public ScejChromeDriverService(Properties driverProperties, ChromeDriverService service) {
+    public ScejChromeDriverService(Properties driverProperties) {
         super(driverProperties);
-        this.service = service;
     }
 
     @Override

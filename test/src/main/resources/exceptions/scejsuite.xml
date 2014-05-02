@@ -24,7 +24,7 @@
 
         &lt;!&ndash; Specification file fase exception &ndash;&gt;
         <test defaultTestClass="com.scejtestingtesting.core.CoreTest">
-            <specification location="/HeadSpecification.html">
+            <specification location="/HeadSpecificationFixtureCommands.html">
                 <includes>
                     <specification location="SpecificationOne.html"/>
                     <specification location="SpecificationTwo.html"/>
@@ -34,7 +34,7 @@
 
         &lt;!&ndash; Test fail fast exceptions &ndash;&gt;
         <test defaultTestClass="com.scejtestingtesting.core.CoreTest">
-            <specification location="/HeadSpecification.html">
+            <specification location="/HeadSpecificationFixtureCommands.html">
                 <includes>
                     <specification location="SpecificationOne.html"/>
                     <specification location="SpecificationTwo.html"/>
@@ -45,7 +45,7 @@
 
         &lt;!&ndash; Suite fail fast exception &ndash;&gt;
         <test defaultTestClass="com.scejtestingtesting.core.CoreTest">
-            <specification location="/HeadSpecification.html">
+            <specification location="/HeadSpecificationFixtureCommands.html">
                 <includes>
                     <specification location="SpecificationOne.html"/>
                     <specification location="SpecificationTwo.html"/>

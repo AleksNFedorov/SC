@@ -6,10 +6,10 @@
 </head>
 
 <body>
-<span concordion:execute="#driver = buildDriver(#TEXT)">chrome</span>
+<span concordion:execute="#driver = openDriver(#TEXT)">chrome</span>
 <span concordion:assertTrue="waitSeconds(#TEXT)">5</span>
-
-<span concordion:execute="quitCurrentDriver()">chrome</span>
+<span concordion:execute="getCurrentDriver()">5</span>
+<span concordion:execute="closeCurrentDriver()"></span>
 
 </body>
 </html>

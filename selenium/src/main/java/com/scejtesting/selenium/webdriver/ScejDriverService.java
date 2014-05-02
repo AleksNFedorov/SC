@@ -73,8 +73,9 @@ public abstract class ScejDriverService {
     public void stopService() {
         LOG.debug("method invoked");
 
-        onDriverClose();
         openDriver.close();
+
+        onDriverClose();
 
         LOG.info("Service stopped");
 
