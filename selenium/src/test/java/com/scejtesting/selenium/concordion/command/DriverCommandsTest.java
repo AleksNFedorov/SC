@@ -32,7 +32,7 @@ public class DriverCommandsTest {
 //        when(commandCall.hasChildCommands()).thenReturn(Boolean.FALSE);
 //        when(commandCall.getExpression()).thenReturn(TEST_DRIVER);
 //
-//        OpenDriverCommand buildDriverCommand = new OpenDriverCommand();
+//        CreateAndOpenDriverCommand buildDriverCommand = new CreateAndOpenDriverCommand();
 //
 //        buildDriverCommand.setUp(commandCall, null, null);
 //
