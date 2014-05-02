@@ -1,6 +1,5 @@
 package com.scejtesting.selenium.webdriver;
 
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,30 +13,43 @@ import java.util.Properties;
 /**
  * Created by aleks on 27/3/14.
  */
-public class ChromeDriverBuilder extends RemoteWebDriverBuilder {
+public class ChromeScejDriverDriver extends ScejDriverService {
 
 
-    private final static Logger LOG = LoggerFactory.getLogger(ChromeDriverBuilder.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ChromeScejDriverDriver.class);
 
     private ChromeDriverService service;
 
+
+    public ChromeScejDriverDriver(Properties driverProperties, ChromeDriverService service) {
+        super(driverProperties);
+        this.service = service;
+    }
+
     @Override
-    public RemoteWebDriver buildDriver(Properties properties) {
+    protected RemoteWebDriver buildDriver(DesiredCapabilities driverCapabilities) {
+
+        LOG.debug("method invoked [{}]", driverCapabilities);
 
         if (service == null) {
             LOG.info("Initializing chrome dirver service");
-            startService(properties);
+            startService(getDriverProperties());
         }
 
-        Capabilities chromeCapabilities = buildFromProperties(properties);
-
-        LOG.info("Chrome capabilities built [{}]", chromeCapabilities.asMap().size());
-
-        RemoteWebDriver driver = new RemoteWebDriver(service.getUrl(), chromeCapabilities);
+        RemoteWebDriver driver = new RemoteWebDriver(service.getUrl(), driverCapabilities);
 
         LOG.info("Remote web driver instance created");
 
         return driver;
+    }
+
+    @Override
+    protected void onDriverClose() {
+
+        service.stop();
+
+        LOG.info("Chrome driver service stopped");
+
     }
 
     private void startService(Properties driverProperties) {
@@ -69,14 +81,5 @@ public class ChromeDriverBuilder extends RemoteWebDriverBuilder {
     @Override
     protected DesiredCapabilities getDriverSpecificCapabilities() {
         return DesiredCapabilities.chrome();
-    }
-
-    @Override
-    public void onFinish() {
-
-        service.stop();
-
-        LOG.info("Chrome driver service stopped");
-
     }
 }
