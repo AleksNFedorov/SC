@@ -13,15 +13,15 @@ import java.util.Properties;
 /**
  * Created by aleks on 27/3/14.
  */
-public class ChromeScejDriverDriver extends ScejDriverService {
+public class ScejChromeDriverService extends ScejDriverService {
 
 
-    private final static Logger LOG = LoggerFactory.getLogger(ChromeScejDriverDriver.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ScejChromeDriverService.class);
 
     private ChromeDriverService service;
 
 
-    public ChromeScejDriverDriver(Properties driverProperties, ChromeDriverService service) {
+    public ScejChromeDriverService(Properties driverProperties, ChromeDriverService service) {
         super(driverProperties);
         this.service = service;
     }
