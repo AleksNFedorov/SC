@@ -1,4 +1,4 @@
-package com.scejtesting.selenium.concordion.command;
+package com.scejtesting.selenium.concordion.extension.command;
 
 /**
  * User: Fedorovaleks

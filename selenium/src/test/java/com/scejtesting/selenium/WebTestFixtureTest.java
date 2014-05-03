@@ -1,12 +1,9 @@
 package com.scejtesting.selenium;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.net.URL;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -14,9 +11,8 @@ import static org.junit.Assert.*;
 /**
  * Created by aleks on 5/3/14.
  */
-public class WebTestFixtureTest extends CoreScejTest {
+public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
 
-    private WebTestFixture currentTestFixture;
 
     private By divById = By.id("id1");
     private String textToLookup = "Div id 1 text";
@@ -24,39 +20,6 @@ public class WebTestFixtureTest extends CoreScejTest {
     private By unknownElementBy = By.id("unknownElementId");
     private By buttonById = By.id("button");
     private By inputText = By.id("text");
-
-
-    @Before
-    public void initTestCase() {
-
-        URL testPageURL = getClass().getClassLoader().getResource("WebTestFixtureTest.html");
-
-        currentTestFixture = new WebTestFixture();
-
-        currentTestFixture.openDriver("fakeDriver");
-
-        currentTestFixture.goToURL(testPageURL.toString());
-
-
-    }
-
-    @After
-    public void finishTestCase() {
-        currentTestFixture.closeCurrentDriver();
-        currentTestFixture = null;
-    }
-
-
-    @Test
-    public void getTitleTest() {
-
-        String pageTitle = currentTestFixture.getTitle();
-
-        assertNotNull(pageTitle);
-
-        assertEquals("WebTestFixtureTest", pageTitle);
-
-    }
 
 
     @Test
@@ -181,4 +144,8 @@ public class WebTestFixtureTest extends CoreScejTest {
 
     }
 
+    @Override
+    protected WebTestFixture buildTestFixture() {
+        return new WebTestFixture();
+    }
 }

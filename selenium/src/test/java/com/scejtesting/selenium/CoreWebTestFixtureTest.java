@@ -3,38 +3,67 @@ package com.scejtesting.selenium;
 import com.scejtesting.core.context.TestContextService;
 import com.scejtesting.selenium.webdriver.FakeClassPathRemoteWebDriverService;
 import com.scejtesting.selenium.webdriver.TestRemoteWebDriver;
+import com.scejtesting.selenium.webdriver.WebDriverController;
 import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.Properties;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by aleks on 30/3/14.
  */
-public class CoreWebTestFixtureTest extends CoreScejTest {
+public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
 
-    @org.junit.Test
+    @Ignore //Does not work with html unit driver
+    @Test
+    public void getCurrentURL() {
+        Assert.assertEquals(operateURL.toString(), currentTestFixture.getCurrentURL());
+    }
+
+    @Test
+    public void getTitleTest() {
+
+        String pageTitle = currentTestFixture.getTitle();
+
+        assertNotNull(pageTitle);
+
+        assertEquals("WebTestFixtureTest", pageTitle);
+
+    }
+
+
+    @Test
     public void positiveFlowTest() {
 
-        CoreWebTestFixture driverManagerService = new CoreWebTestFixture();
+        currentTestFixture.closeCurrentDriver();
 
-        RemoteWebDriver webDriver = driverManagerService.openDriver("fakedriver");
+
+        RemoteWebDriver webDriver = currentTestFixture.openDriver("fakedriver");
 
         Assert.assertNotNull(webDriver);
 
         Assert.assertSame(TestRemoteWebDriver.class, webDriver.getClass());
 
 
-        RemoteWebDriver webDriverByGet = driverManagerService.getCurrentDriver();
+        RemoteWebDriver webDriverByGet = currentTestFixture.getCurrentDriver();
 
         Assert.assertSame(webDriver, webDriverByGet);
 
-        driverManagerService.closeCurrentDriver();
+        currentTestFixture.closeCurrentDriver();
 
-        RemoteWebDriver unExistDriver = driverManagerService.getCurrentDriver();
+        RemoteWebDriver unExistDriver = currentTestFixture.getCurrentDriver();
 
         Assert.assertNull(unExistDriver);
+
+        //work around bacause of test initialization in parent
+        currentTestFixture.openDriver("fakedriver");
+
 
     }
 
@@ -42,10 +71,7 @@ public class CoreWebTestFixtureTest extends CoreScejTest {
     @org.junit.Test(expected = RuntimeException.class)
     public void doubleBuildTest() {
 
-        CoreWebTestFixture driverManagerService = new CoreWebTestFixture();
-
-        driverManagerService.openDriver("fakedriver");
-        driverManagerService.openDriver("fakedriver");
+        currentTestFixture.openDriver("fakedriver");
 
     }
 
@@ -63,29 +89,43 @@ public class CoreWebTestFixtureTest extends CoreScejTest {
     @org.junit.Test(expected = RuntimeException.class)
     public void doubleQuitDriver() {
 
-        CoreWebTestFixture driverManagerService = new CoreWebTestFixture();
+        currentTestFixture = new CoreWebTestFixture();
 
-        driverManagerService.openDriver("fakedriver");
+        currentTestFixture.openDriver("fakedriver");
 
-        driverManagerService.closeCurrentDriver();
-        driverManagerService.closeCurrentDriver();
+        currentTestFixture.closeCurrentDriver();
+        currentTestFixture.closeCurrentDriver();
 
     }
 
 
-    @org.junit.Test(expected = IllegalStateException.class)
+    @org.junit.Test
     public void noDriverAtDriverServer() {
 
-        CoreWebTestFixture driverManagerService = new CoreWebTestFixture();
+        currentTestFixture.closeCurrentDriver();
 
-        driverManagerService.openDriver("fakedriver");
+        currentTestFixture.openDriver("fakedriver");
+
+        WebDriverController currentController = new TestContextService().getCurrentTestContext().getAttribute(CoreWebTestFixture.SCEJ_DRIVER_SERVICE);
 
         new TestContextService().getCurrentTestContext().
                 addAttribute(CoreWebTestFixture.SCEJ_DRIVER_SERVICE, new FakeClassPathRemoteWebDriverService(new Properties()));
 
+        try {
+            currentTestFixture.getCurrentDriver();
+            Assert.fail("No driver available exception expected");
+        } catch (RuntimeException ex) {
 
-        driverManagerService.getCurrentDriver();
+        }
+
+        new TestContextService().getCurrentTestContext().addAttribute(CoreWebTestFixture.SCEJ_DRIVER_SERVICE,
+                currentController);
+
 
     }
 
+    @Override
+    protected CoreWebTestFixture buildTestFixture() {
+        return new CoreWebTestFixture();
+    }
 }

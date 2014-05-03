@@ -1,7 +1,7 @@
-package com.scejtesting.selenium.concordion.command;
+package com.scejtesting.selenium.concordion.extension.command;
 
 import com.scejtesting.core.concordion.command.ScejCommand;
-import com.scejtesting.selenium.CoreWebTestFixture;
+import com.scejtesting.selenium.WebTestFixture;
 import org.concordion.api.AbstractCommand;
 import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
@@ -15,21 +15,18 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractSeleniumDriverCommand extends AbstractCommand implements ScejCommand {
 
-    protected final CoreWebTestFixture seleniumDriverManagerService = getDriverManerService();
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
+    protected static final Logger LOG = LoggerFactory.getLogger(AbstractSeleniumDriverCommand.class);
+    protected final WebTestFixture seleniumDriverManagerService = new WebTestFixture();
 
     protected abstract void processDriverCommand(String driverName);
 
     @Override
     public final void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
 
-        String driverName = commandCall.getExpression();
-        LOG.info("Driver name evaluated as [{}]", driverName);
+        String expression = commandCall.getExpression();
+        LOG.info("Driver name evaluated as [{}]", expression);
 
-        processDriverCommand(driverName);
+        processDriverCommand(expression);
     }
 
-    protected CoreWebTestFixture getDriverManerService() {
-        return new CoreWebTestFixture();
-    }
 }

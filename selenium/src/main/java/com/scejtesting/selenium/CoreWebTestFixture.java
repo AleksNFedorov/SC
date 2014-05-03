@@ -52,6 +52,17 @@ public class CoreWebTestFixture {
         LOG.debug("method finished");
     }
 
+    public String getCurrentURL() {
+        LOG.debug("method invoked ");
+
+        String currentURL = getCurrentDriver().getCurrentUrl();
+
+
+        LOG.debug("method finished [{}]", currentURL);
+
+        return currentURL;
+    }
+
     public String getTitle() {
         LOG.debug("method invoked ");
 
