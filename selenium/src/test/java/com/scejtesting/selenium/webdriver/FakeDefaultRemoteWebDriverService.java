@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * Created by aleks on 30/3/14.
  */
-public class FakeDefaultRemoteWebDriverService extends ScejDriverService {
+public class FakeDefaultRemoteWebDriverService extends WebDriverController {
 
 
     private final TestRemoteWebDriver remoteWebDriver = new TestRemoteWebDriver();

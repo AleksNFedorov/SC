@@ -12,17 +12,17 @@ import java.util.Properties;
 /**
  * Created by aleks on 27/3/14.
  */
-public abstract class ScejDriverService {
+public abstract class WebDriverController {
 
     public static final String DRIVER_NAME_PROPERTY = "#SCEJ_DRIVER_NAME";
 
-    private final static Logger LOG = LoggerFactory.getLogger(ScejDriverService.class);
+    private final static Logger LOG = LoggerFactory.getLogger(WebDriverController.class);
     private final Properties driverProperties;
     private final String driverName;
     private RemoteWebDriver openDriver;
 
 
-    protected ScejDriverService(Properties driverProperties) {
+    protected WebDriverController(Properties driverProperties) {
         this.driverProperties = driverProperties;
 
         driverName = getDriverName(driverProperties);

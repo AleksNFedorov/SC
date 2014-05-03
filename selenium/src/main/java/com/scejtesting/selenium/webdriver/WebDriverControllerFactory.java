@@ -12,25 +12,25 @@ import java.util.Properties;
 /**
  * Created by aleks on 27/3/14.
  */
-public class ScejDriverServiceFactory {
+public class WebDriverControllerFactory {
 
     public static final String DRIVER_PROPERTIES_FILE_SUFFIX = ".driver.properties";
     public static final String DRIVER_DEFAULT_PROPERTIES_FILE_SUFFIX = ".driver.default.properties";
 
 
-    private final static Logger LOG = LoggerFactory.getLogger(ScejDriverServiceFactory.class);
+    private final static Logger LOG = LoggerFactory.getLogger(WebDriverControllerFactory.class);
 
 
-    public ScejDriverService buildDriverService(String driverName) {
+    public WebDriverController buildDriverService(String driverName) {
         LOG.debug("init method invoked");
 
         Check.notNull(driverName, "Driver name must be specified");
 
         Properties driverProperties = loadDriverProperties(driverName);
 
-        ScejDriverService.saveDriverName(driverName, driverProperties);
+        WebDriverController.saveDriverName(driverName, driverProperties);
 
-        ScejDriverService driverBuilder = createDriverService(driverName, driverProperties);
+        WebDriverController driverBuilder = createDriverService(driverName, driverProperties);
 
         LOG.info("init successfully finished");
         LOG.debug("method finished");
@@ -39,16 +39,16 @@ public class ScejDriverServiceFactory {
     }
 
 
-    private ScejDriverService createDriverService(String driverName, Properties driverProperties) {
+    private WebDriverController createDriverService(String driverName, Properties driverProperties) {
         LOG.debug("method invoked");
 
-        String builderImplementationClass = driverProperties.getProperty(ScejDriverService.class.getCanonicalName());
+        String builderImplementationClass = driverProperties.getProperty(WebDriverController.class.getCanonicalName());
         LOG.info("Driver [{}] builder implementation resolved as [{}]", driverName, builderImplementationClass);
 
-        ScejDriverService driverBuilder;
+        WebDriverController driverBuilder;
         try {
-            Class<ScejDriverService> remoteWebDriverBuilderClass = (Class<ScejDriverService>) Class.forName(builderImplementationClass);
-            driverBuilder = (ScejDriverService) remoteWebDriverBuilderClass.getDeclaredConstructors()[0].newInstance(driverProperties);
+            Class<WebDriverController> remoteWebDriverBuilderClass = (Class<WebDriverController>) Class.forName(builderImplementationClass);
+            driverBuilder = (WebDriverController) remoteWebDriverBuilderClass.getDeclaredConstructors()[0].newInstance(driverProperties);
 
             LOG.debug("Driver [{}] builder instance successfully created", driverName);
 

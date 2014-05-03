@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @RunWith(ConcordionRunner.class)
 @Extensions(value = ScejCoreExtensions.class)
-public class WebTestFixture extends SeleniumDriverManagerService {
+public class WebTestFixture extends CoreWebTestFixture {
 
     public final static String PAGE_ROOT_ELEMENT_XPATH = "//html";
     private final static Logger LOG = LoggerFactory.getLogger(WebTestFixture.class);
@@ -39,11 +39,17 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         Check.notNull(by, "Search predicate can't be null");
 
-        boolean elementExist = getCurrentDriver().findElement(by) != null;
+        try {
+            getCurrentDriver().findElement(by);
+        } catch (RuntimeException ex) {
+            LOG.info("Element [{}] does not exist", by);
+            LOG.debug("Element [{}] lookup exception", by, ex);
+            return false;
+        }
 
-        LOG.debug("Element exist [{}]", elementExist);
+        LOG.debug("Element [{}] exist", by);
 
-        return elementExist;
+        return true;
     }
 
     public boolean checkChildExist(By parent, By child) {
@@ -54,17 +60,9 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement parentElement = getCurrentDriver().findElement(parent);
 
-        if (parentElement != null) {
-            LOG.info("Parent element exist");
-            return checkChildExist(parentElement, child);
+        LOG.info("Parent element exist");
+        return checkChildExist(parentElement, child);
 
-        }
-
-        LOG.info("Parent element did not find");
-
-        LOG.debug("method finished");
-
-        return false;
     }
 
     public boolean checkChildExist(WebElement parent, By child) {
@@ -74,11 +72,18 @@ public class WebTestFixture extends SeleniumDriverManagerService {
         Check.notNull(parent, "Parent element can't be null");
         Check.notNull(child, "Search predicate [child] can't be null");
 
-        boolean childExist = parent.findElement(child) != null;
 
-        LOG.debug("Child element exist [{}]", childExist);
+        try {
+            parent.findElement(child);
+        } catch (RuntimeException ex) {
+            LOG.debug("Child element [{}] exist ", child);
+            LOG.debug("Child element lookup exception ", ex);
+            return false;
+        }
 
-        return childExist;
+        LOG.debug("Child element exist [{}]", child);
+
+        return true;
     }
 
     public boolean checkElementContainsText(By element, String text) {
@@ -89,17 +94,8 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement foundElement = getCurrentDriver().findElement(element);
 
-        if (foundElement != null) {
-            LOG.info("Element found");
-            return checkElementContainsText(foundElement, text);
-
-        }
-
-        LOG.info("Element did not find");
-
-        LOG.debug("method finished");
-
-        return false;
+        LOG.info("Element found");
+        return checkElementContainsText(foundElement, text);
     }
 
     public boolean checkElementContainsText(WebElement element, String text) {
@@ -136,13 +132,8 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement elementToClick = getCurrentDriver().findElement(element);
 
-        if (elementToClick != null) {
-            LOG.info("Element to click found");
-            clickElement(elementToClick);
-            return;
-        }
-
-        LOG.info("Element to click did not find");
+        LOG.info("Element to click found");
+        clickElement(elementToClick);
 
         LOG.debug("method finished");
 
@@ -168,14 +159,8 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement elementToSetValue = getCurrentDriver().findElement(element);
 
-        if (elementToSetValue != null) {
-            LOG.info("Element to click found");
-            setValueToElement(elementToSetValue, value);
-            return;
-        }
-
-        LOG.info("Element to save value did not find");
-
+        LOG.info("Element to click found");
+        setValueToElement(elementToSetValue, value);
         LOG.debug("method finished");
 
 
@@ -201,14 +186,8 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement elementToClear = getCurrentDriver().findElement(element);
 
-        if (elementToClear != null) {
-            LOG.info("Element to clear found");
-            clearElement(elementToClear);
-            return;
-        }
-
-        LOG.info("Element to click did not find");
-
+        LOG.info("Element to clear found");
+        clearElement(elementToClear);
         LOG.debug("method finished");
     }
 
@@ -232,16 +211,9 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement elementToCheck = getCurrentDriver().findElement(by);
 
-        if (elementToCheck != null) {
-            LOG.info("Element to check found");
-            return checkElementDisplayed(elementToCheck);
-        }
+        LOG.info("Element to check found");
+        return checkElementDisplayed(elementToCheck);
 
-        LOG.info("Element to check did not find");
-
-        LOG.debug("method finished");
-
-        return false;
     }
 
     public boolean checkElementDisplayed(WebElement element) {
@@ -266,16 +238,8 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement elementToCheck = getCurrentDriver().findElement(by);
 
-        if (elementToCheck != null) {
-            LOG.info("Element to check enabled found");
-            return checkElementDisplayed(elementToCheck);
-        }
-
-        LOG.info("Element to check enabled did not find");
-
-        LOG.debug("method finished");
-
-        return false;
+        LOG.info("Element to check enabled found");
+        return checkElementEnabled(elementToCheck);
     }
 
     public boolean checkElementEnabled(WebElement element) {
@@ -301,16 +265,10 @@ public class WebTestFixture extends SeleniumDriverManagerService {
 
         WebElement elementToCheck = getCurrentDriver().findElement(by);
 
-        if (elementToCheck != null) {
-            LOG.info("Element to check selected found");
-            return checkElementDisplayed(elementToCheck);
-        }
+        LOG.info("Element to check selected found");
+        return checkElementSelected(elementToCheck);
 
-        LOG.info("Element to check selected did not find");
 
-        LOG.debug("method finished");
-
-        return false;
     }
 
     public boolean checkElementSelected(WebElement element) {

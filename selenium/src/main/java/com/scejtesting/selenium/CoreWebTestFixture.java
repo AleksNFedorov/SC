@@ -2,8 +2,8 @@ package com.scejtesting.selenium;
 
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.selenium.webdriver.ScejDriverService;
-import com.scejtesting.selenium.webdriver.ScejDriverServiceFactory;
+import com.scejtesting.selenium.webdriver.WebDriverController;
+import com.scejtesting.selenium.webdriver.WebDriverControllerFactory;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * Created by aleks on 27/3/14.
  */
-public class SeleniumDriverManagerService {
+public class CoreWebTestFixture {
 
     protected static final String SCEJ_DRIVER_SERVICE = "#SCEJ_SELENIUM_DRIVER_SERVICE";
 
-    private final static Logger LOG = LoggerFactory.getLogger(SeleniumDriverManagerService.class);
+    private final static Logger LOG = LoggerFactory.getLogger(CoreWebTestFixture.class);
 
-    private final ScejDriverServiceFactory driverServiceFactory = new ScejDriverServiceFactory();
+    private final WebDriverControllerFactory driverServiceFactory = new WebDriverControllerFactory();
 
 
     public final RemoteWebDriver openDriver(String driverName) {
@@ -32,7 +32,7 @@ public class SeleniumDriverManagerService {
 
         Check.isTrue(getCurrentDriver() == null, "Some driver already open");
 
-        ScejDriverService driverService = driverServiceFactory.buildDriverService(driverName);
+        WebDriverController driverService = driverServiceFactory.buildDriverService(driverName);
 
         LOG.info("Driver [{}] has been built", driverName);
 
@@ -164,7 +164,7 @@ public class SeleniumDriverManagerService {
 
         LOG.debug("method invoked");
 
-        ScejDriverService driverService = getCurrentTestContext().getAttribute(SCEJ_DRIVER_SERVICE);
+        WebDriverController driverService = getCurrentTestContext().getAttribute(SCEJ_DRIVER_SERVICE);
 
         if (driverService == null) {
             LOG.warn("No driver service");
@@ -184,7 +184,7 @@ public class SeleniumDriverManagerService {
 
     public void closeCurrentDriver() {
 
-        ScejDriverService service = getCurrentTestContext().getAttribute(SCEJ_DRIVER_SERVICE);
+        WebDriverController service = getCurrentTestContext().getAttribute(SCEJ_DRIVER_SERVICE);
 
         Check.notNull(service, "No driver available");
 
