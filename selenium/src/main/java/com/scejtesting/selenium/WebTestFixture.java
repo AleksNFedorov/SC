@@ -186,6 +186,7 @@ public class WebTestFixture extends CoreWebTestFixture {
 
         WebElement elementToClear = getCurrentDriver().findElement(element);
 
+
         LOG.info("Element to clear found");
         clearElement(elementToClear);
         LOG.debug("method finished");
