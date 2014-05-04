@@ -61,7 +61,7 @@ public class SetGlobalCommand extends SetCommand implements ScejCommand {
 
 
     @Override
-    public String getCommandType() {
+    public String getCommandName() {
         return COMMAND_NAME;
     }
 }

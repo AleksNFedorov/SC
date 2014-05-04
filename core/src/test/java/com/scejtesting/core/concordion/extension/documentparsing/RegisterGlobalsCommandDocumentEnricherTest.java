@@ -1,7 +1,7 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
 import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommand;
-import com.scejtesting.core.runner.ScejSuiteRunner;
+import com.scejtesting.core.concordion.command.ScejCommand;
 import nu.xom.Document;
 import nu.xom.Element;
 import org.concordion.internal.XMLParser;
@@ -33,8 +33,8 @@ public class RegisterGlobalsCommandDocumentEnricherTest {
                 getFirstChildElement("div");
 
         Assert.assertNotNull(registerGlobalsElement.getAttribute(
-                new RegisterGlobalVariablesCommand().getCommandType(),
-                ScejSuiteRunner.SCEJ_TESTING_NAME_SPACE));
+                new RegisterGlobalVariablesCommand().getCommandName(),
+                ScejCommand.SCEJ_TESTING_NAME_SPACE));
 
     }
 
@@ -54,7 +54,7 @@ public class RegisterGlobalsCommandDocumentEnricherTest {
                 getFirstChildElement("div");
 
         Assert.assertNotNull(registerGlobalsElement.getAttribute(
-                new RegisterGlobalVariablesCommand().getCommandType(),
-                ScejSuiteRunner.SCEJ_TESTING_NAME_SPACE));
+                new RegisterGlobalVariablesCommand().getCommandName(),
+                ScejCommand.SCEJ_TESTING_NAME_SPACE));
     }
 }

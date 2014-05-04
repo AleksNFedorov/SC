@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Selenium core testing</title>
+</head>
+
+<body>
+<span concordion:execute="#driver = openDriver(#TEXT)">chrome</span>
+<span concordion:assertTrue="waitSeconds(#TEXT)">5</span>
+<span concordion:execute="getCurrentDriver()">5</span>
+<span concordion:execute="closeCurrentDriver()"></span>
+
+</body>
+</html>

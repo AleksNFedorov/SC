@@ -23,7 +23,6 @@ import java.util.TreeSet;
 public class ScejSuiteRunner extends Runner {
 
 
-    public static final String SCEJ_TESTING_NAME_SPACE = "http://www.scejtesting.com/2014";
     public static final String SUITE_CONFIG_PROPERTY_KEY = "scejtesting.suite";
     public static final String TESTS_TO_RUN_PROPERTY_KEY = "scejtesting.run.tests";
     private static final String DEFAULT_CONFIG_NAME = "scejsuite.xml";

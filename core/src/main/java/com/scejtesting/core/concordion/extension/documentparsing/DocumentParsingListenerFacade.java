@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DocumentParsingListenerFacade.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(DocumentParsingListenerFacade.class);
 
 
     private final DocumentParsingListener childLinkUpdater;

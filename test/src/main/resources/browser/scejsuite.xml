@@ -2,13 +2,13 @@
 
 <suite>
 
-    <test defaultTestClass="com.scejtesting.selenium.SeleniumCoreTest">
-        <specification location="/browser/HeadSpecificationFixtureCommands.html">
-        <!--<includes>-->
-            <!--<specification location="HeadSpecificationChrome.html"/>-->
-            <!--<specification location="HeadSpecificationFF.html"/>-->
-            <!--</includes>-->
-        </specification>
-    </test>
+    <!--
+        <test defaultTestClass="com.scejtesting.selenium.WebTestFixture">
+            <specification location="/browser/HeadSpecificationFixtureExecute.html"/>
+        </test>
+    -->
 
+    <test defaultTestClass="com.scejtesting.selenium.WebTestFixture">
+        <specification location="/browser/HeadSpecificationFixtureCommands.html"/>
+    </test>
 </suite>

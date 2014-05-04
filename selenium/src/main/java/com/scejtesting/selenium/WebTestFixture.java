@@ -1,6 +1,6 @@
 package com.scejtesting.selenium;
 
-import com.scejtesting.core.concordion.extension.ScejCoreExtensions;
+import com.scejtesting.selenium.concordion.extension.ScejSeleniumExtension;
 import org.concordion.api.extension.Extensions;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.concordion.internal.util.Check;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @RunWith(ConcordionRunner.class)
-@Extensions(value = ScejCoreExtensions.class)
+@Extensions(value = ScejSeleniumExtension.class)
 public class WebTestFixture extends CoreWebTestFixture {
 
     public final static String PAGE_ROOT_ELEMENT_XPATH = "//html";
