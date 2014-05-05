@@ -43,7 +43,7 @@ public class ScejCommandArgumentsTransformer implements NamedDocumentParsingList
     }
 
     private String buildNewAttributeValue(String currentValue) {
-        return "asList(" + currentValue + ")";
+        return "asList(" + currentValue.trim() + ")";
     }
 
     @Override

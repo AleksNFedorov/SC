@@ -9,6 +9,7 @@ import com.scejtesting.core.concordion.extension.SuiteFailFastExceptionListenerT
 import com.scejtesting.core.concordion.extension.VelocityResultsRendererTest;
 import com.scejtesting.core.concordion.extension.documentparsing.DictionarySubstitutionListenerTest;
 import com.scejtesting.core.concordion.extension.documentparsing.RegisterGlobalsCommandDocumentEnricherTest;
+import com.scejtesting.core.concordion.extension.documentparsing.ScejCommandArgumentsTransformerTest;
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
 import com.scejtesting.core.config.SpecificationTest;
 import com.scejtesting.core.config.SuiteInitialization;
@@ -37,6 +38,7 @@ import org.junit.runners.Suite;
         RegisterGlobalVariablesCommandTest.class,
         SpecificationResultRegistryTest.class,
         VelocityResultsRendererTest.class,
+        ScejCommandArgumentsTransformerTest.class
 })
 public class AllTestsSuite {
 

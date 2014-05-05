@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:scej="http://www.scejtesting.com/2014">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+<body>
+
+<span concordion:command="someCommand()">chrome</span>
+
+<span scej:command1="#TEXT, #var">chrome</span>
+<span scej:command2="#TEXT">chrome</span>
+<span scej:command3="someMethod(#TEXT)">chrome</span>
+<span scej:command4="someMethod(#TEXT, #var)">chrome</span>
+
+<span concordion:command="someCommand()">chrome</span>
+
+<span scej:command5=""></span>
+<span scej:command6="    #TEXT, #var">chrome</span>
+
+<span concordion:command="    #TEXT, #var">chrome</span>
+
+
+<hr/>
+
+</body>
+</html>
