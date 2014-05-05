@@ -106,10 +106,10 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
         currentTestFixture.openDriver("fakedriver");
 
-        WebDriverController currentController = new TestContextService().getCurrentTestContext().getAttribute(CoreWebTestFixture.SCEJ_DRIVER_SERVICE);
+        WebDriverController currentController = new TestContextService().getCurrentTestContext().getAttribute(DriverHolderService.SCEJ_DRIVER_SERVICE);
 
         new TestContextService().getCurrentTestContext().
-                addAttribute(CoreWebTestFixture.SCEJ_DRIVER_SERVICE, new FakeClassPathRemoteWebDriverService(new Properties()));
+                addAttribute(DriverHolderService.SCEJ_DRIVER_SERVICE, new FakeClassPathRemoteWebDriverService(new Properties()));
 
         try {
             currentTestFixture.getCurrentDriver();
@@ -118,7 +118,7 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
         }
 
-        new TestContextService().getCurrentTestContext().addAttribute(CoreWebTestFixture.SCEJ_DRIVER_SERVICE,
+        new TestContextService().getCurrentTestContext().addAttribute(DriverHolderService.SCEJ_DRIVER_SERVICE,
                 currentController);
 
 

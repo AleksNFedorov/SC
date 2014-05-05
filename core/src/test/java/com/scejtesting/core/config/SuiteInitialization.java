@@ -1,6 +1,6 @@
 package com.scejtesting.core.config;
 
-import com.scejtesting.core.CoreTest;
+import com.scejtesting.core.CoreTestFixture;
 import org.junit.Assert;
 
 import java.io.File;
@@ -87,7 +87,7 @@ public class SuiteInitialization {
 
 
         Assert.assertNotNull(secondTest.getSpecification());
-        Assert.assertEquals(CoreTest.class, secondTest.getDefaultTestClass());
+        Assert.assertEquals(CoreTestFixture.class, secondTest.getDefaultTestClass());
         Assert.assertNull(secondTest.getSpecification().getIncludes());
         Assert.assertNull(secondTest.getSpecification().getExcludes());
 

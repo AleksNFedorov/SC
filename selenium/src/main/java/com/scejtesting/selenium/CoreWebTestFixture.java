@@ -1,15 +1,23 @@
 package com.scejtesting.selenium;
 
+import com.scejtesting.core.CoreTestFixture;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
  * Created by aleks on 27/3/14.
  */
-public class CoreWebTestFixture extends DriverHolderService {
+public class CoreWebTestFixture extends CoreTestFixture {
+
+    protected final static Logger LOG = LoggerFactory.getLogger(CoreWebTestFixture.class);
+
+    private DriverHolderService driverHolderService = new DriverHolderService();
 
 
     public void goToURL(String URL) {
@@ -136,6 +144,21 @@ public class CoreWebTestFixture extends DriverHolderService {
         Check.notEmpty(xpath, "Xpath can't be empty");
 
         return By.xpath(xpath);
+    }
+
+    public RemoteWebDriver getCurrentDriver() {
+        return driverHolderService.getCurrentDriver();
+    }
+
+    public RemoteWebDriver openDriver(String driverName) {
+        return driverHolderService.openDriver(driverName);
+
+    }
+
+
+    public void closeCurrentDriver() {
+        driverHolderService.closeCurrentDriver();
+
     }
 
 

@@ -16,26 +16,46 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
 
     protected static final Logger LOG = LoggerFactory.getLogger(AbstractSeleniumDriverCommand.class);
 
-    protected final WebTestFixture seleniumDriverManagerService = new WebTestFixture();
-
+    private final WebTestFixture webTestFixture = new WebTestFixture();
     protected Announcer<AssertListener> listeners = Announcer.to(AssertListener.class);
 
     public AbstractSeleniumDriverCommand(AssertListener listener) {
         listeners.addListener(listener);
     }
 
-    protected abstract void processDriverCommand(Object expression, Element element);
+    protected abstract void processDriverCommand(Object parameter, Element element);
 
     @Override
     public final void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
 
-        String expression = commandCall.getExpression();
-        Object evaluationResult = evaluator.evaluate(expression);
-        LOG.info("Driver name evaluated as [{}]", expression);
+        if (commandCall.hasChildCommands()) {
+            evaluateChildren(commandCall.getChildren(), evaluator, resultRecorder);
+        }
+
+        Object evaluationResult = evaluator.evaluate(commandCall.getExpression());
+
+        LOG.info("Command value evaluation finished, [{}]", evaluationResult);
 
         processDriverCommand(evaluationResult, commandCall.getElement());
 
     }
 
+    private void evaluateChildren(CommandCallList childCommandList, Evaluator evaluator, ResultRecorder resultRecorder) {
 
+        LOG.debug("method invoked");
+
+        LOG.info("Command children detected [{}]", childCommandList.size());
+
+        childCommandList.setUp(evaluator, resultRecorder);
+        childCommandList.execute(evaluator, resultRecorder);
+
+        LOG.info("Children command execution finished");
+
+
+        LOG.debug("method finished");
+    }
+
+    public WebTestFixture getTestFixture() {
+        return webTestFixture;
+    }
 }

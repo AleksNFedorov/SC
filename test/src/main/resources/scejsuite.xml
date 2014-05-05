@@ -2,7 +2,7 @@
 
 <suite>
 
-    <test defaultTestClass="com.scejtesting.core.CoreTest">
+    <test defaultTestClass="com.scejtesting.core.CoreTestFixture">
         <specification location="/HeadSpecification.html">
             <includes>
                 <specification location="HeadSpecificationChrome.html"/>

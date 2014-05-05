@@ -33,8 +33,8 @@ public class WebTestFixture extends CoreWebTestFixture {
         LOG.info("method finished");
     }
 
-
     public boolean checkElementExist(By by) {
+
         LOG.debug("method invoked [{}]", by);
 
         Check.notNull(by, "Search predicate can't be null");
@@ -123,7 +123,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         return checkElementContainsText(rootElement, text);
 
     }
-
 
     public void clickElement(By element) {
         LOG.debug("method invoked [{}]", element);

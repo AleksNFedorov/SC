@@ -1,6 +1,6 @@
 package com.scejtesting.core.config;
 
-import com.scejtesting.core.CoreTest;
+import com.scejtesting.core.CoreTestFixture;
 import org.concordion.internal.util.Check;
 
 import javax.xml.bind.annotation.*;
@@ -16,7 +16,7 @@ public class Test extends ExceptionsHolder {
     protected Specification specification;
 
     @XmlAttribute(name = "defaultTestClass", required = false)
-    protected Class clazz = CoreTest.class;
+    protected Class clazz = CoreTestFixture.class;
 
     @XmlAttribute(name = "substitutionDictionary", required = false)
     private String substitutionDictionary;

@@ -1,6 +1,6 @@
 package com.scejtesting.core.concordion;
 
-import com.scejtesting.core.CoreTest;
+import com.scejtesting.core.CoreTestFixture;
 import com.scejtesting.core.config.*;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContextService;
@@ -213,7 +213,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         Specification rootSpecification = new Specification("/includeAllSpecification.html");
         Test testMock = mock(Test.class);
         when(testMock.getSpecification()).thenReturn(rootSpecification);
-        when(testMock.getDefaultTestClass()).thenReturn(CoreTest.class);
+        when(testMock.getDefaultTestClass()).thenReturn(CoreTestFixture.class);
 
         createNewTestContext(testMock);
 

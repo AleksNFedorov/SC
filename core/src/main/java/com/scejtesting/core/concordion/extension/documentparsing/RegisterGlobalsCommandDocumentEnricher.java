@@ -5,7 +5,6 @@ import com.scejtesting.core.concordion.command.ScejCommand;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
-import org.concordion.api.listener.DocumentParsingListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * User: Fedorovaleks
  * Date: 21.03.14
  */
-public class RegisterGlobalsCommandDocumentEnricher implements DocumentParsingListener {
+public class RegisterGlobalsCommandDocumentEnricher implements NamedDocumentParsingListener {
 
     public static final String REGISTER_GLOBALS_DEFAULT_NAMESPACE = "scejregisterglobalsinline";
     private static final Logger LOG = LoggerFactory.getLogger(ChildSpecificationLinkUpdater.class);
@@ -56,5 +55,8 @@ public class RegisterGlobalsCommandDocumentEnricher implements DocumentParsingLi
                 ScejCommand.SCEJ_TESTING_NAME_SPACE);
     }
 
-
+    @Override
+    public String getParserName() {
+        return "Global variables registrator";
+    }
 }

@@ -6,7 +6,10 @@
 </head>
 
 <body>
-<span scej:openDriver="#TEXT">chrome</span>
+<span scej:openDriver="#v1, #v2">
+    <div concordion:set="#v1=createById(#TEXT)">id1</div>
+    <div concordion:set="#v2=createById(#TEXT)">id2</div>
+</span>
 <span concordion:execute="getCurrentDriver()">5</span>
 <span scej:waitSeconds="#TEXT">5</span>
 <span scej:closeCurrentDriver="#TEXT"></span>

@@ -5,7 +5,6 @@ import com.scejtesting.core.context.TestContextService;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Nodes;
-import org.concordion.api.listener.DocumentParsingListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import java.util.regex.Pattern;
  * User: Fedorovaleks
  * Date: 3/18/14
  */
-public class DictionarySubstitutionListener implements DocumentParsingListener {
+public class DictionarySubstitutionListener implements NamedDocumentParsingListener {
 
     public static final String SUBSTITUTION_NODES_XPATH = "//*[contains(text(), '${')]";
     private static final Logger LOG = LoggerFactory.getLogger(DictionarySubstitutionListener.class);
@@ -102,5 +101,8 @@ public class DictionarySubstitutionListener implements DocumentParsingListener {
         return new DictionaryLoaderService();
     }
 
-
+    @Override
+    public String getParserName() {
+        return "Dictionary substitution";
+    }
 }

@@ -3,8 +3,8 @@ package com.scejtesting.selenium.concordion.extension;
 import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.extension.ScejCoreExtensions;
 import com.scejtesting.selenium.concordion.extension.command.AbstractSeleniumDriverCommand;
-import com.scejtesting.selenium.concordion.extension.command.CloseDriverCommand;
-import com.scejtesting.selenium.concordion.extension.command.CreateAndOpenDriverCommand;
+import com.scejtesting.selenium.concordion.extension.command.CloseDriver;
+import com.scejtesting.selenium.concordion.extension.command.OpenDriver;
 import com.scejtesting.selenium.concordion.extension.command.WaitCommand;
 import com.scejtesting.selenium.concordion.extension.screenshot.ScreenShotFacade;
 import org.concordion.api.extension.ConcordionExtender;
@@ -23,8 +23,8 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
 
     private final List<AbstractSeleniumDriverCommand> allCommands = new LinkedList<AbstractSeleniumDriverCommand>() {
         {
-            add(new CloseDriverCommand(assertRenderer));
-            add(new CreateAndOpenDriverCommand(assertRenderer));
+            add(new CloseDriver(assertRenderer));
+            add(new OpenDriver(assertRenderer));
             add(new WaitCommand(assertRenderer));
         }
     };

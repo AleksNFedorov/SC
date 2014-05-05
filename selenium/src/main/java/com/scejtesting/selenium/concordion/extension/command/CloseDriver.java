@@ -8,21 +8,20 @@ import org.concordion.api.listener.AssertSuccessEvent;
  * User: Fedorovaleks
  * Date: 3/31/14
  */
-public class CreateAndOpenDriverCommand extends AbstractSeleniumDriverCommand {
+public class CloseDriver extends AbstractSeleniumDriverCommand {
 
-
-    public CreateAndOpenDriverCommand(AssertListener listener) {
+    public CloseDriver(AssertListener listener) {
         super(listener);
     }
 
     @Override
-    protected void processDriverCommand(Object expression, Element element) {
-        seleniumDriverManagerService.openDriver(expression.toString());
+    protected void processDriverCommand(Object parameter, Element element) {
+        webTestFixture.closeCurrentDriver();
         listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
     @Override
     public String getCommandName() {
-        return "openDriver";
+        return "closeCurrentDriver";
     }
 }

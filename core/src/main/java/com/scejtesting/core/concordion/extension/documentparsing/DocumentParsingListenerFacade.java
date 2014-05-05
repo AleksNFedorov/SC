@@ -5,6 +5,9 @@ import org.concordion.api.listener.DocumentParsingListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * User: Fedorovaleks
  * Date: 3/18/14
@@ -13,39 +16,27 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
     protected static final Logger LOG = LoggerFactory.getLogger(DocumentParsingListenerFacade.class);
 
+    private final List<NamedDocumentParsingListener> parsingListeners = new LinkedList<NamedDocumentParsingListener>() {
+        {
+            add(new ChildSpecificationLinkUpdater());
+            add(new DictionarySubstitutionListener());
+            add(new RegisterGlobalsCommandDocumentEnricher());
+            add(new ScejCommandArgumentsTransformer());
+        }
+    };
 
-    private final DocumentParsingListener childLinkUpdater;
-    private final DocumentParsingListener substituteListener;
-    private final DocumentParsingListener registerGlobalsEnricher;
-
-
-    public DocumentParsingListenerFacade() {
-
-
-        childLinkUpdater = new ChildSpecificationLinkUpdater();
-        substituteListener = new DictionarySubstitutionListener();
-        registerGlobalsEnricher = new RegisterGlobalsCommandDocumentEnricher();
-
-        LOG.info("instance created");
-
-    }
 
     @Override
     public void beforeParsing(Document document) {
 
         LOG.debug("method invoked");
 
-        substituteListener.beforeParsing(document);
+        for (NamedDocumentParsingListener parsingListener : parsingListeners) {
+            parsingListener.beforeParsing(document);
+            LOG.info("Listener [{}] successfully processed document ", parsingListener.getParserName());
+        }
 
-        LOG.info("substitution listener finished");
-
-        childLinkUpdater.beforeParsing(document);
-
-        LOG.info("chile link updater listener finished");
-
-        registerGlobalsEnricher.beforeParsing(document);
-
-        LOG.info("register globals enricher listener finished");
+        LOG.info("All listeners finished");
 
         LOG.debug("method finished");
     }
