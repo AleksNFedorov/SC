@@ -16,7 +16,7 @@ public class WaitCommand extends AbstractSeleniumDriverCommand {
     protected void processDriverCommand(Object parameter, Element element) {
 
         try {
-            webTestFixture.waitSeconds(Long.valueOf(parameter.toString()));
+            getTestFixture().waitSeconds(Long.valueOf(parameter.toString()));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

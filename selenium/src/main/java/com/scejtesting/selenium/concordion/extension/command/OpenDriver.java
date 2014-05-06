@@ -19,7 +19,7 @@ public class OpenDriver extends AbstractSeleniumDriverCommand {
     @Override
     protected void processDriverCommand(Object parameter, Element element) {
 
-        webTestFixture.openDriver(parameter.toString());
+        getTestFixture().openDriver(parameter.toString());
         listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 

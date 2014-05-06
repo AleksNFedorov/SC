@@ -16,7 +16,7 @@ public class CloseDriver extends AbstractSeleniumDriverCommand {
 
     @Override
     protected void processDriverCommand(Object parameter, Element element) {
-        webTestFixture.closeCurrentDriver();
+        getTestFixture().closeCurrentDriver();
         listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
