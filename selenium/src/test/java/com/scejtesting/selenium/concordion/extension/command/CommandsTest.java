@@ -32,6 +32,113 @@ public class CommandsTest {
         listener = null;
     }
 
+
+    @Test
+    public void checkElementExist() {
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractCheckStateCommand command = spy(new CheckElementDisplayed(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        when(fixture.checkElementDisplayed(any(By.class))).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(By.id("someID"), new Element("div"));
+        Assert.assertEquals(1, listener.getSuccessCount());
+
+
+        when(fixture.checkElementDisplayed(any(By.class))).thenReturn(Boolean.FALSE);
+        command.processDriverCommand(By.id("someID"), new Element("div"));
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        Assert.assertEquals(1, listener.getSuccessCount());
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+    }
+
+
+    @Test
+    public void checkElementDisplayed() {
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractCheckStateCommand command = spy(new CheckElementDisplayed(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        when(fixture.checkElementDisplayed(any(By.class))).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(By.id("someID"), new Element("div"));
+        Assert.assertEquals(1, listener.getSuccessCount());
+
+
+        when(fixture.checkElementDisplayed(any(WebElement.class))).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(mock(WebElement.class), new Element("div"));
+        Assert.assertEquals(2, listener.getSuccessCount());
+
+
+        when(fixture.checkElementDisplayed(any(WebElement.class))).thenReturn(Boolean.FALSE);
+        command.processDriverCommand(mock(WebElement.class), new Element("div"));
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        Assert.assertEquals(2, listener.getSuccessCount());
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+    }
+
+
+    @Test
+    public void checkElementEnabled() {
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractCheckStateCommand command = spy(new CheckElementEnabled(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        when(fixture.checkElementEnabled(any(By.class))).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(By.id("someID"), new Element("div"));
+        Assert.assertEquals(1, listener.getSuccessCount());
+
+
+        when(fixture.checkElementEnabled(any(WebElement.class))).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(mock(WebElement.class), new Element("div"));
+        Assert.assertEquals(2, listener.getSuccessCount());
+
+
+        when(fixture.checkElementEnabled(any(WebElement.class))).thenReturn(Boolean.FALSE);
+        command.processDriverCommand(mock(WebElement.class), new Element("div"));
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        Assert.assertEquals(2, listener.getSuccessCount());
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+    }
+
+
     @Test
     public void checkElementSelected() {
         WebTestFixture fixture = mock(WebTestFixture.class);
