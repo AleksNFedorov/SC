@@ -1,9 +1,7 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
-import org.concordion.api.listener.AssertFailureEvent;
 import org.concordion.api.listener.AssertListener;
-import org.concordion.api.listener.AssertSuccessEvent;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,12 +9,12 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 /**
- * Created by aleks on 5/4/14.
+ * Created by aleks on 5/6/14.
  */
-public class CheckElementContainsText extends AbstractSeleniumDriverCommand {
+public class SetValueToElement extends AbstractSeleniumDriverCommand {
 
 
-    public CheckElementContainsText(AssertListener listener) {
+    public SetValueToElement(AssertListener listener) {
         super(listener);
     }
 
@@ -30,25 +28,15 @@ public class CheckElementContainsText extends AbstractSeleniumDriverCommand {
         String textToSearch = (String) parameterList.get(1);
         Object elementSearchPredicate = parameterList.get(0);
 
-        boolean checkResult;
 
         if (elementSearchPredicate instanceof By) {
             By bySearchPredicate = (By) elementSearchPredicate;
-            checkResult = getTestFixture().checkElementContainsText(bySearchPredicate, textToSearch);
+            getTestFixture().setValueToElement(bySearchPredicate, textToSearch);
         } else {
             WebElement elementToCheck = (WebElement) elementSearchPredicate;
-            checkResult = getTestFixture().checkElementContainsText(elementToCheck, textToSearch);
+            getTestFixture().setValueToElement(elementToCheck, textToSearch);
         }
 
-        announceResult(checkResult, element, textToSearch);
-    }
-
-    private void announceResult(boolean checkPassed, Element element, String textToSearch) {
-        if (checkPassed) {
-            listeners.announce().successReported(new AssertSuccessEvent(element));
-        } else {
-            listeners.announce().failureReported(new AssertFailureEvent(element, textToSearch, ""));
-        }
     }
 
     private void validateParameters(Object parameter) {
@@ -68,8 +56,6 @@ public class CheckElementContainsText extends AbstractSeleniumDriverCommand {
 
     @Override
     public String getCommandName() {
-        return "checkElementContainsText";
+        return "setValueToElement";
     }
-
-
 }

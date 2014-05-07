@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
+
 import static org.mockito.Mockito.*;
 
 /**
@@ -32,6 +34,160 @@ public class CommandsTest {
         listener = null;
     }
 
+
+    @Test
+    public void setValueToElementTest() {
+
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractSeleniumDriverCommand command = spy(new SetValueToElement(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        doNothing().when(fixture).setValueToElement(any(By.class), anyString());
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText"), new Element("div"));
+        verify(fixture, times(1)).setValueToElement(any(By.class), anyString());
+
+        doNothing().when(fixture).setValueToElement(any(WebElement.class), anyString());
+        command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText"), new Element("div"));
+        verify(fixture, times(1)).setValueToElement(any(WebElement.class), anyString());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId")), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId"), new Object()), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(new Object(), "string"), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+    }
+
+
+    @Test
+    public void clearElementTest() {
+
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractSeleniumDriverCommand command = spy(new ClearElement(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        doNothing().when(fixture).clearElement(any(By.class));
+        command.processDriverCommand(By.id("someID"), new Element("div"));
+        verify(fixture, times(1)).clearElement(any(By.class));
+
+        doNothing().when(fixture).clearElement(any(WebElement.class));
+        command.processDriverCommand(mock(WebElement.class), new Element("div"));
+        verify(fixture, times(1)).clearElement(any(WebElement.class));
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+
+    }
+
+
+    @Test
+    public void clickElementTest() {
+
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractSeleniumDriverCommand command = spy(new ClickElement(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        doNothing().when(fixture).clickElement(any(By.class));
+        command.processDriverCommand(By.id("someID"), new Element("div"));
+        verify(fixture, times(1)).clickElement(any(By.class));
+
+        doNothing().when(fixture).clickElement(any(WebElement.class));
+        command.processDriverCommand(mock(WebElement.class), new Element("div"));
+        verify(fixture, times(1)).clickElement(any(WebElement.class));
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+
+    }
+
+    @Test
+    public void checkElementContainsTextTest() {
+
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractSeleniumDriverCommand command = spy(new CheckElementContainsText(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        when(fixture.checkElementContainsText(any(By.class), anyString())).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText"), new Element("div"));
+        Assert.assertEquals(1, listener.getSuccessCount());
+
+        when(fixture.checkElementContainsText(any(WebElement.class), anyString())).thenReturn(Boolean.TRUE);
+        command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText"), new Element("div"));
+        Assert.assertEquals(2, listener.getSuccessCount());
+
+
+        when(fixture.checkElementContainsText(any(By.class), anyString())).thenReturn(Boolean.FALSE);
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText"), new Element("div"));
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId")), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId"), new Object()), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(new Object(), "string"), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        Assert.assertEquals(2, listener.getSuccessCount());
+        Assert.assertEquals(1, listener.getFailCount());
+    }
 
     @Test
     public void checkElementExist() {

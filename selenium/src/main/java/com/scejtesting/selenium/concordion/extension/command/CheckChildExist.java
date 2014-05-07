@@ -11,12 +11,12 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 /**
- * Created by aleks on 5/4/14.
+ * Created by aleks on 5/6/14.
  */
-public class CheckElementContainsText extends AbstractSeleniumDriverCommand {
+public class CheckChildExist extends AbstractSeleniumDriverCommand {
 
 
-    public CheckElementContainsText(AssertListener listener) {
+    public CheckChildExist(AssertListener listener) {
         super(listener);
     }
 
@@ -27,20 +27,20 @@ public class CheckElementContainsText extends AbstractSeleniumDriverCommand {
 
         List parameterList = (List) parameter;
 
-        String textToSearch = (String) parameterList.get(1);
-        Object elementSearchPredicate = parameterList.get(0);
+        Object parentElementPredicate = parameterList.get(0);
+        By childElementToSearch = (By) parameterList.get(1);
 
         boolean checkResult;
 
-        if (elementSearchPredicate instanceof By) {
-            By bySearchPredicate = (By) elementSearchPredicate;
-            checkResult = getTestFixture().checkElementContainsText(bySearchPredicate, textToSearch);
+        if (parentElementPredicate instanceof By) {
+            By parentSearchBy = (By) parentElementPredicate;
+            checkResult = getTestFixture().checkChildExist(parentSearchBy, childElementToSearch);
         } else {
-            WebElement elementToCheck = (WebElement) elementSearchPredicate;
-            checkResult = getTestFixture().checkElementContainsText(elementToCheck, textToSearch);
+            WebElement parentElement = (WebElement) parentElementPredicate;
+            checkResult = getTestFixture().checkChildExist(parentElement, childElementToSearch);
         }
 
-        announceResult(checkResult, element, textToSearch);
+        announceResult(checkResult, element, "");
     }
 
     private void announceResult(boolean checkPassed, Element element, String textToSearch) {
@@ -63,13 +63,13 @@ public class CheckElementContainsText extends AbstractSeleniumDriverCommand {
 
         Check.isTrue(parameter1 instanceof By || parameter1 instanceof WebElement,
                 "By or WebElement expected as first parameter");
-        Check.isTrue(parameter2 instanceof String, "String expected as second parameter");
+        Check.isTrue(parameter2 instanceof By,
+                "By expected as second parameter");
     }
 
     @Override
     public String getCommandName() {
-        return "checkElementContainsText";
+        return "checkChildExist";
     }
-
 
 }
