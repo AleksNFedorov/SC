@@ -14,6 +14,35 @@ import static org.mockito.Mockito.when;
  */
 public class TestContextTest extends TestContextService {
 
+
+    @org.junit.Test
+    public void attributesTest() {
+        Test fakeTest = mock(Test.class);
+        when(fakeTest.getSpecification()).thenReturn(new Specification());
+
+        createNewTestContext(fakeTest);
+
+        Object key = new Object();
+        Object value = new Object();
+        Object value2 = new Object();
+
+        getCurrentTestContext().addAttribute(key, value);
+        getCurrentTestContext().addAttribute(key, value2);
+
+        Object contextValue = getCurrentTestContext().getAttribute(key);
+
+        Assert.assertEquals(value2, contextValue);
+
+        getCurrentTestContext().cleanAttribute(key);
+
+        Assert.assertNull(getCurrentTestContext().getAttribute(key));
+
+        Assert.assertNotNull(getCurrentTestContext());
+        destroyTestContext();
+        Assert.assertNull(getCurrentTestContext());
+
+    }
+
     @org.junit.Test
     public void doubleInitializationTest() {
 

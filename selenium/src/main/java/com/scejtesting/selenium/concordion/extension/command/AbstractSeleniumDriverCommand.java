@@ -32,7 +32,7 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
             evaluateChildren(commandCall.getChildren(), evaluator, resultRecorder);
         }
 
-        Object evaluationResult = evaluator.evaluate(commandCall.getExpression());
+        Object evaluationResult = evaluateExpression(commandCall.getExpression(), evaluator);
 
         LOG.info("Command value evaluation finished, [{}]", evaluationResult);
 
@@ -53,6 +53,18 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
 
 
         LOG.debug("method finished");
+    }
+
+    protected Object evaluateExpression(String expression, Evaluator evaluator) {
+        LOG.debug("method invoked [{}]", expression);
+
+        LOG.info("Evaluating expression");
+
+        Object evaluationResult = evaluator.evaluate(expression);
+
+        LOG.debug("method finished");
+
+        return evaluationResult;
     }
 
     public WebTestFixture getTestFixture() {

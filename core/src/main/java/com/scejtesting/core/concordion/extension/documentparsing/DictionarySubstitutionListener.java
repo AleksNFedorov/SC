@@ -62,7 +62,8 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
     }
 
     private boolean needSubstituteContent(String elementContent) {
-        return SUBSTITUTE_PATTERN.matcher(elementContent).matches();
+
+        return SUBSTITUTE_PATTERN.matcher(elementContent.trim()).matches();
     }
 
     private String resolveValueReplacement(String elementValue, Properties dictionary) {

@@ -31,9 +31,14 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
         LOG.debug("method invoked");
 
-        for (NamedDocumentParsingListener parsingListener : parsingListeners) {
-            parsingListener.beforeParsing(document);
-            LOG.info("Listener [{}] successfully processed document ", parsingListener.getParserName());
+        try {
+            for (NamedDocumentParsingListener parsingListener : parsingListeners) {
+                parsingListener.beforeParsing(document);
+                LOG.info("Listener [{}] successfully processed document ", parsingListener.getParserName());
+            }
+        } catch (Throwable ex) {
+            LOG.error("Exception during document processing", ex);
+            throw new RuntimeException(ex);
         }
 
         LOG.info("All listeners finished");

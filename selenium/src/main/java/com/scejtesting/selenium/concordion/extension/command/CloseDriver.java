@@ -1,6 +1,7 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
+import org.concordion.api.Evaluator;
 import org.concordion.api.listener.AssertListener;
 import org.concordion.api.listener.AssertSuccessEvent;
 
@@ -18,6 +19,12 @@ public class CloseDriver extends AbstractSeleniumDriverCommand {
     protected void processDriverCommand(Object parameter, Element element) {
         getTestFixture().closeCurrentDriver();
         listeners.announce().successReported(new AssertSuccessEvent(element));
+    }
+
+    @Override
+    protected Object evaluateExpression(String expression, Evaluator evaluator) {
+        LOG.info("No expression expected for close driver command");
+        return null;
     }
 
     @Override

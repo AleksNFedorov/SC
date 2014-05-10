@@ -17,16 +17,18 @@
         </encoder>
     </appender>
 
-    <logger name="com.scejtesting.core.concordion.ChildSpecificationRunner" level="debug">
-        <!--<appender-ref ref="STDOUT"/>-->
-    </logger>
+    <!--
+        <logger name="com.scejtesting.core.concordion.ChildSpecificationRunner" level="debug">
+            &lt;!&ndash;<appender-ref ref="STDOUT"/>&ndash;&gt;
+        </logger>
 
-    <logger name="com.scejtesting.core.runner.ScejSuiteRunner" level="debug">
-        <!--<appender-ref ref="STDOUT"/>-->
-    </logger>
+        <logger name="com.scejtesting.core.runner.ScejSuiteRunner" level="debug">
+            &lt;!&ndash;<appender-ref ref="STDOUT"/>&ndash;&gt;
+        </logger>
+    -->
 
 
-    <root level="ERROR">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="develomentServerAppender"/>
     </root>

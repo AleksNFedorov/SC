@@ -3,6 +3,7 @@ package com.scejtesting.selenium.concordion.extension.command;
 import org.concordion.api.Element;
 import org.concordion.api.listener.AssertListener;
 import org.concordion.api.listener.AssertSuccessEvent;
+import org.concordion.internal.util.Check;
 
 
 /**
@@ -18,6 +19,8 @@ public class OpenDriver extends AbstractSeleniumDriverCommand {
 
     @Override
     protected void processDriverCommand(Object parameter, Element element) {
+
+        Check.notNull(parameter, "Driver name must be set");
 
         getTestFixture().openDriver(parameter.toString());
         listeners.announce().successReported(new AssertSuccessEvent(element));

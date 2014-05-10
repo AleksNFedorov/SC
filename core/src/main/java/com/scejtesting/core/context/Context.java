@@ -4,9 +4,9 @@ import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * User: Fedorovaleks
@@ -16,7 +16,7 @@ public class Context {
 
     protected static final Logger LOG = LoggerFactory.getLogger(Context.class);
 
-    private final Map attributes = new TreeMap();
+    private final Map attributes = new HashMap();
 
     private final Map globalVariables = new LinkedHashMap();
 

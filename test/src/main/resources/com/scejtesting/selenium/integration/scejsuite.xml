@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+
+    <test defaultTestClass="com.scejtesting.selenium.WebTestFixture"
+          substitutionDictionary="/Users/aleks/Projects/SC/test/src/main/resources/com/scejtesting/selenium/integration/dictionary.properties">
+        <specification location="/com/scejtesting/selenium/integration/specs/HeadSpecification.html"/>
+    </test>
+
+</suite>

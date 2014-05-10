@@ -2,7 +2,6 @@ package com.scejtesting.selenium.concordion.extension;
 
 import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.extension.ScejCoreExtensions;
-import com.scejtesting.selenium.concordion.extension.command.AbstractSeleniumDriverCommand;
 import com.scejtesting.selenium.concordion.extension.command.CloseDriver;
 import com.scejtesting.selenium.concordion.extension.command.OpenDriver;
 import com.scejtesting.selenium.concordion.extension.command.WaitCommand;
@@ -21,7 +20,7 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
 
     private final AssertResultRenderer assertRenderer = new AssertResultRenderer();
 
-    private final List<AbstractSeleniumDriverCommand> allCommands = new LinkedList<AbstractSeleniumDriverCommand>() {
+    private final List<ScejCommand> allCommands = new LinkedList<ScejCommand>() {
         {
             add(new CloseDriver(assertRenderer));
             add(new OpenDriver(assertRenderer));
@@ -46,9 +45,9 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
 
     }
 
-    private void addCommands(ConcordionExtender extender) {
-        for (AbstractSeleniumDriverCommand command : allCommands) {
-            extender.withCommand(ScejCommand.SCEJ_TESTING_NAME_SPACE, command.getCommandName(), command);
-        }
+    @Override
+    protected List<ScejCommand> getCommandsList() {
+        allCommands.addAll(super.getCommandsList());
+        return allCommands;
     }
 }

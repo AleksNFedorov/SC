@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 
 public class DictionaryLoaderService {
@@ -42,13 +43,18 @@ public class DictionaryLoaderService {
 
         LOG.info("Loading global properties");
 
+        globalDictionaryProperties = new Properties();
+
         try {
-            String globalDictionaryFile = getClass().getClassLoader().getResource(GLOBAL_DICTIONARY).getFile();
-            globalDictionaryProperties = loadDictionaryFromFile(globalDictionaryFile);
-            LOG.info("global dictionary successfully loaded");
+            URL resourceURL = getClass().getClassLoader().getResource(GLOBAL_DICTIONARY);
+            if (resourceURL == null) {
+                LOG.info("No global dictionary found [{}]", GLOBAL_DICTIONARY);
+            } else {
+                globalDictionaryProperties = loadDictionaryFromFile(resourceURL.getFile());
+                LOG.info("global dictionary successfully loaded");
+            }
         } catch (Exception ex) {
             LOG.error("Exception when loading global properties ", ex);
-            globalDictionaryProperties = new Properties();
         }
 
         getCurrentTestContext().addAttribute(GLOBAL_DICTIONARY, globalDictionaryProperties);
