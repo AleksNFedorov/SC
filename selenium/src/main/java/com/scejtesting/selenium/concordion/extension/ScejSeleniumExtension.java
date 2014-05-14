@@ -2,9 +2,7 @@ package com.scejtesting.selenium.concordion.extension;
 
 import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.extension.ScejCoreExtensions;
-import com.scejtesting.selenium.concordion.extension.command.CloseDriver;
-import com.scejtesting.selenium.concordion.extension.command.OpenDriver;
-import com.scejtesting.selenium.concordion.extension.command.WaitCommand;
+import com.scejtesting.selenium.concordion.extension.command.*;
 import com.scejtesting.selenium.concordion.extension.screenshot.ScreenShotFacade;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.ext.ScreenshotExtension;
@@ -25,6 +23,16 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
             add(new CloseDriver(assertRenderer));
             add(new OpenDriver(assertRenderer));
             add(new WaitCommand(assertRenderer));
+            add(new SetValueToElement(assertRenderer));
+            add(new ClickElement(assertRenderer));
+            add(new ClearElement(assertRenderer));
+            add(new CheckTextOnPage(assertRenderer));
+            add(new CheckElementSelected(assertRenderer));
+            add(new CheckElementExist(assertRenderer));
+            add(new CheckElementEnabled(assertRenderer));
+            add(new CheckElementDisplayed(assertRenderer));
+            add(new CheckElementContainsText(assertRenderer));
+            add(new CheckChildExist(assertRenderer));
         }
     };
 

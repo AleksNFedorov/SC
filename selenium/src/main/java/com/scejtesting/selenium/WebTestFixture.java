@@ -1,10 +1,6 @@
 package com.scejtesting.selenium;
 
-import com.scejtesting.selenium.concordion.extension.ScejSeleniumExtension;
-import org.concordion.api.extension.Extensions;
-import org.concordion.integration.junit4.ConcordionRunner;
 import org.concordion.internal.util.Check;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -16,8 +12,6 @@ import java.util.concurrent.TimeUnit;
  * Created by aleks on 5/2/14.
  */
 
-@RunWith(ConcordionRunner.class)
-@Extensions(value = ScejSeleniumExtension.class)
 public class WebTestFixture extends CoreWebTestFixture {
 
     public final static String PAGE_ROOT_ELEMENT_XPATH = "//html";
@@ -105,6 +99,7 @@ public class WebTestFixture extends CoreWebTestFixture {
         Check.notEmpty(text, "Text to search can't be empty");
 
         boolean contains = element.getText().contains(text);
+
 
         LOG.info("Element contains text [{}]", contains);
 
@@ -285,6 +280,87 @@ public class WebTestFixture extends CoreWebTestFixture {
 
         return elementSelected;
 
+    }
+
+    public void submitElement(By elementToSubmitBy) {
+        LOG.debug("method invoked [{}]", elementToSubmitBy);
+
+        Check.notNull(elementToSubmitBy, "Element to check selected can't be null");
+
+        WebElement elementToSubmit = getCurrentDriver().findElement(elementToSubmitBy);
+
+        submitElement(elementToSubmit);
+
+        LOG.info("Element to submit [{}]", elementToSubmit);
+
+        LOG.debug("method finished");
+    }
+
+    public void submitElement(WebElement elementToSubmit) {
+
+        LOG.debug("method invoked [{}]", elementToSubmit);
+
+        Check.notNull(elementToSubmit, "Element to submit can't be null");
+
+        elementToSubmit.submit();
+
+
+        LOG.debug("method finished");
+
+    }
+
+    public boolean checkElementAttributeContainsText(By element, String attribute, String text) {
+
+        LOG.debug("method invoked [{}][{}]", element, text);
+
+        Check.notNull(element, "Element search predicate can't be null");
+
+        WebElement foundElement = getCurrentDriver().findElement(element);
+
+        LOG.info("Element found");
+        return checkElementAttributeContainsText(foundElement, attribute, text);
+    }
+
+    public boolean checkElementAttributeContainsText(WebElement element, String attribute, String text) {
+        LOG.debug("method invoked [{}][{}]", element, text);
+
+        Check.notNull(element, "Element search predicate can't be null");
+        Check.notEmpty(attribute, "Attribute can't be empty");
+        Check.notEmpty(text, "Text to search can't be empty");
+
+        boolean contains = element.getAttribute(attribute).contains(text);
+        LOG.info("Element contains text [{}]", contains);
+
+        LOG.debug("method finished");
+
+        return contains;
+    }
+
+    public boolean checkElementCSSContainsText(By element, String css, String text) {
+
+        LOG.debug("method invoked [{}][{}]", element, text);
+
+        Check.notNull(element, "Element search predicate can't be null");
+
+        WebElement foundElement = getCurrentDriver().findElement(element);
+
+        LOG.info("Element found");
+        return checkElementCSSContainsText(foundElement, css, text);
+    }
+
+    public boolean checkElementCSSContainsText(WebElement element, String css, String text) {
+        LOG.debug("method invoked [{}][{}]", element, text);
+
+        Check.notNull(element, "Element search predicate can't be null");
+        Check.notEmpty(css, "CSS can't be empty");
+        Check.notEmpty(text, "Text to search can't be empty");
+
+        boolean contains = element.getAttribute(css).contains(text);
+        LOG.info("Element contains text [{}]", contains);
+
+        LOG.debug("method finished");
+
+        return contains;
     }
 
 

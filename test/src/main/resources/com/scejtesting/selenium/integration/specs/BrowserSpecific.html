@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:scej="http://www.scejtesting.com/2014">
+<html xmlns:scej="http://www.scejtesting.com/2014" xmlns:concordion="http://www.concordion.org/2007/concordion">
 <head lang="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Browser specific specification</title>
@@ -8,13 +8,18 @@
 
 <span scej:openDriver="#driver">Запустили драйвер</span>
 
+
+<a concordion:run="com.scejtesting.core.concordion.ChildSpecificationRunner" href="TopPageSpecification.html">
+    Тестирование страницы ТОП результатов</a>
+
+
 Подождали
 <span scej:waitSeconds="#TEXT">5</span>
 секунд
 
-Закрыли браузер
+Закрыли
 
-<span scej:closeCurrentDriver=""></span>
+<span scej:closeCurrentDriver="">браузер</span>
 
 </body>
 </html>

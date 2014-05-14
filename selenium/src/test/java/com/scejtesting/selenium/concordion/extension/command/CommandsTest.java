@@ -131,7 +131,7 @@ public class CommandsTest {
         try {
             command.processDriverCommand("someDriver", new Element("div"));
             Assert.fail();
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
         }
 
 
@@ -424,6 +424,130 @@ public class CommandsTest {
 
 
     }
+
+    @Test
+    public void checkElementCSSContainsTextTest() {
+
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractSeleniumDriverCommand command = spy(new CheckElementCSSContainsText(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        when(fixture.checkElementCSSContainsText(any(By.class), anyString(), anyString()))
+                .thenReturn(Boolean.TRUE);
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
+        Assert.assertEquals(1, listener.getSuccessCount());
+
+        when(fixture.checkElementCSSContainsText(any(WebElement.class), anyString(), anyString()))
+                .thenReturn(Boolean.TRUE);
+        command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText", "someText"), new Element("div"));
+        Assert.assertEquals(2, listener.getSuccessCount());
+
+
+        when(fixture.checkElementCSSContainsText(any(By.class), anyString(), anyString()))
+                .thenReturn(Boolean.FALSE);
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId")), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId"), new Object()), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(new Object(), "string"), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(new Object(), "string", new Object()), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        Assert.assertEquals(2, listener.getSuccessCount());
+        Assert.assertEquals(1, listener.getFailCount());
+    }
+
+
+    @Test
+    public void checkElementAttributeContainsTextTest() {
+
+        WebTestFixture fixture = mock(WebTestFixture.class);
+
+        AbstractSeleniumDriverCommand command = spy(new CheckElementAttributeContainsText(listener));
+
+        doReturn(fixture).when(command).getTestFixture();
+
+
+        when(fixture.checkElementAttributeContainsText(any(By.class), anyString(), anyString()))
+                .thenReturn(Boolean.TRUE);
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
+        Assert.assertEquals(1, listener.getSuccessCount());
+
+        when(fixture.checkElementAttributeContainsText(any(WebElement.class), anyString(), anyString()))
+                .thenReturn(Boolean.TRUE);
+        command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText", "someText"), new Element("div"));
+        Assert.assertEquals(2, listener.getSuccessCount());
+
+
+        when(fixture.checkElementAttributeContainsText(any(By.class), anyString(), anyString()))
+                .thenReturn(Boolean.FALSE);
+        command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
+        Assert.assertEquals(1, listener.getFailCount());
+
+
+        try {
+            command.processDriverCommand("someDriver", new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId")), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(By.id("someId"), new Object()), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(new Object(), "string"), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        try {
+            command.processDriverCommand(Arrays.asList(new Object(), "string", new Object()), new Element("div"));
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+
+        Assert.assertEquals(2, listener.getSuccessCount());
+        Assert.assertEquals(1, listener.getFailCount());
+    }
+
 
     private class MonitoringAssertListener implements AssertListener {
 

@@ -14,8 +14,8 @@ public class FileTargetWithCustomPrefix extends FileTarget {
 
     public static final String PROPERTY_OUTPUT_DIR = "concordion.output.dir";
     public static final String PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR = "scejtesting.launch.result.folder.pattern";
+    public static final File resultBaseDir = getBaseOutputDir();
     private static final String DATE_TIME_PREFIX_FORMAT = "dd-MM-yy_HH-mm-ss";
-    private static final File resultBaseDir = getBaseOutputDir();
 
     public FileTargetWithCustomPrefix() {
         super(resultBaseDir);

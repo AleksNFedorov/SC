@@ -7,6 +7,8 @@ import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -65,6 +67,7 @@ public class TestContext extends Context {
         LOG.debug("method finished");
     }
 
+
     public final Test getTest() {
         LOG.debug("method invoked");
         return test;
@@ -93,6 +96,11 @@ public class TestContext extends Context {
         LOG.debug("context stack has been updated [{}]", contextStack.size());
         LOG.debug("method finished");
     }
+
+    public List<SpecificationContext> getSpecificationStack() {
+        return new ArrayList<SpecificationContext>(contextStack);
+    }
+
 
     @Override
     public String toString() {

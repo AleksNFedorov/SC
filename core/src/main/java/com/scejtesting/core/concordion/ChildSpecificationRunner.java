@@ -58,7 +58,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             throw ex;
         } finally {
             destroyContextAndPopulateResults(result);
-//            getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry().addResult(result);
             LOG.debug("method finished");
         }
     }

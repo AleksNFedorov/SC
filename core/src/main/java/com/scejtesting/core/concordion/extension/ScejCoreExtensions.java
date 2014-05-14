@@ -23,6 +23,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
         concordionExtender.withSource(new ClassPathSpecificationSource());
         concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
         concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
+        concordionExtender.withSpecificationProcessingListener(new ResultsThumbRenderer());
         addCommands(concordionExtender);
     }
 
