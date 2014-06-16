@@ -22,6 +22,13 @@ public class VelocityResultsRendererTest {
     public static final String SPECIFICATION_FAKE_CONTENT = "<html><body></body></html>";
 
     @Test
+    public void defaultResultsTemplateFound() {
+        VelocityResultsRenderer renderer = new VelocityResultsRenderer();
+        String fileTemplate = renderer.getTemplateFileName();
+        Assert.assertEquals(VelocityResultsRenderer.VELOCITY_DEFAULT_TEMPLATE_FILE, fileTemplate);
+    }
+
+    @Test
     public void positiveFlow() throws IOException {
 
         SpecificationResultRegistry registry = new SpecificationResultRegistry();
@@ -42,7 +49,9 @@ public class VelocityResultsRendererTest {
 
         SpecificationProcessingEvent fakeEvent = new SpecificationProcessingEvent(null, rootElement);
 
-        VelocityResultsRenderer renderer = spy(new VelocityResultsRenderer("resultsUnitTest.vm"));
+        System.setProperty(VelocityResultsRenderer.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY, "resultsUnitTest.vm");
+
+        VelocityResultsRenderer renderer = spy(new VelocityResultsRenderer());
 
         doReturn(registry).when(renderer).getCurrentSpecificationResults();
 
@@ -73,7 +82,10 @@ public class VelocityResultsRendererTest {
 
     @Test(expected = RuntimeException.class)
     public void noTemplate() {
-        new VelocityResultsRenderer("someUnknownFile.vm");
+
+        System.setProperty(VelocityResultsRenderer.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY, "someUnknownFile.vm");
+
+        new VelocityResultsRenderer();
     }
 
 

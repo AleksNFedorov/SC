@@ -24,25 +24,24 @@ import java.util.Map;
  */
 public class VelocityResultsRenderer implements SpecificationProcessingListener {
 
-
     public static final String CUSTOM_RESULTS_HOST_TAG = "scejresults";
+
+    public static final String VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY = "resultsTemplateFile";
+    public static final String VELOCITY_DEFAULT_TEMPLATE_FILE = "results.vm";
+
     protected static final Logger LOG = LoggerFactory.getLogger(VelocityResultsRenderer.class);
-    private final String templateFileName;
+    private String templateFileName;
     private Template resultsTemplate;
 
-
-    public VelocityResultsRenderer(String templateFileName) {
-        this.templateFileName = templateFileName;
-        init();
-    }
-
     public VelocityResultsRenderer() {
-        this("results.vm");
+        init();
     }
 
     private void init() {
 
         try {
+            templateFileName = resolveTemplateFile();
+
             VelocityEngine templateRenderEngine = new VelocityEngine();
 
             java.util.Properties p = new java.util.Properties();
@@ -59,6 +58,17 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
 
         LOG.info("Results renderer initialized successfully");
 
+    }
+
+    private String resolveTemplateFile() {
+        String velocityResultsFile = System.getProperty(VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY);
+        if(velocityResultsFile != null) {
+            LOG.info("Velocity results template file resolved as ["+velocityResultsFile+"]");
+            return velocityResultsFile;
+        } else {
+            LOG.info("No custom results template specified");
+            return VELOCITY_DEFAULT_TEMPLATE_FILE;
+        }
     }
 
     @Override
@@ -158,6 +168,10 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
 
         return velocityResultsContext;
 
+    }
+
+    public String getTemplateFileName() {
+        return templateFileName;
     }
 
     protected SpecificationResultRegistry getCurrentSpecificationResults() {
