@@ -51,7 +51,7 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
 
         String pathToSpecificationFile = getClass().getClassLoader().
-                getResource("com/scejtesting/core/concordion/extension/documentparsing/dictionary/SubstitutionTest.html").getFile();
+                getResource("com/scejtesting/core/concordion/extension/documentparsing/dictionary/UnknownSubstitutionTest.html").getFile();
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecificationFile));
 
 

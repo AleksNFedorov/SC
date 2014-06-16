@@ -38,6 +38,7 @@ public class ChildSpecificationLinkUpdaterTest extends TestContextService {
         createNewTestContext(test);
 
 
+
         String pathToSpecificationFile = getClass().getClassLoader().
                 getResource("com/scejtesting/core/concordion/extension/HeadSpecification.html").getFile();
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecificationFile));
@@ -52,7 +53,7 @@ public class ChildSpecificationLinkUpdaterTest extends TestContextService {
             Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(hrefAttribute.getValue()));
         }
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
 
     }
 }
