@@ -1,5 +1,6 @@
 package com.scejtesting.core.config;
 
+import com.scejtesting.core.Utils;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,10 @@ public class SuiteConfiguration {
 
         Unmarshaller unmarshaller = suiteContext.createUnmarshaller();
         unmarshaller.setSchema(schema);
-        Suite restoredTestSuite = (Suite) unmarshaller.unmarshal(new File(pathToConfigurationFile));
+
+        String realPathToConfiguration = new Utils().resolveResourcePath(pathToConfigurationFile);
+
+        Suite restoredTestSuite = (Suite) unmarshaller.unmarshal(new File(realPathToConfiguration));
 
         LOG.info("Test suite created [{}]", restoredTestSuite);
 

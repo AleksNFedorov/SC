@@ -1,5 +1,6 @@
 package com.scejtesting.core.concordion.extension;
 
+import com.scejtesting.core.Constants;
 import org.concordion.api.Resource;
 import org.concordion.api.Target;
 import org.junit.Assert;
@@ -40,7 +41,7 @@ public class FileTargetWithDateTimePrefixTest {
     @Test
     public void fileTargetWithCustomPattern() {
 
-        System.setProperty(FileTargetWithCustomPrefix.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR, "12345");
+        System.setProperty(Constants.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR, "12345");
 
         Target target = new FileTargetWithCustomPrefix();
         Resource testResource = new Resource("/someResource");
@@ -49,7 +50,7 @@ public class FileTargetWithDateTimePrefixTest {
         Assert.assertTrue(resultFile.endsWith("someResource"));
         Assert.assertTrue(resultFile.matches(".*12345.*"));
 
-        System.clearProperty(FileTargetWithCustomPrefix.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
+        System.clearProperty(Constants.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
 
     }
 

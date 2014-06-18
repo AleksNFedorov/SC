@@ -1,5 +1,6 @@
 package com.scejtesting.core.concordion.extension;
 
+import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import org.concordion.api.Element;
 import org.concordion.api.Result;
@@ -25,7 +26,7 @@ public class VelocityResultsRendererTest {
     public void defaultResultsTemplateFound() {
         VelocityResultsRenderer renderer = new VelocityResultsRenderer();
         String fileTemplate = renderer.getTemplateFileName();
-        Assert.assertEquals(VelocityResultsRenderer.VELOCITY_DEFAULT_TEMPLATE_FILE, fileTemplate);
+        Assert.assertEquals(Constants.VELOCITY_DEFAULT_TEMPLATE_FILE, fileTemplate);
     }
 
     @Test
@@ -49,7 +50,7 @@ public class VelocityResultsRendererTest {
 
         SpecificationProcessingEvent fakeEvent = new SpecificationProcessingEvent(null, rootElement);
 
-        System.setProperty(VelocityResultsRenderer.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY, "resultsUnitTest.vm");
+        System.setProperty(Constants.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY, "resultsUnitTest.vm");
 
         VelocityResultsRenderer renderer = spy(new VelocityResultsRenderer());
 
@@ -83,7 +84,7 @@ public class VelocityResultsRendererTest {
     @Test(expected = RuntimeException.class)
     public void noTemplate() {
 
-        System.setProperty(VelocityResultsRenderer.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY, "someUnknownFile.vm");
+        System.setProperty(Constants.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY, "someUnknownFile.vm");
 
         new VelocityResultsRenderer();
     }

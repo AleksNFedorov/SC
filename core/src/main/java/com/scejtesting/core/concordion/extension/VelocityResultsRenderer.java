@@ -1,5 +1,6 @@
 package com.scejtesting.core.concordion.extension;
 
+import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContextService;
 import nu.xom.Document;
@@ -23,11 +24,6 @@ import java.util.Map;
  * Created by aleks on 4/26/14.
  */
 public class VelocityResultsRenderer implements SpecificationProcessingListener {
-
-    public static final String CUSTOM_RESULTS_HOST_TAG = "scejresults";
-
-    public static final String VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY = "resultsTemplateFile";
-    public static final String VELOCITY_DEFAULT_TEMPLATE_FILE = "results.vm";
 
     protected static final Logger LOG = LoggerFactory.getLogger(VelocityResultsRenderer.class);
     private String templateFileName;
@@ -61,13 +57,13 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
     }
 
     private String resolveTemplateFile() {
-        String velocityResultsFile = System.getProperty(VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY);
-        if(velocityResultsFile != null) {
-            LOG.info("Velocity results template file resolved as ["+velocityResultsFile+"]");
+        String velocityResultsFile = System.getProperty(Constants.VELOCITY_RESULTS_TEMPLATE_FILE_PROPERTY);
+        if (velocityResultsFile != null) {
+            LOG.info("Velocity results template file resolved as [" + velocityResultsFile + "]");
             return velocityResultsFile;
         } else {
             LOG.info("No custom results template specified");
-            return VELOCITY_DEFAULT_TEMPLATE_FILE;
+            return Constants.VELOCITY_DEFAULT_TEMPLATE_FILE;
         }
     }
 
@@ -134,7 +130,7 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
 
         Element rootDocumentElement = eventElement.getRootElement();
 
-        Element resultHostElement = rootDocumentElement.getElementById(CUSTOM_RESULTS_HOST_TAG);
+        Element resultHostElement = rootDocumentElement.getElementById(Constants.CUSTOM_RESULTS_HOST_TAG);
 
         if (resultHostElement != null) {
             LOG.info("Result host element found");

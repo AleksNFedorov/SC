@@ -1,5 +1,6 @@
 package com.scejtesting.core.runner;
 
+import com.scejtesting.core.Constants;
 import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.config.Test;
 import org.mockito.InOrder;
@@ -42,7 +43,7 @@ public class ScejSuiteRunnerTest {
     public void noConfigFileTest() {
         ScejSuiteRunner runner = new ScejSuiteRunner(null);
 
-        System.setProperty(ScejSuiteRunner.SUITE_CONFIG_PROPERTY_KEY, "/unExistedSuiteConfig.xml");
+        System.setProperty(Constants.SUITE_CONFIG_PROPERTY_KEY, "/unExistedSuiteConfig.xml");
 
         runner.run(null);
 
@@ -79,7 +80,7 @@ public class ScejSuiteRunnerTest {
         when(testOne.getName()).thenReturn("testOne");
         when(testTwo.getName()).thenReturn("testTwo");
 
-        System.setProperty(ScejSuiteRunner.TESTS_TO_RUN_PROPERTY_KEY, "testOne");
+        System.setProperty(Constants.TESTS_TO_RUN_PROPERTY_KEY, "testOne");
 
         when(suite.getTests()).thenReturn(Arrays.asList(testOne, testTwo));
 
@@ -93,7 +94,7 @@ public class ScejSuiteRunnerTest {
 
         inOrder.verify(runner, calls(1)).runTest(any(Test.class));
 
-        System.clearProperty(ScejSuiteRunner.TESTS_TO_RUN_PROPERTY_KEY);
+        System.clearProperty(Constants.TESTS_TO_RUN_PROPERTY_KEY);
     }
 
 }

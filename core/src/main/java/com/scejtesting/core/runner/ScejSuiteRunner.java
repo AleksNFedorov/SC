@@ -1,5 +1,7 @@
 package com.scejtesting.core.runner;
 
+import com.scejtesting.core.Constants;
+import com.scejtesting.core.Utils;
 import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.config.SuiteConfiguration;
@@ -21,11 +23,6 @@ import java.util.TreeSet;
  * User: Fedorovaleks
  */
 public class ScejSuiteRunner extends Runner {
-
-
-    public static final String SUITE_CONFIG_PROPERTY_KEY = "scejtesting.suite";
-    public static final String TESTS_TO_RUN_PROPERTY_KEY = "scejtesting.run.tests";
-    private static final String DEFAULT_CONFIG_NAME = "scejsuite.xml";
 
     private static final Logger LOG = LoggerFactory.getLogger(ScejSuiteRunner.class);
 
@@ -99,7 +96,7 @@ public class ScejSuiteRunner extends Runner {
 
     private Set<String> resolveTestsToRunName() {
         LOG.debug("method invoked");
-        String testsToRunLine = System.getProperty(TESTS_TO_RUN_PROPERTY_KEY);
+        String testsToRunLine = System.getProperty(Constants.TESTS_TO_RUN_PROPERTY_KEY);
         Set<String> testsToRunNames = null;
         if (testsToRunLine != null) {
             LOG.info("Tests to run property found [{}]", testsToRunLine);
@@ -121,17 +118,18 @@ public class ScejSuiteRunner extends Runner {
 
     private String getPathToConfig() {
         LOG.debug("method invoked");
-        String pathToConfig = System.getProperty(SUITE_CONFIG_PROPERTY_KEY);
+        String pathToConfig = new Utils().resolveResourcePath(
+                System.getProperty(Constants.SUITE_CONFIG_PROPERTY_KEY));
         LOG.info("Getting path to config from system property");
         if (pathToConfig == null) {
             LOG.info("No system property with path to config");
-            URL classPathResource = getClass().getClassLoader().getResource(DEFAULT_CONFIG_NAME);
+            URL classPathResource = getClass().getClassLoader().getResource(Constants.DEFAULT_CONFIG_NAME);
             if (classPathResource != null) {
                 pathToConfig = classPathResource.getFile();
             } else {
                 LOG.error("Can't resolve path to suite configuration file");
-                throw new RuntimeException("Suite config not found, put [" + DEFAULT_CONFIG_NAME + "] to classpath or " +
-                        "specify [" + SUITE_CONFIG_PROPERTY_KEY + "] system property");
+                throw new RuntimeException("Suite config not found, put [" + Constants.DEFAULT_CONFIG_NAME + "] to classpath or " +
+                        "specify [" + Constants.SUITE_CONFIG_PROPERTY_KEY + "] system property");
             }
         }
         LOG.info("Suite configuration file [{}]", pathToConfig);
@@ -149,4 +147,5 @@ public class ScejSuiteRunner extends Runner {
         testsToRun = resolveTestsToRunName();
         runTests();
     }
+
 }

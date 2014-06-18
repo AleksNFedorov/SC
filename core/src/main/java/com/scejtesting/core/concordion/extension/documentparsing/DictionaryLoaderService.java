@@ -103,6 +103,14 @@ public class DictionaryLoaderService {
         LOG.debug("method invoked");
         Properties globalDictionaryProperties = new Properties();
         File globalDictionaryFile = new File(globalDictionary);
+
+        if (!globalDictionaryFile.isAbsolute()) {
+            URL dictionaryURL = getClass().getClassLoader().getResource(globalDictionary);
+            if (dictionaryURL == null)
+                throw new IllegalArgumentException("Cant find dictionary file [" + globalDictionary + "]");
+            globalDictionaryFile = new File(dictionaryURL.getFile());
+        }
+
         if (!globalDictionaryFile.exists()) {
             LOG.info("No dictionary found [{}]", globalDictionary);
             return globalDictionaryProperties;

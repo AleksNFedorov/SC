@@ -3,7 +3,7 @@
 <suite>
 
     <test defaultTestClass="com.scejtesting.selenium.SpecificationWebTest"
-          substitutionDictionary="/Users/aleks/Projects/SC/test/src/main/resources/com/scejtesting/selenium/integration/dictionary.properties">
+          substitutionDictionary="com/scejtesting/selenium/integration/dictionary.properties">
         <specification location="/com/scejtesting/selenium/integration/specs/HeadSpecification.html"/>
     </test>
 

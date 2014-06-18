@@ -38,7 +38,8 @@ import org.junit.runners.Suite;
         RegisterGlobalVariablesCommandTest.class,
         SpecificationResultRegistryTest.class,
         VelocityResultsRendererTest.class,
-        ScejCommandArgumentsTransformerTest.class
+        ScejCommandArgumentsTransformerTest.class,
+        UtilsTest.class,
 })
 public class AllTestsSuite {
 
