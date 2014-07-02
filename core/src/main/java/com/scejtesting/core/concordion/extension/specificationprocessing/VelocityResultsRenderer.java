@@ -1,4 +1,4 @@
-package com.scejtesting.core.concordion.extension;
+package com.scejtesting.core.concordion.extension.specificationprocessing;
 
 import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.SpecificationResultRegistry;

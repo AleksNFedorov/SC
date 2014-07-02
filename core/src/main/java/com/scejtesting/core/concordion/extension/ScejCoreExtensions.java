@@ -4,6 +4,8 @@ import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommand;
 import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.command.SetGlobalCommand;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
+import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
+import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
 
@@ -23,7 +25,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
         concordionExtender.withSource(new ClassPathSpecificationSource());
         concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
         concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
-        concordionExtender.withSpecificationProcessingListener(new ResultsThumbRenderer());
+        concordionExtender.withSpecificationProcessingListener(new ResultsThumbRendererProcessingListener());
         addCommands(concordionExtender);
     }
 

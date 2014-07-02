@@ -4,7 +4,6 @@ import com.scejtesting.core.Constants;
 import org.concordion.api.Resource;
 import org.concordion.api.Target;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -37,7 +36,6 @@ public class FileTargetWithDateTimePrefixTest {
         Assert.assertTrue(resultFile.matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
     }
 
-    @Ignore
     @Test
     public void fileTargetWithCustomPattern() {
 
@@ -54,7 +52,6 @@ public class FileTargetWithDateTimePrefixTest {
 
     }
 
-    @Ignore
     @Test
     public void multipleTestInSameLocation() {
 
