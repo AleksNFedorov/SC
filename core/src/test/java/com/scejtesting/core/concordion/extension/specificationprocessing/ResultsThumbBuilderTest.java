@@ -93,11 +93,11 @@ public class ResultsThumbBuilderTest extends TestContextService {
         List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
 
         Assert.assertEquals(2, thumbLinks.size());
-        Assert.assertEquals("../../../Head.html", extractHrefFromElement(thumbLinks.get(0)));
+        Assert.assertEquals("../../../../Head.html", extractHrefFromElement(thumbLinks.get(0)));
 
         String ch1Link = extractHrefFromElement(thumbLinks.get(1));
         Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
-        Assert.assertEquals("../../../ch1/Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
+        Assert.assertEquals("../../../../ch1/Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
     }
 
     private String extractHrefFromElement(Element linkElement) {
