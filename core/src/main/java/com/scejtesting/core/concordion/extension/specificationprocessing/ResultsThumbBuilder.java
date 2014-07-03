@@ -21,13 +21,6 @@ public class ResultsThumbBuilder {
     public static final Pattern pathReplacer = Pattern.compile(".*/");
     public static final Pattern firstSlashReplacer = Pattern.compile("^/");
 
-    public static void main(String... args) {
-
-        List<TestContext.SpecificationContext> stack = new ArrayList<TestContext.SpecificationContext>();
-
-
-    }
-
     public List<Element> buildResultThumbs() throws IOException {
 
         List<TestContext.SpecificationContext> currentSpecificationFullStack =
@@ -102,21 +95,27 @@ public class ResultsThumbBuilder {
     private List<String> buildCurrentSpecRootRelativePath(List<TestContext.SpecificationContext> specStack) {
 
         List<String> specsFullPathList = new ArrayList<String>();
-        String specAbsolutePath = "/" + extractSpecFileFromPath(specStack.get(0).getSpecification().getLocation());
+
+        Specification currentSpecification = specStack.get(0).getSpecification();
+        Specification parentSpecification = currentSpecification;
+
+        String specAbsolutePath = "/" + extractSpecFileFromPath(parentSpecification.getLocation());
         specsFullPathList.add(specAbsolutePath);
 
         for (int i = 1; i < specStack.size(); ++i) {
-            String processingSpecLocation = specStack.get(i).getSpecification().getLocation();
+            currentSpecification = specStack.get(i).getSpecification();
+            String processingSpecLocation = getRealSpecLocation(parentSpecification, currentSpecification);
             String parentFolder = new File(specAbsolutePath).getParent();
             specAbsolutePath = new File(parentFolder, processingSpecLocation).getPath();
             specsFullPathList.add(specAbsolutePath);
+            parentSpecification = currentSpecification;
         }
 
         return specsFullPathList;
     }
 
-    private String getRealSpecLocation(Specification specification) {
-        SpecificationLocatorService.getService().buildUniqueSpecificationHREF()
+    private String getRealSpecLocation(Specification parentSpecification, Specification specification) {
+        return SpecificationLocatorService.getService().buildUniqueSpecificationHREF(parentSpecification, specification.getLocation());
     }
 
     /*

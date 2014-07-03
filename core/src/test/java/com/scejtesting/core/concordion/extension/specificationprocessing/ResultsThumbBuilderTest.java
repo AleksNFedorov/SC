@@ -1,9 +1,11 @@
 package com.scejtesting.core.concordion.extension.specificationprocessing;
 
 import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Element;
+import org.junit.After;
 import org.junit.Assert;
 
 import java.io.IOException;
@@ -16,6 +18,13 @@ import static org.mockito.Mockito.when;
  * Created by aleks on 6/28/14.
  */
 public class ResultsThumbBuilderTest extends TestContextService {
+
+    @After
+    public void finishTest() {
+        getCurrentTestContext().destroyCurrentSpecificationContext();
+        getCurrentTestContext().destroyCurrentSpecificationContext();
+        destroyTestContext();
+    }
 
     @org.junit.Test
     public void linkGeneration_sameLevelRootPackage() throws IOException {
@@ -35,11 +44,11 @@ public class ResultsThumbBuilderTest extends TestContextService {
 
         Assert.assertEquals(2, thumbLinks.size());
         Assert.assertEquals("Head.html", extractHrefFromElement(thumbLinks.get(0)));
-        Assert.assertEquals("Ch1.html", extractHrefFromElement(thumbLinks.get(1)));
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        destroyTestContext();
+        String ch1Link = extractHrefFromElement(thumbLinks.get(1));
+        Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
+        Assert.assertEquals("Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
+
     }
 
     @org.junit.Test
@@ -60,12 +69,10 @@ public class ResultsThumbBuilderTest extends TestContextService {
 
         Assert.assertEquals(2, thumbLinks.size());
         Assert.assertEquals("Head.html", extractHrefFromElement(thumbLinks.get(0)));
-        Assert.assertEquals("Ch1.html", extractHrefFromElement(thumbLinks.get(1)));
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        destroyTestContext();
-
+        String ch1Link = extractHrefFromElement(thumbLinks.get(1));
+        Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
+        Assert.assertEquals("Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
     }
 
     @org.junit.Test
@@ -87,11 +94,10 @@ public class ResultsThumbBuilderTest extends TestContextService {
 
         Assert.assertEquals(2, thumbLinks.size());
         Assert.assertEquals("../../../Head.html", extractHrefFromElement(thumbLinks.get(0)));
-        Assert.assertEquals("../../../ch1/Ch1.html", extractHrefFromElement(thumbLinks.get(1)));
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        destroyTestContext();
+        String ch1Link = extractHrefFromElement(thumbLinks.get(1));
+        Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
+        Assert.assertEquals("../../../ch1/Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
     }
 
     private String extractHrefFromElement(Element linkElement) {
