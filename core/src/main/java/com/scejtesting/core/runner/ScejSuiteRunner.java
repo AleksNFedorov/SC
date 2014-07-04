@@ -9,6 +9,7 @@ import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
 import org.slf4j.Logger;
@@ -59,7 +60,7 @@ public class ScejSuiteRunner extends Runner {
             ex.printStackTrace();
             throw ex;
         } finally {
-            LOG.info("Suite successfully finished");
+            LOG.info("Suite finished");
         }
     }
 
@@ -76,7 +77,7 @@ public class ScejSuiteRunner extends Runner {
         testContextService.createNewTestContext(testToRun);
         LOG.info("Test context created");
 
-        JUnitCore.runClasses(getSpecificationLocationService().resolveSpecificationClassByContext());
+        Result result = JUnitCore.runClasses(getSpecificationLocationService().resolveSpecificationClassByContext());
 
         testContextService.destroyTestContext();
         LOG.info("Test context destroyed");

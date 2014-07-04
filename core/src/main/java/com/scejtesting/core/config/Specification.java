@@ -62,10 +62,8 @@ public class Specification {
     }
 
     void init() {
-
         initSpecification();
         initChildSpecifications();
-
     }
 
     private void initSpecification() {

@@ -8,8 +8,6 @@ import java.util.List;
  * User: Fedorovaleks
  */
 
-//@RunWith(ConcordionRunner.class)
-//@Extensions(value = ScejCoreExtensions.class)
 public class CoreTestFixture {
 
     public List asList(Object firstParameter, Object secondParameter) {
