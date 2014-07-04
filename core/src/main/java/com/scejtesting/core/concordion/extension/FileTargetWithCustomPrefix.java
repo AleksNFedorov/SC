@@ -16,8 +16,9 @@ import java.text.SimpleDateFormat;
  */
 public class FileTargetWithCustomPrefix extends FileTarget {
 
-    public static final File resultBaseDir = getBaseOutputDir();
     private static final Logger LOG = LoggerFactory.getLogger(FileTargetWithCustomPrefix.class);
+
+    public static final File resultBaseDir = getBaseOutputDir();
 
     public FileTargetWithCustomPrefix() {
         super(resultBaseDir);
