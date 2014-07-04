@@ -21,7 +21,6 @@ public class RegisterGlobalVariablesCommand extends AbstractCommand implements S
 
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
 
-
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         LOG.debug("method invoked");

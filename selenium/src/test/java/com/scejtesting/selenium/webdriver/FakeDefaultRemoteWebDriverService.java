@@ -10,13 +10,11 @@ import java.util.Properties;
  */
 public class FakeDefaultRemoteWebDriverService extends WebDriverController {
 
-
     private final TestRemoteWebDriver remoteWebDriver = new TestRemoteWebDriver();
 
     protected FakeDefaultRemoteWebDriverService(Properties driverProperties) {
         super(driverProperties);
     }
-
 
     @Override
     protected DesiredCapabilities getDriverSpecificCapabilities() {

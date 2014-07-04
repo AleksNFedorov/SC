@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * <p>Java class for Excludes complex type.
  * <p/>
@@ -66,6 +65,5 @@ public class Excludes implements SpecificationHolder {
         }
         return this.specifications;
     }
-
 
 }

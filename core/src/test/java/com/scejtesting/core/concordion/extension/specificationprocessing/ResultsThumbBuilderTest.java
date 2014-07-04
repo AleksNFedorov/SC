@@ -104,5 +104,4 @@ public class ResultsThumbBuilderTest extends TestContextService {
         return linkElement.getAttributeValue("href");
     }
 
-
 }

@@ -20,7 +20,6 @@ public class DictionaryLoaderService {
     public Properties buildSubstitutionDictionary() {
         LOG.debug("method invoked");
 
-
         Properties gloalDictionary = loadGlobalDictionary();
         Properties testDictionary = loadTestDictionary();
 
@@ -33,7 +32,6 @@ public class DictionaryLoaderService {
 
     private Properties loadGlobalDictionary() {
         LOG.debug("method invoked");
-
 
         Properties globalDictionaryProperties = getCurrentTestContext().getAttribute(GLOBAL_DICTIONARY);
         if (globalDictionaryProperties != null) {
@@ -67,14 +65,12 @@ public class DictionaryLoaderService {
 
         Test currentTest = getCurrentTestContext().getTest();
 
-
         if (currentTest.getSubstitutionDictionary() == null) {
             LOG.info("No test dictionary");
             return new Properties();
         }
 
         Properties testDictionaryProperties = getCurrentTestContext().getAttribute(currentTest);
-
 
         if (testDictionaryProperties != null) {
             LOG.info("test properties restored from context");

@@ -5,7 +5,6 @@ package com.scejtesting.core;
  */
 public final class Constants {
 
-
     // JVM Property
     // JVM property to specify test configuration file location
     public static final String SUITE_CONFIG_PROPERTY_KEY = "scejtesting.suite";

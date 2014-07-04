@@ -28,7 +28,6 @@ public class CheckElementCSSContainsText extends AbstractElementCheckCommand {
 
         Check.isTrue(textToCheck instanceof String, "String expected as text to search");
 
-
     }
 
     @Override

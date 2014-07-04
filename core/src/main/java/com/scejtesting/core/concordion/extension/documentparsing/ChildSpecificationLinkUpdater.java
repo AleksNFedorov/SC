@@ -19,7 +19,6 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
 
     private static final Logger LOG = LoggerFactory.getLogger(ChildSpecificationLinkUpdater.class);
 
-
     @Override
     public void beforeParsing(Document document) {
         LOG.debug("method invoked");
@@ -38,7 +37,7 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
         LOG.debug("method finished");
     }
 
-    protected TestContext getCurrentTestContext() {
+    TestContext getCurrentTestContext() {
         return new TestContextService().getCurrentTestContext();
     }
 

@@ -51,7 +51,6 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
 
         LOG.info("Children command execution finished");
 
-
         LOG.debug("method finished");
     }
 

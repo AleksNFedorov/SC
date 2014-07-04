@@ -18,7 +18,6 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
     @org.junit.Test
     public void rootSpecificationResourceResolvingTest() {
 
-
         String specificationRealPath = "/SpecificationToRealPath.html";
 
         Specification specification = mock(Specification.class);
@@ -26,13 +25,11 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
         when(specification.isTopLevelSpecification()).thenReturn(Boolean.TRUE);
         when(specification.getRealPath()).thenReturn(specificationRealPath);
 
-
         Test test = mock(Test.class);
 
         when(test.getSpecification()).thenReturn(specification);
 
         createNewTestContext(test);
-
 
         HierarchySpecificationLocator locator = new HierarchySpecificationLocator();
 
@@ -62,7 +59,6 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
         Resource parentSpecificationResource = new Resource("/some/path/to/parentSpec.html");
 
         getCurrentTestContext().createNewSpecificationContext(parentSpecificationResource, specification);
-
 
         HierarchySpecificationLocator locator = new HierarchySpecificationLocator();
 

@@ -35,13 +35,11 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         doThrow((new IllegalStateException("Thrown for test purpose"))).when(runner).executeSpecification(eq(specification),
                 any(Resource.class), anyString());
 
-
         TestContextService testContextService = new TestContextService();
         testContextService.createNewTestContext(test);
 
         doReturn(specification).when(runner).resolveSpecification(anyString());
         doReturn(suite).when(runner).getSuite();
-
 
         try {
             runner.execute(new Resource("/somePath"), "Some href");
@@ -52,9 +50,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         SpecificationResultRegistry registry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
-
         Assert.assertEquals(1, (int) registry.getResultsAmount(Result.EXCEPTION));
-
 
         testContextService.destroyTestContext();
 
@@ -74,17 +70,14 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(null);
         when(test.getSpecification()).thenReturn(specification);
 
-
         TestContextService testContextService = new TestContextService();
         testContextService.createNewTestContext(test);
-
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
         doReturn(specification).when(runner).resolveSpecification(anyString());
         doReturn(suite).when(runner).getSuite();
         doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
-
 
         RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
 
@@ -100,7 +93,6 @@ public class ChildSpecificationRunnerTest extends TestContextService {
     @org.junit.Test
     public void suiteFailFastException() throws Exception {
 
-
         ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
 
         Suite suite = mock(Suite.class);
@@ -112,17 +104,14 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(null);
         when(test.getSpecification()).thenReturn(specification);
 
-
         TestContextService testContextService = new TestContextService();
         testContextService.createNewTestContext(test);
-
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
         doReturn(specification).when(runner).resolveSpecification(anyString());
         doReturn(suite).when(runner).getSuite();
         doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
-
 
         RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
 
@@ -150,10 +139,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(null);
         when(test.getSpecification()).thenReturn(specification);
 
-
         TestContextService testContextService = new TestContextService();
         testContextService.createNewTestContext(test);
-
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -161,18 +148,15 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         doReturn(suite).when(runner).getSuite();
         doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
 
-
         RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
-
 
         testContextService.destroyTestContext();
     }
 
     @org.junit.Test
     public void testFailFastException() throws Exception {
-
 
         ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
 
@@ -185,10 +169,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(new RuntimeException());
         when(test.getSpecification()).thenReturn(specification);
 
-
         TestContextService testContextService = new TestContextService();
         testContextService.createNewTestContext(test);
-
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -196,11 +178,9 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         doReturn(suite).when(runner).getSuite();
         doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
 
-
         RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
-
 
         testContextService.destroyTestContext();
 
@@ -208,7 +188,6 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
     @org.junit.Test
     public void testIncludeAll() {
-
 
         Specification rootSpecification = new Specification("/includeAllSpecification.html");
         Test testMock = mock(Test.class);
@@ -229,10 +208,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         destroyTestContext();
     }
 
-
     @org.junit.Test
     public void testExcludeOnlyAll() {
-
 
         Specification fakeSpecificationTwo = new Specification("FakeTwo.html");
         Specification fakeSpecificationThree = new Specification("FakeThree.html");
@@ -265,9 +242,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         destroyTestContext();
 
-
     }
-
 
     @org.junit.Test
     public void testIncludeOnly() {
@@ -312,7 +287,6 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         destroyTestContext();
     }
 
-
     @org.junit.Test
     public void testIncludeExclude() {
         Specification fakeSpecificationOne = new Specification("FakeOne.html");
@@ -344,7 +318,6 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         currentSpec = testRunner.resolveSpecification(SpecificationTest.appendUniqueSuffix(currentSpecLocation));
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(currentSpecLocation, currentSpec.getLocation());
-
 
         currentSpec = testRunner.resolveSpecification("FakeOne.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
@@ -396,6 +369,5 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         destroyTestContext();
 
     }
-
 
 }

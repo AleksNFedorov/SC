@@ -49,11 +49,9 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
         createNewTestContext(test);
 
-
         String pathToSpecificationFile = getClass().getClassLoader().
                 getResource("com/scejtesting/core/concordion/extension/documentparsing/dictionary/UnknownSubstitutionTest.html").getFile();
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecificationFile));
-
 
         DictionarySubstitutionListener dictionarySubstitutionListener = spy(new DictionarySubstitutionListener());
 
@@ -61,9 +59,7 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
         dictionarySubstitutionListener.beforeParsing(parsedDocument);
 
-
     }
-
 
     @org.junit.Test
     public void specificationFileUpdateTest() throws IOException {
@@ -86,11 +82,9 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
         createNewTestContext(test);
 
-
         String pathToSpecificationFile = getClass().getClassLoader().
                 getResource("com/scejtesting/core/concordion/extension/documentparsing/dictionary/SubstitutionTest.html").getFile();
         Document parsedDocument = new XMLParser().parse(new FileInputStream(pathToSpecificationFile));
-
 
         DictionarySubstitutionListener dictionarySubstitutionListener = spy(new DictionarySubstitutionListener());
 
@@ -115,6 +109,5 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
         Assert.assertEquals(node1ValueString, node3.getAttribute(0).getValue());
 
     }
-
 
 }

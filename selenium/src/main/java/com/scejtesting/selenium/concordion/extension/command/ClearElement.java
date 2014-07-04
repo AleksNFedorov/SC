@@ -17,7 +17,6 @@ public class ClearElement extends AbstractSeleniumDriverCommand {
     @Override
     protected void processDriverCommand(Object parameter, Element element) {
 
-
         if (parameter instanceof By) {
             getTestFixture().clearElement((By) parameter);
         } else if (parameter instanceof WebElement) {

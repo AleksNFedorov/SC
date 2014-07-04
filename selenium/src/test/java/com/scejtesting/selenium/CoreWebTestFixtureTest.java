@@ -19,7 +19,6 @@ import static org.junit.Assert.assertNotNull;
  */
 public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
-
     @Ignore //Does not work with html unit driver
     @Test
     public void getCurrentURL() {
@@ -37,19 +36,16 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
     }
 
-
     @Test
     public void positiveFlowTest() {
 
         currentTestFixture.closeCurrentDriver();
-
 
         RemoteWebDriver webDriver = currentTestFixture.openDriver("fakedriver");
 
         Assert.assertNotNull(webDriver);
 
         Assert.assertSame(TestRemoteWebDriver.class, webDriver.getClass());
-
 
         RemoteWebDriver webDriverByGet = currentTestFixture.getCurrentDriver();
 
@@ -64,9 +60,7 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
         //work around bacause of test initialization in parent
         currentTestFixture.openDriver("fakedriver");
 
-
     }
-
 
     @org.junit.Test(expected = RuntimeException.class)
     public void doubleBuildTest() {
@@ -74,7 +68,6 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
         currentTestFixture.openDriver("fakedriver");
 
     }
-
 
     @org.junit.Test(expected = RuntimeException.class)
     public void unknownDriver() {
@@ -84,7 +77,6 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
         test.openDriver("someUnknown driver" + System.currentTimeMillis());
 
     }
-
 
     @org.junit.Test(expected = RuntimeException.class)
     public void doubleQuitDriver() {
@@ -97,7 +89,6 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
         currentTestFixture.closeCurrentDriver();
 
     }
-
 
     @org.junit.Test
     public void noDriverAtDriverServer() {
@@ -120,7 +111,6 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
         new TestContextService().getCurrentTestContext().addAttribute(DriverHolderService.SCEJ_DRIVER_SERVICE,
                 currentController);
-
 
     }
 

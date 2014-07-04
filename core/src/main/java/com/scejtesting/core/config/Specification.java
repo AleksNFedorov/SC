@@ -5,7 +5,6 @@ import org.concordion.internal.util.Check;
 
 import javax.xml.bind.annotation.*;
 
-
 /**
  * <p>Java class for Specification complex type.
  * <p/>
@@ -56,7 +55,6 @@ public class Specification {
     public Specification() {
         tmpFileSuffix = generateSuffix();
     }
-
 
     public Specification(String location) {
         this();
@@ -153,9 +151,8 @@ public class Specification {
 
         Specification that = (Specification) o;
 
-        if (!location.equals(that.location)) return false;
+        return location.equals(that.location);
 
-        return true;
     }
 
     @Override

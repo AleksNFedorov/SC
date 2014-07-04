@@ -25,7 +25,6 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
         }
     };
 
-
     @Override
     public void beforeParsing(Document document) {
 
@@ -45,6 +44,5 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
         LOG.debug("method finished");
     }
-
 
 }

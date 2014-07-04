@@ -24,7 +24,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private boolean contextCreated;
 
-
     public ChildSpecificationRunner() {
         testContextService = buildTestContextService();
     }
@@ -39,7 +38,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
         try {
             Specification specification = resolveSpecification(href);
-
 
             if (canRunSpecification(specification)) {
                 result = executeSpecification(specification,
@@ -99,7 +97,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     }
 
-
     private boolean canRunSpecification(Specification specification) {
         LOG.debug("method invoked [{}]");
         Suite currentSuite = getSuite();
@@ -122,7 +119,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         return specByHref;
     }
 
-
     @Override
     protected Class<?> findTestClass(Resource resource, String href) throws ClassNotFoundException {
         LOG.debug("method invoked [{}], [{}]", resource, href);
@@ -138,11 +134,9 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         }
     }
 
-
     protected SpecificationLocatorService getSpecificationLocationService() {
         return SpecificationLocatorService.getService();
     }
-
 
     protected TestContext getCurrentTestContext() {
         return testContextService.getCurrentTestContext();

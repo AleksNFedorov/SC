@@ -1,6 +1,5 @@
 package com.scejtesting.core.concordion.extension;
 
-
 import com.scejtesting.core.config.Exceptions;
 import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.config.Test;
@@ -27,10 +26,8 @@ public class SuiteFailFastExceptionListenerTest {
         when(testSuite.getExceptions()).thenReturn(registeredExceptions);
         when(currentTest.getExceptions()).thenReturn(registeredExceptions);
 
-
         doReturn(testSuite).when(listener).getSuite();
         doReturn(currentTest).when(listener).getCurrentTest();
-
 
         ThrowableCaughtEvent throwableCaughtEvent = mock(ThrowableCaughtEvent.class);
 
@@ -56,14 +53,11 @@ public class SuiteFailFastExceptionListenerTest {
         Exceptions suiteExceptions = mock(Exceptions.class);
         when(suiteExceptions.isRegistered(any(Throwable.class))).thenReturn(Boolean.TRUE);
 
-
         when(testSuite.getExceptions()).thenReturn(suiteExceptions);
         when(currentTest.getExceptions()).thenReturn(testExceptions);
 
-
         doReturn(testSuite).when(listener).getSuite();
         doReturn(currentTest).when(listener).getCurrentTest();
-
 
         ThrowableCaughtEvent throwableCaughtEvent = mock(ThrowableCaughtEvent.class);
 
@@ -90,14 +84,11 @@ public class SuiteFailFastExceptionListenerTest {
         Exceptions testExceptions = mock(Exceptions.class);
         when(testExceptions.isRegistered(any(Throwable.class))).thenReturn(Boolean.TRUE);
 
-
         when(testSuite.getExceptions()).thenReturn(suiteExceptions);
         when(currentTest.getExceptions()).thenReturn(testExceptions);
 
-
         doReturn(testSuite).when(listener).getSuite();
         doReturn(currentTest).when(listener).getCurrentTest();
-
 
         ThrowableCaughtEvent throwableCaughtEvent = mock(ThrowableCaughtEvent.class);
 
@@ -124,14 +115,11 @@ public class SuiteFailFastExceptionListenerTest {
         Exceptions testExceptions = mock(Exceptions.class);
         when(testExceptions.isRegistered(any(Throwable.class))).thenReturn(Boolean.TRUE);
 
-
         when(testSuite.getExceptions()).thenReturn(suiteExceptions);
         when(currentTest.getExceptions()).thenReturn(testExceptions);
 
-
         doReturn(testSuite).when(listener).getSuite();
         doReturn(currentTest).when(listener).getCurrentTest();
-
 
         ThrowableCaughtEvent throwableCaughtEvent = mock(ThrowableCaughtEvent.class);
 

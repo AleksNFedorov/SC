@@ -98,7 +98,6 @@ public class SuiteConfiguration {
 
         testRootSpecification.setRealPath(rootSpecificationLocation);
 
-
         LOG.debug("method finished");
     }
 

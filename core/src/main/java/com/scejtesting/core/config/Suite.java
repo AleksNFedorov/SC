@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * <p>Java class for Suite complex type.
  * <p/>

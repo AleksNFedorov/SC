@@ -15,7 +15,6 @@ public class SpecificationResultRegistry {
 
     protected static final Logger LOG = LoggerFactory.getLogger(SpecificationResultRegistry.class);
 
-
     private final Map<Result, Collection<RunnerResult>> resultsMap = new EnumMap<Result, Collection<RunnerResult>>(Result.class);
 
     public SpecificationResultRegistry() {
@@ -24,7 +23,6 @@ public class SpecificationResultRegistry {
     }
 
     private void init() {
-
 
         for (Result result : Result.values()) {
             resultsMap.put(result, new TreeSet<RunnerResult>(new Comparator<RunnerResult>() {

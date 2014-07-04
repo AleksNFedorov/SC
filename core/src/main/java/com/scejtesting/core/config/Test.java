@@ -5,7 +5,6 @@ import org.concordion.internal.util.Check;
 
 import javax.xml.bind.annotation.*;
 
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Test", propOrder = {
         "specification"

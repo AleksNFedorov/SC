@@ -5,13 +5,11 @@ import org.concordion.api.listener.AssertListener;
 import org.concordion.api.listener.AssertSuccessEvent;
 import org.concordion.internal.util.Check;
 
-
 /**
  * User: Fedorovaleks
  * Date: 3/31/14
  */
 public class OpenDriver extends AbstractSeleniumDriverCommand {
-
 
     public OpenDriver(AssertListener listener) {
         super(listener);

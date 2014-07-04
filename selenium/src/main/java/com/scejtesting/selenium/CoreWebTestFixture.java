@@ -19,7 +19,6 @@ public class CoreWebTestFixture extends CoreTestFixture {
 
     private DriverHolderService driverHolderService = new DriverHolderService();
 
-
     public void goToURL(String URL) {
         LOG.debug("method invoked [{}]", URL);
 
@@ -32,7 +31,6 @@ public class CoreWebTestFixture extends CoreTestFixture {
         LOG.debug("method invoked ");
 
         String currentURL = getCurrentDriver().getCurrentUrl();
-
 
         LOG.debug("method finished [{}]", currentURL);
 
@@ -155,11 +153,9 @@ public class CoreWebTestFixture extends CoreTestFixture {
 
     }
 
-
     public void closeCurrentDriver() {
         driverHolderService.closeCurrentDriver();
 
     }
-
 
 }

@@ -66,7 +66,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         Check.notNull(parent, "Parent element can't be null");
         Check.notNull(child, "Search predicate [child] can't be null");
 
-
         try {
             parent.findElement(child);
         } catch (RuntimeException ex) {
@@ -99,7 +98,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         Check.notEmpty(text, "Text to search can't be empty");
 
         boolean contains = element.getText().contains(text);
-
 
         LOG.info("Element contains text [{}]", contains);
 
@@ -157,7 +155,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         setValueToElement(elementToSetValue, value);
         LOG.debug("method finished");
 
-
     }
 
     public void setValueToElement(WebElement element, String value) {
@@ -179,7 +176,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         Check.notNull(element, "Element search predicate can't be null");
 
         WebElement elementToClear = getCurrentDriver().findElement(element);
-
 
         LOG.info("Element to clear found");
         clearElement(elementToClear);
@@ -263,7 +259,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         LOG.info("Element to check selected found");
         return checkElementSelected(elementToCheck);
 
-
     }
 
     public boolean checkElementSelected(WebElement element) {
@@ -303,7 +298,6 @@ public class WebTestFixture extends CoreWebTestFixture {
         Check.notNull(elementToSubmit, "Element to submit can't be null");
 
         elementToSubmit.submit();
-
 
         LOG.debug("method finished");
 
@@ -362,6 +356,5 @@ public class WebTestFixture extends CoreWebTestFixture {
 
         return contains;
     }
-
 
 }

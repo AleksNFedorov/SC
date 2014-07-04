@@ -27,7 +27,6 @@ public class RegisterGlobalVariablesCommandTest {
         globalTestContext.addGlobalVariable("#var1", "var1Value");
         globalTestContext.addGlobalVariable("#var2", "var2Value");
 
-
         RegisterGlobalVariablesCommand initGlobalVariableCommand = spy(new RegisterGlobalVariablesCommand());
 
         doReturn(globalTestContext).when(initGlobalVariableCommand).getTestContext();

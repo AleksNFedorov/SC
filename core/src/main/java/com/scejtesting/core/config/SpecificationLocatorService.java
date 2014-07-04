@@ -19,14 +19,12 @@ public class SpecificationLocatorService {
     private static Pattern suffixCleanPattern = Pattern.compile(Specification.MIDDLE_SUFFIX + "\\d{1,}");
     private Logger LOG = LoggerFactory.getLogger(getClass());
 
-
     private SpecificationLocatorService() {
     }
 
-    public static final SpecificationLocatorService getService() {
+    public static SpecificationLocatorService getService() {
         return impl;
     }
-
 
     public static boolean containsGeneratedSuffix(String pathToCheck) {
         return suffixPattern.matcher(pathToCheck).matches();
@@ -83,7 +81,6 @@ public class SpecificationLocatorService {
 
     }
 
-
     public Specification getChildSpecificationByRealLocation(Specification specification, String childSpecHref) {
         LOG.info("Specification context acquired");
 
@@ -116,7 +113,6 @@ public class SpecificationLocatorService {
         LOG.debug("method finished");
         return null;
     }
-
 
     public boolean isSpecExcluded(Specification specification, Specification child) {
         return isSpecInSpecHolder(child, specification.getExcludes());
@@ -154,6 +150,5 @@ public class SpecificationLocatorService {
     protected TestContextService getTestContextService() {
         return new TestContextService();
     }
-
 
 }

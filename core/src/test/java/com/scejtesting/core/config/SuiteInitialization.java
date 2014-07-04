@@ -85,14 +85,11 @@ public class SuiteInitialization {
         Assert.assertNotNull(firstTest.getSpecification().getExcludes());
         Assert.assertNotNull(firstTest.getSpecification().getIncludes());
 
-
         Assert.assertNotNull(secondTest.getSpecification());
         Assert.assertEquals(CoreTestFixture.class, secondTest.getDefaultTestClass());
         Assert.assertNull(secondTest.getSpecification().getIncludes());
         Assert.assertNull(secondTest.getSpecification().getExcludes());
 
-
     }
-
 
 }

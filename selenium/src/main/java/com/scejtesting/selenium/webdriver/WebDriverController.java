@@ -21,7 +21,6 @@ public abstract class WebDriverController {
     private final String driverName;
     private RemoteWebDriver openDriver;
 
-
     protected WebDriverController(Properties driverProperties) {
         this.driverProperties = driverProperties;
 

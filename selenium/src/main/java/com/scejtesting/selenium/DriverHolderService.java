@@ -14,13 +14,11 @@ import org.slf4j.LoggerFactory;
  */
 public class DriverHolderService {
 
-
     protected static final String SCEJ_DRIVER_SERVICE = "#SCEJ_SELENIUM_DRIVER_SERVICE";
 
     protected final static Logger LOG = LoggerFactory.getLogger(DriverHolderService.class);
 
     protected final WebDriverControllerFactory driverServiceFactory = new WebDriverControllerFactory();
-
 
     public final RemoteWebDriver openDriver(String driverName) {
         LOG.debug("method invoked [{}]", driverName);

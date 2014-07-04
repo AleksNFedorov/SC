@@ -23,7 +23,6 @@ public class ScejCommandArgumentsTransformer implements NamedDocumentParsingList
 
         LOG.info("Found [{}] attributes for check", allHrefNodes.size());
 
-
         for (int i = 0; i < allHrefNodes.size(); ++i) {
             Attribute currentAttribute = (Attribute) allHrefNodes.get(i);
             if (needModifyArgumentsString(currentAttribute)) {

@@ -19,7 +19,9 @@
     <link rel="image_src" href="http://habrahabr.ru/i/habralogo.jpg">
 
 
-    <script type="text/javascript">function adriver(a,b){};</script>
+    <script type="text/javascript">function adriver(a, b) {
+    }
+    ;</script>
 
     <link href="http://habrahabr.ru/styles/1399545343/all.css" rel="stylesheet" media="all">
 
@@ -42,32 +44,40 @@
 
 
     <script type="text/javascript">
-	  var crtg_nid="2580";
-	  var crtg_cookiename="cto_rtt";
-	  var crtg_varname="crtg_content";
-	  function crtg_getCookie(c_name){
-		  var i,x,y,ARRCookies=document.cookie.split(";");
-		  for(i=0;i<ARRCookies.length;i++){
-			  x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));
-			  y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);
-			  x=x.replace(/^\s+|\s+$/g,"");
-			  if(x==c_name){return unescape(y);}
-		   }
-		return'';
-	   }
-	var crtg_content = crtg_getCookie(crtg_cookiename);var crtg_rnd=Math.floor(Math.random()*99999999999);
-		var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);crtg_url+='&cookieName='+escape(crtg_cookiename);crtg_url+='&rnd='+crtg_rnd;crtg_url+='&varName=' + escape(crtg_varname);
-		var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
-		if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
-		else
-		if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+        var crtg_nid = "2580";
+        var crtg_cookiename = "cto_rtt";
+        var crtg_varname = "crtg_content";
+        function crtg_getCookie(c_name) {
+            var i, x, y, ARRCookies = document.cookie.split(";");
+            for (i = 0; i < ARRCookies.length; i++) {
+                x = ARRCookies[i].substr(0, ARRCookies[i].indexOf("="));
+                y = ARRCookies[i].substr(ARRCookies[i].indexOf("=") + 1);
+                x = x.replace(/^\s+|\s+$/g, "");
+                if (x == c_name) {
+                    return unescape(y);
+                }
+            }
+            return'';
+        }
+        var crtg_content = crtg_getCookie(crtg_cookiename);
+        var crtg_rnd = Math.floor(Math.random() * 99999999999);
+        var crtg_url = location.protocol + '//rtax.criteo.com/delivery/rta/rta.js?netId=' + escape(crtg_nid);
+        crtg_url += '&cookieName=' + escape(crtg_cookiename);
+        crtg_url += '&rnd=' + crtg_rnd;
+        crtg_url += '&varName=' + escape(crtg_varname);
+        var crtg_script = document.createElement('script');
+        crtg_script.type = 'text/javascript';
+        crtg_script.src = crtg_url;
+        crtg_script.async = true;
+        if (document.getElementsByTagName("head").length > 0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+        else if (document.getElementsByTagName("body").length > 0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
 
     </script>
     <script type="text/javascript" src="./HabrCorporate_files/rta.js" async=""></script>
 
     <script>
-      var N = 5;
-      var ar_duo1 = Math.floor(Math.random()*N+1);
+        var N = 5;
+        var ar_duo1 = Math.floor(Math.random() * N + 1);
 
     </script>
 
@@ -80,29 +90,36 @@
 
     <script type="text/javascript">
 
-    var user_type = "guest";
-    var username = 'guest';
+        var user_type = "guest";
+        var username = 'guest';
 
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  
-    ga('create', 'UA-726094-1',  'auto' ); 
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('require', 'displayfeatures');
-  ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
-  ga('set', 'dimension2', username); // username
+        ga('create', 'UA-726094-1', 'auto');
+
+        ga('require', 'displayfeatures');
+        ga('set', 'dimension1', user_type); // user type - guest/readonly/habrauser
+        ga('set', 'dimension2', username); // username
 
 
-  ga('send', 'pageview');
-  
+        ga('send', 'pageview');
+
 
     </script>
 
 
     <script type="text/javascript">
-var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955gIr.f7');
+        var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955gIr.f7');
 
     </script>
     <script src="./HabrCorporate_files/gemius.js"></script>
@@ -110,28 +127,33 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
-(function (d, w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter24049213 = new Ya.Metrika({id:24049213,
-                    webvisor:true,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true});
-        } catch(e) { }
-    });
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter24049213 = new Ya.Metrika({id: 24049213,
+                        webvisor: true,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true});
+                } catch (e) {
+                }
+            });
 
-    var n = d.getElementsByTagName("script")[0],
-        s = d.createElement("script"),
-        f = function () { n.parentNode.insertBefore(s, n); };
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+            var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () {
+                        n.parentNode.insertBefore(s, n);
+                    };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
-    if (w.opera == "[object Opera]") {
-        d.addEventListener("DOMContentLoaded", f, false);
-    } else { f(); }
-})(document, window, "yandex_metrika_callbacks");
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else {
+                f();
+            }
+        })(document, window, "yandex_metrika_callbacks");
 
     </script>
     <noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
@@ -140,72 +162,67 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
 
 <body>
 <script type="text/javascript">
-        $(function() {
+    $(function () {
 
-            // возвращает cookie с именем name, если есть, если нет, то undefined
-            function getBNCookie(name) {
-                var matches = document.cookie.match(new RegExp(
-                        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-                  ));
-                  return matches ? decodeURIComponent(matches[1]) : undefined;
+        // возвращает cookie с именем name, если есть, если нет, то undefined
+        function getBNCookie(name) {
+            var matches = document.cookie.match(new RegExp(
+                            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        function setBNCookie(name, value, options) {
+            options = options || {};
+
+            var expires = options.expires;
+
+            if (typeof expires == "number" && expires) {
+                var d = new Date();
+                d.setTime(d.getTime() + expires * 1000);
+                expires = options.expires = d;
+            }
+            if (expires && expires.toUTCString) {
+                options.expires = expires.toUTCString();
             }
 
-            function setBNCookie(name, value, options) {
-                options = options || {};
+            value = encodeURIComponent(value);
 
-                var expires = options.expires;
+            var updatedCookie = name + "=" + value;
 
-                if (typeof expires == "number" && expires) {
-                    var d = new Date();
-                    d.setTime(d.getTime() + expires*1000);
-                    expires = options.expires = d;
+            for (var propName in options) {
+                updatedCookie += "; " + propName;
+                var propValue = options[propName];
+                if (propValue !== true) {
+                    updatedCookie += "=" + propValue;
                 }
-                if (expires && expires.toUTCString) {
-                    options.expires = expires.toUTCString();
-                }
-
-                value = encodeURIComponent(value);
-
-                var updatedCookie = name + "=" + value;
-
-                for(var propName in options) {
-                    updatedCookie += "; " + propName;
-                    var propValue = options[propName];
-                    if (propValue !== true) {
-                        updatedCookie += "=" + propValue;
-                    }
-                }
-
-                document.cookie = updatedCookie;
             }
 
-            var bntop = $('.apps_bn');
+            document.cookie = updatedCookie;
+        }
 
-            var vbn = parseInt(getBNCookie('vbn')) || 0;
+        var bntop = $('.apps_bn');
 
-            if (vbn < 3)
-            {
-                bntop.show();
-                setBNCookie('vbn', vbn + 1, { expires: 31556926, path: '/', domain: 'habrahabr.ru' });
-            }
+        var vbn = parseInt(getBNCookie('vbn')) || 0;
 
-            if (/Android/i.test(navigator.userAgent))
-            {
-                $('.app_android', bntop).show();
-            }
-            else if (/iPhone/i.test(navigator.userAgent))
-            {
-                $('.app_iphone', bntop).show();
-            }
-            else if (/IEMobile|MSIE/i.test(navigator.userAgent))
-            {
-                $('.app_wp', bntop).show();
-            }
-            else
-            {
-                $('.app_anything', bntop).show();
-            }
-        });
+        if (vbn < 3) {
+            bntop.show();
+            setBNCookie('vbn', vbn + 1, { expires: 31556926, path: '/', domain: 'habrahabr.ru' });
+        }
+
+        if (/Android/i.test(navigator.userAgent)) {
+            $('.app_android', bntop).show();
+        }
+        else if (/iPhone/i.test(navigator.userAgent)) {
+            $('.app_iphone', bntop).show();
+        }
+        else if (/IEMobile|MSIE/i.test(navigator.userAgent)) {
+            $('.app_wp', bntop).show();
+        }
+        else {
+            $('.app_anything', bntop).show();
+        }
+    });
 
 </script>
 
@@ -255,14 +272,16 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
                     onclick="adriver(&#39;adriver_banner_318167982&#39;).sendPixel(&#39;&#39;);" target="_blank"><img
                     src="./HabrCorporate_files/135x35-ulmart-2.png" alt="AdRiver" border="0"></a></div>
             <script type="text/javascript">
-			$(function(){
-				var keyword = '';
-				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+                $(function () {
+                    var keyword = '';
+                    if (typeof crtg_content !== 'undefined' && crtg_content) {
+                        keyword = crtg_content;
+                    }
 
-				var custom = {4:ar_duo1};
+                    var custom = {4: ar_duo1};
 
-				new adriver("adriver_banner_318167982", {sid: 176776, bt: 52, bn: 4, custom: custom, keyword: keyword});
-			}());
+                    new adriver("adriver_banner_318167982", {sid: 176776, bt: 52, bn: 4, custom: custom, keyword: keyword});
+                }());
 
             </script>
         </div>
@@ -1216,14 +1235,16 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
             onclick="adriver(&#39;adriver_banner_1863387959&#39;).sendPixel(&#39;&#39;);" target="_blank"><img
             src="HabrCorporate_files/brainstorage-300x500-3.png" alt="AdRiver" border="0"></a></div>
     <script type="text/javascript">
-			$(function(){
-				var keyword = '';
-				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
+        $(function () {
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) {
+                keyword = crtg_content;
+            }
 
-				var custom = {4:ar_duo1};
+            var custom = {4: ar_duo1};
 
-				new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
-			}());
+            new adriver("adriver_banner_1863387959", {sid: 176776, bt: 52, bn: 1, custom: custom, keyword: keyword});
+        }());
 
     </script>
 </div>
@@ -1235,29 +1256,31 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
 
 
 <script type="text/javascript">
-		$(function(){
-			var check_scroll_position = function() {
-				var height = $(window).height();
-				var scrollTop = $(window).scrollTop();
-				var scrollBottom = $(window).scrollTop() + height;
-				var blockTop = $('#adriver_banner_480931290').position().top;
-				var show = scrollTop < blockTop && blockTop < scrollBottom;
-				//console.log('scroll', scrollTop, blockTop, scrollBottom, show)
-				if( show ){
-					//console.log('show bn2');
-					$( window ).off('scroll', check_scroll_position);
-					$( window ).trigger('show_bn2');
-				}					
-			};
-			$( window ).on('scroll', check_scroll_position);
-		
-			$( window ).on('show_bn2', function(){
-				var keyword = '';
-				if (typeof crtg_content !== 'undefined' && crtg_content) { keyword = crtg_content; }
-				var custom = {4:ar_duo1};
-				new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
-			});
-		});
+    $(function () {
+        var check_scroll_position = function () {
+            var height = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var scrollBottom = $(window).scrollTop() + height;
+            var blockTop = $('#adriver_banner_480931290').position().top;
+            var show = scrollTop < blockTop && blockTop < scrollBottom;
+            //console.log('scroll', scrollTop, blockTop, scrollBottom, show)
+            if (show) {
+                //console.log('show bn2');
+                $(window).off('scroll', check_scroll_position);
+                $(window).trigger('show_bn2');
+            }
+        };
+        $(window).on('scroll', check_scroll_position);
+
+        $(window).on('show_bn2', function () {
+            var keyword = '';
+            if (typeof crtg_content !== 'undefined' && crtg_content) {
+                keyword = crtg_content;
+            }
+            var custom = {4: ar_duo1};
+            new adriver("adriver_banner_480931290", {sid: 176776, bt: 52, bn: 2, custom: custom, keyword: keyword});
+        });
+    });
 
 </script>
 <!--  AdRiver code END  -->
@@ -1439,39 +1462,39 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
 </div>
 
 <script type="text/javascript">
-		$(document).ready(function(){
-		
-			/** 
-		   * присоедениться
-		   */
-		  $('.top_companies .subscribe_button').click(function(){
-		  	var link = $(this);
-		    var company_id = link.data('id');
-		    $.post('/json/corporation/fan_add/', { company_id: company_id }, function(json){
-		      if(json.messages =='ok'){
-		        $('.top_companies #company_'+company_id).addClass('subscribed');
-		      }else{
-		        show_system_error(json);
-		      }
-		    },'json');
-		    return false;
-		  });
-		  
-		  // покинуть
-		  $('.top_companies .unsubscribe_button').click(function(){
-		    var link = $(this);
-			  var company_id = link.data('id');
-		      $.post('/json/corporation/fan_del/', { company_id: company_id }, function(json){
-		        if(json.messages =='ok'){
-		          $('.top_companies #company_'+company_id).removeClass('subscribed');
-		        }else{
-		          show_system_error(json);
-		        }
-		      },'json');
-		    return false;
-		  });
-		  
-		})
+    $(document).ready(function () {
+
+        /**
+         * присоедениться
+         */
+        $('.top_companies .subscribe_button').click(function () {
+            var link = $(this);
+            var company_id = link.data('id');
+            $.post('/json/corporation/fan_add/', { company_id: company_id }, function (json) {
+                if (json.messages == 'ok') {
+                    $('.top_companies #company_' + company_id).addClass('subscribed');
+                } else {
+                    show_system_error(json);
+                }
+            }, 'json');
+            return false;
+        });
+
+        // покинуть
+        $('.top_companies .unsubscribe_button').click(function () {
+            var link = $(this);
+            var company_id = link.data('id');
+            $.post('/json/corporation/fan_del/', { company_id: company_id }, function (json) {
+                if (json.messages == 'ok') {
+                    $('.top_companies #company_' + company_id).removeClass('subscribed');
+                } else {
+                    show_system_error(json);
+                }
+            }, 'json');
+            return false;
+        });
+
+    })
 
 </script>
 
@@ -1653,39 +1676,39 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
 </div>
 
 <script type="text/javascript">
-		$(document).ready(function(){
-		
-			/** 
-		   * присоедениться
-		   */
-		  $('.new_companies .subscribe_button').click(function(){
-		  	var link = $(this);
-		    var company_id = link.data('id');
-		    $.post('/json/corporation/fan_add/', { company_id: company_id }, function(json){
-		      if(json.messages =='ok'){
-		        $('.new_companies #company_'+company_id).addClass('subscribed');
-		      }else{
-		        show_system_error(json);
-		      }
-		    },'json');
-		    return false;
-		  });
-		  
-		  // покинуть
-		  $('.new_companies .unsubscribe_button').click(function(){
-		    var link = $(this);
-			  var company_id = link.data('id');
-		      $.post('/json/corporation/fan_del/', { company_id: company_id }, function(json){
-		        if(json.messages =='ok'){
-		          $('.new_companies #company_'+company_id).removeClass('subscribed');
-		        }else{
-		          show_system_error(json);
-		        }
-		      },'json');
-		    return false;
-		  });
-		  
-		})
+    $(document).ready(function () {
+
+        /**
+         * присоедениться
+         */
+        $('.new_companies .subscribe_button').click(function () {
+            var link = $(this);
+            var company_id = link.data('id');
+            $.post('/json/corporation/fan_add/', { company_id: company_id }, function (json) {
+                if (json.messages == 'ok') {
+                    $('.new_companies #company_' + company_id).addClass('subscribed');
+                } else {
+                    show_system_error(json);
+                }
+            }, 'json');
+            return false;
+        });
+
+        // покинуть
+        $('.new_companies .unsubscribe_button').click(function () {
+            var link = $(this);
+            var company_id = link.data('id');
+            $.post('/json/corporation/fan_del/', { company_id: company_id }, function (json) {
+                if (json.messages == 'ok') {
+                    $('.new_companies #company_' + company_id).removeClass('subscribed');
+                } else {
+                    show_system_error(json);
+                }
+            }, 'json');
+            return false;
+        });
+
+    })
 
 </script>
 
@@ -1715,45 +1738,47 @@ var pp_gemius_identifier = new String('p8zr4.NqiIZJgD2cnP2s5fWWnIQFHrAvZ280B955g
 
 <script type="text/javascript" src="HabrCorporate_files/jquery.cookie.js"></script>
 <script type="text/javascript">
-            $(document).ready( function(){
+    $(document).ready(function () {
 
-                window.tmidLogin = function(){ return false; };
+        window.tmidLogin = function () {
+            return false;
+        };
 
-                if( $.cookie('tmid_no_check') == undefined ) {
-                    var expire = new Date();
-                    expire.setMinutes(expire.getMinutes() + 10 );
+        if ($.cookie('tmid_no_check') == undefined) {
+            var expire = new Date();
+            expire.setMinutes(expire.getMinutes() + 10);
 
-                    $.cookie('tmid_no_check', 1, { expires: expire } );
+            $.cookie('tmid_no_check', 1, { expires: expire });
 
-                    $.getScript("https://id.tmtm.ru/checklogin", function(){
-                        if( window.tmidLogin() ) {
-                            window.location.href = $('#login').attr('href');
-                        }
-                    });
-
-
+            $.getScript("https://id.tmtm.ru/checklogin", function () {
+                if (window.tmidLogin()) {
+                    window.location.href = $('#login').attr('href');
                 }
             });
+
+
+        }
+    });
 
 
 </script>
 
 
 <script type="text/javascript">
-      $(document).ready(function(){
+    $(document).ready(function () {
         // test gggg
         // настройки всплывающих уведомлений
-        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';         
-        
+        $.jGrowl.defaults.closerTemplate = '<div>Закрыть все уведомления</div>';
+
         // настройки тултипов
-        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});  
-        
-      });
-      // global vars
-      var g_base_url = 'habrahabr.ru';
-      var g_show_xpanel = false;
-      var g_base_fullurl = 'http://habrahabr.ru/';
-      var g_is_guest = false;
+        $(".help-tip").tipTip({maxWidth: "300px", edgeOffset: 10});
+
+    });
+    // global vars
+    var g_base_url = 'habrahabr.ru';
+    var g_show_xpanel = false;
+    var g_base_fullurl = 'http://habrahabr.ru/';
+    var g_is_guest = false;
 
 </script>
 

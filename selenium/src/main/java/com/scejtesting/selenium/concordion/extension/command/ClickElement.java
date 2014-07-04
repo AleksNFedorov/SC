@@ -17,7 +17,6 @@ public class ClickElement extends AbstractSeleniumDriverCommand {
     @Override
     protected void processDriverCommand(Object parameter, Element element) {
 
-
         if (parameter instanceof By) {
             getTestFixture().clickElement((By) parameter);
         } else if (parameter instanceof WebElement) {

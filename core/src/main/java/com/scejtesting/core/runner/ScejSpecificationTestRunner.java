@@ -37,7 +37,6 @@ public class ScejSpecificationTestRunner extends ConcordionRunner {
 
         parentSpecificationRegistry.addAll(finishedSpecificationRegistry);
 
-
     }
 
     protected TestContextService buildTestContextService() {

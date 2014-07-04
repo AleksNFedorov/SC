@@ -23,7 +23,11 @@ public class FileTargetWithCustomPrefix extends FileTarget {
         super(resultBaseDir);
     }
 
-    private static File getBaseOutputDir() {
+    public FileTargetWithCustomPrefix(File baseDir) {
+        super(baseDir);
+    }
+
+    public static File getBaseOutputDir() {
         String outputPath = new Utils().resolveResourcePath(
                 System.getProperty(Constants.PROPERTY_OUTPUT_DIR));
 

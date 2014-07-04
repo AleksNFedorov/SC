@@ -35,14 +35,12 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
     private void updateNodes(Nodes nodesToUpdate, Properties substitutionDictionary) {
         LOG.debug("method invoked");
 
-
         if (nodesToUpdate.size() == 0) {
             LOG.info("Nothing to substitute in specification [{}]", getCurrentTestContext().getCurrentSpecificationContext().getSpecification());
             return;
         }
 
         LOG.info("Found [{}]", nodesToUpdate.size());
-
 
         for (int i = 0; i < nodesToUpdate.size(); ++i) {
             Node nodeWithSubstitutionTemplate = nodesToUpdate.get(i);
@@ -81,13 +79,11 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
         LOG.info("Attribute value replaced to [{}]", content);
     }
 
-
     private boolean needSubstituteContent(String elementContent) {
         int substitutionBeginIndex = elementContent.lastIndexOf(REPLACEMENT_START);
         int substitutionEndIndex = elementContent.lastIndexOf(REPLACEMENT_END);
         return substitutionBeginIndex > -1 && substitutionEndIndex > substitutionBeginIndex;
     }
-
 
     private String resolveValueReplacement(String elementValue, Properties dictionary) {
         LOG.debug("method invoked");
@@ -119,7 +115,6 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
         LOG.info("Replacement found for template [{}], replacement [{}]", stringToReplace, replacementValue);
         return value.replace(stringToReplace, replacementValue);
     }
-
 
     protected DictionaryLoaderService getDictionaryLoaderService() {
         return new DictionaryLoaderService();

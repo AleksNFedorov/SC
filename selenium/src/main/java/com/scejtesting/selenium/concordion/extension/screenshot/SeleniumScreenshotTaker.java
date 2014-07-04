@@ -1,6 +1,5 @@
 package com.scejtesting.selenium.concordion.extension.screenshot;
 
-
 import org.concordion.ext.ScreenshotTaker;
 import org.concordion.ext.ScreenshotUnavailableException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -19,7 +18,6 @@ import java.io.OutputStream;
 public class SeleniumScreenshotTaker implements ScreenshotTaker {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScreenShotFacade.class);
-
 
     private final RemoteWebDriver driver;
 

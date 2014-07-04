@@ -14,7 +14,6 @@ import static org.mockito.Mockito.when;
  */
 public class TestContextTest extends TestContextService {
 
-
     @org.junit.Test
     public void attributesTest() {
         Test fakeTest = mock(Test.class);
@@ -77,10 +76,8 @@ public class TestContextTest extends TestContextService {
 
     }
 
-
     @org.junit.Test
     public void incorrectDestroy() {
-
 
         Test fakeTest = mock(Test.class);
         when(fakeTest.getSpecification()).thenReturn(new Specification());
@@ -92,7 +89,6 @@ public class TestContextTest extends TestContextService {
         } catch (RuntimeException ex) {
 
         }
-
 
         getCurrentTestContext().createNewSpecificationContext(new Resource("/path"), new Specification());
 
@@ -107,7 +103,6 @@ public class TestContextTest extends TestContextService {
         destroyTestContext();
 
         Assert.assertNull(getCurrentTestContext());
-
 
     }
 
@@ -126,7 +121,6 @@ public class TestContextTest extends TestContextService {
 
         getCurrentTestContext().createNewSpecificationContext(new Resource("/some/path"), childSpecification);
         Assert.assertEquals(childSpecification, getCurrentTestContext().getCurrentSpecificationContext().getSpecification());
-
 
         getCurrentTestContext().destroyCurrentSpecificationContext();
 

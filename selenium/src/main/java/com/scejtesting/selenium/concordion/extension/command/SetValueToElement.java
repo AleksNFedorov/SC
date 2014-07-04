@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class SetValueToElement extends AbstractSeleniumDriverCommand {
 
-
     public SetValueToElement(AssertListener listener) {
         super(listener);
     }
@@ -27,7 +26,6 @@ public class SetValueToElement extends AbstractSeleniumDriverCommand {
 
         String textToSearch = (String) parameterList.get(1);
         Object elementSearchPredicate = parameterList.get(0);
-
 
         if (elementSearchPredicate instanceof By) {
             By bySearchPredicate = (By) elementSearchPredicate;

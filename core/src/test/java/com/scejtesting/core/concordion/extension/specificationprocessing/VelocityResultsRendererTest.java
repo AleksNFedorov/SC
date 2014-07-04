@@ -38,13 +38,11 @@ public class VelocityResultsRendererTest {
         registry.addResult(new RunnerResult(Result.EXCEPTION));
         registry.addResult(new RunnerResult(Result.IGNORED));
 
-
         SpecificationResultRegistry newRegistry = new SpecificationResultRegistry();
 
         newRegistry.addResult(new RunnerResult(Result.FAILURE));
         newRegistry.addResult(new RunnerResult(Result.FAILURE));
         newRegistry.addResult(new RunnerResult(Result.IGNORED));
-
 
         Element rootElement = buildNewRootElement();
 
@@ -55,7 +53,6 @@ public class VelocityResultsRendererTest {
         VelocityResultsRenderer renderer = spy(new VelocityResultsRenderer());
 
         doReturn(registry).when(renderer).getCurrentSpecificationResults();
-
 
         // First iteration
 
@@ -68,7 +65,6 @@ public class VelocityResultsRendererTest {
         Assert.assertEquals("2011", resultElement.getText().trim());
 
         // Second iteration
-
 
         registry.addAll(newRegistry);
 
@@ -88,7 +84,6 @@ public class VelocityResultsRendererTest {
 
         new VelocityResultsRenderer();
     }
-
 
     private Element buildNewRootElement() throws IOException {
         return new Element(XMLParser.parse(SPECIFICATION_FAKE_CONTENT).getRootElement());

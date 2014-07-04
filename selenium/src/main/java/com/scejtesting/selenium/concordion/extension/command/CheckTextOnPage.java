@@ -23,7 +23,6 @@ public class CheckTextOnPage extends AbstractSeleniumDriverCommand {
 
         boolean checkResult = getTestFixture().checkTextOnPage(textToSearch);
 
-
         if (checkResult) {
             LOG.info("Text [{}] found on page", textToSearch);
             listeners.announce().successReported(new AssertSuccessEvent(element));

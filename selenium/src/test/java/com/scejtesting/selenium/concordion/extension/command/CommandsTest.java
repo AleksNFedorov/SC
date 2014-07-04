@@ -34,7 +34,6 @@ public class CommandsTest {
         listener = null;
     }
 
-
     @Test
     public void setValueToElementTest() {
 
@@ -44,7 +43,6 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         doNothing().when(fixture).setValueToElement(any(By.class), anyString());
         command.processDriverCommand(Arrays.asList(By.id("someId"), "someText"), new Element("div"));
         verify(fixture, times(1)).setValueToElement(any(By.class), anyString());
@@ -52,7 +50,6 @@ public class CommandsTest {
         doNothing().when(fixture).setValueToElement(any(WebElement.class), anyString());
         command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText"), new Element("div"));
         verify(fixture, times(1)).setValueToElement(any(WebElement.class), anyString());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -79,7 +76,6 @@ public class CommandsTest {
         }
     }
 
-
     @Test
     public void clearElementTest() {
 
@@ -89,7 +85,6 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         doNothing().when(fixture).clearElement(any(By.class));
         command.processDriverCommand(By.id("someID"), new Element("div"));
         verify(fixture, times(1)).clearElement(any(By.class));
@@ -98,16 +93,13 @@ public class CommandsTest {
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         verify(fixture, times(1)).clearElement(any(WebElement.class));
 
-
         try {
             command.processDriverCommand("someDriver", new Element("div"));
             Assert.fail();
         } catch (Exception ex) {
         }
 
-
     }
-
 
     @Test
     public void clickElementTest() {
@@ -118,7 +110,6 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         doNothing().when(fixture).clickElement(any(By.class));
         command.processDriverCommand(By.id("someID"), new Element("div"));
         verify(fixture, times(1)).clickElement(any(By.class));
@@ -127,13 +118,11 @@ public class CommandsTest {
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         verify(fixture, times(1)).clickElement(any(WebElement.class));
 
-
         try {
             command.processDriverCommand("someDriver", new Element("div"));
             Assert.fail();
         } catch (RuntimeException ex) {
         }
-
 
     }
 
@@ -146,7 +135,6 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         when(fixture.checkElementContainsText(any(By.class), anyString())).thenReturn(Boolean.TRUE);
         command.processDriverCommand(Arrays.asList(By.id("someId"), "someText"), new Element("div"));
         Assert.assertEquals(1, listener.getSuccessCount());
@@ -155,11 +143,9 @@ public class CommandsTest {
         command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText"), new Element("div"));
         Assert.assertEquals(2, listener.getSuccessCount());
 
-
         when(fixture.checkElementContainsText(any(By.class), anyString())).thenReturn(Boolean.FALSE);
         command.processDriverCommand(Arrays.asList(By.id("someId"), "someText"), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -197,16 +183,13 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         when(fixture.checkElementDisplayed(any(By.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(By.id("someID"), new Element("div"));
         Assert.assertEquals(1, listener.getSuccessCount());
 
-
         when(fixture.checkElementDisplayed(any(By.class))).thenReturn(Boolean.FALSE);
         command.processDriverCommand(By.id("someID"), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -217,9 +200,7 @@ public class CommandsTest {
         Assert.assertEquals(1, listener.getSuccessCount());
         Assert.assertEquals(1, listener.getFailCount());
 
-
     }
-
 
     @Test
     public void checkElementDisplayed() {
@@ -229,21 +210,17 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         when(fixture.checkElementDisplayed(any(By.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(By.id("someID"), new Element("div"));
         Assert.assertEquals(1, listener.getSuccessCount());
-
 
         when(fixture.checkElementDisplayed(any(WebElement.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         Assert.assertEquals(2, listener.getSuccessCount());
 
-
         when(fixture.checkElementDisplayed(any(WebElement.class))).thenReturn(Boolean.FALSE);
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -254,9 +231,7 @@ public class CommandsTest {
         Assert.assertEquals(2, listener.getSuccessCount());
         Assert.assertEquals(1, listener.getFailCount());
 
-
     }
-
 
     @Test
     public void checkElementEnabled() {
@@ -266,21 +241,17 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         when(fixture.checkElementEnabled(any(By.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(By.id("someID"), new Element("div"));
         Assert.assertEquals(1, listener.getSuccessCount());
-
 
         when(fixture.checkElementEnabled(any(WebElement.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         Assert.assertEquals(2, listener.getSuccessCount());
 
-
         when(fixture.checkElementEnabled(any(WebElement.class))).thenReturn(Boolean.FALSE);
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -291,9 +262,7 @@ public class CommandsTest {
         Assert.assertEquals(2, listener.getSuccessCount());
         Assert.assertEquals(1, listener.getFailCount());
 
-
     }
-
 
     @Test
     public void checkElementSelected() {
@@ -303,21 +272,17 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         when(fixture.checkElementSelected(any(By.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(By.id("someID"), new Element("div"));
         Assert.assertEquals(1, listener.getSuccessCount());
-
 
         when(fixture.checkElementSelected(any(WebElement.class))).thenReturn(Boolean.TRUE);
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         Assert.assertEquals(2, listener.getSuccessCount());
 
-
         when(fixture.checkElementSelected(any(WebElement.class))).thenReturn(Boolean.FALSE);
         command.processDriverCommand(mock(WebElement.class), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -327,7 +292,6 @@ public class CommandsTest {
 
         Assert.assertEquals(2, listener.getSuccessCount());
         Assert.assertEquals(1, listener.getFailCount());
-
 
     }
 
@@ -344,13 +308,11 @@ public class CommandsTest {
         command.processDriverCommand("someDriver", new Element("div"));
         Assert.assertEquals(1, listener.getSuccessCount());
 
-
         when(fixture.checkTextOnPage(anyString())).thenReturn(Boolean.FALSE);
         command.processDriverCommand("someDriver", new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
 
         when(fixture.checkTextOnPage(anyString())).thenThrow(RuntimeException.class);
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -360,7 +322,6 @@ public class CommandsTest {
 
         Assert.assertEquals(1, listener.getSuccessCount());
         Assert.assertEquals(1, listener.getFailCount());
-
 
     }
 
@@ -387,7 +348,6 @@ public class CommandsTest {
             Assert.fail();
         } catch (Exception ex) {
         }
-
 
         Assert.assertEquals(2, listener.getSuccessCount());
 
@@ -422,7 +382,6 @@ public class CommandsTest {
 
         Assert.assertEquals(1, listener.getSuccessCount());
 
-
     }
 
     @Test
@@ -434,7 +393,6 @@ public class CommandsTest {
 
         doReturn(fixture).when(command).getTestFixture();
 
-
         when(fixture.checkElementCSSContainsText(any(By.class), anyString(), anyString()))
                 .thenReturn(Boolean.TRUE);
         command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
@@ -445,12 +403,10 @@ public class CommandsTest {
         command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText", "someText"), new Element("div"));
         Assert.assertEquals(2, listener.getSuccessCount());
 
-
         when(fixture.checkElementCSSContainsText(any(By.class), anyString(), anyString()))
                 .thenReturn(Boolean.FALSE);
         command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -486,7 +442,6 @@ public class CommandsTest {
         Assert.assertEquals(1, listener.getFailCount());
     }
 
-
     @Test
     public void checkElementAttributeContainsTextTest() {
 
@@ -495,7 +450,6 @@ public class CommandsTest {
         AbstractSeleniumDriverCommand command = spy(new CheckElementAttributeContainsText(listener));
 
         doReturn(fixture).when(command).getTestFixture();
-
 
         when(fixture.checkElementAttributeContainsText(any(By.class), anyString(), anyString()))
                 .thenReturn(Boolean.TRUE);
@@ -507,12 +461,10 @@ public class CommandsTest {
         command.processDriverCommand(Arrays.asList(mock(WebElement.class), "someText", "someText"), new Element("div"));
         Assert.assertEquals(2, listener.getSuccessCount());
 
-
         when(fixture.checkElementAttributeContainsText(any(By.class), anyString(), anyString()))
                 .thenReturn(Boolean.FALSE);
         command.processDriverCommand(Arrays.asList(By.id("someId"), "someText", "someText"), new Element("div"));
         Assert.assertEquals(1, listener.getFailCount());
-
 
         try {
             command.processDriverCommand("someDriver", new Element("div"));
@@ -547,7 +499,6 @@ public class CommandsTest {
         Assert.assertEquals(2, listener.getSuccessCount());
         Assert.assertEquals(1, listener.getFailCount());
     }
-
 
     private class MonitoringAssertListener implements AssertListener {
 
@@ -572,6 +523,5 @@ public class CommandsTest {
             return failCount;
         }
     }
-
 
 }

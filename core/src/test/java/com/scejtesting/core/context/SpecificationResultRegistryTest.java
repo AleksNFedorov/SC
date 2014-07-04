@@ -24,7 +24,6 @@ public class SpecificationResultRegistryTest extends TestContextService {
         RunnerResult successResult2 = new RunnerResult(Result.SUCCESS);
         RunnerResult failResult = new RunnerResult(Result.FAILURE);
 
-
         childRegistry.addResult(successResult);
         childRegistry.addResult(failResult);
 
@@ -36,7 +35,6 @@ public class SpecificationResultRegistryTest extends TestContextService {
         } catch (RuntimeException ex) {
 
         }
-
 
         parentRegistry.addResult(successResult2);
         parentRegistry.addResult(failResult);
@@ -72,7 +70,6 @@ public class SpecificationResultRegistryTest extends TestContextService {
 
         Assert.assertEquals(Integer.valueOf(1), parentRegistry.getResultsAmount(Result.FAILURE));
 
-
     }
 
     @Test
@@ -96,7 +93,6 @@ public class SpecificationResultRegistryTest extends TestContextService {
         registry.addResult(ignoreResult);
 
         registry.addResult(exceptionResult);
-
 
         Assert.assertEquals(Integer.valueOf(2), registry.getResultsAmount(Result.SUCCESS));
 
@@ -122,7 +118,6 @@ public class SpecificationResultRegistryTest extends TestContextService {
         Assert.assertEquals(1, registry.getResultsList(Result.IGNORED).size());
 
         Assert.assertEquals(1, registry.getResultsList(Result.FAILURE).size());
-
 
         Assert.assertTrue(successList.contains(successResult));
         Assert.assertTrue(successList.contains(successResult2));

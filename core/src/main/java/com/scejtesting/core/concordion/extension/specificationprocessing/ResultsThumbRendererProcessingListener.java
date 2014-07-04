@@ -48,7 +48,6 @@ public class ResultsThumbRendererProcessingListener implements SpecificationProc
             LOG.debug("method finished");
         }
 
-
     }
 
 }

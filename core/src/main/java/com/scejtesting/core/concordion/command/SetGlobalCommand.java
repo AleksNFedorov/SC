@@ -19,7 +19,6 @@ public class SetGlobalCommand extends SetCommand implements ScejCommand {
     public static final String COMMAND_NAME = "setGlobal";
     private static Logger LOG = LoggerFactory.getLogger(SetGlobalCommand.class);
 
-
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         LOG.debug("method invoked");
@@ -58,7 +57,6 @@ public class SetGlobalCommand extends SetCommand implements ScejCommand {
     protected Context getTestContext() {
         return new TestContextService().getCurrentTestContext();
     }
-
 
     @Override
     public String getCommandName() {

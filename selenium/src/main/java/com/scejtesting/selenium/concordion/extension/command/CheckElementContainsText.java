@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class CheckElementContainsText extends AbstractElementCheckCommand {
 
-
     public CheckElementContainsText(AssertListener listener) {
         super(listener);
     }
@@ -30,6 +29,5 @@ public class CheckElementContainsText extends AbstractElementCheckCommand {
     public String getCommandName() {
         return "checkElementContainsText";
     }
-
 
 }

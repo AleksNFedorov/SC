@@ -21,7 +21,6 @@ public class SpecificationTest {
 
         Assert.assertNotEquals(specification.getTmpFileSuffix(), specificationSecond.getTmpFileSuffix());
 
-
         Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(fakePath));
         Assert.assertFalse(SpecificationLocatorService.containsGeneratedSuffix("noSuffixString"));
 

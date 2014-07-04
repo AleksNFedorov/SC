@@ -17,7 +17,6 @@ public class HierarchySpecificationLocator implements SpecificationLocator {
 
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-
     public Resource locateSpecification(Object fixture) {
         LOG.debug("method invoked [{}]", fixture);
         try {

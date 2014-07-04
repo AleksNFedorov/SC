@@ -26,7 +26,6 @@ public class SetGlobalCommandTest {
         return param1;
     }
 
-
     @Test
     public void coreFuncValueTest() {
 
@@ -37,7 +36,6 @@ public class SetGlobalCommandTest {
         Object var1 = evaluator.getVariable("#var1");
 
         Assert.assertEquals(getValue(), var1.toString());
-
 
         evaluator.setVariable("#var2 = getValue(#var1)", "");
 
@@ -54,11 +52,9 @@ public class SetGlobalCommandTest {
 
         Context globalTestContext = new Context();
 
-
         Element specificationElement = new Element("element");
 //        specificationElement.appendText("value");
 //        doReturn("").when(specificationElement).getText();
-
 
         CommandCall commandCall = mock(CommandCall.class);
 
@@ -91,7 +87,6 @@ public class SetGlobalCommandTest {
         Element specificationElement = new Element("element");
         specificationElement.appendText(elementValue);
 
-
         CommandCall commandCall = mock(CommandCall.class);
 
         when(commandCall.hasChildCommands()).thenReturn(Boolean.FALSE);
@@ -109,6 +104,5 @@ public class SetGlobalCommandTest {
         Assert.assertEquals(1, globalVariablesMap.size());
         Assert.assertEquals(elementValue, globalVariablesMap.get("#var1").toString());
     }
-
 
 }

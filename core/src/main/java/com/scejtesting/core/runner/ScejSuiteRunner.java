@@ -113,7 +113,6 @@ public class ScejSuiteRunner extends Runner {
         LOG.debug("method finished");
         return testsToRunNames;
 
-
     }
 
     private String getPathToConfig() {

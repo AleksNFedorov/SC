@@ -39,7 +39,6 @@ public class RegisterGlobalsCommandDocumentEnricher implements NamedDocumentPars
         return registerGlobalsCommandElement;
     }
 
-
     private Element getDocumentBody(Document document) {
         Element body = document.getRootElement().getFirstChildElement("body");
         if (body == null) {

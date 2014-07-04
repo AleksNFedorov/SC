@@ -14,11 +14,9 @@ public class ScreenShotFacade implements ScreenshotTaker {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScreenShotFacade.class);
 
-
     private final ScreenshotTaker standardScreenShotTaker = new RobotScreenshotTaker();
 
     private final DriverHolderService driverHolderService = new DriverHolderService();
-
 
     @Override
     public int writeScreenshotTo(OutputStream outputStream) throws IOException {

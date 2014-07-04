@@ -51,7 +51,6 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
             throw new RuntimeException(ex);
         }
 
-
         LOG.info("Results renderer initialized successfully");
 
     }
@@ -81,7 +80,6 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
         String resultsContent = generateResultsContent(resultsVelocityContext);
 
         appendResultsContentToDocument(event.getRootElement().getRootElement(), resultsContent);
-
 
         LOG.debug("method finished");
 
@@ -120,9 +118,7 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
             throw new RuntimeException(e);
         }
 
-
         LOG.info("Results inserted info reporting page");
-
 
     }
 
@@ -146,7 +142,6 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
     }
 
     private VelocityContext buildFromCurrentSpecificationContext() {
-
 
         SpecificationResultRegistry resultsRegistry = getCurrentSpecificationResults();
 

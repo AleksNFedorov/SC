@@ -60,7 +60,6 @@ public abstract class CoreScejTest<T extends CoreWebTestFixture> {
         new TestContextService().getCurrentTestContext().
                 cleanAttribute(DriverHolderService.SCEJ_DRIVER_SERVICE);
 
-
     }
 
 }

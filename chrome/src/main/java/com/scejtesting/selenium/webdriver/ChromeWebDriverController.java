@@ -15,11 +15,9 @@ import java.util.Properties;
  */
 public class ChromeWebDriverController extends WebDriverController {
 
-
     private final static Logger LOG = LoggerFactory.getLogger(ChromeWebDriverController.class);
 
     private ChromeDriverService service;
-
 
     public ChromeWebDriverController(Properties driverProperties) {
         super(driverProperties);

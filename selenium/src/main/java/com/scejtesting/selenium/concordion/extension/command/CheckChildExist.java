@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class CheckChildExist extends AbstractSeleniumDriverCommand {
 
-
     public CheckChildExist(AssertListener listener) {
         super(listener);
     }

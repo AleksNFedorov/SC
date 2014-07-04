@@ -15,20 +15,21 @@ public class FileTargetWithDateTimePrefixTest {
     @Test
     public void testTargetPrefixWithExplicitLogFolder() {
 
-        System.setProperty("concordion.output.dir", "someTestFolder");
-        Target target = new FileTargetWithCustomPrefix();
+        System.setProperty(Constants.PROPERTY_OUTPUT_DIR, "/someTestFolder");
+        Target target = new FileTargetWithCustomPrefix(FileTargetWithCustomPrefix.getBaseOutputDir());
         Resource testResource = new Resource("/someResource");
         String resultFile = target.resolvedPathFor(testResource);
-
         Assert.assertTrue(resultFile.endsWith("someResource"));
         Assert.assertTrue(resultFile.matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
+        Assert.assertTrue(resultFile.contains("/someTestFolder"));
+
+        System.clearProperty(Constants.PROPERTY_OUTPUT_DIR);
     }
 
     @Test
     public void testTargetPrefixWithDefault() {
 
-
-        Target target = new FileTargetWithCustomPrefix();
+        Target target = new FileTargetWithCustomPrefix(FileTargetWithCustomPrefix.getBaseOutputDir());
         Resource testResource = new Resource("/someResource");
         String resultFile = target.resolvedPathFor(testResource);
 
@@ -65,6 +66,5 @@ public class FileTargetWithDateTimePrefixTest {
         Assert.assertEquals(resultFile, resultFile2);
 
     }
-
 
 }

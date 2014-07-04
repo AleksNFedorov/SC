@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
  */
 public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
 
-
     private By divById = By.id("id1");
     private String textToLookup = "Div id 1 text";
     private By byTagName = By.tagName("div");
@@ -21,16 +20,13 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
     private By buttonById = By.id("button");
     private By inputText = By.id("text");
 
-
     @Test
     public void documentNavigationTest() {
-
 
         List<WebElement> foundElements = currentTestFixture.findElements(byTagName);
 
         assertEquals(2, foundElements.size());
         assertEquals(0, currentTestFixture.findElements(unknownElementBy).size());
-
 
         WebElement foundElement = currentTestFixture.findElement(divById);
 
@@ -44,7 +40,6 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
 
         }
 
-
         assertTrue(currentTestFixture.checkChildExist(byTagName, divById));
         assertFalse(currentTestFixture.checkChildExist(byTagName, unknownElementBy));
 
@@ -54,16 +49,13 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
         } catch (RuntimeException ex) {
         }
 
-
         assertTrue(currentTestFixture.checkElementExist(divById));
         assertFalse(currentTestFixture.checkElementExist(unknownElementBy));
 
     }
 
-
     @Test
     public void documentContentTest() {
-
 
         assertTrue(currentTestFixture.checkElementContainsText(divById, textToLookup));
         assertTrue(currentTestFixture.checkTextOnPage(textToLookup));
@@ -76,13 +68,10 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
 
         }
 
-
     }
-
 
     @Test
     public void documentElementsStateTest() {
-
 
         assertTrue(currentTestFixture.checkElementDisplayed(divById));
         assertTrue(currentTestFixture.checkElementEnabled(divById));
@@ -119,7 +108,6 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
 
     }
 
-
     @Test
     public void elementManipulationTest() {
 
@@ -140,7 +128,6 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
         currentTestFixture.clearElement(inputText);
 
         assertEquals("", currentTestFixture.findElement(inputText).getAttribute("value").trim());
-
 
     }
 

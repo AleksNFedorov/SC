@@ -15,7 +15,6 @@ import java.util.List;
  */
 public abstract class AbstractElementCheckCommand extends AbstractSeleniumDriverCommand {
 
-
     public AbstractElementCheckCommand(AssertListener listener) {
         super(listener);
     }
@@ -46,7 +45,6 @@ public abstract class AbstractElementCheckCommand extends AbstractSeleniumDriver
     protected abstract boolean doCheck(By predicate, String content, List allParameters);
 
     protected abstract boolean doCheck(WebElement element, String content, List allParameters);
-
 
     protected void announceResult(boolean checkPassed, Element element, String textToSearch) {
         if (checkPassed) {

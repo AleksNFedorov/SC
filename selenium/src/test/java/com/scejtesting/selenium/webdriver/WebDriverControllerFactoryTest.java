@@ -21,7 +21,6 @@ public class WebDriverControllerFactoryTest {
     @Test
     public void loadDefaultPropertyTest() {
 
-
         WebDriverControllerFactory serviceFactory = new WebDriverControllerFactory();
 
         WebDriverController fakeDefaultService = serviceFactory.buildDriverService("fakedriver_default");

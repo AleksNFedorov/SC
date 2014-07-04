@@ -15,7 +15,6 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
 
     private static Logger LOG = LoggerFactory.getLogger(SuiteFailFastExceptionListener.class);
 
-
     @Override
     public void throwableCaught(ThrowableCaughtEvent event) {
         LOG.debug("method invoked [{}]", event);
@@ -41,7 +40,6 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
     protected Suite getSuite() {
         return SuiteConfiguration.getInstance().getSuite();
     }
-
 
     private void checkTestExceptions(Throwable exception) {
         LOG.debug("method invoked [{}]", exception);

@@ -17,9 +17,7 @@ public class WebDriverControllerFactory {
     public static final String DRIVER_PROPERTIES_FILE_SUFFIX = ".driver.properties";
     public static final String DRIVER_DEFAULT_PROPERTIES_FILE_SUFFIX = ".driver.default.properties";
 
-
     private final static Logger LOG = LoggerFactory.getLogger(WebDriverControllerFactory.class);
-
 
     public WebDriverController buildDriverService(String driverName) {
         LOG.debug("init method invoked");
@@ -37,7 +35,6 @@ public class WebDriverControllerFactory {
 
         return driverBuilder;
     }
-
 
     private WebDriverController createDriverService(String driverName, Properties driverProperties) {
         LOG.debug("method invoked");
@@ -62,7 +59,6 @@ public class WebDriverControllerFactory {
         return driverBuilder;
     }
 
-
     private Properties loadDriverProperties(String driverName) {
         LOG.debug("method invoked");
 
@@ -85,7 +81,6 @@ public class WebDriverControllerFactory {
             LOG.error("Exception during driver initialization ", e);
             throw new RuntimeException("Can't load driver [" + driverName + "]", e);
         }
-
 
         LOG.debug("method finished");
 

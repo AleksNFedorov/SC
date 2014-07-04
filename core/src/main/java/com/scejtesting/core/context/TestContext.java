@@ -19,7 +19,6 @@ public class TestContext extends Context {
 
     protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
 
-
     private static TestContext inst;
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
     private Test test;
@@ -67,7 +66,6 @@ public class TestContext extends Context {
         LOG.debug("method finished");
     }
 
-
     public final Test getTest() {
         LOG.debug("method invoked");
         return test;
@@ -100,7 +98,6 @@ public class TestContext extends Context {
     public List<SpecificationContext> getSpecificationStack() {
         return new ArrayList<SpecificationContext>(contextStack);
     }
-
 
     @Override
     public String toString() {
