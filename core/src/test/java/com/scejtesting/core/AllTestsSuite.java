@@ -13,9 +13,11 @@ import com.scejtesting.core.concordion.extension.specificationprocessing.Results
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRendererTest;
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
 import com.scejtesting.core.config.SpecificationTest;
-import com.scejtesting.core.config.SuiteInitialization;
+import com.scejtesting.core.config.SuiteInitializationTest;
 import com.scejtesting.core.context.SpecificationResultRegistryTest;
 import com.scejtesting.core.context.TestContextTest;
+import com.scejtesting.core.runner.ScejJUnitRunnerTest;
+import com.scejtesting.core.runner.ScejStandAloneRunnerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -26,7 +28,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({TestContextTest.class,
-        SuiteInitialization.class,
+        SuiteInitializationTest.class,
         SpecificationTest.class,
         SpecificationLocatorServiceTest.class,
         ChildSpecificationRunnerTest.class,
@@ -42,6 +44,8 @@ import org.junit.runners.Suite;
         ResultsThumbBuilderTest.class,
         ScejCommandArgumentsTransformerTest.class,
         UtilsTest.class,
+        ScejJUnitRunnerTest.class,
+        ScejStandAloneRunnerTest.class,
 })
 public class AllTestsSuite {
 

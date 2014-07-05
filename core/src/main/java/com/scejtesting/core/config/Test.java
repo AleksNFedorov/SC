@@ -29,6 +29,7 @@ public class Test extends ExceptionsHolder {
     void init() {
         Check.notNull(getDefaultTestClass(), "Default test class have not been resolved correctly");
         Check.notNull(getSpecification(), "Nothing to test, please add specification");
+        Check.notNull(getName(), "Test must have a name");
         getSpecification().init();
     }
 

@@ -21,7 +21,7 @@
         <!--<appender-ref ref="STDOUT"/>-->
     </logger>
 
-    <logger name="com.scejtesting.core.runner.ScejSuiteRunner" level="debug">
+    <logger name="com.scejtesting.core.runner.ScejJUnitRunner" level="debug">
         <!--<appender-ref ref="STDOUT"/>-->
     </logger>
 

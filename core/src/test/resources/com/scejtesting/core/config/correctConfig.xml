@@ -2,7 +2,7 @@
 
 <suite>
 
-    <test defaultTestClass="java.lang.Runtime">
+    <test defaultTestClass="java.lang.Runtime" name="correctConfigTest1">
         <specification location="/HeadSpecification.html" testClass="java.lang.String">
             <includes>
                 <specification location="HeadSpecificationChrome.html"/>
@@ -14,7 +14,7 @@
     </test>
 
 
-    <test>
+    <test name="correctConfigTest1">
         <specification location="/HeadSpecification.html"/>
     </test>
 

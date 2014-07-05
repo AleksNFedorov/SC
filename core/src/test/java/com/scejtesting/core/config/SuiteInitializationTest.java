@@ -11,7 +11,7 @@ import java.util.Collection;
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class SuiteInitialization {
+public class SuiteInitializationTest {
 
     @org.junit.Test
     public void noSpecificationFileTest() {

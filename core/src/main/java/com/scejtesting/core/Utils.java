@@ -14,13 +14,15 @@ public class Utils {
 
         File resourceFile = new File(pathToResource);
 
-        if (resourceFile.isAbsolute())
-            return pathToResource;
-        else {
+        if (resourceFile.isAbsolute()) {
+            if (new File(pathToResource).exists()) {
+                return pathToResource;
+            }
+        } else {
             URL resource = getClass().getClassLoader().getResource(pathToResource);
             if (resource != null)
                 return resource.getFile();
-            return null;
         }
+        return null;
     }
 }

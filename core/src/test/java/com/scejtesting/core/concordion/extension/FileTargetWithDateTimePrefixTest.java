@@ -12,6 +12,14 @@ import org.junit.Test;
  */
 public class FileTargetWithDateTimePrefixTest {
 
+    public static final String JAVA_TMP_DIR = System.getProperty("java.io.tmpdir");
+
+    @Test
+    public void finishTest() {
+        System.clearProperty(Constants.PROPERTY_OUTPUT_DIR);
+        System.clearProperty(Constants.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
+    }
+
     @Test
     public void testTargetPrefixWithExplicitLogFolder() {
 
@@ -22,8 +30,6 @@ public class FileTargetWithDateTimePrefixTest {
         Assert.assertTrue(resultFile.endsWith("someResource"));
         Assert.assertTrue(resultFile.matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
         Assert.assertTrue(resultFile.contains("/someTestFolder"));
-
-        System.clearProperty(Constants.PROPERTY_OUTPUT_DIR);
     }
 
     @Test
@@ -48,9 +54,6 @@ public class FileTargetWithDateTimePrefixTest {
 
         Assert.assertTrue(resultFile.endsWith("someResource"));
         Assert.assertTrue(resultFile.matches(".*12345.*"));
-
-        System.clearProperty(Constants.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
-
     }
 
     @Test
