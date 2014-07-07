@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 public class SpecificationLocatorService {
 
     private static final SpecificationLocatorService impl = new SpecificationLocatorService();
-    private static Pattern suffixPattern = Pattern.compile(".*" + Specification.MIDDLE_SUFFIX + "\\d{1,}.*");
-    private static Pattern suffixCleanPattern = Pattern.compile(Specification.MIDDLE_SUFFIX + "\\d{1,}");
-    private Logger LOG = LoggerFactory.getLogger(getClass());
+    private static final Pattern suffixPattern = Pattern.compile(".*" + Specification.MIDDLE_SUFFIX + "\\d{1,}.*");
+    private static final Pattern suffixCleanPattern = Pattern.compile(Specification.MIDDLE_SUFFIX + "\\d{1,}");
+    private static final Logger LOG = LoggerFactory.getLogger(SpecificationLocatorService.class);
 
     private SpecificationLocatorService() {
     }
