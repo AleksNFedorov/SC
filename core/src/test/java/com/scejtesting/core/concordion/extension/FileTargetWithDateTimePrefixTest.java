@@ -3,8 +3,11 @@ package com.scejtesting.core.concordion.extension;
 import com.scejtesting.core.Constants;
 import org.concordion.api.Resource;
 import org.concordion.api.Target;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,9 +15,7 @@ import org.junit.Test;
  */
 public class FileTargetWithDateTimePrefixTest {
 
-    public static final String JAVA_TMP_DIR = System.getProperty("java.io.tmpdir");
-
-    @Test
+    @After
     public void finishTest() {
         System.clearProperty(Constants.PROPERTY_OUTPUT_DIR);
         System.clearProperty(Constants.PROPERTY_LAUNCH_RESULT_FOLDER_PATTERN_DIR);
@@ -23,19 +24,30 @@ public class FileTargetWithDateTimePrefixTest {
     @Test
     public void testTargetPrefixWithExplicitLogFolder() {
 
+        String tmpFolderAbsolutePath = createTmpFolder("testTargetPrefixWithExplicitLogFolder");
 
-        System.setProperty(Constants.PROPERTY_OUTPUT_DIR, "/someTestFolder");
+        System.setProperty(Constants.PROPERTY_OUTPUT_DIR, tmpFolderAbsolutePath);
         Target target = new FileTargetWithCustomPrefix(FileTargetWithCustomPrefix.getBaseOutputDir());
         Resource testResource = new Resource("/someResource");
         String resultFile = target.resolvedPathFor(testResource);
         Assert.assertTrue(resultFile.endsWith("someResource"));
         Assert.assertTrue(resultFile.matches(".*[0-9]{2}-[0-9]{2}-[0-9]{2}.*"));
-        Assert.assertTrue(resultFile.contains("/someTestFolder"));
+        Assert.assertTrue(resultFile.startsWith(tmpFolderAbsolutePath));
+    }
+
+    private String createTmpFolder(String prefix) {
+        File tmpFolder = new File(System.getProperty("java.io.tmpdir"),
+                prefix + System.currentTimeMillis());
+        tmpFolder.deleteOnExit();
+
+        if (!tmpFolder.exists()) {
+            tmpFolder.mkdir();
+        }
+        return tmpFolder.getAbsolutePath();
     }
 
     @Test
     public void testTargetPrefixWithDefault() {
-
         Target target = new FileTargetWithCustomPrefix(FileTargetWithCustomPrefix.getBaseOutputDir());
         Resource testResource = new Resource("/someResource");
         String resultFile = target.resolvedPathFor(testResource);
@@ -70,5 +82,6 @@ public class FileTargetWithDateTimePrefixTest {
         Assert.assertEquals(resultFile, resultFile2);
 
     }
+
 
 }
