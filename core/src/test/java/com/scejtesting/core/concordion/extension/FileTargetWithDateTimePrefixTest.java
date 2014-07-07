@@ -23,6 +23,7 @@ public class FileTargetWithDateTimePrefixTest {
     @Test
     public void testTargetPrefixWithExplicitLogFolder() {
 
+
         System.setProperty(Constants.PROPERTY_OUTPUT_DIR, "/someTestFolder");
         Target target = new FileTargetWithCustomPrefix(FileTargetWithCustomPrefix.getBaseOutputDir());
         Resource testResource = new Resource("/someResource");
