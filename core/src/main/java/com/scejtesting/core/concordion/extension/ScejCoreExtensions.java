@@ -27,6 +27,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
         concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
         concordionExtender.withSpecificationProcessingListener(new ResultsThumbRendererProcessingListener());
         addCommands(concordionExtender);
+        onExtensionInitialized();
     }
 
     protected void addCommands(ConcordionExtender extender) {
@@ -42,5 +43,9 @@ public class ScejCoreExtensions implements ConcordionExtension {
                 add(new RegisterGlobalVariablesCommand());
             }
         };
+    }
+
+    private void onExtensionInitialized() {
+        //TODO place context initialization call back here
     }
 }

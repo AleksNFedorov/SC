@@ -20,12 +20,14 @@ public class ResultsThumbBuilder {
 
     protected static final Logger LOG = LoggerFactory.getLogger(ResultsThumbRendererProcessingListener.class);
 
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
+
     public List<Element> buildResultThumbs() throws IOException {
 
         LOG.debug("Method invoked");
 
         List<TestContext.SpecificationContext> currentSpecificationFullStack =
-                getTestContextService().getCurrentTestContext().getSpecificationStack();
+                getTestContext().getSpecificationStack();
 
         List<Element> generatedThumbLinks = new ArrayList<Element>();
 
@@ -124,8 +126,8 @@ public class ResultsThumbBuilder {
         return new SpecificationLocatorService().buildUniqueSpecificationHREF(parentSpecification, specification.getLocation());
     }
 
-    protected TestContextService getTestContextService() {
-        return new TestContextService();
+    protected TestContext getTestContext() {
+        return currentTestContext;
     }
 
 }

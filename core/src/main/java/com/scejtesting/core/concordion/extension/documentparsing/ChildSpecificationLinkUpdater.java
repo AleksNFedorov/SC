@@ -19,6 +19,8 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
 
     private static final Logger LOG = LoggerFactory.getLogger(ChildSpecificationLinkUpdater.class);
 
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
+
     @Override
     public void beforeParsing(Document document) {
         LOG.debug("method invoked");
@@ -32,13 +34,8 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
                 LOG.info("Node is a concordion node");
                 updateSpecificationPath(currentHrefNode, specification);
             }
-
         }
         LOG.debug("method finished");
-    }
-
-    TestContext getCurrentTestContext() {
-        return new TestContextService().getCurrentTestContext();
     }
 
     private boolean isConcordionRunnerHrefNode(Element hrefNode) {
@@ -61,4 +58,9 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
     public String getParserName() {
         return "Child specification linker";
     }
+
+    TestContext getCurrentTestContext() {
+        return currentTestContext;
+    }
+
 }

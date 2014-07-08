@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
  */
 public class HierarchySpecificationLocator implements SpecificationLocator {
 
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private static final Logger LOG = LoggerFactory.getLogger(HierarchySpecificationLocator.class);
+
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
     public Resource locateSpecification(Object fixture) {
         LOG.debug("method invoked [{}]", fixture);
@@ -32,10 +34,6 @@ public class HierarchySpecificationLocator implements SpecificationLocator {
         } finally {
             LOG.debug("Method finished");
         }
-    }
-
-    protected TestContext getCurrentTestContext() {
-        return new TestContextService().getCurrentTestContext();
     }
 
     private Resource buildSpecificationResource(TestContext.SpecificationContext context) {
@@ -81,6 +79,10 @@ public class HierarchySpecificationLocator implements SpecificationLocator {
         LOG.info("Relative path spec resource has been build");
         LOG.debug("method finished [{}]", specificationResource);
         return specificationResource;
+    }
+
+    protected TestContext getCurrentTestContext() {
+        return currentTestContext;
     }
 
 }

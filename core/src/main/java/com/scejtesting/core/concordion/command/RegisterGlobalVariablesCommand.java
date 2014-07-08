@@ -1,6 +1,8 @@
 package com.scejtesting.core.concordion.command;
 
+import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.Context;
+import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.AbstractCommand;
 import org.concordion.api.CommandCall;
@@ -21,6 +23,8 @@ public class RegisterGlobalVariablesCommand extends AbstractCommand implements S
 
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
 
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
+
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         LOG.debug("method invoked");
@@ -37,11 +41,19 @@ public class RegisterGlobalVariablesCommand extends AbstractCommand implements S
                     globalVariable.getValue());
         }
 
+        setTestContextAsAVariable(evaluator);
+
+        LOG.info("Test context stored as variable");
+
         LOG.debug("method finished");
     }
 
+    private void setTestContextAsAVariable(Evaluator evaluator) {
+        evaluator.setVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, currentTestContext);
+    }
+
     protected Context getTestContext() {
-        return new TestContextService().getCurrentTestContext();
+        return currentTestContext;
     }
 
     @Override

@@ -37,10 +37,6 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         LOG.debug("method finished");
     }
 
-    protected Suite getSuite() {
-        return SuiteConfiguration.getInstance().getSuite();
-    }
-
     private void checkTestExceptions(Throwable exception) {
         LOG.debug("method invoked [{}]", exception);
         Test currentSuiteTest = getCurrentTest();
@@ -51,10 +47,6 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         }
         LOG.debug("method finished");
 
-    }
-
-    protected Test getCurrentTest() {
-        return new TestContextService().getCurrentTestContext().getTest();
     }
 
     private boolean isExceptionRegisteredInHolder(ExceptionsHolder exHolder, Throwable exception) {
@@ -72,5 +64,15 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
         LOG.info("No fail exceptions registered in holder");
         LOG.debug("method finished");
         return false;
+    }
+
+
+    protected Suite getSuite() {
+        return SuiteConfiguration.getInstance().getSuite();
+    }
+
+    // No need to use predefined text context, test is always the same
+    protected Test getCurrentTest() {
+        return new TestContextService().getCurrentTestContext().getTest();
     }
 }

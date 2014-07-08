@@ -3,7 +3,6 @@ package com.scejtesting.core.concordion;
 import com.scejtesting.core.config.*;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
-import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
@@ -19,16 +18,9 @@ import org.slf4j.LoggerFactory;
 public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private final static Logger LOG = LoggerFactory.getLogger(ChildSpecificationRunner.class);
-
-    private final TestContextService testContextService;
-
-    private boolean contextCreated;
-
     Specification specification;
-
-    public ChildSpecificationRunner() {
-        testContextService = buildTestContextService();
-    }
+    private TestContext currentTestContext;
+    private boolean contextCreated;
 
     @Override
     public RunnerResult execute(Resource resource, String href) throws Exception {
@@ -137,18 +129,20 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         }
     }
 
-
     protected SpecificationLocatorService getSpecificationLocationService() {
         return new SpecificationLocatorService();
     }
 
-
     protected TestContext getCurrentTestContext() {
-        return testContextService.getCurrentTestContext();
+        return currentTestContext;
     }
 
-    protected TestContextService buildTestContextService() {
-        return new TestContextService();
+    /**
+     * Set current text context. It is done by {@link org.concordion.internal.command.RunCommand}
+     *
+     * @param currentTestContext
+     */
+    public void setTestContext(TestContext currentTestContext) {
+        this.currentTestContext = currentTestContext;
     }
-
 }

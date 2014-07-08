@@ -35,8 +35,9 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         doThrow((new IllegalStateException("Thrown for test purpose"))).when(runner).executeSpecification(eq(specification),
                 any(Resource.class), anyString());
 
-        TestContextService testContextService = new TestContextService();
-        testContextService.createNewTestContext(test);
+        createNewTestContext(test);
+
+        runner.setTestContext(getCurrentTestContext());
 
         doReturn(specification).when(runner).resolveSpecification(anyString());
         doReturn(suite).when(runner).getSuite();
@@ -52,7 +53,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(Result.EXCEPTION));
 
-        testContextService.destroyTestContext();
+        destroyTestContext();
 
     }
 
@@ -70,8 +71,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(null);
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContextService testContextService = new TestContextService();
-        testContextService.createNewTestContext(test);
+        createNewTestContext(test);
+        runner.setTestContext(getCurrentTestContext());
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -83,11 +84,11 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(successResult, executionResult);
 
-        SpecificationResultRegistry registry = testContextService.getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+        SpecificationResultRegistry registry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(successResult.getResult()));
 
-        testContextService.destroyTestContext();
+        destroyTestContext();
     }
 
     @org.junit.Test
@@ -104,8 +105,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(null);
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContextService testContextService = new TestContextService();
-        testContextService.createNewTestContext(test);
+        createNewTestContext(test);
+        runner.setTestContext(getCurrentTestContext());
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -117,11 +118,11 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        SpecificationResultRegistry registry = testContextService.getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+        SpecificationResultRegistry registry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(executionResult.getResult()));
 
-        testContextService.destroyTestContext();
+        destroyTestContext();
 
     }
 
@@ -139,8 +140,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(null);
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContextService testContextService = new TestContextService();
-        testContextService.createNewTestContext(test);
+        createNewTestContext(test);
+        runner.setTestContext(getCurrentTestContext());
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -152,7 +153,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        testContextService.destroyTestContext();
+        destroyTestContext();
     }
 
     @org.junit.Test
@@ -169,8 +170,10 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         when(test.getThrownException()).thenReturn(new RuntimeException());
         when(test.getSpecification()).thenReturn(specification);
 
-        TestContextService testContextService = new TestContextService();
-        testContextService.createNewTestContext(test);
+        createNewTestContext(test);
+
+        runner.setTestContext(getCurrentTestContext());
+
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -182,7 +185,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        testContextService.destroyTestContext();
+        destroyTestContext();
 
     }
 
@@ -197,6 +200,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         createNewTestContext(testMock);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
+        testRunner.setTestContext(getCurrentTestContext());
 
         String childSpecificationOrig = "childSpecification.html";
 
@@ -226,6 +230,8 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         createNewTestContext(mockTest);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
+
+        testRunner.setTestContext(getCurrentTestContext());
 
         String notExcludedSpecPath = "someNotExludedSpec.html";
 
@@ -265,6 +271,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         createNewTestContext(test);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
+        testRunner.setTestContext(getCurrentTestContext());
 
         Specification currentSpec = testRunner.resolveSpecification("someSpec.html");
         Assert.assertNull("Not included spec must be null", currentSpec);
@@ -310,6 +317,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         createNewTestContext(test);
 
         ChildSpecificationRunner testRunner = new ChildSpecificationRunner();
+        testRunner.setTestContext(getCurrentTestContext());
 
         Specification currentSpec = testRunner.resolveSpecification("someNotExludedSpec.html");
         Assert.assertNull("Not included spec must be null", currentSpec);
@@ -343,6 +351,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         ChildSpecificationRunner runner = new ChildSpecificationRunner();
         runner.specification = specification;
+        runner.setTestContext(getCurrentTestContext());
 
 
         Class testClass = runner.findTestClass(null, null);
@@ -367,6 +376,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         createNewTestContext(test);
 
         ChildSpecificationRunner runner = new ChildSpecificationRunner();
+        runner.setTestContext(getCurrentTestContext());
         runner.specification = specification;
 
         Class testClass = runner.findTestClass(null, null);

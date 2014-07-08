@@ -36,4 +36,9 @@ public final class Constants {
 
     //Default velocity template file
     public static final String VELOCITY_DEFAULT_TEMPLATE_FILE = "results.vm";
+
+    //System property for global substitution dictionary
+    public static final String GLOBAL_DICTIONARY = "scejGlobalDictionary.properties";
+
+    public static final String CONCORDION_VARIABLE_FOR_TEST_CONTEXT = "#testContext";
 }

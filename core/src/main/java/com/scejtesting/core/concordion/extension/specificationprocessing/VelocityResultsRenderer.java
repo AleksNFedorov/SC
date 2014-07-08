@@ -2,6 +2,7 @@ package com.scejtesting.core.concordion.extension.specificationprocessing;
 
 import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.SpecificationResultRegistry;
+import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import nu.xom.Document;
 import org.apache.velocity.Template;
@@ -26,6 +27,9 @@ import java.util.Map;
 public class VelocityResultsRenderer implements SpecificationProcessingListener {
 
     protected static final Logger LOG = LoggerFactory.getLogger(VelocityResultsRenderer.class);
+
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
+
     private String templateFileName;
     private Template resultsTemplate;
 
@@ -166,7 +170,7 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
     }
 
     protected SpecificationResultRegistry getCurrentSpecificationResults() {
-        return new TestContextService().getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+        return currentTestContext.getCurrentSpecificationContext().getResultRegistry();
 
     }
 }

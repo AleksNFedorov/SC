@@ -17,19 +17,19 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
     public static final String SUBSTITUTION_NODES_TEXT_XPATH = "//*[contains(text(), '${')]";
     public static final String SUBSTITUTION_NODES_ATTRIBUTES_XPATH = "//@*";
 
-    public static final String SUBSTITUTION_NODES_XPATH = "//*[contains(text(), '${')]";
     public static final String REPLACEMENT_START = "${";
     public static final char REPLACEMENT_END = '}';
+
     private static final Logger LOG = LoggerFactory.getLogger(DictionarySubstitutionListener.class);
+
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
     @Override
     public void beforeParsing(Document document) {
-
         Properties substitutionDictionary = getDictionaryLoaderService().buildSubstitutionDictionary();
 
         updateNodes(document.query(SUBSTITUTION_NODES_TEXT_XPATH), substitutionDictionary);
         updateNodes(document.query(SUBSTITUTION_NODES_ATTRIBUTES_XPATH), substitutionDictionary);
-
     }
 
     private void updateNodes(Nodes nodesToUpdate, Properties substitutionDictionary) {
@@ -52,7 +52,6 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
             }
         }
         LOG.debug("method finished");
-
     }
 
     private void setValueToNode(Node node, String newContent) {
@@ -65,7 +64,6 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
         } else {
             throw new IllegalStateException("Illegal node type [" + node.getClass().getSimpleName() + "]");
         }
-
     }
 
     private void setValueToNode(Element element, String content) {
@@ -126,6 +124,6 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
     }
 
     protected TestContext getCurrentTestContext() {
-        return new TestContextService().getCurrentTestContext();
+        return currentTestContext;
     }
 }

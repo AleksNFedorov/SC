@@ -20,6 +20,8 @@ public class DriverHolderService {
 
     protected final WebDriverControllerFactory driverServiceFactory = new WebDriverControllerFactory();
 
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
+
     public final RemoteWebDriver openDriver(String driverName) {
         LOG.debug("method invoked [{}]", driverName);
 
@@ -76,6 +78,6 @@ public class DriverHolderService {
     }
 
     protected TestContext getCurrentTestContext() {
-        return new TestContextService().getCurrentTestContext();
+        return currentTestContext;
     }
 }

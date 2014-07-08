@@ -1,5 +1,6 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
+import com.scejtesting.core.Constants;
 import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
@@ -14,8 +15,9 @@ import java.util.Properties;
 
 public class DictionaryLoaderService {
 
-    public static final String GLOBAL_DICTIONARY = "scejGlobalDictionary.properties";
     private static final Logger LOG = LoggerFactory.getLogger(DictionaryLoaderService.class);
+
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
     public Properties buildSubstitutionDictionary() {
         LOG.debug("method invoked");
@@ -33,7 +35,7 @@ public class DictionaryLoaderService {
     private Properties loadGlobalDictionary() {
         LOG.debug("method invoked");
 
-        Properties globalDictionaryProperties = getCurrentTestContext().getAttribute(GLOBAL_DICTIONARY);
+        Properties globalDictionaryProperties = getCurrentTestContext().getAttribute(Constants.GLOBAL_DICTIONARY);
         if (globalDictionaryProperties != null) {
             LOG.info("global properties restored from context");
             return globalDictionaryProperties;
@@ -44,9 +46,9 @@ public class DictionaryLoaderService {
         globalDictionaryProperties = new Properties();
 
         try {
-            URL resourceURL = getClass().getClassLoader().getResource(GLOBAL_DICTIONARY);
+            URL resourceURL = getClass().getClassLoader().getResource(Constants.GLOBAL_DICTIONARY);
             if (resourceURL == null) {
-                LOG.info("No global dictionary found [{}]", GLOBAL_DICTIONARY);
+                LOG.info("No global dictionary found [{}]", Constants.GLOBAL_DICTIONARY);
             } else {
                 globalDictionaryProperties = loadDictionaryFromFile(resourceURL.getFile());
                 LOG.info("global dictionary successfully loaded");
@@ -55,7 +57,7 @@ public class DictionaryLoaderService {
             LOG.error("Exception when loading global properties ", ex);
         }
 
-        getCurrentTestContext().addAttribute(GLOBAL_DICTIONARY, globalDictionaryProperties);
+        getCurrentTestContext().addAttribute(Constants.GLOBAL_DICTIONARY, globalDictionaryProperties);
         LOG.debug("method finished [{}]", globalDictionaryProperties);
         return globalDictionaryProperties;
     }
@@ -91,10 +93,6 @@ public class DictionaryLoaderService {
         return testDictionaryProperties;
     }
 
-    protected TestContext getCurrentTestContext() {
-        return new TestContextService().getCurrentTestContext();
-    }
-
     private Properties loadDictionaryFromFile(String globalDictionary) throws IOException {
         LOG.debug("method invoked");
         Properties globalDictionaryProperties = new Properties();
@@ -116,4 +114,9 @@ public class DictionaryLoaderService {
         LOG.debug("method finished [{}]", globalDictionaryProperties);
         return globalDictionaryProperties;
     }
+
+    protected TestContext getCurrentTestContext() {
+        return currentTestContext;
+    }
+
 }

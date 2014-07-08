@@ -1,6 +1,7 @@
 package com.scejtesting.core.concordion.command;
 
 import com.scejtesting.core.context.Context;
+import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
@@ -18,6 +19,8 @@ public class SetGlobalCommand extends SetCommand implements ScejCommand {
 
     public static final String COMMAND_NAME = "setGlobal";
     private static Logger LOG = LoggerFactory.getLogger(SetGlobalCommand.class);
+
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
@@ -55,7 +58,7 @@ public class SetGlobalCommand extends SetCommand implements ScejCommand {
     }
 
     protected Context getTestContext() {
-        return new TestContextService().getCurrentTestContext();
+        return currentTestContext;
     }
 
     @Override
