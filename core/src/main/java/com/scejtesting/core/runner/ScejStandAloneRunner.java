@@ -89,7 +89,7 @@ public class ScejStandAloneRunner {
         testContextService.createNewTestContext(testToRun);
         LOG.info("Test context created");
 
-        Result result = runJUnitTestsForTest();
+        Result result = runJUnitTestsForTest(testToRun);
 
         testContextService.destroyTestContext();
         LOG.info("Test context destroyed");
@@ -97,8 +97,11 @@ public class ScejStandAloneRunner {
         return result;
     }
 
-    Result runJUnitTestsForTest() {
-        return JUnitCore.runClasses(getSpecificationLocationService().resolveSpecificationClassByContext());
+    Result runJUnitTestsForTest(Test testToRun) {
+        return JUnitCore.runClasses(
+                getSpecificationLocationService().
+                        resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
+        );
     }
 
     private boolean needRunTest(Test test) {
@@ -173,7 +176,7 @@ public class ScejStandAloneRunner {
     }
 
     protected SpecificationLocatorService getSpecificationLocationService() {
-        return SpecificationLocatorService.getService();
+        return new SpecificationLocatorService();
     }
 
     protected TestContextService buildTestContextService() {

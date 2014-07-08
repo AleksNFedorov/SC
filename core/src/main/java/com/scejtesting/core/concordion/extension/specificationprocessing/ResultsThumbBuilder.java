@@ -121,7 +121,7 @@ public class ResultsThumbBuilder {
     }
 
     private String getRealSpecLocation(Specification parentSpecification, Specification specification) {
-        return SpecificationLocatorService.getService().buildUniqueSpecificationHREF(parentSpecification, specification.getLocation());
+        return new SpecificationLocatorService().buildUniqueSpecificationHREF(parentSpecification, specification.getLocation());
     }
 
     protected TestContextService getTestContextService() {

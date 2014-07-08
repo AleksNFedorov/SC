@@ -231,7 +231,7 @@ public class ScejStandAloneRunnerTest {
         Result successResultMock = mock(Result.class);
         when(successResultMock.getRunCount()).thenReturn(1);
         when(successResultMock.wasSuccessful()).thenReturn(true);
-        doReturn(successResultMock).when(runner).runJUnitTestsForTest();
+        doReturn(successResultMock).when(runner).runJUnitTestsForTest(testOne);
 
         Result result = runner.runSuite();
 

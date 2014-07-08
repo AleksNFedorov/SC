@@ -24,6 +24,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private boolean contextCreated;
 
+    Specification specification;
+
     public ChildSpecificationRunner() {
         testContextService = buildTestContextService();
     }
@@ -37,7 +39,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         contextCreated = false;
 
         try {
-            Specification specification = resolveSpecification(href);
+            specification = resolveSpecification(href);
 
             if (canRunSpecification(specification)) {
                 result = executeSpecification(specification,
@@ -114,7 +116,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         LOG.debug("method invoked [{}]", href);
         TestContext.SpecificationContext specificationContext = getCurrentTestContext().getCurrentSpecificationContext();
         Specification currentSpecification = specificationContext.getSpecification();
-        Specification specByHref = SpecificationLocatorService.getService().getChildSpecificationByRealLocation(currentSpecification, href);
+        Specification specByHref = getSpecificationLocationService().getChildSpecificationByRealLocation(currentSpecification, href);
         LOG.info("Child specification has been resolved as [{}]", specByHref);
         return specByHref;
     }
@@ -123,7 +125,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     protected Class<?> findTestClass(Resource resource, String href) throws ClassNotFoundException {
         LOG.debug("method invoked [{}], [{}]", resource, href);
         try {
-            Class resolvedClass = getSpecificationLocationService().resolveSpecificationClassByContext();
+            Class resolvedClass = getSpecificationLocationService().
+                    resolveSpecificationClassByContext(specification, getCurrentTestContext().getTest());
             LOG.debug("Specification [{}] test class [{}]", href, resolvedClass);
             return resolvedClass;
         } catch (RuntimeException ex) {
@@ -134,9 +137,11 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         }
     }
 
+
     protected SpecificationLocatorService getSpecificationLocationService() {
-        return SpecificationLocatorService.getService();
+        return new SpecificationLocatorService();
     }
+
 
     protected TestContext getCurrentTestContext() {
         return testContextService.getCurrentTestContext();

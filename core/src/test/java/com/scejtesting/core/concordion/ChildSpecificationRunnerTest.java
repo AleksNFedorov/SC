@@ -341,7 +341,11 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         createNewTestContext(test);
 
-        Class testClass = new ChildSpecificationRunner().findTestClass(null, null);
+        ChildSpecificationRunner runner = new ChildSpecificationRunner();
+        runner.specification = specification;
+
+
+        Class testClass = runner.findTestClass(null, null);
 
         Assert.assertEquals(String.class, testClass);
 
@@ -362,7 +366,10 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         createNewTestContext(test);
 
-        Class testClass = new ChildSpecificationRunner().findTestClass(null, null);
+        ChildSpecificationRunner runner = new ChildSpecificationRunner();
+        runner.specification = specification;
+
+        Class testClass = runner.findTestClass(null, null);
 
         Assert.assertEquals(Integer.class, testClass);
 

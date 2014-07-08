@@ -1,7 +1,5 @@
 package com.scejtesting.core.config;
 
-import com.scejtesting.core.context.TestContext;
-import com.scejtesting.core.context.TestContextService;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +12,9 @@ import java.util.regex.Pattern;
  */
 public class SpecificationLocatorService {
 
-    private static final SpecificationLocatorService impl = new SpecificationLocatorService();
     private static final Pattern suffixPattern = Pattern.compile(".*" + Specification.MIDDLE_SUFFIX + "\\d{1,}.*");
     private static final Pattern suffixCleanPattern = Pattern.compile(Specification.MIDDLE_SUFFIX + "\\d{1,}");
     private static final Logger LOG = LoggerFactory.getLogger(SpecificationLocatorService.class);
-
-    private SpecificationLocatorService() {
-    }
-
-    public static SpecificationLocatorService getService() {
-        return impl;
-    }
 
     public static boolean containsGeneratedSuffix(String pathToCheck) {
         return suffixPattern.matcher(pathToCheck).matches();
@@ -129,11 +119,12 @@ public class SpecificationLocatorService {
         return false;
     }
 
-    public Class resolveSpecificationClassByContext() {
+    public Class resolveSpecificationClassByContext(Specification currentSpecification, Test currentTest) {
         LOG.debug("method invoked ");
-        TestContext testContext = getTestContextService().getCurrentTestContext();
-        Specification currentSpecification = testContext.getCurrentSpecificationContext().getSpecification();
-        LOG.info("Specification instance acquired [{}]", currentSpecification);
+        LOG.info("Specification instance [{}]", currentSpecification);
+
+        Check.notNull(currentSpecification, "Specification can't be null");
+        Check.notNull(currentTest, "Test can't be null");
 
         Class<?> resolvedClass;
         if (currentSpecification.getTestClass() != null) {
@@ -141,14 +132,10 @@ public class SpecificationLocatorService {
             resolvedClass = currentSpecification.getTestClass();
         } else {
             LOG.info("Getting test class from test");
-            resolvedClass = testContext.getTest().getDefaultTestClass();
+            resolvedClass = currentTest.getDefaultTestClass();
         }
         LOG.debug("method finished");
         return resolvedClass;
-    }
-
-    protected TestContextService getTestContextService() {
-        return new TestContextService();
     }
 
 }

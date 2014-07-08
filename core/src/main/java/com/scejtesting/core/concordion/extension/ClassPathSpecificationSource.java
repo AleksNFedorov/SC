@@ -25,7 +25,7 @@ public class ClassPathSpecificationSource extends ClassPathSource {
 
     private Resource getRealPathResource(Resource resource) {
         String resourcePath = resource.getPath();
-        String realSpecificationPath = SpecificationLocatorService.getService().buildRealPathByUniqueHREF(resourcePath);
+        String realSpecificationPath = new SpecificationLocatorService().buildRealPathByUniqueHREF(resourcePath);
         return new Resource(realSpecificationPath);
     }
 }

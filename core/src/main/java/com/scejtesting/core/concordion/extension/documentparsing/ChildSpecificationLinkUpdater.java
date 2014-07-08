@@ -51,7 +51,7 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
         LOG.info("HREF attribute is [{}]", hrefAttribute);
         if (hrefAttribute != null) {
             String link = hrefAttribute.getValue();
-            link = SpecificationLocatorService.getService().buildUniqueSpecificationHREF(specification, link);
+            link = new SpecificationLocatorService().buildUniqueSpecificationHREF(specification, link);
             hrefAttribute.setValue(link);
         }
         LOG.debug("method finished");

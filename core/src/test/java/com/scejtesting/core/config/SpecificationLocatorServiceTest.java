@@ -12,20 +12,20 @@ public class SpecificationLocatorServiceTest {
     @Test(expected = RuntimeException.class)
     public void buildHREFForUnknownExtension() {
         Specification specification = new Specification("/rootSpecification.html");
-        SpecificationLocatorService.getService().buildUniqueSpecificationHREF(specification, "childSpecification.txt");
+        new SpecificationLocatorService().buildUniqueSpecificationHREF(specification, "childSpecification.txt");
     }
 
     @Test
     public void buildDefaultChildSpecification() {
         Specification specification = new Specification("/rootSpecification.html");
-        Specification childSpecification = SpecificationLocatorService.getService().getChildSpecificationByRealLocation(specification, "childSpecification.html");
+        Specification childSpecification = new SpecificationLocatorService().getChildSpecificationByRealLocation(specification, "childSpecification.html");
         Assert.assertNull(childSpecification.getTestClass());
     }
 
     @Test
     public void buildUniqueSpecificationHREF() {
         Specification specification = new Specification("/rootSpecification.html");
-        String specificationHref = SpecificationLocatorService.getService().buildUniqueSpecificationHREF(specification, "childSpecification.html");
+        String specificationHref = new SpecificationLocatorService().buildUniqueSpecificationHREF(specification, "childSpecification.html");
         Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(specificationHref));
     }
 
@@ -33,9 +33,9 @@ public class SpecificationLocatorServiceTest {
     public void buildRealPathByUniqueHREF() {
 
         Specification specification = new Specification("/rootSpecification.html");
-        String specificationHref = SpecificationLocatorService.getService().buildUniqueSpecificationHREF(specification, "childSpecification.html");
+        String specificationHref = new SpecificationLocatorService().buildUniqueSpecificationHREF(specification, "childSpecification.html");
 
-        String realPath = SpecificationLocatorService.getService().buildRealPathByUniqueHREF(specificationHref);
+        String realPath = new SpecificationLocatorService().buildRealPathByUniqueHREF(specificationHref);
 
         Assert.assertFalse(SpecificationLocatorService.containsGeneratedSuffix(realPath));
 
