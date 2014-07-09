@@ -3,6 +3,7 @@ package com.scejtesting.core.concordion;
 import com.scejtesting.core.config.*;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
+import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
@@ -19,6 +20,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private final static Logger LOG = LoggerFactory.getLogger(ChildSpecificationRunner.class);
     Specification specification;
+
+    private Integer testContextIndex;
     private TestContext currentTestContext;
     private boolean contextCreated;
 
@@ -26,6 +29,9 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     public RunnerResult execute(Resource resource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]", href, resource);
         Check.notNull(href, "Link to specification cna`t be null");
+        Check.notNull(testContextIndex, "Test context index is not specified");
+
+        currentTestContext = new TestContextService().getTestContext(testContextIndex);
 
         RunnerResult result = null;
         contextCreated = false;
@@ -129,6 +135,17 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         }
     }
 
+    @Override
+    protected org.junit.runner.Result runJUnitClass(Class<?> concordionClass) {
+        TestContextService service = new TestContextService();
+        service.lock();
+        service.setContextIdToUse(getCurrentTestContext().getContextId());
+        org.junit.runner.Result result = super.runJUnitClass(concordionClass);
+        service.waitForInitialization();
+        service.unLock();
+        return result;
+    }
+
     protected SpecificationLocatorService getSpecificationLocationService() {
         return new SpecificationLocatorService();
     }
@@ -138,11 +155,10 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     }
 
     /**
-     * Set current text context. It is done by {@link org.concordion.internal.command.RunCommand}
+     * Set current text context index. It is done by {@link org.concordion.internal.command.RunCommand}
      *
-     * @param currentTestContext
      */
-    public void setTestContext(TestContext currentTestContext) {
-        this.currentTestContext = currentTestContext;
+    public void setTestContextIndex(Integer testContextIndex) {
+        this.testContextIndex = testContextIndex;
     }
 }

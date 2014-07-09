@@ -49,7 +49,7 @@ public class RegisterGlobalVariablesCommand extends AbstractCommand implements S
     }
 
     private void setTestContextAsAVariable(Evaluator evaluator) {
-        evaluator.setVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, currentTestContext);
+        evaluator.setVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, currentTestContext.getContextId());
     }
 
     protected Context getTestContext() {

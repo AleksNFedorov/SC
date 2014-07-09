@@ -36,7 +36,7 @@ public abstract class CoreScejTest<T extends CoreWebTestFixture> {
 
     @AfterClass
     public static void finish() {
-        new TestContextService().destroyTestContext();
+        new TestContextService().destroyTestContextService();
     }
 
     protected abstract T buildTestFixture();

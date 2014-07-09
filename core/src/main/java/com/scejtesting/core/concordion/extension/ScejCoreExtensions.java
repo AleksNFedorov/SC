@@ -6,6 +6,7 @@ import com.scejtesting.core.concordion.command.SetGlobalCommand;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
+import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
 
@@ -17,6 +18,8 @@ import java.util.List;
  * Date: 13.03.14
  */
 public class ScejCoreExtensions implements ConcordionExtension {
+
+
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
         concordionExtender.withSpecificationLocator(new HierarchySpecificationLocator());
@@ -46,6 +49,6 @@ public class ScejCoreExtensions implements ConcordionExtension {
     }
 
     private void onExtensionInitialized() {
-        //TODO place context initialization call back here
+        new TestContextService().setExtensionInitialized();
     }
 }

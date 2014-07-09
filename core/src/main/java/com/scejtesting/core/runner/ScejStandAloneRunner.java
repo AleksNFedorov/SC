@@ -88,6 +88,7 @@ public class ScejStandAloneRunner {
         TestContextService testContextService = buildTestContextService();
 
         TestContext testContext = testContextService.createNewTestContext(testToRun);
+        testContextService.setContextIdToUse(testContext.getContextId());
         LOG.info("Test context created");
 
         Result result = runJUnitTestsForTest(testToRun);
