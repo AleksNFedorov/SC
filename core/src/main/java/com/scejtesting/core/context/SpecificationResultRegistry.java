@@ -18,12 +18,10 @@ public class SpecificationResultRegistry {
     private final Map<Result, Collection<RunnerResult>> resultsMap = new EnumMap<Result, Collection<RunnerResult>>(Result.class);
 
     public SpecificationResultRegistry() {
-
         init();
     }
 
     private void init() {
-
         for (Result result : Result.values()) {
             resultsMap.put(result, new TreeSet<RunnerResult>(new Comparator<RunnerResult>() {
                 @Override
@@ -34,7 +32,6 @@ public class SpecificationResultRegistry {
         }
 
         LOG.info("Runner result instance successfully initialized");
-
     }
 
     public void addAll(SpecificationResultRegistry anotherSpecRegistry) {

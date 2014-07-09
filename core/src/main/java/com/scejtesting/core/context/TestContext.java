@@ -10,18 +10,21 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
-public class TestContext extends Context {
+public class TestContext extends Context implements Cloneable {
 
     protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
+    private static final AtomicInteger contextSequence = new AtomicInteger(0);
 
     private static TestContext inst;
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
     private Test test;
+    private Integer contextId = contextSequence.getAndIncrement();
 
     private TestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
@@ -104,6 +107,20 @@ public class TestContext extends Context {
         return "TestContext{" +
                 ", stack size='" + contextStack.size()
                 + '}';
+    }
+
+    public Integer getContextId() {
+        return contextId;
+    }
+
+    @Override
+    protected TestContext clone() {
+        TestContext clonedContext = new TestContext(this.test);
+        clonedContext.contextStack.addAll(this.contextStack);
+
+        LOG.info("Context [{}] cloned to [{}]", getContextId(), clonedContext.getContextId());
+
+        return clonedContext;
     }
 
     public class SpecificationContext {

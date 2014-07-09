@@ -47,4 +47,10 @@ public class Context {
     public Map<String, ?> getGlobalVariables() {
         return new LinkedHashMap<String, Object>(globalVariables);
     }
+
+    protected void copyTo(Context destination) {
+        destination.attributes.putAll(this.attributes);
+        destination.globalVariables.putAll(this.globalVariables);
+        LOG.info("Context content copied");
+    }
 }
