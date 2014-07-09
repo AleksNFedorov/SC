@@ -53,7 +53,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(Result.EXCEPTION));
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 
@@ -88,7 +88,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(successResult.getResult()));
 
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test
@@ -122,7 +122,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(executionResult.getResult()));
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 
@@ -153,7 +153,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test
@@ -185,7 +185,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 
@@ -209,7 +209,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(childSpecificationOrig, specification.getLocation());
 
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test
@@ -246,7 +246,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         currentSpec = testRunner.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 
@@ -291,7 +291,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(specLocationForTest, currentSpec.getLocation());
 
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test
@@ -333,7 +333,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         currentSpec = testRunner.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test
@@ -358,7 +358,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(String.class, testClass);
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 
@@ -383,7 +383,7 @@ public class ChildSpecificationRunnerTest extends TestContextService {
 
         Assert.assertEquals(Integer.class, testClass);
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 

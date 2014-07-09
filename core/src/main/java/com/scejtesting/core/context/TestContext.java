@@ -21,44 +21,23 @@ public class TestContext extends Context implements Cloneable {
     protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
     private static final AtomicInteger contextSequence = new AtomicInteger(0);
 
-    private static TestContext inst;
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
     private Test test;
     private Integer contextId = contextSequence.getAndIncrement();
 
-    private TestContext(Test test) {
+    public TestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
+        Check.notNull(test, "Test can't be null");
 
         this.test = test;
         createTopLevelTestContext();
     }
 
-    static void createTestContext(Test test) {
-        LOG.debug("method invoked [{}]", test);
-        LOG.info("Initializing new context");
-
-        Check.notNull(test, "Test can't be null");
-        Check.isTrue(inst == null, "Test context already initialized");
-
-        inst = new TestContext(test);
-
-        LOG.info("New test context instance created");
-
-        LOG.debug("method finished");
-    }
-
-    static TestContext getInstance() {
+    public void destroyTestContext() {
         LOG.debug("method invoked");
-        return inst;
-    }
-
-    public static void destroyTestContext() {
-        LOG.debug("method invoked");
-        Check.notNull(inst, "There is not active test context");
-        Check.isTrue(inst.contextStack.size() == 1, "Attempt to destroy non root context, use [destroyCurrentSpecificationContext] instead");
-        inst.contextStack.pop();
+        Check.isTrue(contextStack.size() == 1, "Attempt to destroy non root context, use [destroyCurrentSpecificationContext] instead");
+        contextStack.pop();
         LOG.info("Top level specification context has been destroyed, destorying global context");
-        inst = null;
         LOG.debug("method finished");
     }
 
@@ -145,7 +124,7 @@ public class TestContext extends Context implements Cloneable {
             return specification;
         }
 
-        public SpecificationResultRegistry getResultRegistry() {
+        public synchronized SpecificationResultRegistry getResultRegistry() {
             return resultRegistry;
         }
 

@@ -52,7 +52,7 @@ public class ChildSpecificationLinkUpdaterTest extends TestContextService {
             Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(hrefAttribute.getValue()));
         }
 
-        destroyTestContext();
+        destroyTestContextService();
 
     }
 }

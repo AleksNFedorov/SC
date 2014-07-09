@@ -23,7 +23,7 @@ public class ResultsThumbBuilderTest extends TestContextService {
     public void finishTest() {
         getCurrentTestContext().destroyCurrentSpecificationContext();
         getCurrentTestContext().destroyCurrentSpecificationContext();
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test

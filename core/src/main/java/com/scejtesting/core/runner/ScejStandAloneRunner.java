@@ -6,6 +6,7 @@ import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.config.SuiteConfiguration;
 import com.scejtesting.core.config.Test;
+import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
@@ -86,12 +87,12 @@ public class ScejStandAloneRunner {
     Result runTest(Test testToRun) {
         TestContextService testContextService = buildTestContextService();
 
-        testContextService.createNewTestContext(testToRun);
+        TestContext testContext = testContextService.createNewTestContext(testToRun);
         LOG.info("Test context created");
 
         Result result = runJUnitTestsForTest(testToRun);
 
-        testContextService.destroyTestContext();
+        testContext.destroyTestContext();
         LOG.info("Test context destroyed");
 
         return result;

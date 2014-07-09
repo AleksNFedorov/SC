@@ -25,7 +25,7 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
     @After
     public void onFinish() {
 
-        destroyTestContext();
+        destroyTestContextService();
     }
 
     @org.junit.Test(expected = IllegalArgumentException.class)

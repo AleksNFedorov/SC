@@ -37,7 +37,7 @@ public class TestContextTest extends TestContextService {
         Assert.assertNull(getCurrentTestContext().getAttribute(key));
 
         Assert.assertNotNull(getCurrentTestContext());
-        destroyTestContext();
+        destroyTestContextService();
         Assert.assertNull(getCurrentTestContext());
 
     }
@@ -56,7 +56,7 @@ public class TestContextTest extends TestContextService {
 
         }
         Assert.assertNotNull(getCurrentTestContext());
-        destroyTestContext();
+        destroyTestContextService();
         Assert.assertNull(getCurrentTestContext());
     }
 
@@ -67,11 +67,11 @@ public class TestContextTest extends TestContextService {
 
         createNewTestContext(fakeTest);
 
-        destroyTestContext();
+        destroyTestContextService();
         createNewTestContext(fakeTest);
 
         Assert.assertNotNull(getCurrentTestContext());
-        destroyTestContext();
+        destroyTestContextService();
         Assert.assertNull(getCurrentTestContext());
 
     }
@@ -93,14 +93,14 @@ public class TestContextTest extends TestContextService {
         getCurrentTestContext().createNewSpecificationContext(new Resource("/path"), new Specification());
 
         try {
-            destroyTestContext();
+            destroyTestContextService();
             Assert.fail("Incorrect destroy exception expected");
         } catch (RuntimeException ex) {
 
         }
 
         getCurrentTestContext().destroyCurrentSpecificationContext();
-        destroyTestContext();
+        destroyTestContextService();
 
         Assert.assertNull(getCurrentTestContext());
 
@@ -125,7 +125,7 @@ public class TestContextTest extends TestContextService {
         getCurrentTestContext().destroyCurrentSpecificationContext();
 
         Assert.assertNotNull(getCurrentTestContext());
-        destroyTestContext();
+        destroyTestContextService();
         Assert.assertNull(getCurrentTestContext());
 
     }
@@ -149,7 +149,7 @@ public class TestContextTest extends TestContextService {
         }
 
         Assert.assertNotNull(getCurrentTestContext());
-        destroyTestContext();
+        destroyTestContextService();
         Assert.assertNull(getCurrentTestContext());
 
     }
