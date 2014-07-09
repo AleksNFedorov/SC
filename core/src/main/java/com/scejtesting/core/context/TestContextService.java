@@ -3,6 +3,8 @@ package com.scejtesting.core.context;
 import com.scejtesting.core.config.Test;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * User: Fedorovaleks
@@ -11,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TestContextService {
 
     private static final ConcurrentHashMap<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
+    private static Lock contextLock = new ReentrantLock(false);
 
     public TestContext getCurrentTestContext() {
         return TestContext.getInstance();
