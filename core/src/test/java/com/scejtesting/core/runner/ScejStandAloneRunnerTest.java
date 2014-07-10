@@ -1,11 +1,31 @@
 package com.scejtesting.core.runner;
 
+import com.scejtesting.core.Constants;
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.Suite;
+import com.scejtesting.core.config.Test;
+import com.scejtesting.core.context.TestContext;
+import com.scejtesting.core.context.TestContextService;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.runner.Description;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+import org.mockito.InOrder;
+import sun.jvm.hotspot.utilities.AssertionFailure;
+
+import java.util.Arrays;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
+
 /**
  * Created by aleks on 7/4/14.
  */
 public class ScejStandAloneRunnerTest {
 
-/*
+
     @After
     public void finishTest() {
         System.clearProperty(Constants.TESTS_TO_RUN_PROPERTY_KEY);
@@ -213,7 +233,8 @@ public class ScejStandAloneRunnerTest {
         Result successResultMock = mock(Result.class);
         when(successResultMock.getRunCount()).thenReturn(1);
         when(successResultMock.wasSuccessful()).thenReturn(true);
-        doReturn(successResultMock).when(runner).runJUnitTestsForTest(testOne);
+        doReturn(successResultMock).when(runner).
+                runJUnitTestsForTest(any(TestContext.class));
 
         Result result = runner.runSuite();
 
@@ -223,6 +244,4 @@ public class ScejStandAloneRunnerTest {
 
 
     }
-
-*/
 }

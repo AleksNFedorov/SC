@@ -22,7 +22,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     Specification specification;
 
     private Integer testContextIndex;
-    private TestContext currentTestContext;
     private boolean contextCreated;
 
     @Override
@@ -30,8 +29,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         LOG.debug("method invoked [{}], [{}]", href, resource);
         Check.notNull(href, "Link to specification cna`t be null");
         Check.notNull(testContextIndex, "Test context index is not specified");
-
-        currentTestContext = new TestContextService().getTestContext(testContextIndex);
 
         RunnerResult result = null;
         contextCreated = false;
@@ -151,12 +148,11 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     }
 
     protected TestContext getCurrentTestContext() {
-        return currentTestContext;
+        return new TestContextService().getTestContext(testContextIndex);
     }
 
     /**
      * Set current text context index. It is done by {@link org.concordion.internal.command.RunCommand}
-     *
      */
     public void setTestContextIndex(Integer testContextIndex) {
         this.testContextIndex = testContextIndex;

@@ -15,6 +15,7 @@ import com.scejtesting.core.config.SpecificationLocatorServiceTest;
 import com.scejtesting.core.config.SpecificationTest;
 import com.scejtesting.core.config.SuiteInitializationTest;
 import com.scejtesting.core.context.SpecificationResultRegistryTest;
+import com.scejtesting.core.context.TestContextServiceTest;
 import com.scejtesting.core.context.TestContextTest;
 import com.scejtesting.core.runner.ScejJUnitRunnerTest;
 import com.scejtesting.core.runner.ScejStandAloneRunnerTest;
@@ -46,6 +47,7 @@ import org.junit.runners.Suite;
         UtilsTest.class,
         ScejJUnitRunnerTest.class,
         ScejStandAloneRunnerTest.class,
+        TestContextServiceTest.class,
 })
 public class AllTestsSuite {
 

@@ -1,18 +1,26 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Nodes;
+import org.concordion.internal.XMLParser;
+import org.junit.Assert;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import static org.mockito.Mockito.*;
 
 /**
  * User: Fedorovaleks
  * Date: 3/18/14
  */
-public class DictionarySubstitutionListenerTest extends TestContextService {
+public class DictionarySubstitutionListenerTest {
 
- /*   @After
-    public void onFinish() {
-
-        destroyTestContextService();
-    }
 
     @org.junit.Test(expected = IllegalArgumentException.class)
     public void unknownSubstitutionTest() throws IOException {
@@ -33,7 +41,7 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
         when(dictionaryLoaderService.buildSubstitutionDictionary()).thenReturn(dictionary);
 
-        createNewTestContext(test);
+        new TestContextService().createNewTestContext(test);
 
         String pathToSpecificationFile = getClass().getClassLoader().
                 getResource("com/scejtesting/core/concordion/extension/documentparsing/dictionary/UnknownSubstitutionTest.html").getFile();
@@ -66,7 +74,7 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
 
         when(dictionaryLoaderService.buildSubstitutionDictionary()).thenReturn(dictionary);
 
-        createNewTestContext(test);
+        new TestContextService().createNewTestContext(test);
 
         String pathToSpecificationFile = getClass().getClassLoader().
                 getResource("com/scejtesting/core/concordion/extension/documentparsing/dictionary/SubstitutionTest.html").getFile();
@@ -95,5 +103,5 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
         Assert.assertEquals(node1ValueString, node3.getAttribute(0).getValue());
 
     }
-*/
+
 }

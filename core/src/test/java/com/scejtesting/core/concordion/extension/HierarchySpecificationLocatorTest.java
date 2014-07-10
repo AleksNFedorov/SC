@@ -1,14 +1,22 @@
 package com.scejtesting.core.concordion.extension;
 
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.Test;
+import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
+import org.concordion.api.Resource;
+import org.junit.Assert;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * User: Fedorovaleks
  * Date: 16.03.14
  */
-public class HierarchySpecificationLocatorTest extends TestContextService {
+public class HierarchySpecificationLocatorTest {
 
-/*
+
     @org.junit.Test
     public void rootSpecificationResourceResolvingTest() {
 
@@ -23,15 +31,13 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
 
         when(test.getSpecification()).thenReturn(specification);
 
-        createNewTestContext(test);
+        new TestContextService().createNewTestContext(test);
 
         HierarchySpecificationLocator locator = new HierarchySpecificationLocator();
 
         Resource resource = locator.locateSpecification(null);
 
         Assert.assertEquals(specificationRealPath, resource.getPath());
-
-        destroyTestContextService();
 
     }
 
@@ -48,11 +54,11 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
 
         when(test.getSpecification()).thenReturn(specification);
 
-        createNewTestContext(test);
+        TestContext context = new TestContextService().createNewTestContext(test);
 
         Resource parentSpecificationResource = new Resource("/some/path/to/parentSpec.html");
 
-        getCurrentTestContext().createNewSpecificationContext(parentSpecificationResource, specification);
+        context.createNewSpecificationContext(parentSpecificationResource, specification);
 
         HierarchySpecificationLocator locator = new HierarchySpecificationLocator();
 
@@ -60,10 +66,6 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
 
         Assert.assertEquals("/some/path/to/" + specificationRealPath, resource.getPath());
 
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-
-        destroyTestContextService();
-
     }
-*/
+
 }

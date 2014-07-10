@@ -1,19 +1,24 @@
 package com.scejtesting.core.concordion.extension.specificationprocessing;
 
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.SpecificationLocatorService;
+import com.scejtesting.core.config.Test;
+import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
+import org.concordion.api.Element;
+import org.junit.Assert;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by aleks on 6/28/14.
  */
-public class ResultsThumbBuilderTest extends TestContextService {
+public class ResultsThumbBuilderTest {
 
-/*
-    @After
-    public void finishTest() {
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        getCurrentTestContext().destroyCurrentSpecificationContext();
-        destroyTestContextService();
-    }
 
     @org.junit.Test
     public void linkGeneration_sameLevelRootPackage() throws IOException {
@@ -25,9 +30,10 @@ public class ResultsThumbBuilderTest extends TestContextService {
 
         when(test.getSpecification()).thenReturn(root);
 
-        createNewTestContext(test);
-        getCurrentTestContext().createNewSpecificationContext(null, ch1);
-        getCurrentTestContext().createNewSpecificationContext(null, ch21);
+        TestContext context = new TestContextService().createNewTestContext(test);
+
+        context.createNewSpecificationContext(null, ch1);
+        context.createNewSpecificationContext(null, ch21);
 
         List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
 
@@ -50,9 +56,10 @@ public class ResultsThumbBuilderTest extends TestContextService {
 
         when(test.getSpecification()).thenReturn(root);
 
-        createNewTestContext(test);
-        getCurrentTestContext().createNewSpecificationContext(null, ch1);
-        getCurrentTestContext().createNewSpecificationContext(null, ch21);
+        TestContext context = new TestContextService().createNewTestContext(test);
+
+        context.createNewSpecificationContext(null, ch1);
+        context.createNewSpecificationContext(null, ch21);
 
         List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
 
@@ -75,9 +82,10 @@ public class ResultsThumbBuilderTest extends TestContextService {
 
         when(test.getSpecification()).thenReturn(root);
 
-        createNewTestContext(test);
-        getCurrentTestContext().createNewSpecificationContext(null, ch1);
-        getCurrentTestContext().createNewSpecificationContext(null, ch21);
+        TestContext context = new TestContextService().createNewTestContext(test);
+
+        context.createNewSpecificationContext(null, ch1);
+        context.createNewSpecificationContext(null, ch21);
 
         List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
 
@@ -93,5 +101,4 @@ public class ResultsThumbBuilderTest extends TestContextService {
         return linkElement.getAttributeValue("href");
     }
 
-*/
 }
