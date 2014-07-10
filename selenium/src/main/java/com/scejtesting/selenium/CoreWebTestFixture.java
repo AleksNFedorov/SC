@@ -1,6 +1,5 @@
 package com.scejtesting.selenium;
 
-import com.scejtesting.core.CoreTestFixture;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,7 +12,8 @@ import java.util.List;
 /**
  * Created by aleks on 27/3/14.
  */
-public class CoreWebTestFixture extends CoreTestFixture {
+
+public class CoreWebTestFixture {
 
     protected final static Logger LOG = LoggerFactory.getLogger(CoreWebTestFixture.class);
 

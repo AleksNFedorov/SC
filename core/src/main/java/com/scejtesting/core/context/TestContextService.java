@@ -22,7 +22,7 @@ public class TestContextService {
     protected static final Logger LOG = LoggerFactory.getLogger(TestContextService.class);
 
     static final ConcurrentHashMap<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
-    static final AtomicBoolean extensionInitialized = new AtomicBoolean(true);
+    static final AtomicBoolean extensionInitialized = new AtomicBoolean(false);
     private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
     private static Lock contextLock = new ReentrantLock(false);
 
@@ -110,6 +110,10 @@ public class TestContextService {
 
     public void setExtensionInitialized() {
         extensionInitialized.set(true);
+    }
+
+    public boolean isExtensionInitialized() {
+        return extensionInitialized.get();
     }
 
     public void setContextIdToUse(Integer contextId) {

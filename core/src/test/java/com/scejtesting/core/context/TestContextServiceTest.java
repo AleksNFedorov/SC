@@ -70,8 +70,10 @@ public class TestContextServiceTest {
         Test mockTest = makeMockTest();
 
         TestContextService service = new TestContextService();
+
         TestContext context = service.createNewTestContext(mockTest);
 
+        Assert.assertFalse(new TestContextService().isExtensionInitialized());
         Assert.assertNotNull(context);
         Assert.assertSame(context, service.getTestContext(context.getContextId()));
         Assert.assertSame(context, service.getCurrentTestContext());
@@ -98,7 +100,7 @@ public class TestContextServiceTest {
 
         service.waitForInitialization();
 
-        Assert.assertTrue(TestContextService.extensionInitialized.get());
+        Assert.assertTrue(new TestContextService().isExtensionInitialized());
     }
 
     private Test makeMockTest() {
