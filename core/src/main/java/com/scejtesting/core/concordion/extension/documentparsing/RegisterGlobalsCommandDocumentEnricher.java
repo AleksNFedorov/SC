@@ -49,11 +49,6 @@ public class RegisterGlobalsCommandDocumentEnricher implements NamedDocumentPars
         return body;
     }
 
-    private void addScejNameSpaceToDocument(Document document) {
-        document.getRootElement().addNamespaceDeclaration(REGISTER_GLOBALS_DEFAULT_NAMESPACE,
-                ScejCommand.SCEJ_TESTING_NAME_SPACE);
-    }
-
     @Override
     public String getParserName() {
         return "Global variables registrator";

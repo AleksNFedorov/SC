@@ -347,4 +347,16 @@ public class ChildSpecificationRunnerTest {
         Assert.assertEquals(Integer.class, testClass);
     }
 
+    @org.junit.Test(expected = RuntimeException.class)
+    public void unknownTestClass() throws ClassNotFoundException {
+
+        SpecificationLocatorService serviceMock = mock(SpecificationLocatorService.class);
+        when(serviceMock.resolveSpecificationClassByContext(any(Specification.class), any(Test.class))).
+                thenThrow(RuntimeException.class);
+
+        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
+        doReturn(serviceMock).when(runner).getSpecificationLocationService();
+        runner.findTestClass(null, null);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.scejtesting.core.concordion.ChildSpecificationRunnerTest;
 import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommandTest;
 import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
 import com.scejtesting.core.concordion.extension.*;
+import com.scejtesting.core.concordion.extension.documentparsing.ChildSpecificationLinkUpdaterTest;
 import com.scejtesting.core.concordion.extension.documentparsing.DictionarySubstitutionListenerTest;
 import com.scejtesting.core.concordion.extension.documentparsing.RegisterGlobalsCommandDocumentEnricherTest;
 import com.scejtesting.core.concordion.extension.documentparsing.ScejCommandArgumentsTransformerTest;
@@ -48,6 +49,7 @@ import org.junit.runners.Suite;
         TestContextServiceTest.class,
         ScejCoreExtensionsTest.class,
         ClassPathSpecificationSourceTest.class,
+        ChildSpecificationLinkUpdaterTest.class,
 })
 public class AllTestsSuite {
 
