@@ -4,7 +4,6 @@ import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
@@ -32,11 +31,6 @@ public abstract class CoreScejTest<T extends CoreWebTestFixture> {
         when(specTest.getSpecification()).thenReturn(new Specification());
         new TestContextService().createNewTestContext(specTest);
 
-    }
-
-    @AfterClass
-    public static void finish() {
-        new TestContextService().destroyTestContextService();
     }
 
     protected abstract T buildTestFixture();

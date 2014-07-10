@@ -62,14 +62,14 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
     }
 
-    @org.junit.Test(expected = RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void doubleBuildTest() {
 
         currentTestFixture.openDriver("fakedriver");
 
     }
 
-    @org.junit.Test(expected = RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void unknownDriver() {
 
         CoreWebTestFixture test = new CoreWebTestFixture();
@@ -78,7 +78,7 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
     }
 
-    @org.junit.Test(expected = RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void doubleQuitDriver() {
 
         currentTestFixture = new CoreWebTestFixture();
@@ -90,7 +90,7 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
 
     }
 
-    @org.junit.Test
+    @Test
     public void noDriverAtDriverServer() {
 
         currentTestFixture.closeCurrentDriver();
