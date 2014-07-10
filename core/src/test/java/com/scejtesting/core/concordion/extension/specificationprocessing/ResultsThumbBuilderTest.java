@@ -1,24 +1,13 @@
 package com.scejtesting.core.concordion.extension.specificationprocessing;
 
-import com.scejtesting.core.config.Specification;
-import com.scejtesting.core.config.SpecificationLocatorService;
-import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
-import org.concordion.api.Element;
-import org.junit.After;
-import org.junit.Assert;
-
-import java.io.IOException;
-import java.util.List;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by aleks on 6/28/14.
  */
 public class ResultsThumbBuilderTest extends TestContextService {
 
+/*
     @After
     public void finishTest() {
         getCurrentTestContext().destroyCurrentSpecificationContext();
@@ -104,4 +93,5 @@ public class ResultsThumbBuilderTest extends TestContextService {
         return linkElement.getAttributeValue("href");
     }
 
+*/
 }

@@ -1,17 +1,6 @@
 package com.scejtesting.core.concordion;
 
-import com.scejtesting.core.CoreTestFixture;
-import com.scejtesting.core.config.*;
-import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContextService;
-import org.concordion.api.Resource;
-import org.concordion.api.Result;
-import org.concordion.api.RunnerResult;
-import org.junit.Assert;
-
-import java.util.Arrays;
-
-import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +8,7 @@ import static org.mockito.Mockito.*;
  */
 public class ChildSpecificationRunnerTest extends TestContextService {
 
-    @org.junit.Test
+ /*   @org.junit.Test
     public void saveResultOnException() throws Exception {
 
         ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
@@ -386,5 +375,5 @@ public class ChildSpecificationRunnerTest extends TestContextService {
         destroyTestContextService();
 
     }
-
+*/
 }

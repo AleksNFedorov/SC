@@ -1,22 +1,6 @@
 package com.scejtesting.core.concordion.extension;
 
-import com.scejtesting.core.concordion.extension.documentparsing.ChildSpecificationLinkUpdater;
-import com.scejtesting.core.config.Specification;
-import com.scejtesting.core.config.SpecificationLocatorService;
-import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
-import nu.xom.Attribute;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Nodes;
-import org.concordion.internal.XMLParser;
-import org.junit.Assert;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * User: Fedorovaleks
@@ -24,6 +8,7 @@ import static org.mockito.Mockito.when;
  */
 public class ChildSpecificationLinkUpdaterTest extends TestContextService {
 
+/*
     @org.junit.Test
     public void specificationFileUpdateTest() throws IOException {
 
@@ -55,4 +40,5 @@ public class ChildSpecificationLinkUpdaterTest extends TestContextService {
         destroyTestContextService();
 
     }
+*/
 }

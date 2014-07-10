@@ -1,13 +1,6 @@
 package com.scejtesting.core.concordion.extension;
 
-import com.scejtesting.core.config.Specification;
-import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
-import org.concordion.api.Resource;
-import org.junit.Assert;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * User: Fedorovaleks
@@ -15,6 +8,7 @@ import static org.mockito.Mockito.when;
  */
 public class HierarchySpecificationLocatorTest extends TestContextService {
 
+/*
     @org.junit.Test
     public void rootSpecificationResourceResolvingTest() {
 
@@ -71,4 +65,5 @@ public class HierarchySpecificationLocatorTest extends TestContextService {
         destroyTestContextService();
 
     }
+*/
 }

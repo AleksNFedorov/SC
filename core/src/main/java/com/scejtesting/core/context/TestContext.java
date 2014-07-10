@@ -18,12 +18,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class TestContext extends Context implements Cloneable {
 
+    public static final Integer DESTROYED_CONTEXT = -1;
     protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
     private static final AtomicInteger contextSequence = new AtomicInteger(0);
-
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
     private Test test;
-    private Integer contextId = contextSequence.getAndIncrement();
+    private Integer contextId = contextSequence.incrementAndGet();
 
     public TestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
@@ -37,6 +37,7 @@ public class TestContext extends Context implements Cloneable {
         LOG.debug("method invoked");
         Check.isTrue(contextStack.size() == 1, "Attempt to destroy non root context, use [destroyCurrentSpecificationContext] instead");
         contextStack.pop();
+        contextId = DESTROYED_CONTEXT;
         LOG.info("Top level specification context has been destroyed, destorying global context");
         LOG.debug("method finished");
     }
@@ -95,7 +96,10 @@ public class TestContext extends Context implements Cloneable {
     @Override
     protected TestContext clone() {
         TestContext clonedContext = new TestContext(this.test);
+        //Need to avoid root spec duplication, already added on creation
+        clonedContext.contextStack.clear();
         clonedContext.contextStack.addAll(this.contextStack);
+        copyTo(clonedContext);
 
         LOG.info("Context [{}] cloned to [{}]", getContextId(), clonedContext.getContextId());
 

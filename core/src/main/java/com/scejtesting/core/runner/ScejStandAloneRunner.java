@@ -38,6 +38,11 @@ public class ScejStandAloneRunner {
         testsToRun = resolveTestsToRunName();
     }
 
+    public static void main(String... args) {
+        Result result = new ScejStandAloneRunner().runSuite();
+        System.exit(result.getFailureCount() == 0 ? 0 : 1);
+    }
+
     public Result runSuite() {
         LOG.debug("method invoked");
 
@@ -91,7 +96,7 @@ public class ScejStandAloneRunner {
         testContextService.setContextIdToUse(testContext.getContextId());
         LOG.info("Test context created");
 
-        Result result = runJUnitTestsForTest(testToRun);
+        Result result = runJUnitTestsForTest(testContext);
 
         testContext.destroyTestContext();
         LOG.info("Test context destroyed");
@@ -99,11 +104,20 @@ public class ScejStandAloneRunner {
         return result;
     }
 
-    Result runJUnitTestsForTest(Test testToRun) {
-        return JUnitCore.runClasses(
+    Result runJUnitTestsForTest(TestContext testContext) {
+
+        TestContextService service = new TestContextService();
+        Test testToRun = testContext.getTest();
+        service.lock();
+        service.setContextIdToUse(testContext.getContextId());
+        Result result = JUnitCore.runClasses(
                 getSpecificationLocationService().
                         resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
         );
+        service.waitForInitialization();
+        service.unLock();
+        return result;
+
     }
 
     private boolean needRunTest(Test test) {
@@ -183,11 +197,6 @@ public class ScejStandAloneRunner {
 
     protected TestContextService buildTestContextService() {
         return new TestContextService();
-    }
-
-    public static void main(String... args) {
-        Result result = new ScejStandAloneRunner().runSuite();
-        System.exit(result.getFailureCount() == 0 ? 0 : 1);
     }
 
 

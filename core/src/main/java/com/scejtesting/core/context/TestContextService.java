@@ -21,13 +21,26 @@ public class TestContextService {
 
     protected static final Logger LOG = LoggerFactory.getLogger(TestContextService.class);
 
-    private static final ConcurrentHashMap<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
-
+    static final ConcurrentHashMap<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
+    static final AtomicBoolean extensionInitialized = new AtomicBoolean(true);
+    private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
     private static Lock contextLock = new ReentrantLock(false);
 
-    private static final AtomicBoolean extensionInitialized = new AtomicBoolean(true);
+    public void dropContext(Integer contextId) {
+        LOG.debug("droping context [{}]", contextId);
+        checkContextId(contextId);
 
-    private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
+        TestContext sourceContext = contexts.remove(contextId);
+
+        Check.notNull(sourceContext, "Attempt to drop un existed context [" + contextId + "]");
+
+        if (sourceContext.getContextId().equals(contextIdToUse.get())) {
+            LOG.warn("Current context set to Default");
+            contextIdToUse.set(TestContext.DESTROYED_CONTEXT);
+        }
+
+        LOG.info("Context with id [{}] resolved [{}]", contextId, sourceContext);
+    }
 
     public TestContext cloneContext(Integer contextIndex) {
         LOG.debug("Cloning context [{}]", contextIndex);
@@ -82,6 +95,7 @@ public class TestContextService {
 
         contexts.clear();
         contexts.put(newContext.getContextId(), newContext);
+        contextIdToUse.set(newContext.getContextId());
         return newContext;
 
     }

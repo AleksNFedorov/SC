@@ -1,20 +1,6 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
-import com.scejtesting.core.config.Specification;
-import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContextService;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Nodes;
-import org.concordion.internal.XMLParser;
-import org.junit.After;
-import org.junit.Assert;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import static org.mockito.Mockito.*;
 
 /**
  * User: Fedorovaleks
@@ -22,7 +8,7 @@ import static org.mockito.Mockito.*;
  */
 public class DictionarySubstitutionListenerTest extends TestContextService {
 
-    @After
+ /*   @After
     public void onFinish() {
 
         destroyTestContextService();
@@ -109,5 +95,5 @@ public class DictionarySubstitutionListenerTest extends TestContextService {
         Assert.assertEquals(node1ValueString, node3.getAttribute(0).getValue());
 
     }
-
+*/
 }
