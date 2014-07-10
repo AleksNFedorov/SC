@@ -33,7 +33,7 @@ public class ScejCoreExtensionsTest {
         inOrder.verify(extender, calls(1)).withSpecificationLocator(any(HierarchySpecificationLocator.class));
         inOrder.verify(extender, calls(1)).withTarget(any(FileTargetWithCustomPrefix.class));
         inOrder.verify(extender, calls(1)).withDocumentParsingListener(any(DocumentParsingListenerFacade.class));
-        inOrder.verify(extender, calls(1)).withSource(any(ClassPathSpecificationSource.class));
+        inOrder.verify(extender, calls(1)).withSource(any(ClassPathSpecificationSourceTest.class));
         inOrder.verify(extender, calls(1)).withThrowableListener(any(SuiteFailFastExceptionListener.class));
         inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(VelocityResultsRenderer.class));
         inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(ResultsThumbRendererProcessingListener.class));
