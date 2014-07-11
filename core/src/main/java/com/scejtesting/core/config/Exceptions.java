@@ -23,11 +23,15 @@ public class Exceptions {
 
         Class exceptionCheckClass = exceptionToCheck.getClass();
 
-        for (Class exception : exceptions) {
-            if (exceptionCheckClass.isAssignableFrom(exception))
+        for (Class exception : getExceptions()) {
+            if (exception.isAssignableFrom(exceptionCheckClass))
                 return true;
         }
         return false;
+    }
+
+    protected List<Class> getExceptions() {
+        return exceptions;
     }
 
 }

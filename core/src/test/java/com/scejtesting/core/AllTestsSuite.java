@@ -8,6 +8,7 @@ import com.scejtesting.core.concordion.extension.documentparsing.*;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbBuilderTest;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListenerTest;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRendererTest;
+import com.scejtesting.core.config.ExceptionsTest;
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
 import com.scejtesting.core.config.SpecificationTest;
 import com.scejtesting.core.config.SuiteInitializationTest;
@@ -50,7 +51,8 @@ import org.junit.runners.Suite;
         ChildSpecificationLinkUpdaterTest.class,
         DictionaryLoaderServiceTest.class,
         DocumentParsingListenerFacadeTest.class,
-        ResultsThumbRendererProcessingListenerTest.class
+        ResultsThumbRendererProcessingListenerTest.class,
+        ExceptionsTest.class,
 })
 public class AllTestsSuite {
 
