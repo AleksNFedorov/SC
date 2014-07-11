@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+    <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst" name="testOne">
+        <specification location="/com/scejtesting/coretests/HeadSpecification.html">
+            <!--<includes>-->
+            <!--<specification location="HeadSpecificationChrome.html"/>-->
+            <!--<specification location="HeadSpecificationFF.html"/>-->
+            <!--</includes>-->
+        </specification>
+    </test>
+
+</suite>
