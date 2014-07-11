@@ -25,11 +25,10 @@ public class DictionaryLoaderService {
         Properties gloalDictionary = loadGlobalDictionary();
         Properties testDictionary = loadTestDictionary();
 
-        testDictionary.putAll(gloalDictionary);
-
-        gloalDictionary = testDictionary;
-
-        return gloalDictionary;
+        Properties allProperties = new Properties();
+        allProperties.putAll(gloalDictionary);
+        allProperties.putAll(testDictionary);
+        return allProperties;
     }
 
     private Properties loadGlobalDictionary() {

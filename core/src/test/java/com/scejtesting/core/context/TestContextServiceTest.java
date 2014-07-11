@@ -90,7 +90,7 @@ public class TestContextServiceTest {
             @Override
             public void run() {
                 try {
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                     service.setExtensionInitialized();
                 } catch (InterruptedException e) {
                     e.printStackTrace();

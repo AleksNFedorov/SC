@@ -2,9 +2,11 @@ package com.scejtesting.core.concordion.extension.documentparsing;
 
 import nu.xom.Document;
 import org.concordion.api.listener.DocumentParsingListener;
+import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,22 +18,24 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
     protected static final Logger LOG = LoggerFactory.getLogger(DocumentParsingListenerFacade.class);
 
-    private final List<NamedDocumentParsingListener> parsingListeners = new LinkedList<NamedDocumentParsingListener>() {
+    private final List<NamedDocumentParsingListener> parsingListeners = Collections.unmodifiableList(new LinkedList<NamedDocumentParsingListener>() {
         {
             add(new ChildSpecificationLinkUpdater());
             add(new DictionarySubstitutionListener());
             add(new RegisterGlobalsCommandDocumentEnricher());
             add(new ScejCommandArgumentsTransformer());
         }
-    };
+    });
 
     @Override
     public void beforeParsing(Document document) {
 
         LOG.debug("method invoked");
 
+        Check.notNull(document, "Document must be specified");
+
         try {
-            for (NamedDocumentParsingListener parsingListener : parsingListeners) {
+            for (NamedDocumentParsingListener parsingListener : getParsingListeners()) {
                 parsingListener.beforeParsing(document);
                 LOG.info("Listener [{}] successfully processed document ", parsingListener.getParserName());
             }
@@ -44,5 +48,10 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
 
         LOG.debug("method finished");
     }
+
+    protected List<NamedDocumentParsingListener> getParsingListeners() {
+        return parsingListeners;
+    }
+
 
 }
