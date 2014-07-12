@@ -111,6 +111,7 @@ public class ScejStandAloneRunner {
         Test testToRun = testContext.getTest();
         service.lock();
         service.setContextIdToUse(testContext.getContextId());
+        testContext.addGlobalVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, testContext.getContextId());
         Result result = JUnitCore.runClasses(
                 getSpecificationLocationService().
                         resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)

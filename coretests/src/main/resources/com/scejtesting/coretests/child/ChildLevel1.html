@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+<body>
+
+<div>Check that assert True <b concordion:assertTrue="getTrue()">works</b></div>
+
+<div>Check that assert False <b concordion:assertFalse="getFalse()">works</b></div>
+
+<div>Check that assert Equals <b concordion:assertEquals="getWorks()">works</b></div>
+
+<div>Check that global variable "globalVar" <b concordion:assertEquals="getWorks()">Global1</b></div>
+
+<div>Check that global variable "globalVar2" <b concordion:assertEquals="getWorks()">Global2</b></div>
+
+</body>
+</html>
