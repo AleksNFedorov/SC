@@ -2,6 +2,7 @@ package com.scejtesting.core;
 
 import com.scejtesting.core.concordion.ChildSpecificationRunnerTest;
 import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommandTest;
+import com.scejtesting.core.concordion.command.ScejRunCommandTest;
 import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
 import com.scejtesting.core.concordion.extension.*;
 import com.scejtesting.core.concordion.extension.documentparsing.*;
@@ -53,6 +54,7 @@ import org.junit.runners.Suite;
         DocumentParsingListenerFacadeTest.class,
         ResultsThumbRendererProcessingListenerTest.class,
         ExceptionsTest.class,
+        ScejRunCommandTest.class,
 })
 public class AllTestsSuite {
 

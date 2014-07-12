@@ -4,6 +4,7 @@ import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
+import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.extension.ConcordionExtender;
 import org.junit.Assert;
@@ -19,6 +20,14 @@ public class ScejCoreExtensionsTest {
 
     @Test
     public void positiveFlowTest() {
+
+        Specification testSpec = new Specification("/test.html");
+        com.scejtesting.core.config.Test mockTest = mock(com.scejtesting.core.config.Test.class);
+        when(mockTest.getSpecification()).thenReturn(testSpec);
+        when(mockTest.getName()).thenReturn("runCommandTest");
+
+        TestContextService service = new TestContextService();
+        service.createNewTestContext(mockTest);
 
         ConcordionExtender extender = mock(ConcordionExtender.class);
 
@@ -38,7 +47,7 @@ public class ScejCoreExtensionsTest {
         inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(VelocityResultsRenderer.class));
         inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(ResultsThumbRendererProcessingListener.class));
 
-        inOrder.verify(extender, calls(2)).
+        inOrder.verify(extender, calls(3)).
                 withCommand(
                         eq(ScejCommand.SCEJ_TESTING_NAME_SPACE),
                         anyString(),

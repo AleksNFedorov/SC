@@ -28,7 +28,12 @@ public class TestContextServiceTest {
 
         service.dropContext(clonedContext.getContextId());
 
-        Assert.assertNull(service.getCurrentTestContext());
+        try {
+            new TestContextService().getCurrentTestContext();
+            Assert.fail("No context exception expected");
+        } catch (RuntimeException ex) {
+
+        }
         Assert.assertNull(service.getTestContext(clonedContext.getContextId()));
         Assert.assertSame(context, service.getTestContext(context.getContextId()));
 

@@ -61,9 +61,7 @@ public class TestContextService {
 
         TestContext requestedContext = contexts.get(contextIdToUse.get());
 
-        if (requestedContext == null) {
-            LOG.error("No context for id [{}]", contextIdToUse.get());
-        }
+        Check.notNull(requestedContext, "No context for id [" + contextIdToUse.get() + "]");
 
         return requestedContext;
     }

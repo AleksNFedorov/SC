@@ -1,6 +1,5 @@
 package com.scejtesting.core.concordion.command;
 
-import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.Context;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
@@ -41,15 +40,9 @@ public class RegisterGlobalVariablesCommand extends AbstractCommand implements S
                     globalVariable.getValue());
         }
 
-        setTestContextAsAVariable(evaluator);
-
         LOG.info("Test context stored as variable");
 
         LOG.debug("method finished");
-    }
-
-    private void setTestContextAsAVariable(Evaluator evaluator) {
-        evaluator.setVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, currentTestContext.getContextId());
     }
 
     protected Context getTestContext() {

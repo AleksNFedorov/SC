@@ -238,7 +238,12 @@ public class ScejStandAloneRunnerTest {
 
         Result result = runner.runSuite();
 
-        Assert.assertNull(new TestContextService().getCurrentTestContext());
+        try {
+            new TestContextService().getCurrentTestContext();
+            Assert.fail("No context exception expected");
+        } catch (RuntimeException ex) {
+
+        }
         Assert.assertEquals(1, result.getRunCount());
         Assert.assertTrue(result.wasSuccessful());
 

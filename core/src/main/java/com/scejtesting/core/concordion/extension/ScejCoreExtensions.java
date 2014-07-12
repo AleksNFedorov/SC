@@ -2,6 +2,7 @@ package com.scejtesting.core.concordion.extension;
 
 import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommand;
 import com.scejtesting.core.concordion.command.ScejCommand;
+import com.scejtesting.core.concordion.command.ScejRunCommand;
 import com.scejtesting.core.concordion.command.SetGlobalCommand;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
@@ -44,6 +45,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
             {
                 add(new SetGlobalCommand());
                 add(new RegisterGlobalVariablesCommand());
+                add(new ScejRunCommand());
             }
         };
     }

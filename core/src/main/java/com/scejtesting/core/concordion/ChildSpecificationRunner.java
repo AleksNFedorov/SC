@@ -1,6 +1,5 @@
 package com.scejtesting.core.concordion;
 
-import com.scejtesting.core.Constants;
 import com.scejtesting.core.config.*;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
@@ -139,8 +138,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         service.lock();
         Integer contextId = getCurrentTestContext().getContextId();
         service.setContextIdToUse(contextId);
-        getCurrentTestContext().addGlobalVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, contextId);
-
         org.junit.runner.Result result = super.runJUnitClass(concordionClass);
         service.waitForInitialization();
         service.unLock();
