@@ -10,9 +10,37 @@
 
 <div>Check that assert False <b concordion:assertFalse="getFalse()">works</b></div>
 
-<div>Check that assert Equals <b concordion:assertEquls="getWorks()">works</b></div>
+<div>Check that assert Equals <b concordion:assertEquals="getWorks()">works</b></div>
 
-<div>Check that <b>variable</b> setting <b concordion:assertEquls="getSame()">works</b></div>
+Varialbe "variable" set to <span concordion:set="#variable">works</span>
+
+<div>Check that variable setting <b concordion:assertEquals="getSame(#variable)">works</b></div>
+
+<p>Generating <b concordion:set="#count">5</b> integer values</p>
+
+<table concordion:verifyRows="#number : getList(#count)">
+    <tr>
+        <th concordion:assertEquals="#number">Matching numbers</th>
+    </tr>
+    <tr>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>5</td>
+    </tr>
+</table>
 
 </body>
 </html>
