@@ -7,6 +7,7 @@ import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.command.RunCommand;
+import org.concordion.internal.listener.RunResultRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,10 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
 
     private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
+
+    public ScejRunCommand() {
+        addRunListener(new RunResultRenderer());
+    }
 
     @Override
     public void execute(final CommandCall commandCall, final Evaluator evaluator, final ResultRecorder resultRecorder) {
