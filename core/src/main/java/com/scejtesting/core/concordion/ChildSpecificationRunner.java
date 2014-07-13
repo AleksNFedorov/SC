@@ -68,7 +68,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
         getCurrentTestContext().createNewSpecificationContext(specificationResource, specification);
         LOG.info("Specification context created");
-
         contextCreated = true;
 
         RunnerResult result = super.execute(specificationResource, href);
