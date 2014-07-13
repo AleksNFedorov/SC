@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:scej="http://www.scejtesting.com/2014">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+<h1>Child specification 1</h1>
+
+<body>
+
+<div>Check that assert True <b concordion:assertTrue="getTrue()">works</b></div>
+
+<div>Check that assert False <b concordion:assertFalse="getFalse()">works</b></div>
+
+<div>Check that assert Equals <b concordion:assertEquals="getWorks()">works</b></div>
+
+<div>Check that global variable "globalVar" <b concordion:assertEquals="getSame(#globalVar)">Global1</b></div>
+
+<div>Check that global variable "globalVar2" <b concordion:assertEquals="getSame(#globalVar2)">Global2</b></div>
+
+
+<a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner" href="child/ChildLevel21.html">Check child
+    spec 21</a>
+<hr/>
+
+<a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner" href="child/ChildLevel22.html">Check child
+    spec 22</a>
+<hr/>
+
+
+</body>
+</html>

@@ -3,10 +3,18 @@
 <suite>
     <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst" name="testOne">
         <specification location="/com/scejtesting/coretests/HeadSpecification.html">
-            <!--<includes>-->
-            <!--<specification location="HeadSpecificationChrome.html"/>-->
-            <!--<specification location="HeadSpecificationFF.html"/>-->
-            <!--</includes>-->
+            <includes>
+                <specification location="child/ChildLevel11.html">
+                    <includes>
+                        <specification location="child/ChildLevel21.html"/>
+                    </includes>
+                </specification>
+                <specification location="child/ChildLevel12.html">
+                    <excludes>
+                        <specification location="child/ChildLevel21.html"/>
+                    </excludes>
+                </specification>
+            </includes>
         </specification>
     </test>
 
