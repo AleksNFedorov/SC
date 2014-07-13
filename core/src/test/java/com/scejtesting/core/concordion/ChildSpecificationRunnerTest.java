@@ -8,9 +8,12 @@ import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -20,35 +23,68 @@ import static org.mockito.Mockito.*;
  */
 public class ChildSpecificationRunnerTest {
 
-    @org.junit.Test
-    public void saveResultOnException() throws Exception {
+    private Test mockTest;
+    private Specification mockSpecification;
+    private Suite mockSuite;
+    private ChildSpecificationRunner runnerSpy;
+
+    @Before
+    public void initTest() {
+        Specification specification = mock(Specification.class);
+        when(specification.getLocation()).thenReturn("/rootSpecificaiton.html");
+
+        Test test = mock(Test.class);
+        when(test.getSpecification()).thenReturn(specification);
+        when(test.getDefaultTestClass()).thenCallRealMethod();
+
+        Suite suite = mock(Suite.class);
+        List<Test> tests = Arrays.asList(test);
+        when(suite.getTests()).thenReturn(tests);
+
+        new TestContextService().createNewTestContext(test);
 
         ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
 
-        Suite suite = mock(Suite.class);
-        when(suite.getThrownException()).thenReturn(null);
-
-        Specification specification = mock(Specification.class);
-
-        Test test = mock(Test.class);
-        when(test.getThrownException()).thenReturn(null);
-        when(test.getSpecification()).thenReturn(specification);
-        doThrow((new IllegalStateException("Thrown for test purpose"))).when(runner).executeSpecification(eq(specification),
-                any(Resource.class), anyString());
-
-        TestContext context = new TestContextService().createNewTestContext(test);
-        runner.setTestContextIndex(context.getContextId());
-
-        doReturn(specification).when(runner).resolveSpecification(anyString());
         doReturn(suite).when(runner).getSuite();
+        doReturn(specification).when(runner).resolveSpecification(anyString());
+
+        mockTest = test;
+        mockSpecification = specification;
+        mockSuite = suite;
+        runnerSpy = runner;
+
+    }
+
+    @After
+    public void finishTest() {
+        TestContextService service = new TestContextService();
+        TestContext currentContext = service.getCurrentTestContext();
+        service.dropContext(currentContext.getContextId());
+    }
+
+    @org.junit.Test
+    public void runnerInitializationTest() {
+        new TestContextService().waitForInitialization();
+    }
+
+    @org.junit.Test
+    public void saveResultOnException() throws Exception {
+
+        when(mockSuite.getThrownException()).thenReturn(null);
+        when(mockTest.getThrownException()).thenReturn(null);
+
+        doThrow((new IllegalStateException("Thrown for test purpose"))).when(runnerSpy).
+                executeSpecification(eq(mockSpecification),
+                        any(Resource.class), anyString());
 
         try {
-            runner.execute(new Resource("/somePath"), "Some href");
+            runnerSpy.execute(new Resource("/somePath"), "Some href");
             Assert.fail();
         } catch (IllegalStateException ex) {
 
         }
 
+        TestContext context = new TestContextService().getCurrentTestContext();
         SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(Result.EXCEPTION));
@@ -58,30 +94,18 @@ public class ChildSpecificationRunnerTest {
     @org.junit.Test
     public void positiveFlow() throws Exception {
 
-        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
-
-        Suite suite = mock(Suite.class);
-        when(suite.getThrownException()).thenReturn(null);
-
-        Specification specification = mock(Specification.class);
-
-        Test test = mock(Test.class);
-        when(test.getThrownException()).thenReturn(null);
-        when(test.getSpecification()).thenReturn(specification);
-
-        TestContext context = new TestContextService().createNewTestContext(test);
-        runner.setTestContextIndex(context.getContextId());
+        when(mockSuite.getThrownException()).thenReturn(null);
+        when(mockTest.getThrownException()).thenReturn(null);
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
-        doReturn(specification).when(runner).resolveSpecification(anyString());
-        doReturn(suite).when(runner).getSuite();
-        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
 
-        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+        RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(successResult, executionResult);
 
+        TestContext context = new TestContextService().getCurrentTestContext();
         SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(successResult.getResult()));
@@ -91,30 +115,18 @@ public class ChildSpecificationRunnerTest {
     @org.junit.Test
     public void suiteFailFastException() throws Exception {
 
-        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
-
-        Suite suite = mock(Suite.class);
-        when(suite.getThrownException()).thenReturn(new RuntimeException());
-
-        Specification specification = mock(Specification.class);
-
-        Test test = mock(Test.class);
-        when(test.getThrownException()).thenReturn(null);
-        when(test.getSpecification()).thenReturn(specification);
-
-        TestContext context = new TestContextService().createNewTestContext(test);
-        runner.setTestContextIndex(context.getContextId());
+        when(mockSuite.getThrownException()).thenReturn(new RuntimeException());
+        when(mockTest.getThrownException()).thenReturn(null);
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
-        doReturn(specification).when(runner).resolveSpecification(anyString());
-        doReturn(suite).when(runner).getSuite();
-        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
 
-        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+        RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
+        TestContext context = new TestContextService().getCurrentTestContext();
         SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
 
         Assert.assertEquals(1, (int) registry.getResultsAmount(executionResult.getResult()));
@@ -123,27 +135,15 @@ public class ChildSpecificationRunnerTest {
     @org.junit.Test
     public void unknownSpecification() throws Exception {
 
-        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
-
-        Suite suite = mock(Suite.class);
-        when(suite.getThrownException()).thenReturn(null);
-
-        Specification specification = mock(Specification.class);
-
-        Test test = mock(Test.class);
-        when(test.getThrownException()).thenReturn(null);
-        when(test.getSpecification()).thenReturn(specification);
-
-        TestContext context = new TestContextService().createNewTestContext(test);
-        runner.setTestContextIndex(context.getContextId());
+        when(mockSuite.getThrownException()).thenReturn(null);
+        when(mockTest.getThrownException()).thenReturn(null);
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
-        doReturn(null).when(runner).resolveSpecification(anyString());
-        doReturn(suite).when(runner).getSuite();
-        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        doReturn(null).when(runnerSpy).resolveSpecification(anyString());
+        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
 
-        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+        RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
     }
@@ -151,25 +151,14 @@ public class ChildSpecificationRunnerTest {
     @org.junit.Test
     public void testFailFastException() throws Exception {
 
-
-        Suite suite = mock(Suite.class);
-        when(suite.getThrownException()).thenReturn(null);
-
-        Specification specification = mock(Specification.class);
-
-        Test test = mock(Test.class);
-        when(test.getThrownException()).thenReturn(new RuntimeException());
-        when(test.getSpecification()).thenReturn(specification);
-
-        ChildSpecificationRunner runner = buildRunner(test);
+        when(mockSuite.getThrownException()).thenReturn(null);
+        when(mockTest.getThrownException()).thenReturn(new RuntimeException());
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
-        doReturn(specification).when(runner).resolveSpecification(anyString());
-        doReturn(suite).when(runner).getSuite();
-        doReturn(successResult).when(runner).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
 
-        RunnerResult executionResult = runner.execute(new Resource("/somePath"), "Some href");
+        RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
@@ -178,16 +167,13 @@ public class ChildSpecificationRunnerTest {
     @org.junit.Test
     public void testIncludeAll() {
 
-        Specification rootSpecification = new Specification("/includeAllSpecification.html");
-        Test testMock = mock(Test.class);
-        when(testMock.getSpecification()).thenReturn(rootSpecification);
-        when(testMock.getDefaultTestClass()).thenReturn(CoreTestFixture.class);
-
-        ChildSpecificationRunner testRunner = buildRunner(testMock);
+        when(mockTest.getDefaultTestClass()).thenReturn(CoreTestFixture.class);
 
         String childSpecificationOrig = "childSpecification.html";
 
-        Specification specification = testRunner.resolveSpecification(
+        doCallRealMethod().when(runnerSpy).resolveSpecification(anyString());
+
+        Specification specification = runnerSpy.resolveSpecification(
                 SpecificationTest.appendUniqueSuffix(childSpecificationOrig));
 
         Assert.assertEquals(childSpecificationOrig, specification.getLocation());
@@ -201,26 +187,21 @@ public class ChildSpecificationRunnerTest {
 
         Excludes excludes = new Excludes(Arrays.asList(fakeSpecificationTwo, fakeSpecificationThree));
 
-        Test mockTest = mock(Test.class);
-        Specification excludeOnly = mock(Specification.class);
-
-        when(mockTest.getDefaultTestClass()).thenCallRealMethod();
-        when(mockTest.getSpecification()).thenReturn(excludeOnly);
-        when(excludeOnly.getExcludes()).thenReturn(excludes);
-
-        ChildSpecificationRunner testRunner = buildRunner(mockTest);
+        when(mockSpecification.getExcludes()).thenReturn(excludes);
 
         String notExcludedSpecPath = "someNotExludedSpec.html";
 
-        Specification currentSpec = testRunner.resolveSpecification(SpecificationTest.appendUniqueSuffix(notExcludedSpecPath));
+        doCallRealMethod().when(runnerSpy).resolveSpecification(anyString());
+
+        Specification currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix(notExcludedSpecPath));
 
         Assert.assertNotNull("Not excluded spec can't be null", currentSpec);
         Assert.assertEquals(notExcludedSpecPath, currentSpec.getLocation());
 
-        currentSpec = testRunner.resolveSpecification("FakeTwo.html");
+        currentSpec = runnerSpy.resolveSpecification("FakeTwo.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        currentSpec = testRunner.resolveSpecification("FakeThree.html");
+        currentSpec = runnerSpy.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
     }
@@ -236,30 +217,25 @@ public class ChildSpecificationRunnerTest {
                 fakeSpecificationTwo,
                 fakeSpecificationThree));
 
-        Test test = mock(Test.class);
-        when(test.getDefaultTestClass()).thenCallRealMethod();
+        doCallRealMethod().when(runnerSpy).resolveSpecification(anyString());
 
-        Specification includeOnly = mock(Specification.class);
-        when(includeOnly.getIncludes()).thenReturn(includes);
-        when(test.getSpecification()).thenReturn(includeOnly);
+        when(mockSpecification.getIncludes()).thenReturn(includes);
 
-        ChildSpecificationRunner testRunner = buildRunner(test);
-
-        Specification currentSpec = testRunner.resolveSpecification("someSpec.html");
+        Specification currentSpec = runnerSpy.resolveSpecification("someSpec.html");
         Assert.assertNull("Not included spec must be null", currentSpec);
 
         String specLocationForTest = "FakeTwo.html";
-        currentSpec = testRunner.resolveSpecification(SpecificationTest.appendUniqueSuffix(specLocationForTest));
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix(specLocationForTest));
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(specLocationForTest, currentSpec.getLocation());
 
         specLocationForTest = "FakeOne.html";
-        currentSpec = testRunner.resolveSpecification(SpecificationTest.appendUniqueSuffix(specLocationForTest));
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix(specLocationForTest));
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(specLocationForTest, currentSpec.getLocation());
 
         specLocationForTest = "FakeThree.html";
-        currentSpec = testRunner.resolveSpecification(SpecificationTest.appendUniqueSuffix(specLocationForTest));
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix(specLocationForTest));
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(specLocationForTest, currentSpec.getLocation());
     }
@@ -274,56 +250,36 @@ public class ChildSpecificationRunnerTest {
                 fakeSpecificationTwo));
         Excludes excludes = new Excludes(Arrays.asList(fakeSpecificationOne, fakeSpecificationThree));
 
-        Test test = mock(Test.class);
-        when(test.getDefaultTestClass()).thenCallRealMethod();
+        when(mockSpecification.getExcludes()).thenReturn(excludes);
+        when(mockSpecification.getIncludes()).thenReturn(includes);
 
-        Specification includeExclude = mock(Specification.class);
+        doCallRealMethod().when(runnerSpy).resolveSpecification(anyString());
 
-        when(includeExclude.getExcludes()).thenReturn(excludes);
-        when(includeExclude.getIncludes()).thenReturn(includes);
-
-        when(test.getSpecification()).thenReturn(includeExclude);
-
-        ChildSpecificationRunner testRunner = buildRunner(test);
-
-        Specification currentSpec = testRunner.resolveSpecification("someNotExludedSpec.html");
+        Specification currentSpec = runnerSpy.resolveSpecification("someNotExludedSpec.html");
         Assert.assertNull("Not included spec must be null", currentSpec);
 
         String currentSpecLocation = "FakeTwo.html";
-        currentSpec = testRunner.resolveSpecification(SpecificationTest.appendUniqueSuffix(currentSpecLocation));
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix(currentSpecLocation));
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(currentSpecLocation, currentSpec.getLocation());
 
-        currentSpec = testRunner.resolveSpecification("FakeOne.html");
+        currentSpec = runnerSpy.resolveSpecification("FakeOne.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        currentSpec = testRunner.resolveSpecification("FakeThree.html");
+        currentSpec = runnerSpy.resolveSpecification("FakeThree.html");
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-    }
-
-    private ChildSpecificationRunner buildRunner(Test test) {
-        ChildSpecificationRunner testRunner = spy(new ChildSpecificationRunner());
-        TestContext context = new TestContextService().createNewTestContext(test);
-        testRunner.setTestContextIndex(context.getContextId());
-        return testRunner;
     }
 
     @org.junit.Test
     public void findTestClassFromSpecification() throws ClassNotFoundException {
 
-        Test test = mock(Test.class);
-        when(test.getDefaultTestClass()).thenReturn(Integer.class);
+        when(mockTest.getDefaultTestClass()).thenReturn(Integer.class);
+        when(mockSpecification.getTestClass()).thenReturn(String.class);
 
-        Specification specification = mock(Specification.class);
+        runnerSpy.specification = mockSpecification;
 
-        when(test.getSpecification()).thenReturn(specification);
-        when(specification.getTestClass()).thenReturn(String.class);
-
-        ChildSpecificationRunner runner = buildRunner(test);
-        runner.specification = specification;
-
-        Class testClass = runner.findTestClass(null, null);
+        Class testClass = runnerSpy.findTestClass(null, null);
 
         Assert.assertEquals(String.class, testClass);
     }
@@ -331,18 +287,13 @@ public class ChildSpecificationRunnerTest {
     @org.junit.Test
     public void findTestClassFromTest() throws ClassNotFoundException {
 
-        Test test = mock(Test.class);
-        when(test.getDefaultTestClass()).thenReturn(Integer.class);
+        when(mockTest.getDefaultTestClass()).thenReturn(Integer.class);
 
-        Specification specification = mock(Specification.class);
+        when(mockSpecification.getTestClass()).thenReturn(null);
 
-        when(test.getSpecification()).thenReturn(specification);
-        when(specification.getTestClass()).thenReturn(null);
+        runnerSpy.specification = mockSpecification;
 
-        ChildSpecificationRunner runner = buildRunner(test);
-        runner.specification = specification;
-
-        Class testClass = runner.findTestClass(null, null);
+        Class testClass = runnerSpy.findTestClass(null, null);
 
         Assert.assertEquals(Integer.class, testClass);
     }

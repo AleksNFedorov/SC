@@ -1,5 +1,6 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
+import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.context.TestContext;
@@ -39,7 +40,7 @@ public class ChildSpecificationLinkUpdater implements NamedDocumentParsingListen
     }
 
     private boolean isConcordionRunnerHrefNode(Element hrefNode) {
-        return hrefNode.getAttribute("run", "http://www.concordion.org/2007/concordion") != null;
+        return hrefNode.getAttribute("run", ScejCommand.SCEJ_TESTING_NAME_SPACE) != null;
     }
 
     private void updateSpecificationPath(Element hrefNode, Specification specification) {

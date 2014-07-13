@@ -93,7 +93,6 @@ public class ScejStandAloneRunner {
         TestContextService testContextService = buildTestContextService();
 
         TestContext testContext = testContextService.createNewTestContext(testToRun);
-        testContextService.setContextIdToUse(testContext.getContextId());
         LOG.info("Test context created");
 
         Result result = runJUnitTestsForTest(testContext);
@@ -107,18 +106,17 @@ public class ScejStandAloneRunner {
 
     Result runJUnitTestsForTest(TestContext testContext) {
 
-        TestContextService service = new TestContextService();
-        Test testToRun = testContext.getTest();
-        service.lock();
-        service.setContextIdToUse(testContext.getContextId());
-        Result result = JUnitCore.runClasses(
-                getSpecificationLocationService().
-                        resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
-        );
-        service.waitForInitialization();
-        service.unLock();
-        return result;
-
+        ContextSyncRunner<Result> runner = new ContextSyncRunner<Result>() {
+            @Override
+            public Result runCallBack(TestContext context) {
+                Test testToRun = context.getTest();
+                return JUnitCore.runClasses(
+                        getSpecificationLocationService().
+                                resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
+                );
+            }
+        };
+        return runner.synchronizeContext(testContext.getContextId());
     }
 
     private boolean needRunTest(Test test) {

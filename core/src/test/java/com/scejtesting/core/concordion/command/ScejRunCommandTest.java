@@ -1,13 +1,16 @@
 package com.scejtesting.core.concordion.command;
 
-import com.scejtesting.core.Constants;
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
+import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
+import org.concordion.api.ResultRecorder;
 import org.concordion.internal.SimpleEvaluatorFactory;
 import org.junit.Assert;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.mockito.Mockito.*;
 
@@ -47,20 +50,24 @@ public class ScejRunCommandTest {
         when(mockTest.getSpecification()).thenReturn(testSpec);
         when(mockTest.getName()).thenReturn("runCommandTest");
 
-        TestContextService service = new TestContextService();
+        final TestContextService service = new TestContextService();
         TestContext testContext = service.createNewTestContext(mockTest);
         testContext = service.cloneContext(testContext.getContextId());
 
-        ScejRunCommand runCommand = spy(new ScejRunCommand());
+        final AtomicBoolean check = new AtomicBoolean(false);
+
+        ScejRunCommand runCommand = spy(new ScejRunCommand() {
+            @Override
+            void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
+                check.set(true);
+                service.setTestContextInitialized();
+            }
+        });
 
         doReturn(testContext).when(runCommand).getTestContext();
-        doNothing().when(runCommand).executeConcordionRun(null, evaluator, null);
 
         runCommand.execute(null, evaluator, null);
 
-
-        Object contextIdFromEvaluator = evaluator.getVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT);
-
-        Assert.assertEquals(testContext.getContextId(), contextIdFromEvaluator);
+        Assert.assertTrue(check.get());
     }
 }

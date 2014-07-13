@@ -78,7 +78,7 @@ public class TestContextServiceTest {
 
         TestContext context = service.createNewTestContext(mockTest);
 
-        Assert.assertFalse(new TestContextService().isExtensionInitialized());
+        Assert.assertFalse(new TestContextService().isContextInitialized());
         Assert.assertNotNull(context);
         Assert.assertSame(context, service.getTestContext(context.getContextId()));
         Assert.assertSame(context, service.getCurrentTestContext());
@@ -96,7 +96,7 @@ public class TestContextServiceTest {
             public void run() {
                 try {
                     TimeUnit.SECONDS.sleep(1);
-                    service.setExtensionInitialized();
+                    service.setTestContextInitialized();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -105,7 +105,7 @@ public class TestContextServiceTest {
 
         service.waitForInitialization();
 
-        Assert.assertTrue(new TestContextService().isExtensionInitialized());
+        Assert.assertTrue(new TestContextService().isContextInitialized());
     }
 
     private Test makeMockTest() {

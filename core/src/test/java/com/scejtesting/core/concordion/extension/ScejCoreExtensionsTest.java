@@ -37,7 +37,7 @@ public class ScejCoreExtensionsTest {
 
         extensions.addTo(extender);
 
-        Assert.assertTrue(new TestContextService().isExtensionInitialized());
+        Assert.assertTrue(new TestContextService().isContextInitialized());
 
         inOrder.verify(extender, calls(1)).withSpecificationLocator(any(HierarchySpecificationLocator.class));
         inOrder.verify(extender, calls(1)).withTarget(any(FileTargetWithCustomPrefix.class));

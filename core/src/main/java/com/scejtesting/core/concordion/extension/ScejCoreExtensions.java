@@ -51,6 +51,6 @@ public class ScejCoreExtensions implements ConcordionExtension {
     }
 
     private void onExtensionInitialized() {
-        new TestContextService().setExtensionInitialized();
+        new TestContextService().setTestContextInitialized();
     }
 }

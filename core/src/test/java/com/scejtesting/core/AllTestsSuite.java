@@ -16,6 +16,7 @@ import com.scejtesting.core.config.SuiteInitializationTest;
 import com.scejtesting.core.context.SpecificationResultRegistryTest;
 import com.scejtesting.core.context.TestContextServiceTest;
 import com.scejtesting.core.context.TestContextTest;
+import com.scejtesting.core.runner.ContextSyncRunnerTest;
 import com.scejtesting.core.runner.ScejJUnitRunnerTest;
 import com.scejtesting.core.runner.ScejStandAloneRunnerTest;
 import org.junit.runner.RunWith;
@@ -55,6 +56,7 @@ import org.junit.runners.Suite;
         ResultsThumbRendererProcessingListenerTest.class,
         ExceptionsTest.class,
         ScejRunCommandTest.class,
+        ContextSyncRunnerTest.class
 })
 public class AllTestsSuite {
 

@@ -22,7 +22,7 @@ public class TestContextService {
     protected static final Logger LOG = LoggerFactory.getLogger(TestContextService.class);
 
     static final ConcurrentHashMap<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
-    static final AtomicBoolean extensionInitialized = new AtomicBoolean(false);
+    static final AtomicBoolean contextInitialized = new AtomicBoolean(false);
     private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
     private static Lock contextLock = new ReentrantLock(false);
 
@@ -93,7 +93,7 @@ public class TestContextService {
 
         contexts.clear();
         contexts.put(newContext.getContextId(), newContext);
-        contextIdToUse.set(newContext.getContextId());
+        setContextIdToUse(newContext.getContextId());
         return newContext;
 
     }
@@ -106,21 +106,21 @@ public class TestContextService {
         contextLock.unlock();
     }
 
-    public void setExtensionInitialized() {
-        extensionInitialized.set(true);
+    public void setTestContextInitialized() {
+        contextInitialized.set(true);
     }
 
-    public boolean isExtensionInitialized() {
-        return extensionInitialized.get();
+    public boolean isContextInitialized() {
+        return contextInitialized.get();
     }
 
     public void setContextIdToUse(Integer contextId) {
         contextIdToUse.set(contextId);
-        extensionInitialized.set(false);
+        contextInitialized.set(false);
     }
 
     public void waitForInitialization() {
-        while (!extensionInitialized.get()) {
+        while (!contextInitialized.get()) {
             LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
         }
     }

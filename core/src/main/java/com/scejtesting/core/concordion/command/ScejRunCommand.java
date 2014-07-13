@@ -1,8 +1,8 @@
 package com.scejtesting.core.concordion.command;
 
-import com.scejtesting.core.Constants;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
+import com.scejtesting.core.runner.ContextSyncRunner;
 import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
@@ -19,13 +19,19 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
 
     @Override
-    public void execute(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
+    public void execute(final CommandCall commandCall, final Evaluator evaluator, final ResultRecorder resultRecorder) {
         LOG.debug("method invoked");
         Integer contextId = getTestContext().getContextId();
-        evaluator.setVariable(Constants.CONCORDION_VARIABLE_FOR_TEST_CONTEXT, contextId);
-        LOG.info("TestContext id variable set to [{}]", contextId);
-        executeConcordionRun(commandCall, evaluator, resultRecorder);
+        ContextSyncRunner runner = new ContextSyncRunner() {
+            @Override
+            public Object runCallBack(TestContext context) {
+                executeConcordionRun(commandCall, evaluator, resultRecorder);
+                return new Object();
+            }
+        };
         LOG.debug("Method finished");
+
+        runner.synchronizeContext(contextId);
     }
 
     void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
