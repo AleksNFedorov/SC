@@ -1,7 +1,6 @@
 package com.scejtesting.core.concordion.extension.specificationprocessing;
 
 import com.scejtesting.core.config.Specification;
-import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Element;
@@ -22,6 +21,24 @@ public class ResultsThumbBuilder {
 
     private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
+    private class SpecificationThump {
+        private final String linkName;
+        private final String path;
+
+        private SpecificationThump(String linkName, String path) {
+            this.linkName = linkName;
+            this.path = path;
+        }
+
+        public String getLinkName() {
+            return linkName;
+        }
+
+        public String getPath() {
+            return path;
+        }
+    }
+
     public List<Element> buildResultThumbs() throws IOException {
 
         LOG.debug("Method invoked");
@@ -33,10 +50,10 @@ public class ResultsThumbBuilder {
 
         if (currentSpecificationFullStack.size() > 1) {
 
-            List<String> specFullPathList = buildCurrentSpecRootRelativePath(currentSpecificationFullStack);
+            List<SpecificationThump> specFullPathList = buildCurrentSpecRootRelativePath(currentSpecificationFullStack);
             LOG.info("Root related links generated");
 
-            String currentSpecPath = specFullPathList.get(specFullPathList.size() - 1);
+            SpecificationThump currentSpecPath = specFullPathList.get(specFullPathList.size() - 1);
 
             for (int i = 0; i < specFullPathList.size() - 1; ++i) {
                 Element newLink = buildLink(specFullPathList.get(i), currentSpecPath);
@@ -50,12 +67,11 @@ public class ResultsThumbBuilder {
         return generatedThumbLinks;
     }
 
-    private Element buildLink(String pathToTarget, String currentSpecPath) throws IOException {
-        String linkName = extractSpecNameFromPath(pathToTarget);
-        String relativePathToTarget = getRelativePath(pathToTarget, currentSpecPath);
+    private Element buildLink(SpecificationThump targetSpecThumb, SpecificationThump currentSpecThumb) throws IOException {
+        String relativePathToTarget = getRelativePath(targetSpecThumb.getPath(), currentSpecThumb.getPath());
 
         nu.xom.Element hrefElement = new nu.xom.Element("a");
-        hrefElement.appendChild(new nu.xom.Text(linkName));
+        hrefElement.appendChild(new nu.xom.Text(targetSpecThumb.getLinkName()));
         hrefElement.addAttribute(new nu.xom.Attribute("href", relativePathToTarget));
 
         return new org.concordion.api.Element(hrefElement);
@@ -63,12 +79,6 @@ public class ResultsThumbBuilder {
 
     private String extractSpecFileFromPath(String fullSpecPath) {
         return new File(fullSpecPath).getName();
-    }
-
-    private String extractSpecNameFromPath(String fullSpecPath) {
-        String specFile = extractSpecFileFromPath(fullSpecPath);
-        int extensionIndex = specFile.lastIndexOf(".");
-        return SpecificationLocatorService.cleanSuffix(specFile.substring(0, extensionIndex));
     }
 
     private String getRelativePath(String targetFile, String baseFile) {
@@ -100,31 +110,36 @@ public class ResultsThumbBuilder {
 
     }
 
-    private List<String> buildCurrentSpecRootRelativePath(List<TestContext.SpecificationContext> specStack) {
+    private List<SpecificationThump> buildCurrentSpecRootRelativePath(List<TestContext.SpecificationContext> specStack) {
 
-        List<String> specsFullPathList = new ArrayList<String>();
+        List<SpecificationThump> specsFullPathList = new ArrayList<SpecificationThump>();
 
         Specification currentSpecification = specStack.get(0).getSpecification();
-        Specification parentSpecification = currentSpecification;
 
-        String specAbsolutePath = "/" + extractSpecFileFromPath(parentSpecification.getLocation());
-        specsFullPathList.add(specAbsolutePath);
+        String specAbsolutePath = "/" + extractSpecFileFromPath(currentSpecification.getLocation());
+        String headLinkName = getTestContext().getTest().getName();
+        specsFullPathList.add(new SpecificationThump(headLinkName, specAbsolutePath));
 
         for (int i = 1; i < specStack.size(); ++i) {
             currentSpecification = specStack.get(i).getSpecification();
-            String processingSpecLocation = getRealSpecLocation(parentSpecification, currentSpecification);
+            String processingSpecLocation = currentSpecification.getRealPath();
             String parentFolder = new File(specAbsolutePath).getParent();
             specAbsolutePath = new File(parentFolder, processingSpecLocation).getPath();
-            specsFullPathList.add(specAbsolutePath);
-            parentSpecification = currentSpecification;
+            SpecificationThump thumb = new SpecificationThump(buildSpecificationName(processingSpecLocation), specAbsolutePath);
+            specsFullPathList.add(thumb);
         }
 
         return specsFullPathList;
     }
 
-    private String getRealSpecLocation(Specification parentSpecification, Specification specification) {
-        return new SpecificationLocatorService().buildUniqueSpecificationHREF(parentSpecification, specification.getLocation());
+    private String buildSpecificationName(String specPath) {
+        Element element = getTestContext().getChildSpecificationElement(specPath);
+        return element.getText();
     }
+
+//    private String getRealSpecLocation(Specification parentSpecification, Specification specification) {
+//        return new SpecificationLocatorService().buildUniqueSpecificationHREF(parentSpecification, specification.getLocation());
+//    }
 
     protected TestContext getTestContext() {
         return currentTestContext;

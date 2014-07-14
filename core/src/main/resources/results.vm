@@ -1,6 +1,42 @@
 <div id="specresult">
-    #foreach($result in $results.keySet() )
-        <div>$result - $results.get($result)</div>
-    #end
-    <br></br>
+    #set($success=$results.get("SUCCESS"))
+    #set($failure=$results.get("FAILURE"))
+    #set($ignored=$results.get("IGNORED"))
+    #set($exception=$results.get("EXCEPTION"))
+
+
+
+    <table>
+        <tr>
+            <td>Success</td>
+            <td>Failure</td>
+            <td>Ignored</td>
+            <td>Exception</td>
+        </tr>
+        <tr>
+            #if($success > 0)
+                <td class="success">$success</td>
+            #else
+                <td>$success</td>
+            #end
+
+            #if($failure > 0)
+                <td class="failure">$failure</td>
+            #else
+                <td>$failure</td>
+            #end
+
+            #if($ignored > 0)
+                <td class="ignored">$ignored</td>
+            #else
+                <td>$ignored</td>
+            #end
+
+            #if($exception > 0)
+                <td class="exception">$exception</td>
+            #else
+                <td>$exception</td>
+            #end
+        </tr>
+    </table>
 </div>

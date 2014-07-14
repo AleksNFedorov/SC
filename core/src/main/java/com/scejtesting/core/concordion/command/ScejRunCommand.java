@@ -4,6 +4,7 @@ import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import com.scejtesting.core.runner.ContextSyncRunner;
 import org.concordion.api.CommandCall;
+import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.command.RunCommand;
@@ -40,7 +41,15 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
     }
 
     void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
+        Element element = commandCall.getElement();
+        saveLinkElement(element);
         super.execute(commandCall, evaluator, resultRecorder);
+    }
+
+    private void saveLinkElement(Element element) {
+        LOG.debug("method invoked");
+        getTestContext().saveChildSpecificationElement(element);
+        LOG.debug("Method finished");
     }
 
     protected TestContext getTestContext() {

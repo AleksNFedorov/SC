@@ -24,6 +24,7 @@ public class DocumentParsingListenerFacade implements DocumentParsingListener {
             add(new DictionarySubstitutionListener());
             add(new RegisterGlobalsCommandDocumentEnricher());
             add(new ScejCommandArgumentsTransformer());
+            add(new SaveResultsCommandDocumentEnricher());
         }
     });
 

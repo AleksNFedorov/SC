@@ -1,88 +1,108 @@
 package com.scejtesting.core.context;
 
-import org.concordion.api.Result;
+import org.concordion.api.ResultSummary;
 import org.concordion.api.RunnerResult;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.io.PrintStream;
 
 /**
  * Created by aleks on 4/26/14.
  */
-public class SpecificationResultRegistry {
+public class SpecificationResultRegistry implements ResultSummary {
 
     protected static final Logger LOG = LoggerFactory.getLogger(SpecificationResultRegistry.class);
 
-    private final Map<Result, Collection<RunnerResult>> resultsMap = new EnumMap<Result, Collection<RunnerResult>>(Result.class);
+    private long successCount;
+    private long failCount;
+    private long exceptionCount;
+    private long ignoreCount;
 
-    public SpecificationResultRegistry() {
-        init();
-    }
-
-    private void init() {
-        for (Result result : Result.values()) {
-            resultsMap.put(result, new TreeSet<RunnerResult>(new Comparator<RunnerResult>() {
-                @Override
-                public int compare(RunnerResult runnerResult, RunnerResult runnerResult2) {
-                    return runnerResult.hashCode() - runnerResult2.hashCode();
-                }
-            }));
-        }
-
-        LOG.info("Runner result instance successfully initialized");
-    }
-
-    public void addAll(SpecificationResultRegistry anotherSpecRegistry) {
-        Check.notNull(anotherSpecRegistry, "Results container registry can't be null");
-
-        for (Collection<RunnerResult> resultList : anotherSpecRegistry.resultsMap.values()) {
-            for (RunnerResult runnerResult : resultList) {
-                addResult(runnerResult);
-            }
-            LOG.info("[{}] result imtes has been added to list", resultList.size());
+    public void addResult(ResultSummary summary, RunnerResult result) {
+        this.addResult(summary);
+        switch (result.getResult()) {
+            case SUCCESS:
+                successCount--;
+                break;
+            case IGNORED:
+                ignoreCount--;
+                break;
+            case EXCEPTION:
+                exceptionCount--;
+                break;
+            case FAILURE:
+                failCount--;
+                break;
         }
     }
 
-    public void addResult(RunnerResult result) {
+    public void addResult(ResultSummary summary) {
 
-        Check.notNull(result, "Result can't be empty");
+        Check.notNull(summary, "Result can't be empty");
 
-        Collection<RunnerResult> resultsCollection = resultsMap.get(result.getResult());
+        successCount += summary.getSuccessCount();
+        failCount += summary.getFailureCount();
+        exceptionCount += summary.getExceptionCount();
+        ignoreCount += summary.getIgnoredCount();
 
-        Check.isFalse(resultsCollection.contains(result), "Result already stored");
-
-        resultsCollection.add(result);
-
-        LOG.info("New result [{}] has been added", result.getResult());
+        LOG.info("New result has been added [{}] ", toString());
     }
 
-    public Collection<RunnerResult> getResultsList(Result result) {
-        Check.notNull(result, "Result type must be specified");
+    @Override
+    public void assertIsSatisfied() {
+        throw new UnsupportedOperationException();
+    }
 
-        Collection<RunnerResult> resultList = Collections.unmodifiableCollection(resultsMap.get(result));
-
-        LOG.debug("Result list [{}] has been created, size [{}]", result, resultList.size());
-
-        return resultList;
+    @Override
+    public void assertIsSatisfied(Object fixture) {
+        throw new UnsupportedOperationException();
 
     }
 
-    public Integer getResultsAmount(Result result) {
+    @Override
+    public boolean hasExceptions() {
+        return false;
+    }
 
-        Check.notNull(result, "Result type must be specified");
+    @Override
+    public long getSuccessCount() {
+        return successCount;
+    }
 
-        Integer resultsCount = resultsMap.get(result).size();
+    @Override
+    public long getFailureCount() {
+        return failCount;
+    }
 
-        return resultsCount;
+    @Override
+    public long getExceptionCount() {
+        return exceptionCount;
+    }
 
+    @Override
+    public long getIgnoredCount() {
+        return ignoreCount;
+    }
+
+    @Override
+    public void print(PrintStream out) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void print(PrintStream out, Object fixture) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String toString() {
         return "SpecificationResultRegistry{" +
-                "resultsMap=" + resultsMap +
+                "successCount=" + successCount +
+                ", failCount=" + failCount +
+                ", exceptionCount=" + exceptionCount +
+                ", ignoreCount=" + ignoreCount +
                 '}';
     }
 }

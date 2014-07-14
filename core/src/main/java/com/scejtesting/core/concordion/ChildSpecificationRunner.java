@@ -80,8 +80,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
         SpecificationResultRegistry executedSpecificationRegistry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
-        executedSpecificationRegistry.addResult(result);
-
         LOG.info("Execution result [{}] stored ", result.getResult());
 
         if (contextCreated) {
@@ -92,7 +90,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
             SpecificationResultRegistry parentSpecificationRegistry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
-            parentSpecificationRegistry.addAll(executedSpecificationRegistry);
+            parentSpecificationRegistry.addResult(executedSpecificationRegistry, result);
 
             LOG.info("Specification results added to parent registry");
         }

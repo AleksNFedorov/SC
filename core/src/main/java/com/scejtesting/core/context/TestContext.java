@@ -2,6 +2,7 @@ package com.scejtesting.core.context;
 
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
+import org.concordion.api.Element;
 import org.concordion.api.Resource;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
@@ -9,7 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -24,12 +27,15 @@ public class TestContext extends Context implements Cloneable {
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
     private Test test;
     private Integer contextId = contextSequence.incrementAndGet();
+    private final Map<String, Element> childSpecificationsElements;
+
 
     public TestContext(Test test) {
         LOG.debug("method invoked [{}]", test);
         Check.notNull(test, "Test can't be null");
 
         this.test = test;
+        childSpecificationsElements = new ConcurrentHashMap<String, Element>();
         createTopLevelTestContext();
     }
 
@@ -99,12 +105,36 @@ public class TestContext extends Context implements Cloneable {
         //Need to avoid root spec duplication, already added on creation
         clonedContext.contextStack.clear();
         clonedContext.contextStack.addAll(this.contextStack);
+        clonedContext.childSpecificationsElements.putAll(this.childSpecificationsElements);
         copyTo(clonedContext);
 
         LOG.info("Context [{}] cloned to [{}]", getContextId(), clonedContext.getContextId());
 
         return clonedContext;
     }
+
+    public void saveChildSpecificationElement(Element childSpecElement) {
+        LOG.debug("Saving child specification element [{}]", childSpecElement);
+        Check.notNull(childSpecElement, "Child spec element must be specified");
+        String href = childSpecElement.getAttributeValue("href");
+        Check.notEmpty(href, "Child spec element href must be specified");
+        childSpecificationsElements.put(href, childSpecElement);
+        LOG.info("Child specification element saved [{}]", href);
+    }
+
+    public Element getChildSpecificationElement(String href) {
+        LOG.debug("Saving child specification element [{}]", href);
+        Check.notEmpty(href, "Child spec element href must be specified");
+        Element element = childSpecificationsElements.get(href);
+        if (element == null) {
+            LOG.warn("Unknown element for link [{}]", href);
+        }
+
+        LOG.debug("method finished");
+        return element;
+
+    }
+
 
     public class SpecificationContext {
         private final Resource currentTestResource;
@@ -127,6 +157,7 @@ public class TestContext extends Context implements Cloneable {
         public Specification getSpecification() {
             return specification;
         }
+
 
         public synchronized SpecificationResultRegistry getResultRegistry() {
             return resultRegistry;

@@ -1,24 +1,11 @@
 package com.scejtesting.core.concordion.extension.specificationprocessing;
 
-import com.scejtesting.core.Constants;
-import com.scejtesting.core.context.SpecificationResultRegistry;
-import org.concordion.api.Element;
-import org.concordion.api.Result;
-import org.concordion.api.RunnerResult;
-import org.concordion.api.listener.SpecificationProcessingEvent;
-import org.concordion.internal.XMLParser;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.io.IOException;
-
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
-
 /**
  * Created by aleks on 4/27/14.
  */
 public class VelocityResultsRendererTest {
+
+    /*
 
     public static final String SPECIFICATION_FAKE_CONTENT = "<html><body></body></html>";
 
@@ -88,4 +75,5 @@ public class VelocityResultsRendererTest {
     private Element buildNewRootElement() throws IOException {
         return new Element(XMLParser.parse(SPECIFICATION_FAKE_CONTENT).getRootElement());
     }
+    */
 }

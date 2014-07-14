@@ -1,19 +1,11 @@
 package com.scejtesting.core.context;
 
-import org.concordion.api.Result;
-import org.concordion.api.RunnerResult;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
-
 /**
  * Created by aleks on 4/26/14.
  */
 public class SpecificationResultRegistryTest extends TestContextService {
 
+    /*
     @Test
     public void duplicateResultTest() {
 
@@ -123,4 +115,6 @@ public class SpecificationResultRegistryTest extends TestContextService {
         Assert.assertTrue(successList.contains(successResult2));
 
     }
+
+    */
 }

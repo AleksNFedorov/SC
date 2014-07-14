@@ -150,14 +150,13 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
         SpecificationResultRegistry resultsRegistry = getCurrentSpecificationResults();
 
         VelocityContext velocityResultsContext = new VelocityContext();
-        Map<String, Integer> resultMap = new HashMap<String, Integer>();
+        Map<String, Long> resultMap = new HashMap<String, Long>();
         velocityResultsContext.put("results", resultMap);
 
-        for (Result result : Result.values()) {
-            int resultsAmount = resultsRegistry.getResultsAmount(result);
-            resultMap.put(result.name(), resultsAmount);
-            LOG.debug("Result [{}] added to context, amount [{}]", result, resultsAmount);
-        }
+        resultMap.put(Result.SUCCESS.name(), resultsRegistry.getSuccessCount());
+        resultMap.put(Result.FAILURE.name(), resultsRegistry.getFailureCount());
+        resultMap.put(Result.EXCEPTION.name(), resultsRegistry.getExceptionCount());
+        resultMap.put(Result.IGNORED.name(), resultsRegistry.getIgnoredCount());
 
         LOG.info("Velocity context has been built");
 
