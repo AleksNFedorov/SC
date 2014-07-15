@@ -1,11 +1,28 @@
 package com.scejtesting.core.concordion;
 
+import com.scejtesting.core.CoreTestFixture;
+import com.scejtesting.core.config.*;
+import com.scejtesting.core.context.SpecificationResultRegistry;
+import com.scejtesting.core.context.TestContext;
+import com.scejtesting.core.context.TestContextService;
+import org.concordion.api.Resource;
+import org.concordion.api.Result;
+import org.concordion.api.RunnerResult;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Fedorovaleks
  */
 public class ChildSpecificationRunnerTest {
-    /*
+
 
     private Test mockTest;
     private Specification mockSpecification;
@@ -68,10 +85,7 @@ public class ChildSpecificationRunnerTest {
 
         }
 
-        TestContext context = new TestContextService().getCurrentTestContext();
-        SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
-
-        Assert.assertEquals(1, (int) registry.getResultsAmount(Result.EXCEPTION));
+        checkResults(0, 0, 0, 0);
 
     }
 
@@ -89,11 +103,16 @@ public class ChildSpecificationRunnerTest {
 
         Assert.assertEquals(successResult, executionResult);
 
+        checkResults(0, 0, 0, 0);
+    }
+
+    private void checkResults(int success, int fail, int ignore, int exception) {
         TestContext context = new TestContextService().getCurrentTestContext();
         SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
-
-        Assert.assertEquals(1, (int) registry.getResultsAmount(successResult.getResult()));
-
+        Assert.assertEquals(success, registry.getSuccessCount());
+        Assert.assertEquals(fail, registry.getIgnoredCount());
+        Assert.assertEquals(ignore, registry.getFailureCount());
+        Assert.assertEquals(exception, registry.getExceptionCount());
     }
 
     @org.junit.Test
@@ -110,11 +129,10 @@ public class ChildSpecificationRunnerTest {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        TestContext context = new TestContextService().getCurrentTestContext();
-        SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
+        checkResults(0, 0, 0, 0);
 
-        Assert.assertEquals(1, (int) registry.getResultsAmount(executionResult.getResult()));
     }
+
 
     @org.junit.Test
     public void unknownSpecification() throws Exception {
@@ -293,5 +311,5 @@ public class ChildSpecificationRunnerTest {
         doReturn(serviceMock).when(runner).getSpecificationLocationService();
         runner.findTestClass(null, null);
     }
-*/
+
 }

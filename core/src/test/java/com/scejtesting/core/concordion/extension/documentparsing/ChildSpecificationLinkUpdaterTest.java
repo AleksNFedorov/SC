@@ -1,6 +1,7 @@
 package com.scejtesting.core.concordion.extension.documentparsing;
 
 
+import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.config.Test;
@@ -29,7 +30,7 @@ public class ChildSpecificationLinkUpdaterTest {
         new TestContextService().createNewTestContext(mockedTest);
 
         Element concordionRunElement = new Element("a");
-        Attribute runAttribute = new Attribute("concordion:run", "http://www.concordion.org/2007/concordion", "");
+        Attribute runAttribute = new Attribute("concordion:run", ScejCommand.SCEJ_TESTING_NAME_SPACE, "");
         Attribute href = new Attribute("href", "", "someSpecification.html");
         concordionRunElement.addAttribute(href);
         concordionRunElement.addAttribute(runAttribute);

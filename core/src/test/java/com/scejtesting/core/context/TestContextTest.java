@@ -65,42 +65,6 @@ public class TestContextTest {
 
     }
 
-    /*
-        @org.junit.Test
-        public void doubleInitializationTest() {
-
-            Test fakeTest = mock(Test.class);
-            when(fakeTest.getSpecification()).thenReturn(new Specification());
-
-            createNewTestContext(fakeTest);
-            try {
-                createNewTestContext(fakeTest);
-                Assert.fail("Attempt to initialize context when existing one");
-            } catch (RuntimeException ex) {
-
-            }
-            Assert.assertNotNull(getCurrentTestContext());
-            destroyTestContextService();
-            Assert.assertNull(getCurrentTestContext());
-        }
-
-        @org.junit.Test
-        public void initializationTest() {
-            Test fakeTest = mock(Test.class);
-            when(fakeTest.getSpecification()).thenReturn(new Specification());
-
-            createNewTestContext(fakeTest);
-
-            destroyTestContextService();
-            createNewTestContext(fakeTest);
-
-            Assert.assertNotNull(getCurrentTestContext());
-            destroyTestContextService();
-            Assert.assertNull(getCurrentTestContext());
-
-        }
-
-    */
     @org.junit.Test
     public void incorrectDestroy() {
 

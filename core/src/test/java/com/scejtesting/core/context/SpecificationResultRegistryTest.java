@@ -1,120 +1,76 @@
 package com.scejtesting.core.context;
 
+import org.concordion.api.Result;
+import org.concordion.api.ResultSummary;
+import org.concordion.api.RunnerResult;
+import org.junit.Assert;
+import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by aleks on 4/26/14.
  */
-public class SpecificationResultRegistryTest extends TestContextService {
+public class SpecificationResultRegistryTest {
 
-    /*
     @Test
-    public void duplicateResultTest() {
+    public void addResultSummaryTest() {
 
-        SpecificationResultRegistry childRegistry = new SpecificationResultRegistry();
-        SpecificationResultRegistry parentRegistry = new SpecificationResultRegistry();
+        ResultSummary resultSummary1 = buildResultSummary(1, 2, 3, 4);
+        ResultSummary resultSummary2 = buildResultSummary(2, 3, 4, 0);
 
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
-        RunnerResult successResult2 = new RunnerResult(Result.SUCCESS);
-        RunnerResult failResult = new RunnerResult(Result.FAILURE);
+        SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
 
-        childRegistry.addResult(successResult);
-        childRegistry.addResult(failResult);
+        resultRegistry.addResult(resultSummary1);
+        resultRegistry.addResult(resultSummary2);
 
-        try {
-
-            childRegistry.addResult(successResult);
-            Assert.fail("Result already stored exception expected");
-
-        } catch (RuntimeException ex) {
-
-        }
-
-        parentRegistry.addResult(successResult2);
-        parentRegistry.addResult(failResult);
-
-        try {
-            parentRegistry.addAll(childRegistry);
-            Assert.fail("Result already stored exception expected");
-
-        } catch (RuntimeException ex) {
-
-        }
+        Assert.assertEquals(3, resultRegistry.getSuccessCount());
+        Assert.assertEquals(5, resultRegistry.getFailureCount());
+        Assert.assertEquals(7, resultRegistry.getExceptionCount());
+        Assert.assertEquals(4, resultRegistry.getIgnoredCount());
     }
 
     @Test
-    public void registryResultsAppending() {
+    public void addResultSummaryWithResultTest() {
+        RunnerResult result = new RunnerResult(Result.SUCCESS);
+        ResultSummary resultSummary1 = buildResultSummary(2, 1, 0, 0);
 
-        SpecificationResultRegistry childRegistry = new SpecificationResultRegistry();
-        SpecificationResultRegistry parentRegistry = new SpecificationResultRegistry();
+        SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
 
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
-        RunnerResult successResult2 = new RunnerResult(Result.SUCCESS);
+        resultRegistry.addResult(resultSummary1, result);
 
-        RunnerResult failResult = new RunnerResult(Result.FAILURE);
-
-        childRegistry.addResult(successResult);
-        childRegistry.addResult(failResult);
-
-        parentRegistry.addResult(successResult2);
-
-        parentRegistry.addAll(childRegistry);
-
-        Assert.assertEquals(Integer.valueOf(2), parentRegistry.getResultsAmount(Result.SUCCESS));
-
-        Assert.assertEquals(Integer.valueOf(1), parentRegistry.getResultsAmount(Result.FAILURE));
+        Assert.assertEquals(1, resultRegistry.getSuccessCount());
+        Assert.assertEquals(1, resultRegistry.getFailureCount());
+        Assert.assertEquals(0, resultRegistry.getExceptionCount());
+        Assert.assertEquals(0, resultRegistry.getIgnoredCount());
 
     }
 
-    @Test
-    public void positiveFlow() {
-
-        SpecificationResultRegistry registry = new SpecificationResultRegistry();
-
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
-        RunnerResult successResult2 = new RunnerResult(Result.SUCCESS);
-
-        RunnerResult failResult = new RunnerResult(Result.FAILURE);
-        RunnerResult ignoreResult = new RunnerResult(Result.IGNORED);
-
-        RunnerResult exceptionResult = new RunnerResult(Result.EXCEPTION);
-
-        registry.addResult(successResult);
-        registry.addResult(successResult2);
-
-        registry.addResult(failResult);
-
-        registry.addResult(ignoreResult);
-
-        registry.addResult(exceptionResult);
-
-        Assert.assertEquals(Integer.valueOf(2), registry.getResultsAmount(Result.SUCCESS));
-
-        Assert.assertEquals(Integer.valueOf(1), registry.getResultsAmount(Result.FAILURE));
-
-        Assert.assertEquals(Integer.valueOf(1), registry.getResultsAmount(Result.IGNORED));
-
-        Assert.assertEquals(Integer.valueOf(1), registry.getResultsAmount(Result.EXCEPTION));
-
-        Set<RunnerResult> successList = new TreeSet<RunnerResult>(new Comparator<RunnerResult>() {
-            @Override
-            public int compare(RunnerResult o, RunnerResult o2) {
-                return o.hashCode() - o2.hashCode();
-            }
-        });
-
-        successList.addAll(registry.getResultsList(Result.SUCCESS));
-
-        Assert.assertEquals(2, successList.size());
-
-        Assert.assertEquals(1, registry.getResultsList(Result.EXCEPTION).size());
-
-        Assert.assertEquals(1, registry.getResultsList(Result.IGNORED).size());
-
-        Assert.assertEquals(1, registry.getResultsList(Result.FAILURE).size());
-
-        Assert.assertTrue(successList.contains(successResult));
-        Assert.assertTrue(successList.contains(successResult2));
-
+    @Test(expected = RuntimeException.class)
+    public void noResultSummaryTest() {
+        new SpecificationResultRegistry().addResult(null);
     }
 
-    */
+    @Test(expected = RuntimeException.class)
+    public void noResultTest() {
+        new SpecificationResultRegistry().addResult(buildResultSummary(0, 0, 0, 0), null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void noResultWithNoResultSummaryTest() {
+        new SpecificationResultRegistry().addResult(null, new RunnerResult(Result.SUCCESS));
+    }
+
+    private ResultSummary buildResultSummary(long success, long fail, long exception, long ignore) {
+        ResultSummary summaryMock = mock(ResultSummary.class);
+
+        when(summaryMock.getExceptionCount()).thenReturn(exception);
+        when(summaryMock.getSuccessCount()).thenReturn(success);
+        when(summaryMock.getFailureCount()).thenReturn(fail);
+        when(summaryMock.getIgnoredCount()).thenReturn(ignore);
+
+        return summaryMock;
+    }
+
 }

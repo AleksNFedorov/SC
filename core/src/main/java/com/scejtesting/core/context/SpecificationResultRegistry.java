@@ -21,6 +21,8 @@ public class SpecificationResultRegistry implements ResultSummary {
     private long ignoreCount;
 
     public void addResult(ResultSummary summary, RunnerResult result) {
+        LOG.debug("method invoked [{}][{}]", summary, result);
+        Check.notNull(result, "Result must be specified");
         this.addResult(summary);
         switch (result.getResult()) {
             case SUCCESS:
@@ -36,11 +38,12 @@ public class SpecificationResultRegistry implements ResultSummary {
                 failCount--;
                 break;
         }
+        LOG.debug("method finished");
     }
 
     public void addResult(ResultSummary summary) {
 
-        Check.notNull(summary, "Result can't be empty");
+        Check.notNull(summary, "Result summary can't be empty");
 
         successCount += summary.getSuccessCount();
         failCount += summary.getFailureCount();
