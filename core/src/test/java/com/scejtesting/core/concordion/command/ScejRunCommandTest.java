@@ -5,6 +5,7 @@ import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.CommandCall;
+import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.SimpleEvaluatorFactory;
@@ -56,6 +57,11 @@ public class ScejRunCommandTest {
 
         final AtomicBoolean check = new AtomicBoolean(false);
 
+        Element runElement = new Element("a");
+        runElement.addAttribute("href", testSpec.getLocation());
+
+        final CommandCall commandCall = new CommandCall(null, runElement, null, null);
+
         ScejRunCommand runCommand = spy(new ScejRunCommand() {
             @Override
             void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
@@ -66,8 +72,9 @@ public class ScejRunCommandTest {
 
         doReturn(testContext).when(runCommand).getTestContext();
 
-        runCommand.execute(null, evaluator, null);
+        runCommand.execute(commandCall, evaluator, null);
 
         Assert.assertTrue(check.get());
+        Assert.assertSame(runElement, testContext.getChildSpecificationElement(testSpec.getLocation()));
     }
 }

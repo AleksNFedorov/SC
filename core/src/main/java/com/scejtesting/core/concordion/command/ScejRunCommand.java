@@ -17,8 +17,9 @@ import org.slf4j.LoggerFactory;
  */
 public class ScejRunCommand extends RunCommand implements ScejCommand {
 
-    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
+
+    private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
     public ScejRunCommand() {
         addRunListener(new RunResultRenderer());
@@ -31,6 +32,8 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
         ContextSyncRunner runner = new ContextSyncRunner() {
             @Override
             public Object runCallBack(TestContext context) {
+                Element element = commandCall.getElement();
+                saveLinkElement(element);
                 executeConcordionRun(commandCall, evaluator, resultRecorder);
                 return new Object();
             }
@@ -41,8 +44,6 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
     }
 
     void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        Element element = commandCall.getElement();
-        saveLinkElement(element);
         super.execute(commandCall, evaluator, resultRecorder);
     }
 

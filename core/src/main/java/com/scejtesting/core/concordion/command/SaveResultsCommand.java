@@ -14,8 +14,9 @@ import org.slf4j.LoggerFactory;
  */
 public class SaveResultsCommand implements ScejCommand {
 
-    private TestContext currentTestContext = new TestContextService().getCurrentTestContext();
     private static Logger LOG = LoggerFactory.getLogger(RegisterGlobalVariablesCommand.class);
+
+    private TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
     @Override
     public String getCommandName() {

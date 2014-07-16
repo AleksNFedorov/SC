@@ -5,6 +5,7 @@ import com.scejtesting.core.concordion.command.ScejCommand;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
+import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,11 +21,12 @@ public class SaveResultsCommandDocumentEnricher implements NamedDocumentParsingL
     @Override
     public void beforeParsing(Document document) {
         LOG.debug("method invoked");
+        Check.notNull(document, "Document to process must be set");
         Element documentBody = getDocumentBody(document);
         LOG.debug("Document body acquired");
-        Element registerGlobalsCommandElement = buildGlobalIntiCommandElement();
-        LOG.debug("register globals command has been built [{}]", registerGlobalsCommandElement.toXML());
-        documentBody.appendChild(registerGlobalsCommandElement);
+        Element saveResultsCommandElement = buildGlobalIntiCommandElement();
+        LOG.debug("register globals command has been built [{}]", saveResultsCommandElement.toXML());
+        documentBody.appendChild(saveResultsCommandElement);
         LOG.info("Register globals command has been appended");
         LOG.debug("method finished");
     }

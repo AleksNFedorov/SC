@@ -2,6 +2,7 @@ package com.scejtesting.core;
 
 import com.scejtesting.core.concordion.ChildSpecificationRunnerTest;
 import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommandTest;
+import com.scejtesting.core.concordion.command.SaveResultsCommandTest;
 import com.scejtesting.core.concordion.command.ScejRunCommandTest;
 import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
 import com.scejtesting.core.concordion.extension.*;
@@ -56,7 +57,9 @@ import org.junit.runners.Suite;
         ResultsThumbRendererProcessingListenerTest.class,
         ExceptionsTest.class,
         ScejRunCommandTest.class,
-        ContextSyncRunnerTest.class
+        ContextSyncRunnerTest.class,
+        SaveResultsCommandTest.class,
+        SaveResultsCommandDocumentEnricherTest.class
 })
 public class AllTestsSuite {
 

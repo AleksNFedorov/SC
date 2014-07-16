@@ -97,14 +97,31 @@ public class ChildSpecificationRunnerTest {
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
-        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        doReturn(successResult).when(runnerSpy).executeSpecificationParent(any(Resource.class), anyString());
 
         RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(successResult, executionResult);
 
+        checkResults(-1, 0, 0, 0);
+    }
+
+    @org.junit.Test
+    public void positiveFlowNoContextCreated() throws Exception {
+
+        when(mockSuite.getThrownException()).thenReturn(new RuntimeException());
+        when(mockTest.getThrownException()).thenReturn(null);
+
+        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
+
+        doReturn(successResult).when(runnerSpy).executeSpecificationParent(any(Resource.class), anyString());
+
+        RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
+
+        Assert.assertEquals(Result.IGNORED, executionResult.getResult());
         checkResults(0, 0, 0, 0);
     }
+
 
     private void checkResults(int success, int fail, int ignore, int exception) {
         TestContext context = new TestContextService().getCurrentTestContext();

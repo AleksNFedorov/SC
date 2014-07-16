@@ -70,10 +70,15 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         LOG.info("Specification context created");
         contextCreated = true;
 
-        RunnerResult result = super.execute(specificationResource, href);
+        RunnerResult result = executeSpecificationParent(specificationResource, href);
+
         LOG.info("Result is ready [{}]", result);
 
         return result;
+    }
+
+    RunnerResult executeSpecificationParent(Resource specificationResource, String href) throws Exception {
+        return super.execute(specificationResource, href);
     }
 
     private void destroyContextAndPopulateResults(RunnerResult result) {
@@ -149,7 +154,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         return runner.synchronizeContext(contextId);
     }
 
-    private org.junit.runner.Result runParentJUnit(Class<?> concordionClass) {
+    org.junit.runner.Result runParentJUnit(Class<?> concordionClass) {
         return super.runJUnitClass(concordionClass);
     }
 
