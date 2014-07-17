@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:scej="http://www.scejtesting.com/2014">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+<h1>Child specification 1</h1>
+
+<body>
+
+<a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner" href="../../test1/child/child/ChildLevel22.html">Check
+    child
+    spec 21</a>
+<hr/>
+
+<p concordion:execute="throwUnsupportedOperationException()">Check non test fail fast exception</p>
+
+<p concordion:execute="throwTestException()">Check test fail exception thrown</p>
+
+<div>Check that assert True <b concordion:assertTrue="getTrue()">skipped</b></div>
+
+
+</body>
+</html>

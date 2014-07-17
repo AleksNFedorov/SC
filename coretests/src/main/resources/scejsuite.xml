@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <suite>
-    <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst" name="testOne">
-        <specification location="/com/scejtesting/coretests/HeadSpecification.html">
-            <includes>
-                <specification location="child/ChildLevel11.html">
-                    <includes>
-                        <specification location="child/ChildLevel21.html"/>
-                    </includes>
-                </specification>
-                <specification location="child/ChildLevel12.html">
-                    <excludes>
-                        <specification location="child/ChildLevel21.html"/>
-                    </excludes>
-                </specification>
-            </includes>
-        </specification>
+    <!--
+        <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst"
+              name="Test one"
+              substitutionDictionary="testOneDictionary.properties">
+            <specification location="/com/scejtesting/coretests/test1/HeadSpecification.html">
+                <includes>
+                    <specification location="child/ChildLevel11.html" testClass="com.scejtesting.coretests.CoreTestsFirst2">
+                        <includes>
+                            <specification location="child/ChildLevel21.html"/>
+                        </includes>
+                    </specification>
+                    <specification location="child/ChildLevel12.html">
+                        <excludes>
+                            <specification location="child/ChildLevel21.html"/>
+                        </excludes>
+                    </specification>
+                </includes>
+            </specification>
+        </test>
+    -->
+
+    <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
+          name="Test two">
+        <specification location="/com/scejtesting/coretests/test2/HeadSpecificationTest2.html"/>
     </test>
+
 
 </suite>

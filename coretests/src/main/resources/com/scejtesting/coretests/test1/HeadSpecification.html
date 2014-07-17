@@ -6,17 +6,24 @@
 
 <body>
 
+<br/>
+
 <div>Check that assert True <b concordion:assertTrue="getTrue()">works</b></div>
+
+<br/>
 
 <div>Check that assert False <b concordion:assertFalse="getFalse()">works</b></div>
 
 <div>Check that assert Equals <b concordion:assertEquals="getWorks()">works</b></div>
+<br/>
 
 Varialbe "variable" set to <span concordion:set="#variable">works</span>
 
 <div>Check that variable setting <b concordion:assertEquals="getSame(#variable)">works</b></div>
+<br/>
 
 <p>Generating <b concordion:set="#count">5</b> integer values</p>
+<br/>
 
 <table concordion:verifyRows="#number : getList(#count)">
     <tr>

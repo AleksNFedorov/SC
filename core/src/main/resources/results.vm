@@ -33,7 +33,7 @@
             #end
 
             #if($exception > 0)
-                <td class="exception">$exception</td>
+                <td class="failure">$exception</td>
             #else
                 <td>$exception</td>
             #end
