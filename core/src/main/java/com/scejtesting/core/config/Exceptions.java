@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,11 +18,11 @@ import java.util.List;
 public class Exceptions {
 
     @XmlElement(required = false, name = "exception")
-    protected List<Class> exceptions = Collections.emptyList();
+    protected List<Class<? extends Throwable>> exceptions;
 
     public boolean isRegistered(Throwable exceptionToCheck) {
 
-        Class exceptionCheckClass = exceptionToCheck.getClass();
+        Class<? extends Throwable> exceptionCheckClass = exceptionToCheck.getCause().getClass();
 
         for (Class exception : getExceptions()) {
             if (exception.isAssignableFrom(exceptionCheckClass))
@@ -30,8 +31,11 @@ public class Exceptions {
         return false;
     }
 
-    protected List<Class> getExceptions() {
-        return exceptions;
+    public List<Class<? extends Throwable>> getExceptions() {
+        if (exceptions == null) {
+            exceptions = Collections.emptyList();
+        }
+        return new ArrayList<Class<? extends Throwable>>(exceptions);
     }
 
 }

@@ -1,9 +1,9 @@
 package com.scejtesting.coretests;
 
 import com.scejtesting.core.concordion.extension.ScejCoreExtensions;
-import com.scejtesting.coretests.eceptions.DerivedTestException;
-import com.scejtesting.coretests.eceptions.SuiteException;
-import com.scejtesting.coretests.eceptions.TestException;
+import com.scejtesting.coretests.exceptions.DerivedTestException;
+import com.scejtesting.coretests.exceptions.SuiteException;
+import com.scejtesting.coretests.exceptions.TestException;
 import org.concordion.api.extension.Extensions;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.RunWith;

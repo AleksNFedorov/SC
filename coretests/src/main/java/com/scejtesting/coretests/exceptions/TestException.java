@@ -1,4 +1,4 @@
-package com.scejtesting.coretests.eceptions;
+package com.scejtesting.coretests.exceptions;
 
 /**
  * Created by aleks on 7/16/14.
