@@ -15,6 +15,8 @@ public class SpecificationResultRegistry implements ResultSummary {
 
     protected static final Logger LOG = LoggerFactory.getLogger(SpecificationResultRegistry.class);
 
+    private ResultSummary specificationResultSummary;
+
     private long successCount;
     private long failCount;
     private long exceptionCount;
@@ -23,7 +25,7 @@ public class SpecificationResultRegistry implements ResultSummary {
     public void addResult(ResultSummary summary, RunnerResult result) {
         LOG.debug("method invoked [{}][{}]", summary, result);
         Check.notNull(result, "Result must be specified");
-        this.addResult(summary);
+        this.applyStoreResultSummary(summary);
         switch (result.getResult()) {
             case SUCCESS:
                 successCount--;
@@ -41,16 +43,24 @@ public class SpecificationResultRegistry implements ResultSummary {
         LOG.debug("method finished");
     }
 
+
     public void addResult(ResultSummary summary) {
-
         Check.notNull(summary, "Result summary can't be empty");
+        specificationResultSummary = summary;
+        LOG.info("New result has been added [{}] ", toString());
+    }
 
+    public void processResults() {
+        if (specificationResultSummary != null) {
+            applyStoreResultSummary(specificationResultSummary);
+        }
+    }
+
+    private void applyStoreResultSummary(ResultSummary summary) {
         successCount += summary.getSuccessCount();
         failCount += summary.getFailureCount();
         exceptionCount += summary.getExceptionCount();
         ignoreCount += summary.getIgnoredCount();
-
-        LOG.info("New result has been added [{}] ", toString());
     }
 
     @Override

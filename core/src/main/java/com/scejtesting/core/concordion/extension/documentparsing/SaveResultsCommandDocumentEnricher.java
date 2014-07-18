@@ -26,7 +26,7 @@ public class SaveResultsCommandDocumentEnricher implements NamedDocumentParsingL
         LOG.debug("Document body acquired");
         Element saveResultsCommandElement = buildGlobalIntiCommandElement();
         LOG.debug("register globals command has been built [{}]", saveResultsCommandElement.toXML());
-        documentBody.appendChild(saveResultsCommandElement);
+        documentBody.insertChild(saveResultsCommandElement, 0);
         LOG.info("Register globals command has been appended");
         LOG.debug("method finished");
     }

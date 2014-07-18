@@ -148,6 +148,7 @@ public class VelocityResultsRenderer implements SpecificationProcessingListener 
     private VelocityContext buildFromCurrentSpecificationContext() {
 
         SpecificationResultRegistry resultsRegistry = getCurrentSpecificationResults();
+        resultsRegistry.processResults();
 
         VelocityContext velocityResultsContext = new VelocityContext();
         Map<String, Long> resultMap = new HashMap<String, Long>();

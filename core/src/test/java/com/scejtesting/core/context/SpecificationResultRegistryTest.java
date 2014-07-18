@@ -23,7 +23,9 @@ public class SpecificationResultRegistryTest {
         SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
 
         resultRegistry.addResult(resultSummary1);
+        resultRegistry.processResults();
         resultRegistry.addResult(resultSummary2);
+        resultRegistry.processResults();
 
         Assert.assertEquals(3, resultRegistry.getSuccessCount());
         Assert.assertEquals(5, resultRegistry.getFailureCount());
