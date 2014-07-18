@@ -53,6 +53,7 @@ public class SpecificationResultRegistry implements ResultSummary {
     public void processResults() {
         if (specificationResultSummary != null) {
             applyStoreResultSummary(specificationResultSummary);
+            specificationResultSummary = null;
         }
     }
 

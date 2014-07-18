@@ -15,6 +15,22 @@ import static org.mockito.Mockito.when;
 public class SpecificationResultRegistryTest {
 
     @Test
+    public void doubleProcessingTest() {
+        ResultSummary resultSummary1 = buildResultSummary(1, 2, 3, 4);
+
+        SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
+
+        resultRegistry.addResult(resultSummary1);
+        resultRegistry.processResults();
+        resultRegistry.processResults();
+
+        Assert.assertEquals(1, resultRegistry.getSuccessCount());
+        Assert.assertEquals(2, resultRegistry.getFailureCount());
+        Assert.assertEquals(3, resultRegistry.getExceptionCount());
+        Assert.assertEquals(4, resultRegistry.getIgnoredCount());
+    }
+
+    @Test
     public void addResultSummaryTest() {
 
         ResultSummary resultSummary1 = buildResultSummary(1, 2, 3, 4);

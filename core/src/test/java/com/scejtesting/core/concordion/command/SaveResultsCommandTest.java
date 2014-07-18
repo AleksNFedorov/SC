@@ -47,6 +47,13 @@ public class SaveResultsCommandTest {
         SpecificationResultRegistry resultsRegistry = context.getCurrentSpecificationContext().
                 getResultRegistry();
 
+        Assert.assertEquals(0, resultsRegistry.getSuccessCount());
+        Assert.assertEquals(0, resultsRegistry.getFailureCount());
+        Assert.assertEquals(0, resultsRegistry.getIgnoredCount());
+        Assert.assertEquals(0, resultsRegistry.getExceptionCount());
+
+        resultsRegistry.processResults();
+
         Assert.assertEquals(1, resultsRegistry.getSuccessCount());
         Assert.assertEquals(2, resultsRegistry.getFailureCount());
         Assert.assertEquals(3, resultsRegistry.getIgnoredCount());

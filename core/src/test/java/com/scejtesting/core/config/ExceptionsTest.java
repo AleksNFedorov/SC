@@ -27,10 +27,10 @@ public class ExceptionsTest {
         Exceptions exceptions = spy(new Exceptions());
         doReturn(exceptionsToCheck).when(exceptions).getExceptions();
 
-        Assert.assertFalse(exceptions.isRegistered(new Throwable()));
-        Assert.assertTrue(exceptions.isRegistered(new IOException()));
-        Assert.assertTrue(exceptions.isRegistered(new IllegalArgumentException()));
-        Assert.assertTrue(exceptions.isRegistered(new TestException()));
+        Assert.assertFalse(exceptions.isRegistered(new Exception(new Throwable())));
+        Assert.assertTrue(exceptions.isRegistered(new Exception(new IOException())));
+        Assert.assertTrue(exceptions.isRegistered(new Exception(new IllegalArgumentException())));
+        Assert.assertTrue(exceptions.isRegistered(new Exception(new TestException())));
 
     }
 
@@ -38,10 +38,9 @@ public class ExceptionsTest {
     public void testEmptyExceptionList() {
         Exceptions exceptions = new Exceptions();
 
-        Assert.assertFalse(exceptions.isRegistered(new Throwable()));
-        Assert.assertFalse(exceptions.isRegistered(new IOException()));
-        Assert.assertFalse(exceptions.isRegistered(new IllegalArgumentException()));
-        Assert.assertFalse(exceptions.isRegistered(new TestException()));
-
+        Assert.assertFalse(exceptions.isRegistered(new Exception(new Throwable())));
+        Assert.assertFalse(exceptions.isRegistered(new Exception(new IOException())));
+        Assert.assertFalse(exceptions.isRegistered(new Exception(new IllegalArgumentException())));
+        Assert.assertFalse(exceptions.isRegistered(new Exception(new TestException())));
     }
 }
