@@ -21,10 +21,6 @@ public class ExceptionsHolder {
     private Throwable thrownException;
 
     public Exceptions getExceptions() {
-        if (exceptions == null) {
-            exceptions = new Exceptions();
-        }
-
         return exceptions;
     }
 

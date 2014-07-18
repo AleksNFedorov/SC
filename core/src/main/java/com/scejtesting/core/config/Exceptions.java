@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,9 +31,6 @@ public class Exceptions {
     }
 
     public List<Class<? extends Throwable>> getExceptions() {
-        if (exceptions == null) {
-            exceptions = Collections.emptyList();
-        }
         return new ArrayList<Class<? extends Throwable>>(exceptions);
     }
 

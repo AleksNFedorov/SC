@@ -29,49 +29,74 @@ public class ScejCoreExtensions implements ConcordionExtension {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScejCoreExtensions.class);
 
-    private final TestContextService service = new TestContextService();
-
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
-        addFailFastExceptions(concordionExtender);
-        concordionExtender.withSpecificationLocator(new HierarchySpecificationLocator());
-        concordionExtender.withTarget(new FileTargetWithCustomPrefix());
-        concordionExtender.withDocumentParsingListener(new DocumentParsingListenerFacade());
-        concordionExtender.withSource(new ClassPathSpecificationSource());
-        concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
-        concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
-        concordionExtender.withSpecificationProcessingListener(new ResultsThumbRendererProcessingListener());
-        addCommands(concordionExtender);
-        onExtensionInitialized();
+        LOG.debug("method invoked");
+        try {
+            addFailFastExceptions(concordionExtender);
+            concordionExtender.withSpecificationLocator(new HierarchySpecificationLocator());
+            concordionExtender.withTarget(new FileTargetWithCustomPrefix());
+            concordionExtender.withDocumentParsingListener(new DocumentParsingListenerFacade());
+            concordionExtender.withSource(new ClassPathSpecificationSource());
+            concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
+            concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
+            concordionExtender.withSpecificationProcessingListener(new ResultsThumbRendererProcessingListener());
+            addCommands(concordionExtender);
+        } catch (Throwable throwable) {
+            LOG.error("Exception during test initialization [{}]", throwable.getMessage(), throwable);
+            throw new RuntimeException(throwable);
+        } finally {
+            onExtensionInitialized();
+            LOG.debug("method finished");
+        }
     }
 
     protected void addCommands(ConcordionExtender extender) {
         for (ScejCommand scejCommand : getCommandsList()) {
             extender.withCommand(ScejCommand.SCEJ_TESTING_NAME_SPACE, scejCommand.getCommandName(), scejCommand);
+            LOG.debug("Command [{}] has been added to extension", scejCommand);
         }
     }
 
     private void addFailFastExceptions(ConcordionExtender extender) {
 
-        Check.isTrue(extender instanceof ConcordionBuilder, "Concordion builder instance expected");
+        LOG.debug("method invoked");
 
-        ConcordionBuilder concordionBuilder = (ConcordionBuilder) extender;
+        ConcordionBuilder concordionBuilder = convertToConcordionBuilder(extender);
 
         Class<? extends Throwable>[] allExceptions = buildExceptionsSuperSet();
 
         concordionBuilder.withFailFast(allExceptions);
 
+        LOG.info("Registered [{}] fail fast exceptions", allExceptions.length);
+
+        LOG.debug("method finished");
+
+    }
+
+    ConcordionBuilder convertToConcordionBuilder(ConcordionExtender extender) {
+        Check.isTrue(extender instanceof ConcordionBuilder, "Concordion builder instance expected");
+        return (ConcordionBuilder) extender;
     }
 
     private Class<? extends Throwable>[] buildExceptionsSuperSet() {
-        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext currentTestContext = getTestContextService().getCurrentTestContext();
         Exceptions testExceptions = currentTestContext.getTest().getExceptions();
         Exceptions suiteExceptions = getCurrentSuite().getExceptions();
 
         Set<Class<? extends Throwable>> allExceptions = new HashSet<Class<? extends Throwable>>();
 
-        allExceptions.addAll(testExceptions.getExceptions());
-        allExceptions.addAll(suiteExceptions.getExceptions());
+        if (testExceptions != null) {
+            allExceptions.addAll(testExceptions.getExceptions());
+            LOG.debug("Found [{}] test exceptions", testExceptions.getExceptions());
+        }
+
+        if (suiteExceptions != null) {
+            allExceptions.addAll(suiteExceptions.getExceptions());
+            LOG.debug("Found [{}] suite exceptions", suiteExceptions.getExceptions());
+        }
+
+        LOG.info("Found [{}] fail fast exceptions", allExceptions.size());
 
         return allExceptions.toArray(new Class[]{});
 
@@ -88,12 +113,17 @@ public class ScejCoreExtensions implements ConcordionExtension {
         };
     }
 
-    private Suite getCurrentSuite() {
+
+    private void onExtensionInitialized() {
+        getTestContextService().setTestContextInitialized();
+    }
+
+    Suite getCurrentSuite() {
         return SuiteConfiguration.getInstance().getSuite();
     }
 
-    private void onExtensionInitialized() {
-        service.setTestContextInitialized();
+    TestContextService getTestContextService() {
+        return new TestContextService();
     }
 
 }

@@ -4,12 +4,19 @@ import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
+import com.scejtesting.core.config.Exceptions;
 import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.extension.ConcordionExtender;
+import org.concordion.internal.ConcordionBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
 
@@ -17,6 +24,78 @@ import static org.mockito.Mockito.*;
  * Created by aleks on 7/9/14.
  */
 public class ScejCoreExtensionsTest {
+
+    @Test(expected = RuntimeException.class)
+    public void initFailFastWithNonConcordionBuilder() {
+        new ScejCoreExtensions().addTo(mock(ConcordionExtender.class));
+    }
+
+    @Test
+    public void initFailFastExceptionsNoExceptions() {
+        Specification testSpec = new Specification("/test.html");
+        com.scejtesting.core.config.Test mockTest = mock(com.scejtesting.core.config.Test.class);
+        when(mockTest.getSpecification()).thenReturn(testSpec);
+        when(mockTest.getName()).thenReturn("runCommandTest");
+
+        Exceptions exceptions = mock(Exceptions.class);
+
+        ArrayList<Class<? extends Throwable>> exceptionsList = new ArrayList<Class<? extends Throwable>>();
+        exceptionsList.add(IllegalArgumentException.class);
+
+        when(exceptions.getExceptions()).thenReturn(exceptionsList);
+        when(mockTest.getExceptions()).thenReturn(exceptions);
+
+        TestContextService service = new TestContextService();
+        service.createNewTestContext(mockTest);
+
+        Suite mockSuite = mock(Suite.class);
+
+        final ConcordionBuilder extender = spy(new ConcordionBuilder());
+
+
+        ScejCoreExtensions extensions = spy(new ScejCoreExtensions());
+        doReturn(extender).when(extensions).convertToConcordionBuilder(extender);
+        doReturn(mockSuite).when(extensions).getCurrentSuite();
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                Class[] exceptions = (Class[]) invocationOnMock.getArguments()[0];
+                Assert.assertTrue(exceptions.length == 1);
+                Assert.assertEquals(IllegalArgumentException.class, exceptions[0]);
+                return extender;
+            }
+        }).when(extender).withFailFast(any(new Class[]{}.getClass()));
+
+        extensions.addTo(extender);
+
+    }
+
+    @Test
+    public void testFinishOnException() {
+
+        Specification testSpec = new Specification("/test.html");
+        com.scejtesting.core.config.Test mockTest = mock(com.scejtesting.core.config.Test.class);
+        when(mockTest.getSpecification()).thenReturn(testSpec);
+        when(mockTest.getName()).thenReturn("runCommandTest");
+
+        TestContextService service = new TestContextService();
+        service.createNewTestContext(mockTest);
+
+        ConcordionExtender extender = mock(ConcordionExtender.class);
+
+        ScejCoreExtensions extensions = spy(new ScejCoreExtensions());
+
+        try {
+            extensions.addTo(extender);
+            Assert.fail("Exception expected");
+        } catch (Exception ex) {
+
+        }
+
+        Assert.assertTrue(new TestContextService().isContextInitialized());
+
+    }
 
     @Test
     public void positiveFlowTest() {
@@ -29,11 +108,24 @@ public class ScejCoreExtensionsTest {
         TestContextService service = new TestContextService();
         service.createNewTestContext(mockTest);
 
-        ConcordionExtender extender = mock(ConcordionExtender.class);
+        Suite mockSuite = mock(Suite.class);
+
+        final ConcordionBuilder extender = spy(new ConcordionBuilder());
 
         InOrder inOrder = inOrder(extender);
 
-        ScejCoreExtensions extensions = new ScejCoreExtensions();
+        ScejCoreExtensions extensions = spy(new ScejCoreExtensions());
+        doReturn(extender).when(extensions).convertToConcordionBuilder(extender);
+        doReturn(mockSuite).when(extensions).getCurrentSuite();
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                Class[] exceptions = (Class[]) invocationOnMock.getArguments()[0];
+                Assert.assertTrue(exceptions.length == 0);
+                return extender;
+            }
+        }).when(extender).withFailFast(any(new Class[]{}.getClass()));
 
         extensions.addTo(extender);
 
