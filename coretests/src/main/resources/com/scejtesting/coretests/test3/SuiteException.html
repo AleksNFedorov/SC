@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+<body>
+<br/>
+
+<div>Check that assert True <b concordion:assertTrue="getTrue()">works</b></div>
+<br/>
+
+<div>Check that assert False <b concordion:assertFalse="getFalse()">works</b></div>
+<br/>
+
+<p concordion:execute="throwTestException()">Check test fail exception thrown</p>
+
+<p concordion:execute="throwSuiteException()">Check test fail exception thrown</p>
+
+<div>Code here should be <b concordion:assertFalse="getFalse()">skipped</b></div>
+
+
+</body>
+</html>

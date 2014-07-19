@@ -79,7 +79,7 @@ public class ScejStandAloneRunner {
     private void runSuiteTests(Suite currentSuite) throws Exception {
         Result testResult;
         for (Test test : currentSuite.getTests()) {
-            if (needRunTest(test)) {
+            if (currentSuite.getThrownException() == null && needRunTest(test)) {
                 testResult = runTest(test);
                 LOG.info("Test [{}] finished with success [{}]", test.getName(), testResult.wasSuccessful());
                 mergeResult(test, testResult);

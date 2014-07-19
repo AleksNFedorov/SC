@@ -68,7 +68,7 @@ public class ScejStandAloneRunnerTest {
     }
 
     @org.junit.Test
-    public void testSuiteRunException() {
+    public void testRunnerException() {
 
         ScejStandAloneRunner runner = spy(new ScejStandAloneRunner());
 
