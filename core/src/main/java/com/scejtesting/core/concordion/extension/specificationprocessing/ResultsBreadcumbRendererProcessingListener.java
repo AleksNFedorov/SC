@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * Created by aleks on 5/12/14.
  */
-public class ResultsThumbRendererProcessingListener implements SpecificationProcessingListener {
+public class ResultsBreadcumbRendererProcessingListener implements SpecificationProcessingListener {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(ResultsThumbRendererProcessingListener.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(ResultsBreadcumbRendererProcessingListener.class);
 
     @Override
     public void beforeProcessingSpecification(SpecificationProcessingEvent event) {
@@ -67,7 +67,7 @@ public class ResultsThumbRendererProcessingListener implements SpecificationProc
     }
 
     protected List<Element> buildThumbLinks() throws IOException {
-        return new ResultsThumbBuilder().buildResultThumbs();
+        return new ResultsBreadcumbBuilder().buildResultThumbs();
     }
 
 }

@@ -7,6 +7,7 @@ import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import nu.xom.Attribute;
 import org.concordion.api.Element;
+import org.concordion.api.Resource;
 import org.junit.Assert;
 import org.junit.Before;
 
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by aleks on 6/28/14.
  */
-public class ResultsThumbBuilderTest {
+public class ResultsBreadCumbBuilderTest {
 
     private Test mockTest;
     private TestContext currentTestContext;
@@ -43,38 +44,17 @@ public class ResultsThumbBuilderTest {
         Specification ch1 = buildProcessedSpecification("Ch1.html");
         Specification ch21 = buildProcessedSpecification("Ch21.html");
 
-        currentTestContext.createNewSpecificationContext(null, ch1);
-        currentTestContext.createNewSpecificationContext(null, ch21);
+        currentTestContext.createNewSpecificationContext(new Resource("/com/scej/Head.html"), ch1);
+        currentTestContext.createNewSpecificationContext(new Resource("/com/scej/Ch1.html"), ch21);
 
-        List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
-
-        Assert.assertEquals(2, thumbLinks.size());
-        Assert.assertEquals("Head.html", extractHrefFromElement(thumbLinks.get(0)));
-
-        String ch1Link = extractHrefFromElement(thumbLinks.get(1));
-        Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
-        Assert.assertEquals("Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
-
-    }
-
-    @org.junit.Test
-    public void linkGeneration_sameLevel() throws IOException {
-
-        buildProcessedSpecification(mockTest.getSpecification());
-        Specification ch1 = buildProcessedSpecification("Ch1.html");
-        Specification ch21 = buildProcessedSpecification("Ch21.html");
-
-        currentTestContext.createNewSpecificationContext(null, ch1);
-        currentTestContext.createNewSpecificationContext(null, ch21);
-
-        List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
+        List<Element> thumbLinks = new ResultsBreadcumbBuilder().buildResultThumbs();
 
         Assert.assertEquals(2, thumbLinks.size());
         Assert.assertEquals("Head.html", extractHrefFromElement(thumbLinks.get(0)));
 
         String ch1Link = extractHrefFromElement(thumbLinks.get(1));
-        Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
         Assert.assertEquals("Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
+
     }
 
     @org.junit.Test
@@ -84,17 +64,16 @@ public class ResultsThumbBuilderTest {
         Specification ch1 = buildProcessedSpecification("ch1/Ch1.html");
         Specification ch21 = buildProcessedSpecification("what/the/fuck/Ch21.html");
 
-        currentTestContext.createNewSpecificationContext(null, ch1);
-        currentTestContext.createNewSpecificationContext(null, ch21);
+        currentTestContext.createNewSpecificationContext(new Resource("/com/scej/Head.html"), ch1);
+        currentTestContext.createNewSpecificationContext(new Resource("/com/scej/ch1/Ch1.html"), ch21);
 
-        List<Element> thumbLinks = new ResultsThumbBuilder().buildResultThumbs();
+        List<Element> thumbLinks = new ResultsBreadcumbBuilder().buildResultThumbs();
 
         Assert.assertEquals(2, thumbLinks.size());
         Assert.assertEquals("../../../../Head.html", extractHrefFromElement(thumbLinks.get(0)));
 
         String ch1Link = extractHrefFromElement(thumbLinks.get(1));
-        Assert.assertTrue(SpecificationLocatorService.containsGeneratedSuffix(ch1Link));
-        Assert.assertEquals("../../../../ch1/Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
+        Assert.assertEquals("../../../Ch1.html", SpecificationLocatorService.cleanSuffix(ch1Link));
     }
 
     private String extractHrefFromElement(Element linkElement) {

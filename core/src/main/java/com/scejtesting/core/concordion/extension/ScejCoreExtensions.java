@@ -2,7 +2,7 @@ package com.scejtesting.core.concordion.extension;
 
 import com.scejtesting.core.concordion.command.*;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
-import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
+import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsBreadcumbRendererProcessingListener;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
 import com.scejtesting.core.config.Exceptions;
 import com.scejtesting.core.config.Suite;
@@ -40,7 +40,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
             concordionExtender.withSource(new ClassPathSpecificationSource());
             concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
             concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
-            concordionExtender.withSpecificationProcessingListener(new ResultsThumbRendererProcessingListener());
+            concordionExtender.withSpecificationProcessingListener(new ResultsBreadcumbRendererProcessingListener());
             addCommands(concordionExtender);
         } catch (Throwable throwable) {
             LOG.error("Exception during test initialization [{}]", throwable.getMessage(), throwable);

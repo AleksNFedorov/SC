@@ -13,13 +13,13 @@ import static org.mockito.Mockito.*;
 /**
  * Created by ofedorov on 7/10/14.
  */
-public class ResultsThumbRendererProcessingListenerTest {
+public class ResultsBreadCumbRendererProcessingListenerTest {
 
     @Test(expected = RuntimeException.class)
     public void testNullSpecificationEvent() {
         SpecificationProcessingEvent mockEvent = mock(SpecificationProcessingEvent.class);
 
-        ResultsThumbRendererProcessingListener listener = spy(new ResultsThumbRendererProcessingListener());
+        ResultsBreadcumbRendererProcessingListener listener = spy(new ResultsBreadcumbRendererProcessingListener());
 
         doReturn(null).when(listener).getSpecificationRootElement(mockEvent);
 
@@ -28,7 +28,7 @@ public class ResultsThumbRendererProcessingListenerTest {
 
     @Test(expected = RuntimeException.class)
     public void testNoBodyElementInSpecification() {
-        new ResultsThumbRendererProcessingListener().buildThumbContainer(null);
+        new ResultsBreadcumbRendererProcessingListener().buildThumbContainer(null);
     }
 
 
@@ -38,7 +38,7 @@ public class ResultsThumbRendererProcessingListenerTest {
 
         SpecificationProcessingEvent mockEvent = mock(SpecificationProcessingEvent.class);
 
-        ResultsThumbRendererProcessingListener listener = spy(new ResultsThumbRendererProcessingListener());
+        ResultsBreadcumbRendererProcessingListener listener = spy(new ResultsBreadcumbRendererProcessingListener());
 
         doReturn(bodyElement).when(listener).getSpecificationRootElement(mockEvent);
         doThrow(IOException.class).when(listener).buildThumbLinks();
@@ -60,7 +60,7 @@ public class ResultsThumbRendererProcessingListenerTest {
 
         SpecificationProcessingEvent mockEvent = mock(SpecificationProcessingEvent.class);
 
-        ResultsThumbRendererProcessingListener listener = spy(new ResultsThumbRendererProcessingListener());
+        ResultsBreadcumbRendererProcessingListener listener = spy(new ResultsBreadcumbRendererProcessingListener());
 
         doReturn(bodyElement).when(listener).getSpecificationRootElement(mockEvent);
         doReturn(Arrays.asList(linkElement)).when(listener).buildThumbLinks();

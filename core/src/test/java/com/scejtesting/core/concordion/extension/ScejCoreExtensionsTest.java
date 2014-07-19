@@ -2,7 +2,7 @@ package com.scejtesting.core.concordion.extension;
 
 import com.scejtesting.core.concordion.command.ScejCommand;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
-import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListener;
+import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsBreadcumbRendererProcessingListener;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
 import com.scejtesting.core.config.Exceptions;
 import com.scejtesting.core.config.Specification;
@@ -137,7 +137,7 @@ public class ScejCoreExtensionsTest {
         inOrder.verify(extender, calls(1)).withSource(any(ClassPathSpecificationSource.class));
         inOrder.verify(extender, calls(1)).withThrowableListener(any(SuiteFailFastExceptionListener.class));
         inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(VelocityResultsRenderer.class));
-        inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(ResultsThumbRendererProcessingListener.class));
+        inOrder.verify(extender, calls(1)).withSpecificationProcessingListener(any(ResultsBreadcumbRendererProcessingListener.class));
 
         inOrder.verify(extender, calls(3)).
                 withCommand(

@@ -7,8 +7,8 @@ import com.scejtesting.core.concordion.command.ScejRunCommandTest;
 import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
 import com.scejtesting.core.concordion.extension.*;
 import com.scejtesting.core.concordion.extension.documentparsing.*;
-import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbBuilderTest;
-import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsThumbRendererProcessingListenerTest;
+import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsBreadCumbBuilderTest;
+import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsBreadCumbRendererProcessingListenerTest;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRendererTest;
 import com.scejtesting.core.config.ExceptionsTest;
 import com.scejtesting.core.config.SpecificationLocatorServiceTest;
@@ -43,7 +43,7 @@ import org.junit.runners.Suite;
         RegisterGlobalVariablesCommandTest.class,
         SpecificationResultRegistryTest.class,
         VelocityResultsRendererTest.class,
-        ResultsThumbBuilderTest.class,
+        ResultsBreadCumbBuilderTest.class,
         ScejCommandArgumentsTransformerTest.class,
         UtilsTest.class,
         ScejJUnitRunnerTest.class,
@@ -54,7 +54,7 @@ import org.junit.runners.Suite;
         ChildSpecificationLinkUpdaterTest.class,
         DictionaryLoaderServiceTest.class,
         DocumentParsingListenerFacadeTest.class,
-        ResultsThumbRendererProcessingListenerTest.class,
+        ResultsBreadCumbRendererProcessingListenerTest.class,
         ExceptionsTest.class,
         ScejRunCommandTest.class,
         ContextSyncRunnerTest.class,
