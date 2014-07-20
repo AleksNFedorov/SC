@@ -15,7 +15,7 @@ public abstract class ContextSyncRunner<T> {
 
     public abstract T runCallBack(TestContext context);
 
-    public final T synchronizeContext(Integer testContextIndex) {
+    public final T runSync(Integer testContextIndex) {
         LOG.debug("method invoked [{}]", testContextIndex);
 
         Check.notNull(testContextIndex, "Test context index must be specified");

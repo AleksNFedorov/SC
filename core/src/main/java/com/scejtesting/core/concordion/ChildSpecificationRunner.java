@@ -151,7 +151,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             }
         };
 
-        return runner.synchronizeContext(contextId);
+        return runner.runSync(contextId);
     }
 
     org.junit.runner.Result runParentJUnit(Class<?> concordionClass) {

@@ -2,16 +2,15 @@ package com.scejtesting.core.context;
 
 import org.concordion.api.ResultSummary;
 import org.concordion.api.RunnerResult;
+import org.concordion.internal.SummarizingResultRecorder;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.PrintStream;
-
 /**
  * Created by aleks on 4/26/14.
  */
-public class SpecificationResultRegistry implements ResultSummary {
+public class SpecificationResultRegistry extends SummarizingResultRecorder {
 
     protected static final Logger LOG = LoggerFactory.getLogger(SpecificationResultRegistry.class);
 
@@ -65,22 +64,6 @@ public class SpecificationResultRegistry implements ResultSummary {
     }
 
     @Override
-    public void assertIsSatisfied() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void assertIsSatisfied(Object fixture) {
-        throw new UnsupportedOperationException();
-
-    }
-
-    @Override
-    public boolean hasExceptions() {
-        return false;
-    }
-
-    @Override
     public long getSuccessCount() {
         return successCount;
     }
@@ -98,16 +81,6 @@ public class SpecificationResultRegistry implements ResultSummary {
     @Override
     public long getIgnoredCount() {
         return ignoreCount;
-    }
-
-    @Override
-    public void print(PrintStream out) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void print(PrintStream out, Object fixture) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

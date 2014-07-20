@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <suite>
-    <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst"
+
+
+<test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst"
           name="Test one"
           substitutionDictionary="testOneDictionary.properties">
         <specification location="/com/scejtesting/coretests/test1/HeadSpecification.html">
@@ -42,5 +44,6 @@
     <exceptions>
         <exception>com.scejtesting.coretests.exceptions.SuiteException</exception>
     </exceptions>
+
 
 </suite>

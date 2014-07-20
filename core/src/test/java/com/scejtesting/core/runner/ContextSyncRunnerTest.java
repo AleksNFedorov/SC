@@ -34,7 +34,7 @@ public class ContextSyncRunnerTest {
             public Object runCallBack(TestContext context) {
                 return null;
             }
-        }.synchronizeContext(null);
+        }.runSync(null);
     }
 
     @org.junit.Test(expected = RuntimeException.class)
@@ -44,7 +44,7 @@ public class ContextSyncRunnerTest {
             public Object runCallBack(TestContext context) {
                 return null;
             }
-        }.synchronizeContext(TestContext.DESTROYED_CONTEXT);
+        }.runSync(TestContext.DESTROYED_CONTEXT);
     }
 
     @org.junit.Test
@@ -68,7 +68,7 @@ public class ContextSyncRunnerTest {
 
         Integer contextIndex = serviceMock.getCurrentTestContext().getContextId();
 
-        runner.synchronizeContext(contextIndex);
+        runner.runSync(contextIndex);
 
         testServiceVerifier.verify(serviceMock, calls(1)).getTestContext(contextIndex);
         testServiceVerifier.verify(serviceMock, calls(1)).lock();

@@ -40,7 +40,7 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
         };
         LOG.debug("Method finished");
 
-        runner.synchronizeContext(contextId);
+        runner.runSync(contextId);
     }
 
     void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {

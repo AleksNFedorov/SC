@@ -6,6 +6,7 @@ import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
+import org.concordion.api.ResultSummary;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.runner.Description;
@@ -59,7 +60,7 @@ public class ScejStandAloneRunnerTest {
 
         InOrder inOrder = inOrder(runner);
 
-        Result result = runner.runSuite();
+        ResultSummary result = runner.runSuite();
 
         Assert.assertEquals(2, result.getRunCount());
         Assert.assertTrue(result.wasSuccessful());
@@ -249,4 +250,6 @@ public class ScejStandAloneRunnerTest {
 
 
     }
+
+
 }

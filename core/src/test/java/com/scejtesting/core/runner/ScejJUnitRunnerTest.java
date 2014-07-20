@@ -12,10 +12,11 @@ import static org.mockito.Mockito.*;
  */
 public class ScejJUnitRunnerTest {
 
+
     @org.junit.Test
     public void testCommonFlow() {
 
-        ScejJUnitRunner runner = spy(new ScejJUnitRunner());
+        ScejJUnitRunner runner = spy(new ScejJUnitRunner(Class.class));
 
         Result successResultMock = mock(Result.class);
         when(successResultMock.getRunCount()).thenReturn(1);
@@ -32,4 +33,6 @@ public class ScejJUnitRunnerTest {
         inOrder.verify(notifier, calls(1)).fireTestRunStarted(runner.getDescription());
         inOrder.verify(notifier, calls(1)).fireTestRunFinished(successResultMock);
     }
+
+
 }

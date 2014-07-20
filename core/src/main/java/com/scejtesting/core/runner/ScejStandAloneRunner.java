@@ -6,13 +6,11 @@ import com.scejtesting.core.config.SpecificationLocatorService;
 import com.scejtesting.core.config.Suite;
 import com.scejtesting.core.config.SuiteConfiguration;
 import com.scejtesting.core.config.Test;
+import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
-import org.junit.runner.Description;
+import org.concordion.api.ResultSummary;
 import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,28 +27,21 @@ public class ScejStandAloneRunner {
 
     private final Set<String> testsToRun;
 
-    private final Result suiteResult;
-    private final RunListener suiteResultRunListener;
+    private final SpecificationResultRegistry suiteResult;
 
     public ScejStandAloneRunner() {
-        suiteResult = new Result();
-        suiteResultRunListener = suiteResult.createListener();
+        suiteResult = new SpecificationResultRegistry();
         testsToRun = resolveTestsToRunName();
     }
 
     public static void main(String... args) {
-        Result result = new ScejStandAloneRunner().runSuite();
+        ResultSummary result = new ScejStandAloneRunner().runSuite();
         System.exit(result.getFailureCount() == 0 ? 0 : 1);
     }
 
-    public Result runSuite() {
+    public ResultSummary runSuite() {
         LOG.debug("method invoked");
-
-        Description suiteDescription = Description.createSuiteDescription(this.getClass());
-
         try {
-            suiteResultRunListener.testRunStarted(suiteDescription);
-
             String pathToSuiteConfigFile = getPathToConfig();
 
             LOG.info("Running tests");
@@ -59,11 +50,10 @@ public class ScejStandAloneRunner {
 
             runSuiteTests(currentSuite);
 
-            suiteResultRunListener.testRunFinished(suiteResult);
         } catch (Throwable ex) {
             LOG.error("Exception during test running ", ex.getMessage());
             ex.printStackTrace();
-            suiteResultRunListener.testFailure(new Failure(suiteDescription, ex));
+            suiteResult.addResult(new ResultSummaryAdapter(0, 0, 1, 0));
         } finally {
             LOG.info("Suite finished");
             return suiteResult;
@@ -77,25 +67,26 @@ public class ScejStandAloneRunner {
     }
 
     private void runSuiteTests(Suite currentSuite) throws Exception {
-        Result testResult;
+        ResultSummary testResult;
         for (Test test : currentSuite.getTests()) {
             if (currentSuite.getThrownException() == null && needRunTest(test)) {
                 testResult = runTest(test);
-                LOG.info("Test [{}] finished with success [{}]", test.getName(), testResult.wasSuccessful());
-                mergeResult(test, testResult);
+                LOG.info("Test [{}] finished with success [{}]", test.getName(),
+                        testResult.getFailureCount() + testResult.getExceptionCount() == 0);
+                mergeResult(testResult);
             } else {
                 LOG.info("Test [{}] skipped", test.getName());
             }
         }
     }
 
-    Result runTest(Test testToRun) {
+    SpecificationResultRegistry runTest(Test testToRun) {
         TestContextService testContextService = buildTestContextService();
 
         TestContext testContext = testContextService.createNewTestContext(testToRun);
         LOG.info("Test context created");
 
-        Result result = runJUnitTestsForTest(testContext);
+        SpecificationResultRegistry result = runJUnitTestsForTest(testContext);
 
         testContextService.dropContext(testContext.getContextId());
         testContext.destroyTestContext();
@@ -104,19 +95,20 @@ public class ScejStandAloneRunner {
         return result;
     }
 
-    Result runJUnitTestsForTest(TestContext testContext) {
+    SpecificationResultRegistry runJUnitTestsForTest(TestContext testContext) {
 
-        ContextSyncRunner<Result> runner = new ContextSyncRunner<Result>() {
+        ContextSyncRunner<SpecificationResultRegistry> runner = new ContextSyncRunner<SpecificationResultRegistry>() {
             @Override
-            public Result runCallBack(TestContext context) {
+            public SpecificationResultRegistry runCallBack(TestContext context) {
                 Test testToRun = context.getTest();
-                return JUnitCore.runClasses(
+                JUnitCore.runClasses(
                         getSpecificationLocationService().
                                 resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
                 );
+                return context.getCurrentSpecificationContext().getResultRegistry();
             }
         };
-        return runner.synchronizeContext(testContext.getContextId());
+        return runner.runSync(testContext.getContextId());
     }
 
     private boolean needRunTest(Test test) {
@@ -168,26 +160,11 @@ public class ScejStandAloneRunner {
                 "specify [" + Constants.SUITE_CONFIG_PROPERTY_KEY + "] system property");
     }
 
-    private void mergeResult(Test test, Result testResult) throws Exception {
-
-        LOG.debug("merging test results [{}][{}]", test.getName(), testResult);
-
-        Description testDescription = Description.createSuiteDescription(test.getName());
-
-        //Add run count
-        for (int i = 0; i < testResult.getRunCount(); ++i) {
-            suiteResultRunListener.testFinished(testDescription);
-        }
-        LOG.info("[{}] tests run added to results ", testResult.getRunCount());
-
-        //merge fails
-        if (!testResult.wasSuccessful()) {
-            for (Failure failure : testResult.getFailures()) {
-                suiteResultRunListener.testFailure(failure);
-            }
-        }
-        LOG.info("[{}] tests fails added to result", testResult.getFailureCount());
-        LOG.debug("Test [{}] result result merge finished ", test.getName());
+    private void mergeResult(ResultSummary summary) throws Exception {
+        LOG.debug("merging test results");
+        suiteResult.addResult(summary);
+        suiteResult.processResults();
+        LOG.debug("Test [{}] result result merge finished ");
     }
 
     protected SpecificationLocatorService getSpecificationLocationService() {
