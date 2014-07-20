@@ -10,5 +10,5 @@ import org.junit.runner.RunWith;
  */
 @RunWith(ConcordionRunner.class)
 @Extensions(value = ScejSeleniumExtension.class)
-public class SpecificationWebTest extends WebTestFixture {
+public final class SpecificationWebTest extends WebTestFixture {
 }

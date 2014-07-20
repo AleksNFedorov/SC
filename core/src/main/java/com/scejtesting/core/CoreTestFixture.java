@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(ConcordionRunner.class)
 @Extensions(value = ScejCoreExtensions.class)
-public class CoreTestFixture {
+public final class CoreTestFixture {
 
     public Integer getTestContextIndex() {
         return new TestContextService().getCurrentTestContext().getContextId();
