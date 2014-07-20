@@ -33,6 +33,7 @@ public class ScejStandAloneRunnerTest {
 
     @Before
     public void initTest() {
+
         runnerSpy = spy(new ScejStandAloneRunner());
 
         SpecificationResultRegistry resultSummary = new SpecificationResultRegistry();
@@ -152,11 +153,21 @@ public class ScejStandAloneRunnerTest {
     @org.junit.Test
     public void testRunTest() {
 
+        try {
+            Integer currentId = new TestContextService().getCurrentTestContext().getContextId();
+            new TestContextService().dropContext(currentId);
+        } catch (RuntimeException ex) {
+        }
+
+
         Specification specificationMock = mock(Specification.class);
         when(mockTest.getSpecification()).thenReturn(specificationMock);
 
         doReturn(testResultSummary).when(runnerSpy).
                 runJUnitTestsForTest(any(TestContext.class));
+
+        doCallRealMethod().when(runnerSpy).runTest(any(Test.class));
+
 
         ResultSummary result = runnerSpy.runSuite();
 
