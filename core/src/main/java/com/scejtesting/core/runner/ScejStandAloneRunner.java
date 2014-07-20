@@ -54,6 +54,7 @@ public class ScejStandAloneRunner {
             LOG.error("Exception during test running ", ex.getMessage());
             ex.printStackTrace();
             suiteResult.addResult(new ResultSummaryAdapter(0, 0, 1, 0));
+            suiteResult.processResults();
         } finally {
             LOG.info("Suite finished");
             return suiteResult;

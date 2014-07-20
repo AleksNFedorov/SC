@@ -1,10 +1,9 @@
 package com.scejtesting.core.runner;
 
-import org.junit.runner.Result;
-import org.junit.runner.notification.RunNotifier;
-import org.mockito.InOrder;
+import org.junit.runners.model.Statement;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 /**
  * User: Fedorovaleks
@@ -13,25 +12,29 @@ import static org.mockito.Mockito.*;
 public class ScejJUnitRunnerTest {
 
 
+    @org.junit.Test(expected = AssertionError.class)
+    public void testFailFlow() throws Throwable {
+        ScejJUnitRunner runner = spy(new ScejJUnitRunner(this.getClass()));
+
+        doReturn(new ResultSummaryAdapter(0, 1, 0, 0)).when(runner).runScejSuite();
+
+        Statement statement = runner.specExecStatement(this);
+        statement.evaluate();
+    }
+
+
     @org.junit.Test
-    public void testCommonFlow() {
+    public void testSuccessFlow() throws Throwable {
 
-        ScejJUnitRunner runner = spy(new ScejJUnitRunner(Class.class));
+        ScejJUnitRunner runner = spy(new ScejJUnitRunner(this.getClass()));
 
-        Result successResultMock = mock(Result.class);
-        when(successResultMock.getRunCount()).thenReturn(1);
-        when(successResultMock.wasSuccessful()).thenReturn(true);
+        doReturn(new ResultSummaryAdapter(1, 0, 0, 0)).when(runner).runScejSuite();
 
-        doReturn(successResultMock).when(runner).runSuite();
+        Statement statement = runner.specExecStatement(this);
+        statement.evaluate();
 
-        RunNotifier notifier = mock(RunNotifier.class);
+        //must finish without exceptions
 
-        InOrder inOrder = inOrder(notifier);
-
-        runner.run(notifier);
-
-        inOrder.verify(notifier, calls(1)).fireTestRunStarted(runner.getDescription());
-        inOrder.verify(notifier, calls(1)).fireTestRunFinished(successResultMock);
     }
 
 
