@@ -32,7 +32,7 @@ public class ScejRunCommandTest {
         TestContextService service = new TestContextService();
         TestContext testContext = service.createNewTestContext(mockTest);
         testContext = service.cloneContext(testContext);
-        service.setContextIdToUse(testContext.getContextId());
+        service.switchContext(testContext.getContextId());
 
         ScejRunCommand runCommand = new ScejRunCommand();
 

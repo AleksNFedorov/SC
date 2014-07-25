@@ -98,18 +98,12 @@ public class ScejStandAloneRunner {
 
     SpecificationResultRegistry runJUnitTestsForTest(TestContext testContext) {
 
-        ContextSyncRunner<SpecificationResultRegistry> runner = new ContextSyncRunner<SpecificationResultRegistry>() {
-            @Override
-            public SpecificationResultRegistry runCallBack(TestContext context) {
-                Test testToRun = context.getTest();
-                JUnitCore.runClasses(
-                        getSpecificationLocationService().
-                                resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
-                );
-                return context.getCurrentSpecificationContext().getResultRegistry();
-            }
-        };
-        return runner.runSync(testContext);
+        Test testToRun = testContext.getTest();
+        JUnitCore.runClasses(
+                getSpecificationLocationService().
+                        resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
+        );
+        return testContext.getCurrentSpecificationContext().getResultRegistry();
     }
 
     private boolean needRunTest(Test test) {

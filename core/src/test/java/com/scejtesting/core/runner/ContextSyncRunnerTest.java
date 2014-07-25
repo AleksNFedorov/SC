@@ -84,7 +84,7 @@ public class ContextSyncRunnerTest {
 
         testServiceVerifier.verify(serviceMock, never()).getTestContext(contextIndex);
         testServiceVerifier.verify(serviceMock, calls(1)).lock();
-        testServiceVerifier.verify(serviceMock, calls(1)).setContextIdToUse(contextIndex);
+        testServiceVerifier.verify(serviceMock, calls(1)).switchContext(contextIndex);
         testServiceVerifier.verify(serviceMock, calls(1)).waitForInitialization();
         testServiceVerifier.verify(serviceMock, calls(1)).unLock();
         runnerVerifier.verify(runner, calls(1)).afterLocked();

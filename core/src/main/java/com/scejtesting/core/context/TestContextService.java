@@ -21,6 +21,7 @@ public class TestContextService {
 
     static final Map<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
     private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
+    private static Integer lastReplacedContextId = TestContext.DESTROYED_CONTEXT;
     private static Lock contextLock = new ReentrantLock(false);
 
     public void dropContext(TestContext context) {
@@ -86,20 +87,21 @@ public class TestContextService {
 
         contexts.clear();
         contexts.put(newContext.getContextId(), newContext);
-        setContextIdToUse(newContext.getContextId());
+        contextIdToUse.set(newContext.getContextId());
         return newContext;
 
     }
 
-    public void lock() {
-        contextLock.lock();
-    }
-
-    public void setTestContextInitialized() {
+    public synchronized void setTestContextInitialized() {
+        contextIdToUse.set(lastReplacedContextId);
+        lastReplacedContextId = TestContext.DESTROYED_CONTEXT;
         contextLock.unlock();
     }
 
-    public void setContextIdToUse(Integer contextId) {
+    public synchronized void switchContext(Integer contextId) {
+        contextLock.lock();
+        lastReplacedContextId = contextIdToUse.get();
         contextIdToUse.set(contextId);
+
     }
 }

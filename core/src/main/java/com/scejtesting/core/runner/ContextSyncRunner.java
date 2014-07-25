@@ -28,8 +28,7 @@ public abstract class ContextSyncRunner<T> {
         T result = null;
 
         try {
-            service.lock();
-            service.setContextIdToUse(context.getContextId());
+            service.switchContext(context.getContextId());
 
             result = runCallBack(context);
             LOG.info("Callback successfully finished");

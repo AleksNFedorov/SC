@@ -24,7 +24,7 @@ public class TestContextServiceTest {
         TestContext context = service.createNewTestContext(mockTest);
         TestContext clonedContext = service.cloneContext(context);
 
-        service.setContextIdToUse(clonedContext.getContextId());
+        service.switchContext(clonedContext.getContextId());
 
         service.dropContext(clonedContext);
 
@@ -62,7 +62,7 @@ public class TestContextServiceTest {
         TestContext context = service.createNewTestContext(mockTest);
         TestContext clonedContext = service.cloneContext(context);
 
-        service.setContextIdToUse(clonedContext.getContextId());
+        service.switchContext(clonedContext.getContextId());
 
         Assert.assertSame(clonedContext, service.getCurrentTestContext());
         Assert.assertSame(clonedContext, service.getTestContext(clonedContext.getContextId()));
@@ -89,7 +89,7 @@ public class TestContextServiceTest {
     public void initializationWaitTest() throws Exception {
 
         final TestContextService service = new TestContextService();
-        service.setContextIdToUse(1);
+        service.switchContext(1);
 
         new Thread() {
             @Override
