@@ -16,19 +16,6 @@ import java.util.List;
  */
 public class ResultsBreadcumbBuilder {
 
-
-    /*
-
-        /com/scej/core/Head.html -> /com/scej/core/Head.html
-
-        test1/Child1.html -> /com/scej/core/test1/Child1.html
-        test1/Child2.html ->/com/scej/core/test1/Child2.html
-
-        ../test2/child/Child12.html -> /com/scej/core/test2/Child2.html
-        child/Child121.html -> /com/scej/core/test2/child/Child121.html
-
-     */
-
     protected static final Logger LOG = LoggerFactory.getLogger(ResultsBreadcumbRendererProcessingListener.class);
 
     private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();

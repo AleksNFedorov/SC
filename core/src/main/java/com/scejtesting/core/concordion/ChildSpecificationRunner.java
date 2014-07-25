@@ -142,8 +142,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     @Override
     protected org.junit.runner.Result runJUnitClass(final Class<?> concordionClass) {
-        Integer contextId = getCurrentTestContext().getContextId();
-
         ContextSyncRunner<org.junit.runner.Result> runner = new ContextSyncRunner<org.junit.runner.Result>() {
             @Override
             public org.junit.runner.Result runCallBack(TestContext context) {
@@ -151,7 +149,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             }
         };
 
-        return runner.runSync(contextId);
+        return runner.runSync(getCurrentTestContext());
     }
 
     org.junit.runner.Result runParentJUnit(Class<?> concordionClass) {

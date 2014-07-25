@@ -15,26 +15,29 @@ public abstract class ContextSyncRunner<T> {
 
     public abstract T runCallBack(TestContext context);
 
-    public final T runSync(Integer testContextIndex) {
-        LOG.debug("method invoked [{}]", testContextIndex);
+    public T runSync(TestContext context) {
+        LOG.debug("method invoked [{}]", context);
 
-        Check.notNull(testContextIndex, "Test context index must be specified");
-        Check.isTrue(!testContextIndex.equals(TestContext.DESTROYED_CONTEXT), "Cant use destroyed context");
+        Check.notNull(context, "Test context index must be specified");
+        Check.isFalse(TestContext.isDestroyedContext(context), "Cant use destroyed context");
 
         TestContextService service = getTestContextService();
-        TestContext testContext = service.getTestContext(testContextIndex);
 
-        LOG.info("Test context aquired ");
+        LOG.info("Test context acquired ");
 
-        service.lock();
-        service.setContextIdToUse(testContext.getContextId());
+        T result = null;
 
-        T result = runCallBack(testContext);
-        LOG.info("Callback successfully finished");
+        try {
+            service.lock();
+            service.setContextIdToUse(context.getContextId());
 
-        service.waitForInitialization();
-        service.unLock();
+            result = runCallBack(context);
+            LOG.info("Callback successfully finished");
 
+        } catch (Exception ex) {
+            LOG.error("Sync call execution exception [{}]", ex.getMessage(), ex);
+            throw new RuntimeException(ex);
+        }
         LOG.debug("method finished");
 
         return result;

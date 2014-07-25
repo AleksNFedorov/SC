@@ -60,11 +60,11 @@ public class ChildSpecificationRunnerTest {
     public void finishTest() {
         TestContextService service = new TestContextService();
         TestContext currentContext = service.getCurrentTestContext();
-        service.dropContext(currentContext.getContextId());
+        service.dropContext(currentContext);
     }
 
     @org.junit.Test
-    public void runnerInitializationTest() {
+    public void runnerInitializationTest() throws Exception {
         new TestContextService().waitForInitialization();
     }
 

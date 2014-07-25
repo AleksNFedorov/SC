@@ -5,12 +5,10 @@ import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -21,36 +19,26 @@ public class TestContextService {
 
     protected static final Logger LOG = LoggerFactory.getLogger(TestContextService.class);
 
-    static final ConcurrentHashMap<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
-    static final AtomicBoolean contextInitialized = new AtomicBoolean(false);
+    static final Map<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
     private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
     private static Lock contextLock = new ReentrantLock(false);
 
-    public void dropContext(Integer contextId) {
-        LOG.debug("droping context [{}]", contextId);
-        checkContextId(contextId);
+    public void dropContext(TestContext context) {
+        LOG.debug("droping context [{}]", context);
 
-        TestContext sourceContext = contexts.remove(contextId);
-
-        Check.notNull(sourceContext, "Attempt to drop un existed context [" + contextId + "]");
+        checkContext(context);
+        TestContext sourceContext = contexts.remove(context.getContextId());
 
         if (sourceContext.getContextId().equals(contextIdToUse.get())) {
-            LOG.warn("Current context set to Default");
+            LOG.warn("Current context set to null");
             contextIdToUse.set(TestContext.DESTROYED_CONTEXT);
         }
-
-        LOG.info("Context with id [{}] resolved [{}]", contextId, sourceContext);
     }
 
-    public TestContext cloneContext(Integer contextIndex) {
-        LOG.debug("Cloning context [{}]", contextIndex);
-        checkContextId(contextIndex);
-
-        TestContext sourceContext = contexts.get(contextIndex);
-        LOG.info("Context with id [{}] resolved [{}]", contextIndex, sourceContext);
-
-        Check.notNull(sourceContext, "Context not found [" + contextIndex + "]");
-        TestContext clonedContext = sourceContext.clone();
+    public TestContext cloneContext(TestContext testContext) {
+        LOG.debug("Cloning context [{}]", testContext);
+        checkContext(testContext);
+        TestContext clonedContext = testContext.clone();
         contexts.put(clonedContext.getContextId(), clonedContext);
 
         return clonedContext;
@@ -84,6 +72,11 @@ public class TestContextService {
         Check.isTrue(contextId > 0, "Context index must be above zero");
     }
 
+    private void checkContext(TestContext context) {
+        Check.notNull(context, "Context must be specified");
+        Check.isFalse(TestContext.isDestroyedContext(context), "Destroyed context not allowed to use");
+    }
+
     public TestContext createNewTestContext(Test test) {
         LOG.debug("Creating new test context for test [{}]", test);
         Check.notNull(test, "Test instance must be specified");
@@ -102,26 +95,11 @@ public class TestContextService {
         contextLock.lock();
     }
 
-    public void unLock() {
-        contextLock.unlock();
-    }
-
     public void setTestContextInitialized() {
-        contextInitialized.set(true);
-    }
-
-    public boolean isContextInitialized() {
-        return contextInitialized.get();
+        contextLock.unlock();
     }
 
     public void setContextIdToUse(Integer contextId) {
         contextIdToUse.set(contextId);
-        contextInitialized.set(false);
-    }
-
-    public void waitForInitialization() {
-        while (!contextInitialized.get()) {
-            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
-        }
     }
 }

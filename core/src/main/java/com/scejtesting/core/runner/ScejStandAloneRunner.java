@@ -89,7 +89,7 @@ public class ScejStandAloneRunner {
 
         SpecificationResultRegistry result = runJUnitTestsForTest(testContext);
 
-        testContextService.dropContext(testContext.getContextId());
+        testContextService.dropContext(testContext);
         testContext.destroyTestContext();
         LOG.info("Test context destroyed");
 
@@ -109,7 +109,7 @@ public class ScejStandAloneRunner {
                 return context.getCurrentSpecificationContext().getResultRegistry();
             }
         };
-        return runner.runSync(testContext.getContextId());
+        return runner.runSync(testContext);
     }
 
     private boolean needRunTest(Test test) {

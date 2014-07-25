@@ -31,7 +31,7 @@ public class ScejRunCommandTest {
 
         TestContextService service = new TestContextService();
         TestContext testContext = service.createNewTestContext(mockTest);
-        testContext = service.cloneContext(testContext.getContextId());
+        testContext = service.cloneContext(testContext);
         service.setContextIdToUse(testContext.getContextId());
 
         ScejRunCommand runCommand = new ScejRunCommand();
@@ -53,7 +53,7 @@ public class ScejRunCommandTest {
 
         final TestContextService service = new TestContextService();
         TestContext testContext = service.createNewTestContext(mockTest);
-        testContext = service.cloneContext(testContext.getContextId());
+        testContext = service.cloneContext(testContext);
 
         final AtomicBoolean check = new AtomicBoolean(false);
 

@@ -28,7 +28,6 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
     @Override
     public void execute(final CommandCall commandCall, final Evaluator evaluator, final ResultRecorder resultRecorder) {
         LOG.debug("method invoked");
-        Integer contextId = getTestContext().getContextId();
         ContextSyncRunner runner = new ContextSyncRunner() {
             @Override
             public Object runCallBack(TestContext context) {
@@ -40,14 +39,14 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
         };
         LOG.debug("Method finished");
 
-        runner.runSync(contextId);
+        runner.runSync(getTestContext());
     }
 
     void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         super.execute(commandCall, evaluator, resultRecorder);
     }
 
-    private void saveLinkElement(Element element) {
+    protected void saveLinkElement(Element element) {
         LOG.debug("method invoked");
         getTestContext().saveChildSpecificationElement(element);
         LOG.debug("Method finished");

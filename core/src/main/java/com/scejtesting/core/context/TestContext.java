@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -22,6 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TestContext extends Context implements Cloneable {
 
     public static final Integer DESTROYED_CONTEXT = -1;
+
     protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
     private static final AtomicInteger contextSequence = new AtomicInteger(0);
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
@@ -136,10 +138,18 @@ public class TestContext extends Context implements Cloneable {
     }
 
 
+    public static boolean isDestroyedContext(TestContext context) {
+        Check.notNull(context, "Test context must be specified");
+        return DESTROYED_CONTEXT.equals(context.getContextId());
+    }
+
+
+
     public class SpecificationContext {
         private final Resource currentTestResource;
         private final Specification specification;
         private final SpecificationResultRegistry resultRegistry;
+        private final List<Future> asyncCalls = new ArrayList<Future>();
 
         private SpecificationContext(Resource currentTestResource, Specification specification) {
             LOG.debug("constructor invoked [{}], [{}]", currentTestResource, specification);
@@ -158,8 +168,15 @@ public class TestContext extends Context implements Cloneable {
             return specification;
         }
 
+        public void saveAsyncCall(Future call) {
+            asyncCalls.add(call);
+        }
 
-        public synchronized SpecificationResultRegistry getResultRegistry() {
+        public List<Future> getAsyncCalls() {
+            return new ArrayList<Future>(asyncCalls);
+        }
+
+        public SpecificationResultRegistry getResultRegistry() {
             return resultRegistry;
         }
 

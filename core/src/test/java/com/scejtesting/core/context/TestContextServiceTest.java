@@ -22,11 +22,11 @@ public class TestContextServiceTest {
 
         TestContextService service = new TestContextService();
         TestContext context = service.createNewTestContext(mockTest);
-        TestContext clonedContext = service.cloneContext(context.getContextId());
+        TestContext clonedContext = service.cloneContext(context);
 
         service.setContextIdToUse(clonedContext.getContextId());
 
-        service.dropContext(clonedContext.getContextId());
+        service.dropContext(clonedContext);
 
         try {
             new TestContextService().getCurrentTestContext();
@@ -46,7 +46,7 @@ public class TestContextServiceTest {
 
         TestContextService service = new TestContextService();
         TestContext context = service.createNewTestContext(mockTest);
-        TestContext clonedContext = service.cloneContext(context.getContextId());
+        TestContext clonedContext = service.cloneContext(context);
 
         Assert.assertNotNull(clonedContext);
         Assert.assertEquals(2, TestContextService.contexts.size());
@@ -60,7 +60,7 @@ public class TestContextServiceTest {
 
         TestContextService service = new TestContextService();
         TestContext context = service.createNewTestContext(mockTest);
-        TestContext clonedContext = service.cloneContext(context.getContextId());
+        TestContext clonedContext = service.cloneContext(context);
 
         service.setContextIdToUse(clonedContext.getContextId());
 
@@ -86,7 +86,7 @@ public class TestContextServiceTest {
     }
 
     @org.junit.Test
-    public void initializationWaitTest() {
+    public void initializationWaitTest() throws Exception {
 
         final TestContextService service = new TestContextService();
         service.setContextIdToUse(1);

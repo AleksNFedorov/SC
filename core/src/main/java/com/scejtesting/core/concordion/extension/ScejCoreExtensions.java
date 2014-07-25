@@ -108,6 +108,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
                 add(new SetGlobalCommand());
                 add(new RegisterGlobalVariablesCommand());
                 add(new ScejRunCommand());
+                add(new ScejRunAsyncCommand());
                 add(new SaveResultsCommand());
             }
         };

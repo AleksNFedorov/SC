@@ -154,8 +154,8 @@ public class ScejStandAloneRunnerTest {
     public void testRunTest() {
 
         try {
-            Integer currentId = new TestContextService().getCurrentTestContext().getContextId();
-            new TestContextService().dropContext(currentId);
+            TestContext context = new TestContextService().getCurrentTestContext();
+            new TestContextService().dropContext(context);
         } catch (RuntimeException ex) {
         }
 

@@ -39,22 +39,34 @@ public class ContextSyncRunnerTest {
 
     @org.junit.Test(expected = RuntimeException.class)
     public void testContextDestroyedTest() {
+        TestContext context = spy(serviceMock.getCurrentTestContext());
+        doReturn(TestContext.DESTROYED_CONTEXT).when(context).getContextId();
         new ContextSyncRunner() {
             @Override
             public Object runCallBack(TestContext context) {
                 return null;
             }
-        }.runSync(TestContext.DESTROYED_CONTEXT);
+        }.runSync(context);
     }
 
     @org.junit.Test
-    public void positiveFlowTest() {
+    public void positiveFlowTest() throws Exception {
 
         ContextSyncRunner runner = spy(new ContextSyncRunner() {
             @Override
             public Object runCallBack(TestContext context) {
                 new TestContextService().setTestContextInitialized();
                 return new Object();
+            }
+
+            @Override
+            protected void afterLocked() {
+                super.afterLocked();
+            }
+
+            @Override
+            protected void onInitialized() {
+                super.onInitialized();
             }
 
             @Override
@@ -68,13 +80,15 @@ public class ContextSyncRunnerTest {
 
         Integer contextIndex = serviceMock.getCurrentTestContext().getContextId();
 
-        runner.runSync(contextIndex);
+        runner.runSync(serviceMock.getCurrentTestContext());
 
-        testServiceVerifier.verify(serviceMock, calls(1)).getTestContext(contextIndex);
+        testServiceVerifier.verify(serviceMock, never()).getTestContext(contextIndex);
         testServiceVerifier.verify(serviceMock, calls(1)).lock();
         testServiceVerifier.verify(serviceMock, calls(1)).setContextIdToUse(contextIndex);
         testServiceVerifier.verify(serviceMock, calls(1)).waitForInitialization();
         testServiceVerifier.verify(serviceMock, calls(1)).unLock();
+        runnerVerifier.verify(runner, calls(1)).afterLocked();
         runnerVerifier.verify(runner, calls(1)).runCallBack(serviceMock.getCurrentTestContext());
+        runnerVerifier.verify(runner, calls(1)).onInitialized();
     }
 }
