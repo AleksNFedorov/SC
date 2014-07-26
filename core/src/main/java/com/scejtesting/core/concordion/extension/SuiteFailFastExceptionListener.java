@@ -27,7 +27,7 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
     }
 
     private void checkSuiteExceptions(Throwable exception) {
-        LOG.debug("method invoked [{}]", exception);
+        LOG.debug("method invoked [{}]", exception.getMessage());
         Suite runningSuite = getSuite();
         LOG.info("Checking exceptions for running suite");
         if (isExceptionRegisteredInHolder(runningSuite, exception)) {
@@ -38,7 +38,7 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
     }
 
     private void checkTestExceptions(Throwable exception) {
-        LOG.debug("method invoked [{}]", exception);
+        LOG.debug("method invoked [{}]", exception.getMessage());
         Test currentSuiteTest = getCurrentTest();
         LOG.info("Checking exceptions for current test");
         if (isExceptionRegisteredInHolder(currentSuiteTest, exception)) {
@@ -50,14 +50,14 @@ public class SuiteFailFastExceptionListener implements ThrowableCaughtListener {
     }
 
     private boolean isExceptionRegisteredInHolder(ExceptionsHolder exHolder, Throwable exception) {
-        LOG.debug("method invoked [{}]", exception);
+        LOG.debug("method invoked [{}]", exception.getMessage());
 
         Exceptions specificationExceptions = exHolder.getExceptions();
 
         if (specificationExceptions != null) {
             LOG.info("checking test exceptions for match");
             if (specificationExceptions.isRegistered(exception)) {
-                LOG.info("Exception [{}] is registered in current holder", exception);
+                LOG.info("Exception [{}] is registered in current holder", exception.getMessage());
                 return true;
             }
         }

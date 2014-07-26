@@ -23,6 +23,7 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
     private static final Logger LOG = LoggerFactory.getLogger(DictionarySubstitutionListener.class);
 
     private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
+    private final DictionaryLoaderService dictionaryLoaderService = new DictionaryLoaderService();
 
     @Override
     public void beforeParsing(Document document) {
@@ -115,7 +116,7 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
     }
 
     protected DictionaryLoaderService getDictionaryLoaderService() {
-        return new DictionaryLoaderService();
+        return dictionaryLoaderService;
     }
 
     @Override

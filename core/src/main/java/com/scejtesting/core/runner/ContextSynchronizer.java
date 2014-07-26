@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ContextSynchronizer<T> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ScejStandAloneRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ContextSynchronizer.class);
 
     public abstract T runCallBack(TestContext context);
 

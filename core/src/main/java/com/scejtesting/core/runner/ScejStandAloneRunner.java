@@ -74,7 +74,7 @@ public class ScejStandAloneRunner {
                 testResult = runTest(test);
                 LOG.info("Test [{}] finished with success [{}]", test.getName(),
                         testResult.getFailureCount() + testResult.getExceptionCount() == 0);
-                mergeResult(testResult);
+                mergeResult(test, testResult);
             } else {
                 LOG.info("Test [{}] skipped", test.getName());
             }
@@ -99,6 +99,7 @@ public class ScejStandAloneRunner {
     SpecificationResultRegistry runJUnitTestsForTest(TestContext testContext) {
 
         Test testToRun = testContext.getTest();
+        buildTestContextService().switchContext(testContext);
         JUnitCore.runClasses(
                 getSpecificationLocationService().
                         resolveSpecificationClassByContext(testToRun.getSpecification(), testToRun)
@@ -155,11 +156,11 @@ public class ScejStandAloneRunner {
                 "specify [" + Constants.SUITE_CONFIG_PROPERTY_KEY + "] system property");
     }
 
-    private void mergeResult(ResultSummary summary) throws Exception {
+    private void mergeResult(Test test, ResultSummary summary) throws Exception {
         LOG.debug("merging test results");
         suiteResult.addResult(summary);
         suiteResult.processResults();
-        LOG.debug("Test [{}] result result merge finished ");
+        LOG.debug("Test [{}] result result merge finished", test);
     }
 
     protected SpecificationLocatorService getSpecificationLocationService() {

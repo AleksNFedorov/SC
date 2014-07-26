@@ -4,7 +4,6 @@ import com.scejtesting.core.config.*;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.core.runner.ContextSynchronizer;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
@@ -47,6 +46,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
                         href);
             } else {
                 result = new RunnerResult(Result.IGNORED);
+                markTestContextAsInitialized();
             }
 
             LOG.debug("Specification [{}] execution result [{}]", specification, result.getResult());
@@ -55,12 +55,18 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         } catch (RuntimeException ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
             result = new RunnerResult(Result.EXCEPTION);
-            throw ex;
         } finally {
             destroyContextAndPopulateResults(result);
             LOG.debug("method finished");
         }
+        return result;
     }
+
+    //TODO add to tests
+    private void markTestContextAsInitialized() {
+        new TestContextService().setTestContextInitialized();
+    }
+
 
     protected RunnerResult executeSpecification(Specification specification, Resource specificationResource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]");
@@ -137,22 +143,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         } finally {
             LOG.debug("method finished");
         }
-    }
-
-    @Override
-    protected org.junit.runner.Result runJUnitClass(final Class<?> concordionClass) {
-        ContextSynchronizer<org.junit.runner.Result> runner = new ContextSynchronizer<org.junit.runner.Result>() {
-            @Override
-            public org.junit.runner.Result runCallBack(TestContext context) {
-                return runParentJUnit(concordionClass);
-            }
-        };
-
-        return runner.runSync(getCurrentTestContext());
-    }
-
-    org.junit.runner.Result runParentJUnit(Class<?> concordionClass) {
-        return super.runJUnitClass(concordionClass);
     }
 
     protected SpecificationLocatorService getSpecificationLocationService() {
