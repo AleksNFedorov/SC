@@ -2,7 +2,7 @@ package com.scejtesting.core.concordion.command;
 
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.core.runner.ContextSyncRunner;
+import com.scejtesting.core.runner.ContextSynchronizer;
 import org.concordion.api.CommandCall;
 import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
@@ -28,7 +28,7 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
     @Override
     public void execute(final CommandCall commandCall, final Evaluator evaluator, final ResultRecorder resultRecorder) {
         LOG.debug("method invoked");
-        ContextSyncRunner runner = new ContextSyncRunner() {
+        ContextSynchronizer runner = new ContextSynchronizer() {
             @Override
             public Object runCallBack(TestContext context) {
                 Element element = commandCall.getElement();

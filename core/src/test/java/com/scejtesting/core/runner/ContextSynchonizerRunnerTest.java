@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by aleks on 7/12/14.
  */
-public class ContextSyncRunnerTest {
+public class ContextSynchonizerRunnerTest {
 
     private TestContextService serviceMock;
 
@@ -24,12 +24,13 @@ public class ContextSyncRunnerTest {
         when(test.getSpecification()).thenReturn(rootSpec);
         when(test.getName()).thenReturn("testMock");
         serviceMock = spy(new TestContextService());
+        serviceMock.setTestContextInitialized();
         serviceMock.createNewTestContext(test);
     }
 
     @org.junit.Test(expected = RuntimeException.class)
     public void noContextTest() {
-        new ContextSyncRunner() {
+        new ContextSynchronizer() {
             @Override
             public Object runCallBack(TestContext context) {
                 return null;
@@ -41,7 +42,7 @@ public class ContextSyncRunnerTest {
     public void testContextDestroyedTest() {
         TestContext context = spy(serviceMock.getCurrentTestContext());
         doReturn(TestContext.DESTROYED_CONTEXT).when(context).getContextId();
-        new ContextSyncRunner() {
+        new ContextSynchronizer() {
             @Override
             public Object runCallBack(TestContext context) {
                 return null;
@@ -52,21 +53,11 @@ public class ContextSyncRunnerTest {
     @org.junit.Test
     public void positiveFlowTest() throws Exception {
 
-        ContextSyncRunner runner = spy(new ContextSyncRunner() {
+        ContextSynchronizer runner = spy(new ContextSynchronizer() {
             @Override
             public Object runCallBack(TestContext context) {
-                new TestContextService().setTestContextInitialized();
+                serviceMock.setTestContextInitialized();
                 return new Object();
-            }
-
-            @Override
-            protected void afterLocked() {
-                super.afterLocked();
-            }
-
-            @Override
-            protected void onInitialized() {
-                super.onInitialized();
             }
 
             @Override
@@ -78,17 +69,12 @@ public class ContextSyncRunnerTest {
         InOrder testServiceVerifier = inOrder(serviceMock);
         InOrder runnerVerifier = inOrder(runner);
 
-        Integer contextIndex = serviceMock.getCurrentTestContext().getContextId();
+        TestContext currentTestContext = serviceMock.getCurrentTestContext();
 
         runner.runSync(serviceMock.getCurrentTestContext());
 
-        testServiceVerifier.verify(serviceMock, never()).getTestContext(contextIndex);
-        testServiceVerifier.verify(serviceMock, calls(1)).lock();
-        testServiceVerifier.verify(serviceMock, calls(1)).switchContext(contextIndex);
-        testServiceVerifier.verify(serviceMock, calls(1)).waitForInitialization();
-        testServiceVerifier.verify(serviceMock, calls(1)).unLock();
-        runnerVerifier.verify(runner, calls(1)).afterLocked();
-        runnerVerifier.verify(runner, calls(1)).runCallBack(serviceMock.getCurrentTestContext());
-        runnerVerifier.verify(runner, calls(1)).onInitialized();
+        testServiceVerifier.verify(serviceMock, calls(1)).switchContext(currentTestContext);
+        testServiceVerifier.verify(serviceMock, calls(1)).setTestContextInitialized();
+        runnerVerifier.verify(runner, calls(1)).runCallBack(currentTestContext);
     }
 }

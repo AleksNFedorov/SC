@@ -3,6 +3,7 @@ package com.scejtesting.core.context;
 
 import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
+import org.junit.After;
 import org.junit.Assert;
 
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,11 @@ import static org.mockito.Mockito.when;
  */
 public class TestContextServiceTest {
 
+    @After
+    public void finishTest() {
+        new TestContextService().setTestContextInitialized();
+    }
+
     @org.junit.Test
     public void dropContextTest() {
 
@@ -24,7 +30,7 @@ public class TestContextServiceTest {
         TestContext context = service.createNewTestContext(mockTest);
         TestContext clonedContext = service.cloneContext(context);
 
-        service.switchContext(clonedContext.getContextId());
+        service.switchContext(clonedContext);
 
         service.dropContext(clonedContext);
 
@@ -62,7 +68,7 @@ public class TestContextServiceTest {
         TestContext context = service.createNewTestContext(mockTest);
         TestContext clonedContext = service.cloneContext(context);
 
-        service.switchContext(clonedContext.getContextId());
+        service.switchContext(clonedContext);
 
         Assert.assertSame(clonedContext, service.getCurrentTestContext());
         Assert.assertSame(clonedContext, service.getTestContext(clonedContext.getContextId()));
@@ -78,7 +84,6 @@ public class TestContextServiceTest {
 
         TestContext context = service.createNewTestContext(mockTest);
 
-        Assert.assertFalse(new TestContextService().isContextInitialized());
         Assert.assertNotNull(context);
         Assert.assertSame(context, service.getTestContext(context.getContextId()));
         Assert.assertSame(context, service.getCurrentTestContext());
@@ -86,26 +91,34 @@ public class TestContextServiceTest {
     }
 
     @org.junit.Test
-    public void initializationWaitTest() throws Exception {
+    public void switchContextTest() throws Exception {
 
         final TestContextService service = new TestContextService();
-        service.switchContext(1);
+        TestContext testContext1 = service.createNewTestContext(makeMockTest());
+        TestContext testContext2 = service.cloneContext(testContext1);
+        service.switchContext(testContext2);
+
+        Assert.assertEquals(testContext2, new TestContextService().getCurrentTestContext());
 
         new Thread() {
             @Override
             public void run() {
                 try {
-                    TimeUnit.SECONDS.sleep(1);
                     service.setTestContextInitialized();
+                    TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }.start();
 
-        service.waitForInitialization();
+        Assert.assertEquals(testContext1, new TestContextService().getCurrentTestContext());
+    }
 
-        Assert.assertTrue(new TestContextService().isContextInitialized());
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void switchContext_exceptionOnNullContext() {
+        new TestContextService().switchContext(null);
     }
 
     private Test makeMockTest() {

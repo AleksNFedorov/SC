@@ -6,7 +6,7 @@ import com.scejtesting.core.context.TestContextService;
 /**
  * Created by aleks on 7/22/14.
  */
-public abstract class ContextAsyncRunner<T> extends ContextSyncRunner<T> {
+public abstract class ContextSynchronizerWithClonedContext<T> extends ContextSynchronizer<T> {
 
     private final TestContextService service = new TestContextService();
     private TestContext newContext;

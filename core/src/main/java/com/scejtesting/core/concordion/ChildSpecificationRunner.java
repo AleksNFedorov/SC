@@ -4,7 +4,7 @@ import com.scejtesting.core.config.*;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.core.runner.ContextSyncRunner;
+import com.scejtesting.core.runner.ContextSynchronizer;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
@@ -28,7 +28,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
     public ChildSpecificationRunner() {
         TestContextService service = new TestContextService();
         currentTestContext = service.getCurrentTestContext();
-        service.setTestContextInitialized();
     }
 
     @Override
@@ -142,7 +141,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     @Override
     protected org.junit.runner.Result runJUnitClass(final Class<?> concordionClass) {
-        ContextSyncRunner<org.junit.runner.Result> runner = new ContextSyncRunner<org.junit.runner.Result>() {
+        ContextSynchronizer<org.junit.runner.Result> runner = new ContextSynchronizer<org.junit.runner.Result>() {
             @Override
             public org.junit.runner.Result runCallBack(TestContext context) {
                 return runParentJUnit(concordionClass);

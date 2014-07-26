@@ -79,12 +79,14 @@ public class ScejCoreExtensionsTest {
         when(mockTest.getSpecification()).thenReturn(testSpec);
         when(mockTest.getName()).thenReturn("runCommandTest");
 
-        TestContextService service = new TestContextService();
+        TestContextService service = spy(new TestContextService());
         service.createNewTestContext(mockTest);
 
         ConcordionExtender extender = mock(ConcordionExtender.class);
 
         ScejCoreExtensions extensions = spy(new ScejCoreExtensions());
+        doReturn(service).when(extensions).getTestContextService();
+
 
         try {
             extensions.addTo(extender);
@@ -93,8 +95,9 @@ public class ScejCoreExtensionsTest {
 
         }
 
-        Assert.assertTrue(new TestContextService().isContextInitialized());
+        InOrder inOrder = inOrder(service);
 
+        inOrder.verify(service, calls(1)).setTestContextInitialized();
     }
 
     @Test
@@ -105,7 +108,7 @@ public class ScejCoreExtensionsTest {
         when(mockTest.getSpecification()).thenReturn(testSpec);
         when(mockTest.getName()).thenReturn("runCommandTest");
 
-        TestContextService service = new TestContextService();
+        TestContextService service = spy(new TestContextService());
         service.createNewTestContext(mockTest);
 
         Suite mockSuite = mock(Suite.class);
@@ -113,10 +116,12 @@ public class ScejCoreExtensionsTest {
         final ConcordionBuilder extender = spy(new ConcordionBuilder());
 
         InOrder inOrder = inOrder(extender);
+        InOrder serviceInOrder = inOrder(service);
 
         ScejCoreExtensions extensions = spy(new ScejCoreExtensions());
         doReturn(extender).when(extensions).convertToConcordionBuilder(extender);
         doReturn(mockSuite).when(extensions).getCurrentSuite();
+        doReturn(service).when(extensions).getTestContextService();
 
         doAnswer(new Answer() {
             @Override
@@ -129,7 +134,7 @@ public class ScejCoreExtensionsTest {
 
         extensions.addTo(extender);
 
-        Assert.assertTrue(new TestContextService().isContextInitialized());
+        serviceInOrder.verify(service, calls(1)).setTestContextInitialized();
 
         inOrder.verify(extender, calls(1)).withSpecificationLocator(any(HierarchySpecificationLocator.class));
         inOrder.verify(extender, calls(1)).withTarget(any(FileTargetWithCustomPrefix.class));

@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * User: Fedorovaleks
@@ -22,7 +20,6 @@ public class TestContextService {
     static final Map<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
     private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
     private static Integer lastReplacedContextId = TestContext.DESTROYED_CONTEXT;
-    private static Lock contextLock = new ReentrantLock(false);
 
     public void dropContext(TestContext context) {
         LOG.debug("droping context [{}]", context);
@@ -95,13 +92,21 @@ public class TestContextService {
     public synchronized void setTestContextInitialized() {
         contextIdToUse.set(lastReplacedContextId);
         lastReplacedContextId = TestContext.DESTROYED_CONTEXT;
-        contextLock.unlock();
+        this.notifyAll();
+        LOG.info("Context initialized to [{}]", contextIdToUse.get());
     }
 
-    public synchronized void switchContext(Integer contextId) {
-        contextLock.lock();
+    public synchronized void switchContext(TestContext context) {
+        Check.notNull(context, "Context must be specified");
+        while (!lastReplacedContextId.equals(TestContext.DESTROYED_CONTEXT)) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                LOG.error("Exception during wait [{}]", e.getMessage(), e);
+            }
+        }
         lastReplacedContextId = contextIdToUse.get();
-        contextIdToUse.set(contextId);
-
+        contextIdToUse.set(context.getContextId());
+        LOG.info("Context [{}] switched to [{}]", lastReplacedContextId, contextIdToUse.get());
     }
 }

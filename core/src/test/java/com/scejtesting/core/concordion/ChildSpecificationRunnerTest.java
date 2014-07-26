@@ -64,11 +64,6 @@ public class ChildSpecificationRunnerTest {
     }
 
     @org.junit.Test
-    public void runnerInitializationTest() throws Exception {
-        new TestContextService().waitForInitialization();
-    }
-
-    @org.junit.Test
     public void saveResultOnException() throws Exception {
 
         when(mockSuite.getThrownException()).thenReturn(null);

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by aleks on 7/12/14.
  */
-public abstract class ContextSyncRunner<T> {
+public abstract class ContextSynchronizer<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScejStandAloneRunner.class);
 
@@ -28,7 +28,7 @@ public abstract class ContextSyncRunner<T> {
         T result = null;
 
         try {
-            service.switchContext(context.getContextId());
+            service.switchContext(context);
 
             result = runCallBack(context);
             LOG.info("Callback successfully finished");

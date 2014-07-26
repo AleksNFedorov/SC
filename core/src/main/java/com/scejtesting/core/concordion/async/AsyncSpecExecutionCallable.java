@@ -1,7 +1,7 @@
 package com.scejtesting.core.concordion.async;
 
 import com.scejtesting.core.context.TestContext;
-import com.scejtesting.core.runner.ContextAsyncRunner;
+import com.scejtesting.core.runner.ContextSynchronizerWithClonedContext;
 import org.concordion.api.CommandCall;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.command.RunCommand;
@@ -37,7 +37,7 @@ public class AsyncSpecExecutionCallable implements Callable<AsyncExecutionResult
     @Override
     public AsyncExecutionResult call() throws Exception {
         try {
-            ContextAsyncRunner runner = new ContextAsyncRunner() {
+            ContextSynchronizerWithClonedContext runner = new ContextSynchronizerWithClonedContext() {
                 @Override
                 public Object runCallBack(TestContext context) {
                     runCommand.execute(
