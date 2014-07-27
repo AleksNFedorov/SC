@@ -7,6 +7,8 @@ import com.scejtesting.coretests.exceptions.TestException;
 import org.concordion.api.extension.Extensions;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 @RunWith(ConcordionRunner.class)
 @Extensions(value = ScejCoreExtensions.class)
 public class CoreTestsFirst2 {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CoreTestsFirst2.class);
+
 
     public String getSame(String content) {
         return content;
@@ -49,6 +54,12 @@ public class CoreTestsFirst2 {
 
     public void throwSuiteException() throws SuiteException {
         throw new SuiteException();
+    }
+
+    public void longRunningTask(Integer waitTime) throws InterruptedException {
+        LOG.debug("method invoked [{}]", waitTime);
+        TimeUnit.SECONDS.sleep(waitTime);
+        LOG.debug("method finished ");
     }
 
     public void throwDerivedTestException() throws DerivedTestException {

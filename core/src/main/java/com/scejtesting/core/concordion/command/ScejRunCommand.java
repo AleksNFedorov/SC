@@ -1,5 +1,6 @@
 package com.scejtesting.core.concordion.command;
 
+import com.scejtesting.core.concordion.SyncResultRecorderWrapper;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
 import com.scejtesting.core.runner.ContextSynchronizer;
@@ -33,7 +34,10 @@ public class ScejRunCommand extends RunCommand implements ScejCommand {
             public Object runCallBack(TestContext context) {
                 Element element = commandCall.getElement();
                 saveLinkElement(element);
-                executeConcordionRun(commandCall, evaluator, resultRecorder);
+                executeConcordionRun(
+                        commandCall,
+                        evaluator,
+                        new SyncResultRecorderWrapper(resultRecorder));
                 return new Object();
             }
         };

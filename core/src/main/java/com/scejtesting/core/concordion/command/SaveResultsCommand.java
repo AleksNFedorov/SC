@@ -34,7 +34,7 @@ public class SaveResultsCommand implements ScejCommand {
         if (resultRecorder instanceof ResultSummary) {
             ResultSummary resultSummary = (ResultSummary) resultRecorder;
             getCurrentTestContext().getCurrentSpecificationContext().
-                    getResultRegistry().addResult(resultSummary);
+                    getResultRegistry().storeSpecificationResultSummary(resultSummary);
         } else {
             LOG.warn("Results recorder is not Results summary instance");
         }

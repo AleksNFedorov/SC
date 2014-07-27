@@ -26,7 +26,7 @@ public class ScejJUnitRunner extends ConcordionRunner {
             public void evaluate() throws Throwable {
                 SpecificationResultRegistry registry = new SpecificationResultRegistry();
                 ResultSummary result = runScejSuite();
-                registry.addResult(result);
+                registry.storeSpecificationResultSummary(result);
                 registry.processResults();
                 registry.assertIsSatisfied(fixture);
             }

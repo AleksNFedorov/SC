@@ -53,7 +53,7 @@ public class ScejStandAloneRunner {
         } catch (Throwable ex) {
             LOG.error("Exception during test running ", ex.getMessage());
             ex.printStackTrace();
-            suiteResult.addResult(new ResultSummaryAdapter(0, 0, 1, 0));
+            suiteResult.storeSpecificationResultSummary(new ResultSummaryAdapter(0, 0, 1, 0));
             suiteResult.processResults();
         } finally {
             LOG.info("Suite finished");
@@ -158,7 +158,7 @@ public class ScejStandAloneRunner {
 
     private void mergeResult(Test test, ResultSummary summary) throws Exception {
         LOG.debug("merging test results");
-        suiteResult.addResult(summary);
+        suiteResult.storeSpecificationResultSummary(summary);
         suiteResult.processResults();
         LOG.debug("Test [{}] result result merge finished", test);
     }

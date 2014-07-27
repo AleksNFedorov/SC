@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -144,12 +143,11 @@ public class TestContext extends Context implements Cloneable {
     }
 
 
-
     public class SpecificationContext {
         private final Resource currentTestResource;
         private final Specification specification;
         private final SpecificationResultRegistry resultRegistry;
-        private final List<Future> asyncCalls = new ArrayList<Future>();
+        private final AtomicInteger asyncCallsToWait = new AtomicInteger(0);
 
         private SpecificationContext(Resource currentTestResource, Specification specification) {
             LOG.debug("constructor invoked [{}], [{}]", currentTestResource, specification);
@@ -168,12 +166,16 @@ public class TestContext extends Context implements Cloneable {
             return specification;
         }
 
-        public void saveAsyncCall(Future call) {
-            asyncCalls.add(call);
+        public void onNewAsyncCall() {
+            asyncCallsToWait.incrementAndGet();
         }
 
-        public List<Future> getAsyncCalls() {
-            return new ArrayList<Future>(asyncCalls);
+        public void onAsyncCallFinished() {
+            asyncCallsToWait.decrementAndGet();
+        }
+
+        public Integer getRunningAsyncCallsAmount() {
+            return asyncCallsToWait.get();
         }
 
         public SpecificationResultRegistry getResultRegistry() {

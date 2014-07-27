@@ -88,7 +88,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
     private void destroyContextAndPopulateResults(RunnerResult result) {
 
-        SpecificationResultRegistry executedSpecificationRegistry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
+        TestContext.SpecificationContext specificationContext = getCurrentTestContext().getCurrentSpecificationContext();
+        SpecificationResultRegistry executedSpecificationRegistry = specificationContext.getResultRegistry();
 
         LOG.info("Execution result [{}] stored ", result.getResult());
 
@@ -96,13 +97,14 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
 
             getCurrentTestContext().destroyCurrentSpecificationContext();
 
-            LOG.info("Specification context destroyed");
+            LOG.info("Specification [{}] context destroyed", specificationContext);
 
             SpecificationResultRegistry parentSpecificationRegistry = getCurrentTestContext().getCurrentSpecificationContext().getResultRegistry();
 
             parentSpecificationRegistry.addResult(executedSpecificationRegistry, result);
 
-            LOG.info("Specification results added to parent registry");
+            LOG.info("Specification [{}] results added to parent registry ", specificationContext);
+            System.out.println(parentSpecificationRegistry.hashCode() + " !!!!");
         }
 
     }

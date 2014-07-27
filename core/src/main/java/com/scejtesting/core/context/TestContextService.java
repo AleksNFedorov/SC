@@ -100,7 +100,7 @@ public class TestContextService {
         Check.notNull(context, "Context must be specified");
         while (!lastReplacedContextId.equals(TestContext.DESTROYED_CONTEXT)) {
             try {
-                this.wait();
+                this.wait(1000);
             } catch (InterruptedException e) {
                 LOG.error("Exception during wait [{}]", e.getMessage(), e);
             }

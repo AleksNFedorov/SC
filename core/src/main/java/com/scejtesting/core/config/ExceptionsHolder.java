@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * User: Fedorovaleks
@@ -18,19 +19,18 @@ public class ExceptionsHolder {
     protected Exceptions exceptions;
 
     @XmlTransient
-    private Throwable thrownException;
+    private final AtomicReference<Throwable> thrownException = new AtomicReference<Throwable>(null);
 
     public Exceptions getExceptions() {
         return exceptions;
     }
 
     public Throwable getThrownException() {
-        return thrownException;
+        return thrownException.get();
     }
 
     public void setThrownException(Throwable thrownException) {
         Check.notNull(thrownException, "Exception can't be null");
-        Check.isTrue(this.thrownException == null, "Exception already set");
-        this.thrownException = thrownException;
+        this.thrownException.set(thrownException);
     }
 }

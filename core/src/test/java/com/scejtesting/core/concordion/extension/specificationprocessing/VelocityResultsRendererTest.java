@@ -45,7 +45,7 @@ public class VelocityResultsRendererTest {
         TestContext context = new TestContextService().getCurrentTestContext();
 
         SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
-        registry.addResult(buildResultSummary(2, 0, 1, 1));
+        registry.storeSpecificationResultSummary(buildResultSummary(2, 0, 1, 1));
 
         Element rootElement = buildNewRootElement();
 
@@ -69,7 +69,7 @@ public class VelocityResultsRendererTest {
 
         // Second iteration
 
-        registry.addResult(buildResultSummary(0, 2, 0, 1));
+        registry.storeSpecificationResultSummary(buildResultSummary(0, 2, 0, 1));
 
         renderer.afterProcessingSpecification(fakeEvent);
 

@@ -21,7 +21,7 @@ public class SpecificationResultRegistry extends SummarizingResultRecorder {
     private long exceptionCount;
     private long ignoreCount;
 
-    public void addResult(ResultSummary summary, RunnerResult result) {
+    public synchronized void addResult(ResultSummary summary, RunnerResult result) {
         LOG.debug("method invoked [{}][{}]", summary, result);
         Check.notNull(result, "Result must be specified");
         this.applyStoreResultSummary(summary);
@@ -43,7 +43,7 @@ public class SpecificationResultRegistry extends SummarizingResultRecorder {
     }
 
 
-    public void addResult(ResultSummary summary) {
+    public void storeSpecificationResultSummary(ResultSummary summary) {
         Check.notNull(summary, "Result summary can't be empty");
         specificationResultSummary = summary;
         LOG.info("New result has been added [{}] ", toString());

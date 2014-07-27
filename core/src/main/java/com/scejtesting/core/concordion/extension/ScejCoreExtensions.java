@@ -2,6 +2,7 @@ package com.scejtesting.core.concordion.extension;
 
 import com.scejtesting.core.concordion.command.*;
 import com.scejtesting.core.concordion.extension.documentparsing.DocumentParsingListenerFacade;
+import com.scejtesting.core.concordion.extension.specificationprocessing.AsyncLaunchResultsProcessor;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsBreadcumbRendererProcessingListener;
 import com.scejtesting.core.concordion.extension.specificationprocessing.VelocityResultsRenderer;
 import com.scejtesting.core.config.Exceptions;
@@ -39,6 +40,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
             concordionExtender.withDocumentParsingListener(new DocumentParsingListenerFacade());
             concordionExtender.withSource(new ClassPathSpecificationSource());
             concordionExtender.withThrowableListener(new SuiteFailFastExceptionListener());
+            concordionExtender.withSpecificationProcessingListener(new AsyncLaunchResultsProcessor());
             concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
             concordionExtender.withSpecificationProcessingListener(new ResultsBreadcumbRendererProcessingListener());
             addCommands(concordionExtender);

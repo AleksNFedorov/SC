@@ -20,7 +20,7 @@ public class SpecificationResultRegistryTest {
 
         SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
 
-        resultRegistry.addResult(resultSummary1);
+        resultRegistry.storeSpecificationResultSummary(resultSummary1);
         resultRegistry.processResults();
         resultRegistry.processResults();
 
@@ -38,9 +38,9 @@ public class SpecificationResultRegistryTest {
 
         SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
 
-        resultRegistry.addResult(resultSummary1);
+        resultRegistry.storeSpecificationResultSummary(resultSummary1);
         resultRegistry.processResults();
-        resultRegistry.addResult(resultSummary2);
+        resultRegistry.storeSpecificationResultSummary(resultSummary2);
         resultRegistry.processResults();
 
         Assert.assertEquals(3, resultRegistry.getSuccessCount());
@@ -67,7 +67,7 @@ public class SpecificationResultRegistryTest {
 
     @Test(expected = RuntimeException.class)
     public void noResultSummaryTest() {
-        new SpecificationResultRegistry().addResult(null);
+        new SpecificationResultRegistry().storeSpecificationResultSummary(null);
     }
 
     @Test(expected = RuntimeException.class)

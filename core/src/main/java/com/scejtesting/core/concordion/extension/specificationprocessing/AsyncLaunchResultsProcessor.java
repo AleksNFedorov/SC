@@ -7,6 +7,8 @@ import org.concordion.api.listener.SpecificationProcessingListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by aleks on 7/21/14.
  */
@@ -23,7 +25,21 @@ public class AsyncLaunchResultsProcessor implements SpecificationProcessingListe
 
     @Override
     public void afterProcessingSpecification(SpecificationProcessingEvent event) {
+        LOG.debug("method invoked");
 
+        TestContext.SpecificationContext specificationContext = getTestContext().getCurrentSpecificationContext();
+
+        LOG.info("There are [{}] async calls to wait", specificationContext.getRunningAsyncCallsAmount());
+
+        while (specificationContext.getRunningAsyncCallsAmount() > 0) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                LOG.error("Async calls waiting interrupted [{}]", e.getMessage());
+            }
+        }
+
+        LOG.info("method finished");
     }
 
     protected TestContext getTestContext() {

@@ -38,7 +38,7 @@ public class ScejStandAloneRunnerTest {
 
         SpecificationResultRegistry resultSummary = new SpecificationResultRegistry();
 
-        resultSummary.addResult(new ResultSummaryAdapter(1, 2, 3, 4));
+        resultSummary.storeSpecificationResultSummary(new ResultSummaryAdapter(1, 2, 3, 4));
         resultSummary.processResults();
 
         this.testResultSummary = resultSummary;
