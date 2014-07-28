@@ -25,21 +25,33 @@ public class SpecificationResultRegistry extends SummarizingResultRecorder {
         LOG.debug("method invoked [{}][{}]", summary, result);
         Check.notNull(result, "Result must be specified");
         this.applyStoreResultSummary(summary);
+        changeCount(result, -1);
+        LOG.debug("method finished");
+    }
+
+    public synchronized void addResult(RunnerResult result) {
+        LOG.debug("method invoked");
+        Check.notNull(result, "Result must be specified");
+        changeCount(result, 1);
+        LOG.debug("method finished");
+    }
+
+    private void changeCount(RunnerResult result, int delta) {
         switch (result.getResult()) {
             case SUCCESS:
-                successCount--;
+                successCount += delta;
                 break;
             case IGNORED:
-                ignoreCount--;
+                ignoreCount += delta;
                 break;
             case EXCEPTION:
-                exceptionCount--;
+                exceptionCount += delta;
                 break;
             case FAILURE:
-                failCount--;
+                failCount += delta;
                 break;
         }
-        LOG.debug("method finished");
+        LOG.info("[{}] counter changed for [{}]", result.getResult(), delta);
     }
 
 

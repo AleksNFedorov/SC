@@ -118,7 +118,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
 
 
     private void onExtensionInitialized() {
-        getTestContextService().setTestContextInitialized();
+        getTestContextService().revertContextSwitch();
     }
 
     Suite getCurrentSuite() {

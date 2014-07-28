@@ -18,7 +18,7 @@ public class TestContextServiceTest {
 
     @After
     public void finishTest() {
-        new TestContextService().setTestContextInitialized();
+        new TestContextService().revertContextSwitch();
     }
 
     @org.junit.Test
@@ -104,7 +104,7 @@ public class TestContextServiceTest {
             @Override
             public void run() {
                 try {
-                    service.setTestContextInitialized();
+                    service.revertContextSwitch();
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

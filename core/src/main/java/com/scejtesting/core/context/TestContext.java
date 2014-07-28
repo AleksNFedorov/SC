@@ -136,7 +136,6 @@ public class TestContext extends Context implements Cloneable {
 
     }
 
-
     public static boolean isDestroyedContext(TestContext context) {
         Check.notNull(context, "Test context must be specified");
         return DESTROYED_CONTEXT.equals(context.getContextId());

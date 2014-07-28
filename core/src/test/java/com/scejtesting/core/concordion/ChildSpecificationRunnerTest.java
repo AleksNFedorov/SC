@@ -59,36 +59,66 @@ public class ChildSpecificationRunnerTest {
     @After
     public void finishTest() {
         TestContextService service = new TestContextService();
+        service.revertContextSwitch();
         TestContext currentContext = service.getCurrentTestContext();
         service.dropContext(currentContext);
     }
 
     @org.junit.Test
-    public void saveResultOnException() throws Exception {
+    public void testResultsSaved_specificationExecutionException() throws Exception {
 
         when(mockSuite.getThrownException()).thenReturn(null);
         when(mockTest.getThrownException()).thenReturn(null);
+
+        TestContextService service = new TestContextService();
+        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext clonedContext = service.cloneContext(currentTestContext);
+        service.switchContext(clonedContext);
 
         doThrow((new IllegalStateException("Thrown for test purpose"))).when(runnerSpy).
                 executeSpecification(eq(mockSpecification),
                         any(Resource.class), anyString());
 
-        try {
-            runnerSpy.execute(new Resource("/somePath"), "Some href");
-            Assert.fail();
-        } catch (IllegalStateException ex) {
+        runnerSpy.execute(new Resource("/somePath"), "Some href");
 
-        }
-
-        checkResults(0, 0, 0, 0);
-
+        Assert.assertSame(currentTestContext, service.getCurrentTestContext());
+        checkResults(0, 0, 0, 1);
     }
 
     @org.junit.Test
-    public void positiveFlow() throws Exception {
+    public void testResultsSaved_findTestClassException() throws Exception {
 
         when(mockSuite.getThrownException()).thenReturn(null);
         when(mockTest.getThrownException()).thenReturn(null);
+
+        TestContextService service = new TestContextService();
+        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext clonedContext = service.cloneContext(currentTestContext);
+        service.switchContext(clonedContext);
+
+        SpecificationLocatorService serviceMock = spy(new SpecificationLocatorService());
+
+        doThrow((new IllegalStateException("Thrown for test purpose"))).when(serviceMock).
+                resolveSpecificationClassByContext(any(Specification.class), any(Test.class));
+
+        doReturn(serviceMock).when(runnerSpy).getSpecificationLocationService();
+
+        runnerSpy.execute(new Resource("/somePath"), "Some href");
+
+        Assert.assertSame(currentTestContext, service.getCurrentTestContext());
+        checkResults(0, 0, 0, 1);
+    }
+
+    @org.junit.Test
+    public void testResultsSaved_successResult() throws Exception {
+
+        when(mockSuite.getThrownException()).thenReturn(null);
+        when(mockTest.getThrownException()).thenReturn(null);
+
+        TestContextService service = new TestContextService();
+        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext clonedContext = service.cloneContext(currentTestContext);
+        service.switchContext(clonedContext);
 
         RunnerResult successResult = new RunnerResult(Result.SUCCESS);
 
@@ -97,89 +127,72 @@ public class ChildSpecificationRunnerTest {
         RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(successResult, executionResult);
+        Assert.assertSame(clonedContext, service.getCurrentTestContext());
 
         checkResults(-1, 0, 0, 0);
     }
 
     @org.junit.Test
-    public void positiveFlowNoContextCreated() throws Exception {
+    public void testIgnoredResults_canRunSpecificationOnSuiteException() throws Exception {
 
         when(mockSuite.getThrownException()).thenReturn(new RuntimeException());
         when(mockTest.getThrownException()).thenReturn(null);
 
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
-
-        doReturn(successResult).when(runnerSpy).executeSpecificationParent(any(Resource.class), anyString());
-
-        RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
-
-        Assert.assertEquals(Result.IGNORED, executionResult.getResult());
-        checkResults(0, 0, 0, 0);
-    }
-
-
-    private void checkResults(int success, int fail, int ignore, int exception) {
-        TestContext context = new TestContextService().getCurrentTestContext();
-        SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
-        Assert.assertEquals(success, registry.getSuccessCount());
-        Assert.assertEquals(fail, registry.getIgnoredCount());
-        Assert.assertEquals(ignore, registry.getFailureCount());
-        Assert.assertEquals(exception, registry.getExceptionCount());
-    }
-
-    @org.junit.Test
-    public void suiteFailFastException() throws Exception {
-
-        when(mockSuite.getThrownException()).thenReturn(new RuntimeException());
-        when(mockTest.getThrownException()).thenReturn(null);
-
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
-
-        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        TestContextService service = new TestContextService();
+        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext clonedContext = service.cloneContext(currentTestContext);
+        service.switchContext(clonedContext);
 
         RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
+        Assert.assertSame(currentTestContext, service.getCurrentTestContext());
 
-        checkResults(0, 0, 0, 0);
-
+        checkResults(0, 0, 1, 0);
     }
 
-
     @org.junit.Test
-    public void unknownSpecification() throws Exception {
+    public void testIgnoredResults_unknownSpecification() throws Exception {
 
         when(mockSuite.getThrownException()).thenReturn(null);
         when(mockTest.getThrownException()).thenReturn(null);
 
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
+        TestContextService service = new TestContextService();
+        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext clonedContext = service.cloneContext(currentTestContext);
+        service.switchContext(clonedContext);
 
         doReturn(null).when(runnerSpy).resolveSpecification(anyString());
-        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
-
         RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
+        Assert.assertSame(currentTestContext, service.getCurrentTestContext());
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
+
+        checkResults(0, 0, 1, 0);
     }
 
     @org.junit.Test
-    public void testFailFastException() throws Exception {
+    public void testIgnoredResults_testFailFastException() throws Exception {
 
         when(mockSuite.getThrownException()).thenReturn(null);
         when(mockTest.getThrownException()).thenReturn(new RuntimeException());
 
-        RunnerResult successResult = new RunnerResult(Result.SUCCESS);
-
-        doReturn(successResult).when(runnerSpy).executeSpecification(any(Specification.class), any(Resource.class), anyString());
+        TestContextService service = new TestContextService();
+        TestContext currentTestContext = service.getCurrentTestContext();
+        TestContext clonedContext = service.cloneContext(currentTestContext);
+        service.switchContext(clonedContext);
 
         RunnerResult executionResult = runnerSpy.execute(new Resource("/somePath"), "Some href");
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
+        Assert.assertEquals(Result.IGNORED, executionResult.getResult());
+
+        checkResults(0, 0, 1, 0);
     }
 
     @org.junit.Test
-    public void testIncludeAll() {
+    public void testSpecificationResolved_norExcludesOrIncludes() {
 
         when(mockTest.getDefaultTestClass()).thenReturn(CoreTestFixture.class);
 
@@ -194,7 +207,7 @@ public class ChildSpecificationRunnerTest {
     }
 
     @org.junit.Test
-    public void testExcludeOnlyAll() {
+    public void testSpecificationResolved_excludesOnly() {
 
         Specification fakeSpecificationTwo = new Specification("FakeTwo.html");
         Specification fakeSpecificationThree = new Specification("FakeThree.html");
@@ -212,16 +225,16 @@ public class ChildSpecificationRunnerTest {
         Assert.assertNotNull("Not excluded spec can't be null", currentSpec);
         Assert.assertEquals(notExcludedSpecPath, currentSpec.getLocation());
 
-        currentSpec = runnerSpy.resolveSpecification("FakeTwo.html");
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix("FakeTwo.html"));
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        currentSpec = runnerSpy.resolveSpecification("FakeThree.html");
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix("FakeThree.html"));
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
     }
 
     @org.junit.Test
-    public void testIncludeOnly() {
+    public void testSpecificationResolved_includesOnly() {
 
         Specification fakeSpecificationOne = new Specification("FakeOne.html");
         Specification fakeSpecificationTwo = new Specification("FakeTwo.html");
@@ -255,7 +268,7 @@ public class ChildSpecificationRunnerTest {
     }
 
     @org.junit.Test
-    public void testIncludeExclude() {
+    public void testSpecificationResolved_includesAndExcludes() {
         Specification fakeSpecificationOne = new Specification("FakeOne.html");
         Specification fakeSpecificationTwo = new Specification("FakeTwo.html");
         Specification fakeSpecificationThree = new Specification("FakeThree.html");
@@ -277,16 +290,16 @@ public class ChildSpecificationRunnerTest {
         Assert.assertNotNull("Included spec can't be null", currentSpec);
         Assert.assertEquals(currentSpecLocation, currentSpec.getLocation());
 
-        currentSpec = runnerSpy.resolveSpecification("FakeOne.html");
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix("FakeOne.html"));
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
-        currentSpec = runnerSpy.resolveSpecification("FakeThree.html");
+        currentSpec = runnerSpy.resolveSpecification(SpecificationTest.appendUniqueSuffix("FakeThree.html"));
         Assert.assertNull("Excluded spec must be null", currentSpec);
 
     }
 
     @org.junit.Test
-    public void findTestClassFromSpecification() throws ClassNotFoundException {
+    public void testTestClassResolved_classFromSpecification() throws ClassNotFoundException {
 
         when(mockTest.getDefaultTestClass()).thenReturn(Integer.class);
         when(mockSpecification.getTestClass()).thenReturn(String.class);
@@ -299,7 +312,7 @@ public class ChildSpecificationRunnerTest {
     }
 
     @org.junit.Test
-    public void findTestClassFromTest() throws ClassNotFoundException {
+    public void testTestClassResolved_classFromTest() throws ClassNotFoundException {
 
         when(mockTest.getDefaultTestClass()).thenReturn(Integer.class);
 
@@ -312,16 +325,14 @@ public class ChildSpecificationRunnerTest {
         Assert.assertEquals(Integer.class, testClass);
     }
 
-    @org.junit.Test(expected = RuntimeException.class)
-    public void unknownTestClass() throws ClassNotFoundException {
-
-        SpecificationLocatorService serviceMock = mock(SpecificationLocatorService.class);
-        when(serviceMock.resolveSpecificationClassByContext(any(Specification.class), any(Test.class))).
-                thenThrow(RuntimeException.class);
-
-        ChildSpecificationRunner runner = spy(new ChildSpecificationRunner());
-        doReturn(serviceMock).when(runner).getSpecificationLocationService();
-        runner.findTestClass(null, null);
+    private void checkResults(int success, int fail, int ignore, int exception) {
+        TestContext context = new TestContextService().getCurrentTestContext();
+        SpecificationResultRegistry registry = context.getCurrentSpecificationContext().getResultRegistry();
+        Assert.assertEquals(success, registry.getSuccessCount());
+        Assert.assertEquals(fail, registry.getFailureCount());
+        Assert.assertEquals(ignore, registry.getIgnoredCount());
+        Assert.assertEquals(exception, registry.getExceptionCount());
     }
+
 
 }

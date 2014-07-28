@@ -55,6 +55,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         } catch (RuntimeException ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
             result = new RunnerResult(Result.EXCEPTION);
+            markTestContextAsInitialized();
         } finally {
             destroyContextAndPopulateResults(result);
             LOG.debug("method finished");
@@ -62,11 +63,9 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         return result;
     }
 
-    //TODO add to tests
     private void markTestContextAsInitialized() {
-        new TestContextService().setTestContextInitialized();
+        new TestContextService().revertContextSwitch();
     }
-
 
     protected RunnerResult executeSpecification(Specification specification, Resource specificationResource, String href) throws Exception {
         LOG.debug("method invoked [{}], [{}]");
@@ -104,7 +103,8 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             parentSpecificationRegistry.addResult(executedSpecificationRegistry, result);
 
             LOG.info("Specification [{}] results added to parent registry ", specificationContext);
-            System.out.println(parentSpecificationRegistry.hashCode() + " !!!!");
+        } else {
+            executedSpecificationRegistry.addResult(result);
         }
 
     }
@@ -141,6 +141,11 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             return resolvedClass;
         } catch (RuntimeException ex) {
             LOG.error("Exception during test class specification lookup [{}]", ex.getMessage());
+            SpecificationResultRegistry executedSpecificationRegistry = getCurrentTestContext().
+                    getCurrentSpecificationContext().getResultRegistry();
+            executedSpecificationRegistry.addResult(new RunnerResult(Result.EXCEPTION));
+            executedSpecificationRegistry.addResult(new RunnerResult(Result.EXCEPTION));
+
             throw ex;
         } finally {
             LOG.debug("method finished");

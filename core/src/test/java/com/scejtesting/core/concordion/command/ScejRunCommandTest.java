@@ -66,7 +66,7 @@ public class ScejRunCommandTest {
             @Override
             void executeConcordionRun(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
                 check.set(true);
-                service.setTestContextInitialized();
+                service.revertContextSwitch();
             }
         });
 

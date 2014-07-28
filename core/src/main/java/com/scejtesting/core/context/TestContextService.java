@@ -89,7 +89,11 @@ public class TestContextService {
 
     }
 
-    public synchronized void setTestContextInitialized() {
+    public synchronized void revertContextSwitch() {
+        if (lastReplacedContextId.equals(TestContext.DESTROYED_CONTEXT)) {
+            LOG.warn("Context switch already reverted to [{}]", getCurrentTestContext());
+            return;
+        }
         contextIdToUse.set(lastReplacedContextId);
         lastReplacedContextId = TestContext.DESTROYED_CONTEXT;
         this.notifyAll();

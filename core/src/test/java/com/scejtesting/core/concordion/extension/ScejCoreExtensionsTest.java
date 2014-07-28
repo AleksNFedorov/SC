@@ -97,7 +97,7 @@ public class ScejCoreExtensionsTest {
 
         InOrder inOrder = inOrder(service);
 
-        inOrder.verify(service, calls(1)).setTestContextInitialized();
+        inOrder.verify(service, calls(1)).revertContextSwitch();
     }
 
     @Test
@@ -134,7 +134,7 @@ public class ScejCoreExtensionsTest {
 
         extensions.addTo(extender);
 
-        serviceInOrder.verify(service, calls(1)).setTestContextInitialized();
+        serviceInOrder.verify(service, calls(1)).revertContextSwitch();
 
         inOrder.verify(extender, calls(1)).withSpecificationLocator(any(HierarchySpecificationLocator.class));
         inOrder.verify(extender, calls(1)).withTarget(any(FileTargetWithCustomPrefix.class));

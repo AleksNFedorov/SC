@@ -24,7 +24,7 @@ public class ContextSynchonizerRunnerTest {
         when(test.getSpecification()).thenReturn(rootSpec);
         when(test.getName()).thenReturn("testMock");
         serviceMock = spy(new TestContextService());
-        serviceMock.setTestContextInitialized();
+        serviceMock.revertContextSwitch();
         serviceMock.createNewTestContext(test);
     }
 
@@ -56,7 +56,7 @@ public class ContextSynchonizerRunnerTest {
         ContextSynchronizer runner = spy(new ContextSynchronizer() {
             @Override
             public Object runCallBack(TestContext context) {
-                serviceMock.setTestContextInitialized();
+                serviceMock.revertContextSwitch();
                 return new Object();
             }
 
@@ -74,7 +74,7 @@ public class ContextSynchonizerRunnerTest {
         runner.runSync(serviceMock.getCurrentTestContext());
 
         testServiceVerifier.verify(serviceMock, calls(1)).switchContext(currentTestContext);
-        testServiceVerifier.verify(serviceMock, calls(1)).setTestContextInitialized();
+        testServiceVerifier.verify(serviceMock, calls(1)).revertContextSwitch();
         runnerVerifier.verify(runner, calls(1)).runCallBack(currentTestContext);
     }
 }
