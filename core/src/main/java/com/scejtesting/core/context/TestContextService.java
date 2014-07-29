@@ -27,8 +27,6 @@ public class TestContextService {
         checkContext(context);
         TestContext sourceContext = contexts.remove(context.getContextId());
 
-        Check.notNull(sourceContext, "Unknown context");
-
         if (sourceContext.getContextId().equals(contextIdToUse.get())) {
             LOG.warn("Current context set to null");
             contextIdToUse.set(TestContext.DESTROYED_CONTEXT);
