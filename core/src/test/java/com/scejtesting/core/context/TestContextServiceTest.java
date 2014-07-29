@@ -5,6 +5,7 @@ import com.scejtesting.core.config.Specification;
 import com.scejtesting.core.config.Test;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,19 +17,54 @@ import static org.mockito.Mockito.when;
  */
 public class TestContextServiceTest {
 
+
+    private Test testMock;
+    private TestContextService service;
+    private TestContext initialContext;
+
+    @Before
+    public void initTest() {
+        testMock = makeMockTest();
+        service = new TestContextService();
+        initialContext = service.createNewTestContext(testMock);
+    }
+
     @After
     public void finishTest() {
         new TestContextService().revertContextSwitch();
     }
 
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testDropContextException_nullContext() {
+        service.dropContext(null);
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testDropContextException_destroyedContext() {
+        initialContext.destroyTestContext();
+        service.dropContext(initialContext);
+    }
+
     @org.junit.Test
-    public void dropContextTest() {
+    public void testDropContext_validSingleContext() {
+        service.dropContext(initialContext);
 
-        Test mockTest = makeMockTest();
+        Assert.assertTrue(TestContext.isDestroyedContext(initialContext));
 
-        TestContextService service = new TestContextService();
-        TestContext context = service.createNewTestContext(mockTest);
-        TestContext clonedContext = service.cloneContext(context);
+        try {
+            service.getCurrentTestContext();
+            Assert.fail("No context exception expected");
+        } catch (RuntimeException ex) {
+        }
+
+    }
+
+    @org.junit.Test
+    public void testDropContext_currentContext() {
+
+        TestContext clonedContext = service.cloneContext(initialContext);
+
+        Integer contextId = clonedContext.getContextId();
 
         service.switchContext(clonedContext);
 
@@ -40,58 +76,135 @@ public class TestContextServiceTest {
         } catch (RuntimeException ex) {
 
         }
-        Assert.assertNull(service.getTestContext(clonedContext.getContextId()));
-        Assert.assertSame(context, service.getTestContext(context.getContextId()));
+        Assert.assertEquals(TestContext.DESTROYED_CONTEXT, clonedContext.getContextId());
+        Assert.assertNull(service.getTestContext(contextId));
+        Assert.assertSame(initialContext, service.getTestContext(initialContext.getContextId()));
 
         Assert.assertEquals(1, TestContextService.contexts.size());
     }
 
     @org.junit.Test
-    public void cloneContextTest() {
-        Test mockTest = makeMockTest();
+    public void testDropContext_nonCurrentContext() {
 
-        TestContextService service = new TestContextService();
-        TestContext context = service.createNewTestContext(mockTest);
-        TestContext clonedContext = service.cloneContext(context);
+        TestContext clonedContext = service.cloneContext(initialContext);
+        Integer initialContextId = initialContext.getContextId();
 
-        Assert.assertNotNull(clonedContext);
-        Assert.assertEquals(2, TestContextService.contexts.size());
-        Assert.assertNotSame(context, clonedContext);
+        service.switchContext(clonedContext);
 
+        service.dropContext(initialContext);
+
+        Assert.assertEquals(TestContext.DESTROYED_CONTEXT, initialContext.getContextId());
+        Assert.assertNull(service.getTestContext(initialContextId));
+        Assert.assertSame(clonedContext, service.getTestContext(clonedContext.getContextId()));
+        Assert.assertSame(clonedContext, service.getCurrentTestContext());
+
+        Assert.assertEquals(1, TestContextService.contexts.size());
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testConeContextException_nullContext() {
+        service.cloneContext(null);
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testCloneContextException_destroyedContext() {
+        initialContext.destroyTestContext();
+        service.cloneContext(initialContext);
     }
 
     @org.junit.Test
-    public void getContextTest() {
-        Test mockTest = makeMockTest();
+    public void testCloneContext_validContext() {
+        TestContext clonedContext = service.cloneContext(initialContext);
 
-        TestContextService service = new TestContextService();
-        TestContext context = service.createNewTestContext(mockTest);
-        TestContext clonedContext = service.cloneContext(context);
+        Assert.assertSame(initialContext, service.getCurrentTestContext());
+        Assert.assertSame(clonedContext, service.getTestContext(clonedContext.getContextId()));
+        Assert.assertEquals(2, TestContextService.contexts.size());
+        Assert.assertNotSame(initialContext, clonedContext);
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testGetCurrentContextException_noContextCreated() {
+        service.dropContext(initialContext);
+        Assert.assertTrue(TestContextService.contexts.isEmpty());
+        new TestContextService().getCurrentTestContext();
+    }
+
+    @org.junit.Test
+    public void testGetCurrentContext_multipleContexts() {
+
+        Assert.assertSame(initialContext, service.getCurrentTestContext());
+
+        TestContext clonedContext = service.cloneContext(initialContext);
+
+        Assert.assertSame(initialContext, service.getCurrentTestContext());
+        Assert.assertSame(clonedContext, service.getTestContext(clonedContext.getContextId()));
 
         service.switchContext(clonedContext);
 
         Assert.assertSame(clonedContext, service.getCurrentTestContext());
-        Assert.assertSame(clonedContext, service.getTestContext(clonedContext.getContextId()));
-        Assert.assertSame(context, service.getTestContext(context.getContextId()));
+        Assert.assertSame(initialContext, service.getTestContext(initialContext.getContextId()));
 
     }
 
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testGetContextException_nullId() {
+        service.getTestContext(null);
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testGetContextException_destroyedContextId() {
+        service.getTestContext(TestContext.DESTROYED_CONTEXT);
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testGetContextException_negativeId() {
+        service.getTestContext(-2);
+    }
+
     @org.junit.Test
-    public void createNewContextTest() {
-        Test mockTest = makeMockTest();
+    public void testGetTestContext_unknownContext() {
+        Assert.assertNull(service.getTestContext(Integer.MAX_VALUE));
+    }
 
-        TestContextService service = new TestContextService();
+    @org.junit.Test
+    public void testGetTestContext_knownContext() {
+        Assert.assertSame(initialContext, service.getTestContext(initialContext.getContextId()));
+    }
 
-        TestContext context = service.createNewTestContext(mockTest);
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testCreateNewTestContext_nullTest() {
+        service.createNewTestContext(null);
+    }
 
-        Assert.assertNotNull(context);
+
+    @org.junit.Test
+    public void testCreateNewContext_validTest() {
+
+        service.cloneContext(initialContext);
+
+        Assert.assertEquals(2, TestContextService.contexts.size());
+
+        TestContext context = service.createNewTestContext(testMock);
+
         Assert.assertSame(context, service.getTestContext(context.getContextId()));
         Assert.assertSame(context, service.getCurrentTestContext());
-        Assert.assertSame(mockTest, context.getTest());
+        Assert.assertEquals(1, TestContextService.contexts.size());
     }
 
     @org.junit.Test
-    public void switchContextTest() throws Exception {
+    public void testCorrectRevert_multipleAttempts() {
+        TestContext clonedContext = service.cloneContext(initialContext);
+        service.switchContext(clonedContext);
+        service.revertContextSwitch();
+        service.revertContextSwitch();
+
+        Assert.assertSame(initialContext, service.getCurrentTestContext());
+        Assert.assertEquals(2, TestContextService.contexts.size());
+
+    }
+
+    @org.junit.Test
+    public void testSwitchContext_validTestContext() throws Exception {
 
         final TestContextService service = new TestContextService();
         TestContext testContext1 = service.createNewTestContext(makeMockTest());
@@ -117,7 +230,7 @@ public class TestContextServiceTest {
 
 
     @org.junit.Test(expected = RuntimeException.class)
-    public void switchContext_exceptionOnNullContext() {
+    public void testSwitchContextException_nullContext() {
         new TestContextService().switchContext(null);
     }
 

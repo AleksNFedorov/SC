@@ -27,10 +27,14 @@ public class TestContextService {
         checkContext(context);
         TestContext sourceContext = contexts.remove(context.getContextId());
 
+        Check.notNull(sourceContext, "Unknown context");
+
         if (sourceContext.getContextId().equals(contextIdToUse.get())) {
             LOG.warn("Current context set to null");
             contextIdToUse.set(TestContext.DESTROYED_CONTEXT);
         }
+
+        sourceContext.destroyTestContext();
     }
 
     public TestContext cloneContext(TestContext testContext) {
@@ -91,7 +95,7 @@ public class TestContextService {
 
     public synchronized void revertContextSwitch() {
         if (lastReplacedContextId.equals(TestContext.DESTROYED_CONTEXT)) {
-            LOG.warn("Context switch already reverted to [{}]", getCurrentTestContext());
+            LOG.warn("No need revert context switch");
             return;
         }
         contextIdToUse.set(lastReplacedContextId);
