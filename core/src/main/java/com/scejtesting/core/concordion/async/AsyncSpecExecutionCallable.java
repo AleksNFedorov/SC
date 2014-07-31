@@ -24,8 +24,6 @@ public class AsyncSpecExecutionCallable implements Runnable {
     private final CommandCall commandCall;
     private final ResultRecorder resultRecorder;
 
-    private final RunCommand runCommand;
-
     class FakeEvaluator implements Evaluator {
         @Override
         public Object getVariable(String variableName) {
@@ -47,14 +45,16 @@ public class AsyncSpecExecutionCallable implements Runnable {
     public AsyncSpecExecutionCallable(TestContext contextToClone, CommandCall commandCall, ResultRecorder resultRecorder) {
         Check.notNull(contextToClone, "Context to clone must be specified");
         Check.isFalse(TestContext.isDestroyedContext(contextToClone), "Provided context is destroyed");
+        Check.notNull(commandCall, "Command call must be specified");
+        Check.notNull(resultRecorder, "Results records must be specified");
+
         this.contextToClone = contextToClone;
         this.commandCall = commandCall;
         this.resultRecorder = resultRecorder;
-        runCommand = buildRunCommand();
         LOG.debug("AsyncSpecExecutionCallable created for [{}]", contextToClone);
     }
 
-    private RunCommand buildRunCommand() {
+    protected RunCommand buildRunCommand() {
         RunCommand command = new RunCommand();
         command.addRunListener(new RunResultRenderer());
         return command;
@@ -63,13 +63,14 @@ public class AsyncSpecExecutionCallable implements Runnable {
     @Override
     public void run() {
         LOG.debug("method invoked [{}]", contextToClone.getCurrentSpecificationContext());
-        TestContext asyncContext = new TestContextService().cloneContext(contextToClone);
-        TestContext.SpecificationContext specificationContext = asyncContext.getCurrentSpecificationContext();
+        TestContextService testContextService = buildTestContextService();
+        TestContext asyncContext = testContextService.cloneContext(contextToClone);
+        TestContext.SpecificationContext specificationContext = contextToClone.getCurrentSpecificationContext();
         try {
             ContextSynchronizer runner = new ContextSynchronizer() {
                 @Override
                 public Object runCallBack(TestContext context) {
-                    runCommand.execute(
+                    buildRunCommand().execute(
                             commandCall,
                             new FakeEvaluator(),
                             new SyncResultRecorderWrapper(resultRecorder));
@@ -81,8 +82,14 @@ public class AsyncSpecExecutionCallable implements Runnable {
         } catch (Throwable ex) {
             LOG.error("Async call exception [{}]", ex.getMessage(), ex);
         } finally {
+            testContextService.dropContext(asyncContext);
             specificationContext.onAsyncCallFinished();
         }
         LOG.debug("method finished");
     }
+
+    TestContextService buildTestContextService() {
+        return new TestContextService();
+    }
+
 }

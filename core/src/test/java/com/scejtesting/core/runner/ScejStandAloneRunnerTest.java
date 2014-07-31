@@ -83,7 +83,7 @@ public class ScejStandAloneRunnerTest {
     }
 
     @org.junit.Test
-    public void testRunnerException() {
+    public void testExceptionSavedToResult_suiteException() {
 
         doThrow(new AssertionFailure("Suite runner")).when(runnerSpy).initTestSuite(anyString());
 
@@ -96,7 +96,7 @@ public class ScejStandAloneRunnerTest {
     }
 
     @org.junit.Test
-    public void testSuiteTestFiltering() {
+    public void testSuiteTestLaunched_testFilterSpecified() {
 
         System.setProperty(Constants.TESTS_TO_RUN_PROPERTY_KEY, "testOne");
 
@@ -123,7 +123,7 @@ public class ScejStandAloneRunnerTest {
     }
 
     @org.junit.Test
-    public void testUnknownSuiteConfig() {
+    public void testExceptionResultStored_unknownConfig() {
         System.setProperty(Constants.SUITE_CONFIG_PROPERTY_KEY, "/unExistedSuiteConfig.xml");
 
         ResultSummary result = runnerSpy.runSuite();
