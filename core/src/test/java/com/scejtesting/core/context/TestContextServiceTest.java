@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.mock;
@@ -213,17 +214,23 @@ public class TestContextServiceTest {
 
         Assert.assertEquals(testContext2, new TestContextService().getCurrentTestContext());
 
+        final CountDownLatch latch = new CountDownLatch(1);
+
+
         new Thread() {
             @Override
             public void run() {
                 try {
                     service.revertContextSwitch();
                     TimeUnit.SECONDS.sleep(1);
+                    latch.countDown();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }.start();
+
+        latch.await();
 
         Assert.assertEquals(testContext1, new TestContextService().getCurrentTestContext());
     }

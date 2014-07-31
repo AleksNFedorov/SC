@@ -26,9 +26,9 @@ public class TestContext extends Context implements Cloneable {
     protected static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
     private static final AtomicInteger contextSequence = new AtomicInteger(0);
     private final Stack<SpecificationContext> contextStack = new Stack<SpecificationContext>();
+    private final Map<String, Element> childSpecificationsElements;
     private Test test;
     private Integer contextId = contextSequence.incrementAndGet();
-    private final Map<String, Element> childSpecificationsElements;
 
 
     public TestContext(Test test) {
@@ -38,6 +38,11 @@ public class TestContext extends Context implements Cloneable {
         this.test = test;
         childSpecificationsElements = new ConcurrentHashMap<String, Element>();
         createTopLevelTestContext();
+    }
+
+    public static boolean isDestroyedContext(TestContext context) {
+        Check.notNull(context, "Test context must be specified");
+        return DESTROYED_CONTEXT.equals(context.getContextId());
     }
 
     public void destroyTestContext() {
@@ -92,8 +97,11 @@ public class TestContext extends Context implements Cloneable {
     @Override
     public String toString() {
         return "TestContext{" +
-                ", stack size='" + contextStack.size()
-                + '}';
+                "contextStack=" + contextStack.size() +
+                ", test=" + test +
+                ", contextId=" + contextId +
+                ", childSpecificationsElements=" + childSpecificationsElements.size() +
+                '}';
     }
 
     public Integer getContextId() {
@@ -135,12 +143,6 @@ public class TestContext extends Context implements Cloneable {
         return element;
 
     }
-
-    public static boolean isDestroyedContext(TestContext context) {
-        Check.notNull(context, "Test context must be specified");
-        return DESTROYED_CONTEXT.equals(context.getContextId());
-    }
-
 
     public class SpecificationContext {
         private final Resource currentTestResource;

@@ -61,7 +61,8 @@ import org.junit.runners.Suite;
         ContextSynchonizerRunnerTest.class,
         SaveResultsCommandTest.class,
         SaveResultsCommandDocumentEnricherTest.class,
-        AsyncSpecExecutionCallableTest.class
+        AsyncSpecExecutionCallableTest.class,
+        RegisterGlobalVariablesCommandTest.class
 })
 public class AllTestsSuite {
 

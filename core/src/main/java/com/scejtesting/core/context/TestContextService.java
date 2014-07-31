@@ -18,7 +18,7 @@ public class TestContextService {
     protected static final Logger LOG = LoggerFactory.getLogger(TestContextService.class);
 
     static final Map<Integer, TestContext> contexts = new ConcurrentHashMap<Integer, TestContext>();
-    private static final AtomicInteger contextIdToUse = new AtomicInteger(0);
+    private static final AtomicInteger contextIdToUse = new AtomicInteger(TestContext.DESTROYED_CONTEXT);
     private static Integer lastReplacedContextId = TestContext.DESTROYED_CONTEXT;
 
     public void dropContext(TestContext context) {

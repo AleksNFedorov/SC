@@ -1,5 +1,7 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.context.TestContextService;
 import com.scejtesting.selenium.WebTestFixture;
 import org.concordion.api.Element;
 import org.concordion.api.listener.AssertFailureEvent;
@@ -27,12 +29,21 @@ public class CommandsTest {
     @Before
     public void init() {
         listener = new MonitoringAssertListener();
+
+        com.scejtesting.core.config.Test testMock = mock(com.scejtesting.core.config.Test.class);
+        when(testMock.getSpecification()).thenReturn(new Specification("/mock.html"));
+
+        TestContextService service = new TestContextService();
+        service.createNewTestContext(testMock);
     }
 
     @After
     public void finishTest() {
         listener = null;
+        TestContextService service = new TestContextService();
+        service.dropContext(service.getCurrentTestContext());
     }
+
 
     @Test
     public void setValueToElementTest() {

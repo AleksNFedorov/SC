@@ -1,15 +1,19 @@
 package com.scejtesting.core.concordion.command;
 
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.Context;
+import com.scejtesting.core.context.TestContext;
+import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Evaluator;
 import org.concordion.internal.SimpleEvaluatorFactory;
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.Before;
 
 import java.util.Map;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 
 /**
  * User: Fedorovaleks
@@ -17,7 +21,29 @@ import static org.mockito.Mockito.spy;
  */
 public class RegisterGlobalVariablesCommandTest {
 
-    @Test
+    private TestContext currentTestContext;
+    private Test mockTest;
+
+    @Before
+    public void initTest() {
+        Specification root = spy(new Specification("/com/scej/Head.html"));
+
+        com.scejtesting.core.config.Test test = mock(com.scejtesting.core.config.Test.class);
+        when(test.getSpecification()).thenReturn(root);
+        when(test.getName()).thenReturn("testName");
+
+        currentTestContext = new TestContextService().createNewTestContext(test);
+
+        mockTest = test;
+    }
+
+    @After
+    public void finishTest() {
+        new TestContextService().dropContext(currentTestContext);
+    }
+
+
+    @org.junit.Test
     public void initGlobalVariablesTest() {
 
         Evaluator evaluator = new SimpleEvaluatorFactory().createEvaluator(this);

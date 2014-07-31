@@ -7,12 +7,13 @@ import com.scejtesting.core.config.Test;
 import com.scejtesting.core.context.SpecificationResultRegistry;
 import com.scejtesting.core.context.TestContext;
 import com.scejtesting.core.context.TestContextService;
+import org.concordion.api.Result;
 import org.concordion.api.ResultSummary;
+import org.concordion.api.RunnerResult;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.InOrder;
-import sun.jvm.hotspot.utilities.AssertionFailure;
 
 import java.util.Arrays;
 
@@ -61,6 +62,12 @@ public class ScejStandAloneRunnerTest {
     public void finishTest() {
         System.clearProperty(Constants.TESTS_TO_RUN_PROPERTY_KEY);
         System.clearProperty(Constants.SUITE_CONFIG_PROPERTY_KEY);
+        try {
+            TestContext context = new TestContextService().getCurrentTestContext();
+            new TestContextService().dropContext(context);
+        } catch (RuntimeException ex) {
+        }
+
     }
 
     @org.junit.Test
@@ -85,7 +92,7 @@ public class ScejStandAloneRunnerTest {
     @org.junit.Test
     public void testExceptionSavedToResult_suiteException() {
 
-        doThrow(new AssertionFailure("Suite runner")).when(runnerSpy).initTestSuite(anyString());
+        doThrow(new IllegalStateException("Suite runner")).when(runnerSpy).initTestSuite(anyString());
 
         ResultSummary result = runnerSpy.runSuite();
 
@@ -151,23 +158,19 @@ public class ScejStandAloneRunnerTest {
     }
 
     @org.junit.Test
-    public void testRunTest() {
-
-        try {
-            TestContext context = new TestContextService().getCurrentTestContext();
-            new TestContextService().dropContext(context);
-        } catch (RuntimeException ex) {
-        }
+    public void testGetJobFinished_validParameters() {
 
 
         Specification specificationMock = mock(Specification.class);
         when(mockTest.getSpecification()).thenReturn(specificationMock);
 
-        doReturn(testResultSummary).when(runnerSpy).
+        SpecificationResultRegistry resultRegistry = new SpecificationResultRegistry();
+        resultRegistry.addResult(testResultSummary, new RunnerResult(Result.IGNORED));
+
+        doReturn(resultRegistry).when(runnerSpy).
                 runJUnitTestsForTest(any(TestContext.class));
 
         doCallRealMethod().when(runnerSpy).runTest(any(Test.class));
-
 
         ResultSummary result = runnerSpy.runSuite();
 
@@ -181,6 +184,6 @@ public class ScejStandAloneRunnerTest {
         Assert.assertEquals(1, result.getSuccessCount());
         Assert.assertEquals(2, result.getFailureCount());
         Assert.assertEquals(3, result.getExceptionCount());
-        Assert.assertEquals(4, result.getIgnoredCount());
+        Assert.assertEquals(3, result.getIgnoredCount());
     }
 }

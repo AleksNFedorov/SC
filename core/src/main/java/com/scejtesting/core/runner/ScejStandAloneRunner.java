@@ -90,7 +90,6 @@ public class ScejStandAloneRunner {
         SpecificationResultRegistry result = runJUnitTestsForTest(testContext);
 
         testContextService.dropContext(testContext);
-        testContext.destroyTestContext();
         LOG.info("Test context destroyed");
 
         return result;
