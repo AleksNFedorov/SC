@@ -2,10 +2,7 @@ package com.scejtesting.core;
 
 import com.scejtesting.core.concordion.ChildSpecificationRunnerTest;
 import com.scejtesting.core.concordion.async.AsyncSpecExecutionCallableTest;
-import com.scejtesting.core.concordion.command.RegisterGlobalVariablesCommandTest;
-import com.scejtesting.core.concordion.command.SaveResultsCommandTest;
-import com.scejtesting.core.concordion.command.ScejRunCommandTest;
-import com.scejtesting.core.concordion.command.SetGlobalCommandTest;
+import com.scejtesting.core.concordion.command.*;
 import com.scejtesting.core.concordion.extension.*;
 import com.scejtesting.core.concordion.extension.documentparsing.*;
 import com.scejtesting.core.concordion.extension.specificationprocessing.ResultsBreadCumbBuilderTest;
@@ -62,7 +59,8 @@ import org.junit.runners.Suite;
         SaveResultsCommandTest.class,
         SaveResultsCommandDocumentEnricherTest.class,
         AsyncSpecExecutionCallableTest.class,
-        RegisterGlobalVariablesCommandTest.class
+        RegisterGlobalVariablesCommandTest.class,
+        ScejAsyncRunCommandTest.class,
 })
 public class AllTestsSuite {
 

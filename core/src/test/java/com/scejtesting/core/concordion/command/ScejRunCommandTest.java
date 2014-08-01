@@ -9,7 +9,9 @@ import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.SimpleEvaluatorFactory;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -21,17 +23,43 @@ import static org.mockito.Mockito.*;
 public class ScejRunCommandTest {
 
 
-    @org.junit.Test
-    public void testInitialization() {
+    private Test testMock;
 
+    @Before
+    public void initTest() {
         Specification testSpec = new Specification("/test.html");
-        Test mockTest = mock(Test.class);
-        when(mockTest.getSpecification()).thenReturn(testSpec);
-        when(mockTest.getName()).thenReturn("runCommandTest");
+        testMock = mock(Test.class);
+        when(testMock.getSpecification()).thenReturn(testSpec);
+        when(testMock.getName()).thenReturn("runCommandTest");
 
         TestContextService service = new TestContextService();
-        TestContext testContext = service.createNewTestContext(mockTest);
-        testContext = service.cloneContext(testContext);
+        service.createNewTestContext(testMock);
+    }
+
+    @After
+    public void tearDownTest() {
+        TestContextService service = new TestContextService();
+        service.dropContext(service.getCurrentTestContext());
+    }
+
+    @org.junit.Test(expected = RuntimeException.class)
+    public void testInitializationException_noTestContext() {
+
+        TestContextService service = new TestContextService();
+        service.dropContext(service.getCurrentTestContext());
+
+        try {
+            new ScejRunCommand();
+        } finally {
+            service.createNewTestContext(testMock);
+        }
+    }
+
+    @org.junit.Test
+    public void testCommandCreated_validContext() {
+
+        TestContextService service = new TestContextService();
+        TestContext testContext = service.cloneContext(service.getCurrentTestContext());
         service.switchContext(testContext);
 
         ScejRunCommand runCommand = new ScejRunCommand();
@@ -39,6 +67,8 @@ public class ScejRunCommandTest {
         Assert.assertSame(testContext, runCommand.getTestContext());
         Assert.assertEquals("run", runCommand.getCommandName());
 
+        service.revertContextSwitch();
+        service.dropContext(testContext);
     }
 
     @org.junit.Test
@@ -46,19 +76,15 @@ public class ScejRunCommandTest {
 
         Evaluator evaluator = new SimpleEvaluatorFactory().createEvaluator(this);
 
-        Specification testSpec = new Specification("/test.html");
-        Test mockTest = mock(Test.class);
-        when(mockTest.getSpecification()).thenReturn(testSpec);
-        when(mockTest.getName()).thenReturn("runCommandTest");
+        when(testMock.getName()).thenReturn("runCommandTest");
 
         final TestContextService service = new TestContextService();
-        TestContext testContext = service.createNewTestContext(mockTest);
-        testContext = service.cloneContext(testContext);
+        TestContext testContext = service.cloneContext(service.getCurrentTestContext());
 
         final AtomicBoolean check = new AtomicBoolean(false);
 
         Element runElement = new Element("a");
-        runElement.addAttribute("href", testSpec.getLocation());
+        runElement.addAttribute("href", testMock.getSpecification().getLocation());
 
         final CommandCall commandCall = new CommandCall(null, runElement, null, null);
 
@@ -75,6 +101,6 @@ public class ScejRunCommandTest {
         runCommand.execute(commandCall, evaluator, null);
 
         Assert.assertTrue(check.get());
-        Assert.assertSame(runElement, testContext.getChildSpecificationElement(testSpec.getLocation()));
+        Assert.assertSame(runElement, testContext.getChildSpecificationElement(testMock.getSpecification().getLocation()));
     }
 }
