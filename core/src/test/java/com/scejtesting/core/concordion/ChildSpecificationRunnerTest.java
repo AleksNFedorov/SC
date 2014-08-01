@@ -75,7 +75,7 @@ public class ChildSpecificationRunnerTest {
         TestContext clonedContext = service.cloneContext(currentTestContext);
         service.switchContext(clonedContext);
 
-        doThrow((new IllegalStateException("Thrown for test purpose"))).when(runnerSpy).
+        doThrow((new Exception("Thrown for test purpose"))).when(runnerSpy).
                 executeSpecification(eq(mockSpecification),
                         any(Resource.class), anyString());
 

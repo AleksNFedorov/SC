@@ -52,7 +52,7 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             LOG.debug("Specification [{}] execution result [{}]", specification, result.getResult());
 
             return result;
-        } catch (RuntimeException ex) {
+        } catch (Throwable ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
             result = new RunnerResult(Result.EXCEPTION);
             markTestContextAsInitialized();
