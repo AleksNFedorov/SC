@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <suite>
-
-    <!--
      <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst"
            name="Test one"
            substitutionDictionary="testOneDictionary.properties">
@@ -26,7 +24,7 @@
            name="Test exception">
          <specification location="/com/scejtesting/coretests/async/AsyncCall.html"/>
      </test>
- -->
+
     <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
           name="Test exception">
         <specification location="/com/scejtesting/coretests/testexception/TestException.html"/>
@@ -34,8 +32,8 @@
             <exception>com.scejtesting.coretests.exceptions.TestException</exception>
         </exceptions>
     </test>
-    <!--
-        <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
+
+    <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
               name="Suite exception">
             <specification location="/com/scejtesting/coretests/suiteexception/SuiteException.html"/>
         </test>
@@ -48,5 +46,4 @@
         <exceptions>
             <exception>com.scejtesting.coretests.exceptions.SuiteException</exception>
         </exceptions>
-    -->
 </suite>
