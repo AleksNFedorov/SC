@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <suite>
-     <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst"
-           name="Test one"
-           substitutionDictionary="testOneDictionary.properties">
-         <specification location="/com/scejtesting/coretests/includeexclude/HeadSpecification.html">
-             <includes>
-                 <specification location="child/ChildLevel11.html" testClass="com.scejtesting.coretests.CoreTestsFirst2">
-                     <includes>
-                         <specification location="child/ChildLevel21.html"/>
-                     </includes>
-                 </specification>
-                 <specification location="child/ChildLevel12.html">
-                     <excludes>
-                         <specification location="child/ChildLevel21.html"/>
-                     </excludes>
-                 </specification>
-             </includes>
-         </specification>
-     </test>
 
-     <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
-           name="Test exception">
-         <specification location="/com/scejtesting/coretests/async/AsyncCall.html"/>
-     </test>
+    <!--
+         <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst"
+               name="Test one"
+               substitutionDictionary="testOneDictionary.properties">
+             <specification location="/com/scejtesting/coretests/includeexclude/HeadSpecification.html">
+                 <includes>
+                     <specification location="child/ChildLevel11.html" testClass="com.scejtesting.coretests.CoreTestsFirst2">
+                         <includes>
+                             <specification location="child/ChildLevel21.html"/>
+                         </includes>
+                     </specification>
+                     <specification location="child/ChildLevel12.html">
+                         <excludes>
+                             <specification location="child/ChildLevel21.html"/>
+                         </excludes>
+                     </specification>
+                 </includes>
+             </specification>
+         </test>
 
+         <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
+               name="Test exception">
+             <specification location="/com/scejtesting/coretests/async/AsyncCall.html"/>
+         </test>
+
+    -->
     <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
           name="Test exception">
         <specification location="/com/scejtesting/coretests/testexception/TestException.html"/>
@@ -33,6 +36,7 @@
         </exceptions>
     </test>
 
+    <!--
     <test defaultTestClass="com.scejtesting.coretests.CoreTestsFirst2"
               name="Suite exception">
             <specification location="/com/scejtesting/coretests/suiteexception/SuiteException.html"/>
@@ -46,4 +50,5 @@
         <exceptions>
             <exception>com.scejtesting.coretests.exceptions.SuiteException</exception>
         </exceptions>
+        -->
 </suite>

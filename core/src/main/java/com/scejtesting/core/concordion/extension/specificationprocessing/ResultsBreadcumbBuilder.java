@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ResultsBreadcumbBuilder {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(ResultsBreadcumbRendererProcessingListener.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(ResultsBreadcumbBuilder.class);
 
     private final TestContext currentTestContext = new TestContextService().getCurrentTestContext();
 
