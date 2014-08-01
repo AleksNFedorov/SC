@@ -37,18 +37,14 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
     };
 
     @Override
-    public void addTo(ConcordionExtender concordionExtender) {
-        super.addTo(concordionExtender);
-        addCommands(concordionExtender);
+    protected void addToSafe(ConcordionExtender concordionExtender) {
         addScreenShotTaker(concordionExtender);
     }
 
     private void addScreenShotTaker(ConcordionExtender concordionExtender) {
-
         ScreenshotExtension screenshotExtension = new ScreenshotExtension();
         screenshotExtension.setScreenshotTaker(new ScreenShotFacade());
         screenshotExtension.addTo(concordionExtender);
-
     }
 
     @Override

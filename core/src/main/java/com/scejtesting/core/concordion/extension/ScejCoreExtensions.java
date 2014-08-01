@@ -31,7 +31,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
     private static final Logger LOG = LoggerFactory.getLogger(ScejCoreExtensions.class);
 
     @Override
-    public void addTo(ConcordionExtender concordionExtender) {
+    public final void addTo(ConcordionExtender concordionExtender) {
         LOG.debug("method invoked");
         try {
             addFailFastExceptions(concordionExtender);
@@ -44,6 +44,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
             concordionExtender.withSpecificationProcessingListener(new VelocityResultsRenderer());
             concordionExtender.withSpecificationProcessingListener(new ResultsBreadcumbRendererProcessingListener());
             addCommands(concordionExtender);
+            addToSafe(concordionExtender);
         } catch (Throwable throwable) {
             LOG.error("Exception during test initialization [{}]", throwable.getMessage(), throwable);
             throw new RuntimeException(throwable);
@@ -51,6 +52,9 @@ public class ScejCoreExtensions implements ConcordionExtension {
             onExtensionInitialized();
             LOG.debug("method finished");
         }
+    }
+
+    protected void addToSafe(ConcordionExtender concordionExtender) {
     }
 
     protected void addCommands(ConcordionExtender extender) {
