@@ -17,7 +17,8 @@ public class CoreWebTestFixture {
 
     protected final static Logger LOG = LoggerFactory.getLogger(CoreWebTestFixture.class);
 
-    private DriverHolderService driverHolderService = new DriverHolderService();
+    //Created before file extension
+    private final DriverHolderService driverHolderService = new DriverHolderService();
 
     public void goToURL(String URL) {
         LOG.debug("method invoked [{}]", URL);

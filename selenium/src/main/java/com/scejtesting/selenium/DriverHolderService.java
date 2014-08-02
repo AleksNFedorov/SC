@@ -29,7 +29,7 @@ public class DriverHolderService {
 
         Check.isTrue(getCurrentDriver() == null, "Some driver already open");
 
-        WebDriverController driverService = driverServiceFactory.buildDriverService(driverName);
+        WebDriverController driverService = driverServiceFactory.buildWebDriverController(driverName);
 
         LOG.info("Driver [{}] has been built", driverName);
 

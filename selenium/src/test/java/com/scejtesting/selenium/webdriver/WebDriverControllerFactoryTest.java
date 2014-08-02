@@ -23,7 +23,7 @@ public class WebDriverControllerFactoryTest {
 
         WebDriverControllerFactory serviceFactory = new WebDriverControllerFactory();
 
-        WebDriverController fakeDefaultService = serviceFactory.buildDriverService("fakedriver_default");
+        WebDriverController fakeDefaultService = serviceFactory.buildWebDriverController("fakedriver_default");
 
         Assert.assertNotNull(fakeDefaultService);
 
@@ -36,7 +36,7 @@ public class WebDriverControllerFactoryTest {
 
         WebDriverControllerFactory serviceFactory = new WebDriverControllerFactory();
 
-        WebDriverController fakeDefaultService = serviceFactory.buildDriverService("fakedriver");
+        WebDriverController fakeDefaultService = serviceFactory.buildWebDriverController("fakedriver");
 
         Assert.assertNotNull(fakeDefaultService);
 
@@ -51,7 +51,7 @@ public class WebDriverControllerFactoryTest {
 
         WebDriverControllerFactory serviceFactory = new WebDriverControllerFactory();
 
-        WebDriverController fakeDefaultService = serviceFactory.buildDriverService("fakedriver");
+        WebDriverController fakeDefaultService = serviceFactory.buildWebDriverController("fakedriver");
 
         Assert.assertNotNull(fakeDefaultService);
 
@@ -61,14 +61,14 @@ public class WebDriverControllerFactoryTest {
 
     @Test(expected = RuntimeException.class)
     public void unknownDriverTest() {
-        new WebDriverControllerFactory().buildDriverService("fakedriver" + System.currentTimeMillis());
+        new WebDriverControllerFactory().buildWebDriverController("fakedriver" + System.currentTimeMillis());
     }
 
     @Test(expected = RuntimeException.class)
     public void unknownBuilderClassTest() {
 
         System.setProperty("fakedriver" + WebDriverControllerFactory.DRIVER_PROPERTIES_FILE_SUFFIX, getClass().getClassLoader().getResource("fakedriver.epmty.properties").getFile());
-        new WebDriverControllerFactory().buildDriverService("fakedriver");
+        new WebDriverControllerFactory().buildWebDriverController("fakedriver");
     }
 
 }

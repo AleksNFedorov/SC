@@ -19,7 +19,7 @@ public class WebDriverControllerFactory {
 
     private final static Logger LOG = LoggerFactory.getLogger(WebDriverControllerFactory.class);
 
-    public WebDriverController buildDriverService(String driverName) {
+    public WebDriverController buildWebDriverController(String driverName) {
         LOG.debug("init method invoked");
 
         Check.notNull(driverName, "Driver name must be specified");
@@ -28,7 +28,7 @@ public class WebDriverControllerFactory {
 
         WebDriverController.saveDriverName(driverName, driverProperties);
 
-        WebDriverController driverBuilder = createDriverService(driverName, driverProperties);
+        WebDriverController driverBuilder = createWebDriverController(driverName, driverProperties);
 
         LOG.info("init successfully finished");
         LOG.debug("method finished");
@@ -36,7 +36,7 @@ public class WebDriverControllerFactory {
         return driverBuilder;
     }
 
-    private WebDriverController createDriverService(String driverName, Properties driverProperties) {
+    private WebDriverController createWebDriverController(String driverName, Properties driverProperties) {
         LOG.debug("method invoked");
 
         String builderImplementationClass = driverProperties.getProperty(WebDriverController.class.getCanonicalName());
