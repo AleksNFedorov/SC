@@ -79,10 +79,15 @@ public class ChildSpecificationRunnerTest {
                 executeSpecification(eq(mockSpecification),
                         any(Resource.class), anyString());
 
-        runnerSpy.execute(new Resource("/somePath"), "Some href");
+        try {
+            runnerSpy.execute(new Resource("/somePath"), "Some href");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+
+        }
 
         Assert.assertSame(currentTestContext, service.getCurrentTestContext());
-        checkResults(0, 0, 0, 1);
+        checkResults(0, 1, 0, 0);
     }
 
     @org.junit.Test
@@ -103,10 +108,15 @@ public class ChildSpecificationRunnerTest {
 
         doReturn(serviceMock).when(runnerSpy).getSpecificationLocationService();
 
-        runnerSpy.execute(new Resource("/somePath"), "Some href");
+        try {
+            runnerSpy.execute(new Resource("/somePath"), "Some href");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+
+        }
 
         Assert.assertSame(currentTestContext, service.getCurrentTestContext());
-        checkResults(0, 0, 0, 1);
+        checkResults(0, 0, 0, 0);
     }
 
     @org.junit.Test
@@ -148,7 +158,7 @@ public class ChildSpecificationRunnerTest {
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
         Assert.assertSame(currentTestContext, service.getCurrentTestContext());
 
-        checkResults(0, 0, 1, 0);
+        checkResults(0, 0, 0, 0);
     }
 
     @org.junit.Test
@@ -168,7 +178,7 @@ public class ChildSpecificationRunnerTest {
         Assert.assertSame(currentTestContext, service.getCurrentTestContext());
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        checkResults(0, 0, 1, 0);
+        checkResults(0, 0, 0, 0);
     }
 
     @org.junit.Test
@@ -188,7 +198,7 @@ public class ChildSpecificationRunnerTest {
 
         Assert.assertEquals(Result.IGNORED, executionResult.getResult());
 
-        checkResults(0, 0, 1, 0);
+        checkResults(0, 0, 0, 0);
     }
 
     @org.junit.Test
