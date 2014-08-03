@@ -56,7 +56,7 @@ public class DriverHolderService {
 
         if (currentOpenDriver == null) {
             LOG.warn("No open driver");
-            throw new IllegalStateException("No driver service");
+            throw new IllegalStateException("No open/current driver");
         }
 
         LOG.debug("method finished");

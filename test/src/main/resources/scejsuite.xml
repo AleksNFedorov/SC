@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <suite>
-
-    <test defaultTestClass="com.scejtesting.core.CoreTestFixture">
-        <specification location="/HeadSpecification.html">
-            <includes>
-                <specification location="HeadSpecificationChrome.html"/>
-                <specification location="HeadSpecificationFF.html"/>
-            </includes>
-        </specification>
+    <test defaultTestClass="com.scejtesting.selenium.SpecificationWebTest"
+          name="Core tests">
+        <specification location="/ua/homemoney/HeadSpecification.html"/>
     </test>
-
 </suite>

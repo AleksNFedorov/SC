@@ -39,6 +39,7 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
     @Override
     protected void addToSafe(ConcordionExtender concordionExtender) {
         addScreenShotTaker(concordionExtender);
+        concordionExtender.withThrowableListener(new WebTestExceptionListener());
     }
 
     private void addScreenShotTaker(ConcordionExtender concordionExtender) {

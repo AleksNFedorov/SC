@@ -7,6 +7,7 @@ import com.scejtesting.core.context.TestContextService;
 import org.concordion.api.Resource;
 import org.concordion.api.Result;
 import org.concordion.api.RunnerResult;
+import org.concordion.internal.FailFastException;
 import org.concordion.internal.runner.DefaultConcordionRunner;
 import org.concordion.internal.util.Check;
 import org.slf4j.Logger;
@@ -45,17 +46,20 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
                         resource,
                         href);
             } else {
-                result = new RunnerResult(Result.IGNORED);
-                markTestContextAsInitialized();
+                result = finishTestWithResult(Result.IGNORED);
             }
 
             LOG.debug("Specification [{}] execution result [{}]", specification, result.getResult());
 
             return result;
+        } catch (FailFastException ex) {
+            LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
+            result = finishTestWithResult(Result.EXCEPTION);
         } catch (Throwable ex) {
             LOG.error("Exception during specification executing [{}]", ex.getMessage(), ex);
-            result = new RunnerResult(Result.EXCEPTION);
-            markTestContextAsInitialized();
+            adjustResultOnException(Result.FAILURE);
+            result = finishTestWithResult(Result.FAILURE);
+            throw new RuntimeException(ex);
         } finally {
             destroyContextAndPopulateResults(result);
             LOG.debug("method finished");
@@ -63,8 +67,15 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
         return result;
     }
 
-    private void markTestContextAsInitialized() {
+    private void adjustResultOnException(Result result) {
+        SpecificationResultRegistry executedSpecificationRegistry = getCurrentTestContext().
+                getCurrentSpecificationContext().getResultRegistry();
+        executedSpecificationRegistry.addResult(new RunnerResult(result));
+    }
+
+    private RunnerResult finishTestWithResult(Result result) {
         new TestContextService().revertContextSwitch();
+        return new RunnerResult(result);
     }
 
     protected RunnerResult executeSpecification(Specification specification, Resource specificationResource, String href) throws Exception {
@@ -103,8 +114,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
             parentSpecificationRegistry.addResult(executedSpecificationRegistry, result);
 
             LOG.info("Specification [{}] results added to parent registry ", specificationContext);
-        } else {
-            executedSpecificationRegistry.addResult(result);
         }
 
     }
@@ -139,14 +148,6 @@ public class ChildSpecificationRunner extends DefaultConcordionRunner {
                     resolveSpecificationClassByContext(specification, getCurrentTestContext().getTest());
             LOG.debug("Specification [{}] test class [{}]", href, resolvedClass);
             return resolvedClass;
-        } catch (RuntimeException ex) {
-            LOG.error("Exception during test class specification lookup [{}]", ex.getMessage());
-            SpecificationResultRegistry executedSpecificationRegistry = getCurrentTestContext().
-                    getCurrentSpecificationContext().getResultRegistry();
-            executedSpecificationRegistry.addResult(new RunnerResult(Result.EXCEPTION));
-            executedSpecificationRegistry.addResult(new RunnerResult(Result.EXCEPTION));
-
-            throw ex;
         } finally {
             LOG.debug("method finished");
         }

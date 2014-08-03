@@ -2,34 +2,11 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5p %c.%M - %m%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %c{5} %method:%line - %m%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="develomentServerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>test/results/logs/uitest.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>uitest.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5p %c.%M - %m%n</pattern>
-        </encoder>
-    </appender>
-
-    <!--
-        <logger name="com.scejtesting.core.concordion.ChildSpecificationRunner" level="debug">
-            &lt;!&ndash;<appender-ref ref="STDOUT"/>&ndash;&gt;
-        </logger>
-
-        <logger name="com.scejtesting.core.runner.ScejSuiteRunner" level="debug">
-            &lt;!&ndash;<appender-ref ref="STDOUT"/>&ndash;&gt;
-        </logger>
-    -->
-
-
-    <root level="DEBUG">
+    <root level="debug">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="develomentServerAppender"/>
     </root>
 </configuration>

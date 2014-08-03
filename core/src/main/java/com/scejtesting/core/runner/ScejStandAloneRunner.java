@@ -36,7 +36,7 @@ public class ScejStandAloneRunner {
 
     public static void main(String... args) {
         ResultSummary result = new ScejStandAloneRunner().runSuite();
-        System.exit(result.getFailureCount() == 0 ? 0 : 1);
+        System.exit(result.getFailureCount() + result.getExceptionCount() == 0 ? 0 : 1);
     }
 
     public ResultSummary runSuite() {
