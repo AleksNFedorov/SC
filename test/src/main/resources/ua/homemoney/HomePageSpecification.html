@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:scej="http://www.scejtesting.com/2014">
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:scej="http://www.scejtesting.com/2014">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Тестирование начальной страницы</title>
@@ -11,9 +11,60 @@
     Перешли на страницу <span scej:goToUrl="#TEXT">${homePage.URL}</span>
 </div>
 
+<p>
+    Проверяем что все ссылки заголовка присутсвуют
+
+<table concordion:execute="#result = checkElementExist(#elementBy)">
+    <tr>
+        <th concordion:set="#elementBy = createByLinkText(#TEXT)">Текст ссылки</th>
+        <th concordion:assertEquals="#result">Найдена</th>
+    </tr>
+    <tr>
+        <td>Вход</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>О компании</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>Цены</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>Регистрация</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>пользовательского соглашения</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>iPhone</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>Android</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>Windows Phone</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>Другие отзывы</td>
+        <td>true</td>
+    </tr>
+</table>
+</p>
+
+
+<p>
+
 <div>
     Подождали <span scej:waitSeconds="#TEXT">5</span> секунд
 </div>
+</p>
 
 </body>
 </html>
