@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by aleks on 5/4/14.
  */
-public class CheckElementExist extends AbstractCheckStateCommand {
+public class CheckElementExist extends AbstractCheckElementStateCommand {
 
     public CheckElementExist(AssertListener listener) {
         super(listener);

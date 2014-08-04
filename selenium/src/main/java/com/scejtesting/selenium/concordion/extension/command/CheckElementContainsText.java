@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by aleks on 5/4/14.
  */
-public class CheckElementContainsText extends AbstractElementCheckCommand {
+public class CheckElementContainsText extends AbstractCheckElementContentCommand {
 
     public CheckElementContainsText(AssertListener listener) {
         super(listener);

@@ -7,26 +7,25 @@ import org.concordion.api.listener.AssertSuccessEvent;
 import org.concordion.internal.util.Check;
 
 /**
- * User: Fedorovaleks
- * Date: 3/31/14
+ * Created by aleks on 8/3/14.
  */
-public class OpenDriver extends AbstractSeleniumDriverCommand {
+public class GoToURLCommand extends AbstractSeleniumDriverCommand {
 
-    public OpenDriver(AssertListener listener) {
+    public GoToURLCommand(AssertListener listener) {
         super(listener);
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element, ResultRecorder resultRecorder) {
+    protected void processDriverCommand(Object parameter, Element element, ResultRecorder recoreder) {
 
-        Check.notNull(parameter, "Driver name must be set");
+        Check.notEmpty(parameter.toString(), "URL cant be mepty");
 
-        getTestFixture().openDriver(parameter.toString());
+        getTestFixture().goToURL(parameter.toString());
         listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
     @Override
     public String getCommandName() {
-        return "openDriver";
+        return "goToUrl";
     }
 }

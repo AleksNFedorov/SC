@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by aleks on 5/4/14.
  */
-public class CheckElementSelected extends AbstractCheckStateCommand {
+public class CheckElementSelected extends AbstractCheckElementStateCommand {
 
     public CheckElementSelected(AssertListener listener) {
         super(listener);

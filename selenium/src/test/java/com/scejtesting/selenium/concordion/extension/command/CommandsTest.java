@@ -1,29 +1,12 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
-import com.scejtesting.core.config.Specification;
-import com.scejtesting.core.context.TestContextService;
-import com.scejtesting.selenium.WebTestFixture;
-import org.concordion.api.Element;
-import org.concordion.api.listener.AssertFailureEvent;
-import org.concordion.api.listener.AssertListener;
-import org.concordion.api.listener.AssertSuccessEvent;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.Arrays;
-
-import static org.mockito.Mockito.*;
-
 /**
  * User: Fedorovaleks
  * Date: 3/31/14
  */
 public class CommandsTest {
 
+    /*
     private MonitoringAssertListener listener;
 
     @Before
@@ -190,7 +173,7 @@ public class CommandsTest {
     public void checkElementExist() {
         WebTestFixture fixture = mock(WebTestFixture.class);
 
-        AbstractCheckStateCommand command = spy(new CheckElementDisplayed(listener));
+        AbstractCheckElementStateCommand command = spy(new CheckElementDisplayed(listener));
 
         doReturn(fixture).when(command).getTestFixture();
 
@@ -217,7 +200,7 @@ public class CommandsTest {
     public void checkElementDisplayed() {
         WebTestFixture fixture = mock(WebTestFixture.class);
 
-        AbstractCheckStateCommand command = spy(new CheckElementDisplayed(listener));
+        AbstractCheckElementStateCommand command = spy(new CheckElementDisplayed(listener));
 
         doReturn(fixture).when(command).getTestFixture();
 
@@ -248,7 +231,7 @@ public class CommandsTest {
     public void checkElementEnabled() {
         WebTestFixture fixture = mock(WebTestFixture.class);
 
-        AbstractCheckStateCommand command = spy(new CheckElementEnabled(listener));
+        AbstractCheckElementStateCommand command = spy(new CheckElementEnabled(listener));
 
         doReturn(fixture).when(command).getTestFixture();
 
@@ -534,5 +517,5 @@ public class CommandsTest {
             return failCount;
         }
     }
-
+*/
 }

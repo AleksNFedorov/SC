@@ -1,21 +1,19 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
-import org.concordion.api.listener.AssertFailureEvent;
 import org.concordion.api.listener.AssertListener;
-import org.concordion.api.listener.AssertSuccessEvent;
 
 /**
  * Created by aleks on 5/4/14.
  */
-public class CheckTextOnPage extends AbstractSeleniumDriverCommand {
+public class CheckTextOnPage extends AbstractSeleniumCheckCommand {
 
     public CheckTextOnPage(AssertListener listener) {
         super(listener);
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element) {
+    public CommandResult performCheck(Object parameter, Element element) {
 
         String textToSearch = parameter.toString();
 
@@ -25,9 +23,9 @@ public class CheckTextOnPage extends AbstractSeleniumDriverCommand {
 
         if (checkResult) {
             LOG.info("Text [{}] found on page", textToSearch);
-            listeners.announce().successReported(new AssertSuccessEvent(element));
+            return buildSuccessResult();
         } else {
-            listeners.announce().failureReported(new AssertFailureEvent(element, textToSearch, "NONE"));
+            return buildFailResult(textToSearch, "");
         }
     }
 

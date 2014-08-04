@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:scej="http://www.scejtesting.com/2014">
 <head lang="en">
     <meta charset="UTF-8"/>
-    <title></title>
+    <title>Тестирование начальной страницы</title>
 </head>
 <body>
+<h1>Тестирование начальной страницы</h1>
+
+<div>
+    Перешли на страницу <span scej:goToUrl="#TEXT">${homePage.URL}</span>
+</div>
+
+<div>
+    Подождали <span scej:waitSeconds="#TEXT">5</span> секунд
+</div>
 
 </body>
 </html>

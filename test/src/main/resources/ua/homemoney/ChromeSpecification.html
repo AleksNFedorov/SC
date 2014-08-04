@@ -6,15 +6,18 @@
 </head>
 <body>
 
-Запустили драйвер браузера <span scej:openDriver="#TEXT">${browser.chrome}</span>
-</hr>
+<div>
+    Запустили драйвер браузера <span scej:openDriver="#TEXT">${browser.chrome}</span>
+</div>
 
-Проверили сценарий <a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner"
-                      href="HomePageSpecification.html">Главная страница</a>
-</hr>
+<div>
+    Проверили сценарий <a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner"
+                          href="HomePageSpecification.html">Главная страница</a>
+</div>
 
-Завершили драйвер браузера <span scej:closeCurrentDriver="#TEXT">${browser.chrome}</span>
-</hr>
+<div>
+    Завершили драйвер браузера <span scej:closeCurrentDriver="">${browser.chrome}</span>
+</div>
 
 </body>
 </html>

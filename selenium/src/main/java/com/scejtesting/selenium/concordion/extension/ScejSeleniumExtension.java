@@ -33,6 +33,8 @@ public class ScejSeleniumExtension extends ScejCoreExtensions {
             add(new CheckElementDisplayed(assertRenderer));
             add(new CheckElementContainsText(assertRenderer));
             add(new CheckChildExist(assertRenderer));
+            add(new GoToURLCommand(assertRenderer));
+            add(new CheckPageTitle(assertRenderer));
         }
     };
 

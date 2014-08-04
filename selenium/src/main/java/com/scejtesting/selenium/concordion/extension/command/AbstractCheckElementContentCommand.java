@@ -1,9 +1,7 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
-import org.concordion.api.listener.AssertFailureEvent;
 import org.concordion.api.listener.AssertListener;
-import org.concordion.api.listener.AssertSuccessEvent;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,14 +11,14 @@ import java.util.List;
 /**
  * Created by aleks on 5/4/14.
  */
-public abstract class AbstractElementCheckCommand extends AbstractSeleniumDriverCommand {
+public abstract class AbstractCheckElementContentCommand extends AbstractSeleniumCheckCommand {
 
-    public AbstractElementCheckCommand(AssertListener listener) {
+    public AbstractCheckElementContentCommand(AssertListener listener) {
         super(listener);
     }
 
     @Override
-    protected final void processDriverCommand(Object parameter, Element element) {
+    public CommandResult performCheck(Object parameter, Element element) {
 
         validateParameters(parameter);
 
@@ -29,28 +27,28 @@ public abstract class AbstractElementCheckCommand extends AbstractSeleniumDriver
         String contentString = (String) parameterList.get(1);
         Object elementSearchPredicate = parameterList.get(0);
 
-        boolean checkResult;
+        boolean checkPassed;
 
         if (elementSearchPredicate instanceof By) {
             By bySearchPredicate = (By) elementSearchPredicate;
-            checkResult = doCheck(bySearchPredicate, contentString, parameterList);
+            checkPassed = doCheck(bySearchPredicate, contentString, parameterList);
         } else {
             WebElement elementToCheck = (WebElement) elementSearchPredicate;
-            checkResult = doCheck(elementToCheck, contentString, parameterList);
+            checkPassed = doCheck(elementToCheck, contentString, parameterList);
         }
 
-        announceResult(checkResult, element, contentString);
+        return buildResult(checkPassed, contentString);
     }
 
     protected abstract boolean doCheck(By predicate, String content, List allParameters);
 
     protected abstract boolean doCheck(WebElement element, String content, List allParameters);
 
-    protected void announceResult(boolean checkPassed, Element element, String textToSearch) {
+    protected CommandResult buildResult(boolean checkPassed, String textToSearch) {
         if (checkPassed) {
-            listeners.announce().successReported(new AssertSuccessEvent(element));
+            return buildSuccessResult();
         } else {
-            listeners.announce().failureReported(new AssertFailureEvent(element, textToSearch, ""));
+            return buildFailResult(textToSearch, "");
         }
     }
 

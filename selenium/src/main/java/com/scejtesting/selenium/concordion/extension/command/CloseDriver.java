@@ -2,6 +2,7 @@ package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
+import org.concordion.api.ResultRecorder;
 import org.concordion.api.listener.AssertListener;
 import org.concordion.api.listener.AssertSuccessEvent;
 
@@ -16,7 +17,7 @@ public class CloseDriver extends AbstractSeleniumDriverCommand {
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element) {
+    protected void processDriverCommand(Object parameter, Element element, ResultRecorder resultRecorder) {
         getTestFixture().closeCurrentDriver();
         listeners.announce().successReported(new AssertSuccessEvent(element));
     }

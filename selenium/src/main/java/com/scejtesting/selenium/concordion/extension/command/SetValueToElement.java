@@ -1,7 +1,9 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
+import org.concordion.api.ResultRecorder;
 import org.concordion.api.listener.AssertListener;
+import org.concordion.api.listener.AssertSuccessEvent;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,7 +20,7 @@ public class SetValueToElement extends AbstractSeleniumDriverCommand {
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element) {
+    protected void processDriverCommand(Object parameter, Element element, ResultRecorder resultRecorder) {
 
         validateParameters(parameter);
 
@@ -34,7 +36,7 @@ public class SetValueToElement extends AbstractSeleniumDriverCommand {
             WebElement elementToCheck = (WebElement) elementSearchPredicate;
             getTestFixture().setValueToElement(elementToCheck, textToSearch);
         }
-
+        listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
     private void validateParameters(Object parameter) {

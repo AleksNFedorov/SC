@@ -1,9 +1,7 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
-import org.concordion.api.listener.AssertFailureEvent;
 import org.concordion.api.listener.AssertListener;
-import org.concordion.api.listener.AssertSuccessEvent;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,14 +11,14 @@ import java.util.List;
 /**
  * Created by aleks on 5/6/14.
  */
-public class CheckChildExist extends AbstractSeleniumDriverCommand {
+public class CheckChildExist extends AbstractSeleniumCheckCommand {
 
     public CheckChildExist(AssertListener listener) {
         super(listener);
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element) {
+    public CommandResult performCheck(Object parameter, Element element) {
 
         validateParameters(parameter);
 
@@ -39,14 +37,10 @@ public class CheckChildExist extends AbstractSeleniumDriverCommand {
             checkResult = getTestFixture().checkChildExist(parentElement, childElementToSearch);
         }
 
-        announceResult(checkResult, element, "");
-    }
-
-    private void announceResult(boolean checkPassed, Element element, String textToSearch) {
-        if (checkPassed) {
-            listeners.announce().successReported(new AssertSuccessEvent(element));
+        if (checkResult) {
+            return buildSuccessResult();
         } else {
-            listeners.announce().failureReported(new AssertFailureEvent(element, textToSearch, ""));
+            return buildFailResult();
         }
     }
 

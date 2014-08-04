@@ -1,7 +1,9 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
+import org.concordion.api.ResultRecorder;
 import org.concordion.api.listener.AssertListener;
+import org.concordion.api.listener.AssertSuccessEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -15,7 +17,7 @@ public class ClickElement extends AbstractSeleniumDriverCommand {
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element) {
+    protected void processDriverCommand(Object parameter, Element element, ResultRecorder resultRecorder) {
 
         if (parameter instanceof By) {
             getTestFixture().clickElement((By) parameter);
@@ -24,6 +26,7 @@ public class ClickElement extends AbstractSeleniumDriverCommand {
         } else {
             throw new IllegalArgumentException("Parameter has incorrect type [" + parameter.getClass() + "]");
         }
+        listeners.announce().successReported(new AssertSuccessEvent(element));
 
     }
 

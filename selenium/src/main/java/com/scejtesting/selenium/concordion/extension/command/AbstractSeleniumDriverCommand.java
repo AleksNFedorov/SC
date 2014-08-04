@@ -23,10 +23,12 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
         listeners.addListener(listener);
     }
 
-    protected abstract void processDriverCommand(Object parameter, Element element);
+    protected abstract void processDriverCommand(Object parameter, Element element, ResultRecorder recoreder);
 
     @Override
     public final void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
+
+        LOG.debug("method invoked");
 
         if (commandCall.hasChildCommands()) {
             evaluateChildren(commandCall.getChildren(), evaluator, resultRecorder);
@@ -36,7 +38,10 @@ public abstract class AbstractSeleniumDriverCommand extends AbstractCommand impl
 
         LOG.info("Command value evaluation finished, [{}]", evaluationResult);
 
-        processDriverCommand(evaluationResult, commandCall.getElement());
+        Element element = commandCall.getElement();
+        processDriverCommand(evaluationResult, element, resultRecorder);
+        LOG.info("Command executed");
+        LOG.debug("Method finished");
 
     }
 

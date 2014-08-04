@@ -1,7 +1,9 @@
 package com.scejtesting.selenium.concordion.extension.command;
 
 import org.concordion.api.Element;
+import org.concordion.api.ResultRecorder;
 import org.concordion.api.listener.AssertListener;
+import org.concordion.api.listener.AssertSuccessEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -15,7 +17,7 @@ public class SubmitElement extends AbstractSeleniumDriverCommand {
     }
 
     @Override
-    protected void processDriverCommand(Object parameter, Element element) {
+    protected void processDriverCommand(Object parameter, Element element, ResultRecorder recorder) {
 
         if (parameter instanceof By) {
             getTestFixture().submitElement((By) parameter);
@@ -25,6 +27,7 @@ public class SubmitElement extends AbstractSeleniumDriverCommand {
             throw new IllegalArgumentException("Parameter has incorrect type [" + parameter.getClass() + "]");
         }
 
+        listeners.announce().successReported(new AssertSuccessEvent(element));
     }
 
     @Override
