@@ -115,6 +115,10 @@ public class DictionarySubstitutionListener implements NamedDocumentParsingListe
         return value.replace(stringToReplace, replacementValue);
     }
 
+    private String getProperty(Properties dictionary, String key) {
+        return "";
+    }
+
     protected DictionaryLoaderService getDictionaryLoaderService() {
         return dictionaryLoaderService;
     }

@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -159,4 +160,11 @@ public class CoreWebTestFixture {
 
     }
 
+    public List asList(By parentBy, By childBy) {
+        return Arrays.asList(parentBy, childBy);
+    }
+
+    public List asList(WebElement parentElement, By childBy) {
+        return Arrays.asList(parentElement, childBy);
+    }
 }

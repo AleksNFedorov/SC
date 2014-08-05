@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Properties;
 
@@ -108,7 +109,7 @@ public class DictionaryLoaderService {
             LOG.info("No dictionary found [{}]", globalDictionary);
             return globalDictionaryProperties;
         }
-        globalDictionaryProperties.load(new FileInputStream(globalDictionaryFile));
+        globalDictionaryProperties.load(new InputStreamReader(new FileInputStream(globalDictionaryFile), "UTF-8"));
 
         LOG.debug("method finished [{}]", globalDictionaryProperties);
         return globalDictionaryProperties;
