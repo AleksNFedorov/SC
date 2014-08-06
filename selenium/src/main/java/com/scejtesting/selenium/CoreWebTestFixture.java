@@ -16,6 +16,15 @@ import java.util.List;
 
 public class CoreWebTestFixture {
 
+    public enum YesNo {
+        Yes,
+        No;
+
+        public static YesNo get(boolean value) {
+            return value ? Yes : No;
+        }
+    }
+
     protected final static Logger LOG = LoggerFactory.getLogger(CoreWebTestFixture.class);
 
     //Created before file extension
@@ -48,6 +57,7 @@ public class CoreWebTestFixture {
 
         return title;
     }
+
 
     public WebElement findElement(By by) {
         LOG.debug("find element by [{}]", by);

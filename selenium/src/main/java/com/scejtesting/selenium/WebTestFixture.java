@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Created by aleks on 5/2/14.
  */
 
-public class WebTestFixture extends CoreWebTestFixture {
+public class WebTestFixture extends ElementsWebTestFixture {
 
     public final static String PAGE_ROOT_ELEMENT_XPATH = "//html";
     private final static Logger LOG = LoggerFactory.getLogger(WebTestFixture.class);
