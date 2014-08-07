@@ -1,5 +1,6 @@
 package com.scejtesting.selenium;
 
+import com.scejtesting.selenium.elements.AllAttributesElement;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,7 +70,7 @@ public class CoreWebTestFixture {
 
         LOG.debug("Found element [{}]", element);
 
-        return element;
+        return wrapWebElement(element);
     }
 
     public List<WebElement> findElements(By by) {
@@ -78,10 +80,22 @@ public class CoreWebTestFixture {
 
         List<WebElement> elements = getCurrentDriver().findElements(by);
 
+        if (elements != null && !elements.isEmpty()) {
+            List<WebElement> wrappedElementsList = new ArrayList<WebElement>(elements.size());
+            for (WebElement element : elements) {
+                wrappedElementsList.add(wrapWebElement(element));
+            }
+            elements = wrappedElementsList;
+        }
+
         LOG.debug("Found elements [{}]", elements);
-
         return elements;
+    }
 
+    private WebElement wrapWebElement(WebElement element) {
+        if (element == null)
+            return null;
+        return new AllAttributesElement(element);
     }
 
     public By createByClassName(String className) {
