@@ -121,6 +121,11 @@ public class CoreWebTestFixture {
         return new AllAttributesElement(element);
     }
 
+    public WebElement findElementByClassName(String className) {
+        By byClassName = createByClassName(className);
+        return findElement(byClassName);
+    }
+
     public By createByClassName(String className) {
 
         LOG.info("create by class [{}]", className);
@@ -128,6 +133,11 @@ public class CoreWebTestFixture {
         Check.notEmpty(className, "Class name can't be empty");
 
         return By.className(className);
+    }
+
+    public WebElement findElementByCssSelector(String cssSelector) {
+        By byCssSelector = createByCssSelector(cssSelector);
+        return findElement(byCssSelector);
     }
 
     public By createByCssSelector(String ByCssSelector) {
@@ -139,6 +149,11 @@ public class CoreWebTestFixture {
         return By.cssSelector(ByCssSelector);
     }
 
+    public WebElement findElementById(String id) {
+        By byId = createById(id);
+        return findElement(byId);
+    }
+
     public By createById(String Id) {
 
         LOG.info("create by Id [{}]", Id);
@@ -146,6 +161,11 @@ public class CoreWebTestFixture {
         Check.notEmpty(Id, "Id can't be empty");
 
         return By.id(Id);
+    }
+
+    public WebElement findElementByLinkText(String linkText) {
+        By byLinkText = createByLinkText(linkText);
+        return findElement(byLinkText);
     }
 
     public By createByLinkText(String linkText) {
@@ -157,6 +177,11 @@ public class CoreWebTestFixture {
         return By.linkText(linkText);
     }
 
+    public WebElement findElementByName(String name) {
+        By byName = createByName(name);
+        return findElement(byName);
+    }
+
     public By createByName(String name) {
 
         LOG.info("create by name [{}]", name);
@@ -164,6 +189,11 @@ public class CoreWebTestFixture {
         Check.notEmpty(name, "Name can't be empty");
 
         return By.name(name);
+    }
+
+    public WebElement findElementByPartialLinkText(String partialLinkText) {
+        By byPartialLinkText = createByPartialLinkText(partialLinkText);
+        return findElement(byPartialLinkText);
     }
 
     public By createByPartialLinkText(String partialLinkText) {
@@ -175,6 +205,11 @@ public class CoreWebTestFixture {
         return By.partialLinkText(partialLinkText);
     }
 
+    public WebElement findElementByTagName(String tagName) {
+        By byTagName = createByTagName(tagName);
+        return findElement(byTagName);
+    }
+
     public By createByTagName(String tagName) {
 
         LOG.info("create by tag name [{}]", tagName);
@@ -182,6 +217,11 @@ public class CoreWebTestFixture {
         Check.notEmpty(tagName, "Tag name name can't be empty");
 
         return By.tagName(tagName);
+    }
+
+    public WebElement findElementByXpath(String xpath) {
+        By byXpath = createByXpath(xpath);
+        return findElement(byXpath);
     }
 
     public By createByXpath(String xpath) {
