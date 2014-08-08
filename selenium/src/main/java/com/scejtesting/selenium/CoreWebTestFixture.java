@@ -18,15 +18,6 @@ import java.util.List;
 
 public class CoreWebTestFixture {
 
-    public enum YesNo {
-        Yes,
-        No;
-
-        public static YesNo get(boolean value) {
-            return value ? Yes : No;
-        }
-    }
-
     protected final static Logger LOG = LoggerFactory.getLogger(CoreWebTestFixture.class);
 
     //Created before file extension
@@ -60,6 +51,38 @@ public class CoreWebTestFixture {
         return title;
     }
 
+    public WebElement findElementInParent(By parentBy, By targetBy) {
+        LOG.debug("find element by [{}][{}]", parentBy, targetBy);
+
+        Check.notNull(parentBy, "By predicate can't be null");
+        Check.notNull(targetBy, "By predicate can't be null");
+
+        WebElement element = getCurrentDriver().findElement(parentBy);
+
+        if (element == null) {
+            LOG.warn("No parent element found [{}]", parentBy);
+            return null;
+        }
+
+        element = element.findElement(targetBy);
+
+        LOG.debug("Found element [{}]", element);
+
+        return wrapWebElement(element);
+    }
+
+    public WebElement findElementInParent(WebElement element, By targetBy) {
+        LOG.debug("find element by [{}][{}]", element, targetBy);
+
+        Check.notNull(element, "Element can't be null");
+        Check.notNull(targetBy, "By predicate can't be null");
+
+        element = element.findElement(targetBy);
+
+        LOG.debug("Found element [{}]", element);
+
+        return wrapWebElement(element);
+    }
 
     public WebElement findElement(By by) {
         LOG.debug("find element by [{}]", by);
