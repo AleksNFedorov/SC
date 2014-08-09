@@ -20,7 +20,7 @@ public class CheckElementEnabled extends AbstractCheckElementStateCommand {
 
     @Override
     protected boolean checkWithWebElement(WebElement element) {
-        return getTestFixture().checkElementEnabled(element);
+        return element.isEnabled();
     }
 
     @Override

@@ -52,7 +52,13 @@ public class WebTestFixture extends CoreWebTestFixture {
 
         Check.notNull(parent, "Search predicate [parent] can't be null");
 
-        WebElement parentElement = getCurrentDriver().findElement(parent);
+        WebElement parentElement;
+        try {
+            parentElement = getCurrentDriver().findElement(parent);
+        } catch (RuntimeException ex) {
+            LOG.info("Parent element [{}] does not exist", parent);
+            return false;
+        }
 
         LOG.info("Parent element exist");
         return checkChildExist(parentElement, child);
@@ -203,22 +209,7 @@ public class WebTestFixture extends CoreWebTestFixture {
         WebElement elementToCheck = getCurrentDriver().findElement(by);
 
         LOG.info("Element to check found");
-        return checkElementDisplayed(elementToCheck);
-
-    }
-
-    public boolean checkElementDisplayed(WebElement element) {
-        LOG.debug("method invoked [{}]", element);
-
-        Check.notNull(element, "Element to clear can't be null");
-
-        boolean elementDisplayed = element.isDisplayed();
-
-        LOG.info("Element displayed [{}]", elementDisplayed);
-
-        LOG.debug("method finished");
-
-        return elementDisplayed;
+        return elementToCheck.isDisplayed();
 
     }
 
@@ -230,22 +221,7 @@ public class WebTestFixture extends CoreWebTestFixture {
         WebElement elementToCheck = getCurrentDriver().findElement(by);
 
         LOG.info("Element to check enabled found");
-        return checkElementEnabled(elementToCheck);
-    }
-
-    public boolean checkElementEnabled(WebElement element) {
-        LOG.debug("method invoked [{}]", element);
-
-        Check.notNull(element, "Element to check enabled can't be null");
-
-        boolean elementDisplayed = element.isEnabled();
-
-        LOG.info("Element displayed [{}]", elementDisplayed);
-
-        LOG.debug("method finished");
-
-        return elementDisplayed;
-
+        return elementToCheck.isEnabled();
     }
 
     public boolean checkElementSelected(By by) {
@@ -257,23 +233,7 @@ public class WebTestFixture extends CoreWebTestFixture {
         WebElement elementToCheck = getCurrentDriver().findElement(by);
 
         LOG.info("Element to check selected found");
-        return checkElementSelected(elementToCheck);
-
-    }
-
-    public boolean checkElementSelected(WebElement element) {
-
-        LOG.debug("method invoked [{}]", element);
-
-        Check.notNull(element, "Element to check selected can't be null");
-
-        boolean elementSelected = element.isSelected();
-
-        LOG.info("Element selected [{}]", elementSelected);
-
-        LOG.debug("method finished");
-
-        return elementSelected;
+        return elementToCheck.isSelected();
 
     }
 

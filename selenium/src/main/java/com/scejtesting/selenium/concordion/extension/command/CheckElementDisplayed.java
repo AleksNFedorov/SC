@@ -20,7 +20,7 @@ public class CheckElementDisplayed extends AbstractCheckElementStateCommand {
 
     @Override
     protected boolean checkWithWebElement(WebElement element) {
-        return getTestFixture().checkElementDisplayed(element);
+        return element.isDisplayed();
     }
 
     @Override

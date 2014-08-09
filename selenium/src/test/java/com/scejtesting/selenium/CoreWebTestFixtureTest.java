@@ -327,6 +327,47 @@ public class CoreWebTestFixtureTest extends CoreScejTest<CoreWebTestFixture> {
     }
 
     @Test
+    public void testListReturned_asList_allValues() {
+        By testBy = currentTestFixture.createById("Id");
+        WebElement element = mock(WebElement.class);
+
+        List result = currentTestFixture.asList((By) null, null);
+        Assert.assertEquals(2, result.size());
+        Assert.assertNull(result.get(0));
+        Assert.assertNull(result.get(1));
+
+        result = currentTestFixture.asList((WebElement) null, null);
+        Assert.assertEquals(2, result.size());
+        Assert.assertNull(result.get(0));
+        Assert.assertNull(result.get(1));
+
+        result = currentTestFixture.asList((By) null, testBy);
+        Assert.assertEquals(2, result.size());
+        Assert.assertNull(result.get(0));
+        Assert.assertEquals(testBy, result.get(1));
+
+        result = currentTestFixture.asList(testBy, testBy);
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(testBy, result.get(0));
+        Assert.assertEquals(testBy, result.get(1));
+
+        result = currentTestFixture.asList(testBy, null);
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(testBy, result.get(0));
+        Assert.assertNull(result.get(1));
+
+        result = currentTestFixture.asList(element, null);
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(element, result.get(0));
+        Assert.assertNull(result.get(1));
+
+        result = currentTestFixture.asList(element, testBy);
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(element, result.get(0));
+        Assert.assertEquals(testBy, result.get(1));
+    }
+
+    @Test
     public void testOpenCloseDriver_noTroubles() {
 
         currentTestFixture.closeCurrentDriver();

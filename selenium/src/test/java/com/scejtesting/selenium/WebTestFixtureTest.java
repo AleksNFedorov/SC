@@ -1,7 +1,9 @@
 package com.scejtesting.selenium;
 
 import com.scejtesting.selenium.elements.WebElementWithAllAttributes;
+import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -20,6 +22,199 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
     private By unknownElementBy = By.id("unknownElementId");
     private By buttonById = By.id("button");
     private By inputText = By.id("text");
+
+    @Test
+    public void testException_nullParameters() throws InterruptedException {
+
+        WebElement mockElement = Mockito.mock(WebElement.class);
+
+        try {
+            currentTestFixture.waitSeconds(null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementExist(null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkChildExist((By) null, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkChildExist((WebElement) null, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkChildExist(divById, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkChildExist(mockElement, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementContainsText(divById, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementContainsText((WebElement) null, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementContainsText(mockElement, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkTextOnPage(null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.clickElement((By) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.clickElement((WebElement) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.setValueToElement((WebElement) null, "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.setValueToElement((By) null, "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.setValueToElement(mockElement, null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.clearElement((By) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.clearElement((WebElement) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.clearElement((WebElement) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementDisplayed(null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementEnabled(null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementSelected(null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.submitElement((By) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.submitElement((WebElement) null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementAttributeContainsText((By) null, "", "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementAttributeContainsText((WebElement) null, "", "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementAttributeContainsText(mockElement, null, "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementAttributeContainsText(mockElement, "", null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementCSSContainsText(mockElement, "", null);
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementCSSContainsText(mockElement, null, "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementCSSContainsText((WebElement) null, "", "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+
+        try {
+            currentTestFixture.checkElementCSSContainsText((By) null, "", "");
+            Assert.fail();
+        } catch (RuntimeException ex) {
+        }
+    }
+
 
     @Test
     public void documentNavigationTest() {

@@ -1,4 +1,23 @@
 package com.scejtesting.selenium.concordion.extension.command;
+/*
+import com.scejtesting.core.config.Specification;
+import com.scejtesting.core.context.TestContextService;
+import com.scejtesting.selenium.WebTestFixture;
+import org.concordion.api.Element;
+import org.concordion.api.listener.AssertFailureEvent;
+import org.concordion.api.listener.AssertListener;
+import org.concordion.api.listener.AssertSuccessEvent;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import static org.mockito.Mockito.*;
+
+import java.util.Arrays;
+*/
 
 /**
  * User: Fedorovaleks
@@ -6,7 +25,7 @@ package com.scejtesting.selenium.concordion.extension.command;
  */
 public class CommandsTest {
 
-    /*
+  /*
     private MonitoringAssertListener listener;
 
     @Before
