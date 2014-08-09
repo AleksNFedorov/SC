@@ -7,8 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import java.net.URL;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,20 +15,22 @@ import static org.mockito.Mockito.when;
  */
 public abstract class CoreScejTest<T extends CoreWebTestFixture> {
 
-    protected final URL operateURL;
+    public static final String OPERATE_URL = CoreScejTest.class.getClassLoader().getResource("WebTestFixtureTest.html").toString();
+    public static final String OPERATE_URL2 = CoreScejTest.class.getClassLoader().getResource("WebTestFixture2Test.html").toString();
+
+    public static final String OPERATE_URL_TITLE = "WebTestFixtureTest";
+    public static final String OPERATE_URL2_TITLE = "WebTestFixture2Test";
     protected T currentTestFixture;
 
+
     protected CoreScejTest() {
-        operateURL = getClass().getClassLoader().getResource("WebTestFixtureTest.html");
     }
 
     @BeforeClass
     public static void init() {
-
         Test specTest = mock(Test.class);
         when(specTest.getSpecification()).thenReturn(new Specification());
         new TestContextService().createNewTestContext(specTest);
-
     }
 
     protected abstract T buildTestFixture();
@@ -42,7 +42,7 @@ public abstract class CoreScejTest<T extends CoreWebTestFixture> {
 
         currentTestFixture.openDriver("fakeDriver");
 
-        currentTestFixture.goToURL(operateURL.toString());
+        currentTestFixture.goToURL(OPERATE_URL.toString());
 
     }
 

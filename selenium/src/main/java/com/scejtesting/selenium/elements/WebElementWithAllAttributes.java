@@ -5,9 +5,9 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by aleks on 8/6/14.
  */
-public class AllAttributesElement extends GenericElement {
+public class WebElementWithAllAttributes extends GenericElement {
 
-    public AllAttributesElement(WebElement webElement) {
+    public WebElementWithAllAttributes(WebElement webElement) {
         super(webElement);
     }
 

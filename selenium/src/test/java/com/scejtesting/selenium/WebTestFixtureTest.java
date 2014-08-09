@@ -1,5 +1,6 @@
 package com.scejtesting.selenium;
 
+import com.scejtesting.selenium.elements.WebElementWithAllAttributes;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,7 @@ public class WebTestFixtureTest extends CoreScejTest<WebTestFixture> {
     @Test
     public void documentNavigationTest() {
 
-        List<WebElement> foundElements = currentTestFixture.findElements(byTagName);
+        List<WebElementWithAllAttributes> foundElements = currentTestFixture.findElements(byTagName);
 
         assertEquals(2, foundElements.size());
         assertEquals(0, currentTestFixture.findElements(unknownElementBy).size());

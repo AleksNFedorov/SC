@@ -1,6 +1,6 @@
 package com.scejtesting.selenium;
 
-import com.scejtesting.selenium.elements.AllAttributesElement;
+import com.scejtesting.selenium.elements.WebElementWithAllAttributes;
 import org.concordion.internal.util.Check;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,6 +25,8 @@ public class CoreWebTestFixture {
 
     public void goToURL(String URL) {
         LOG.debug("method invoked [{}]", URL);
+
+        Check.notNull(URL, "URL can't be null");
 
         getCurrentDriver().get(URL);
 
@@ -51,18 +53,13 @@ public class CoreWebTestFixture {
         return title;
     }
 
-    public WebElement findElementInParent(By parentBy, By targetBy) {
+    public WebElementWithAllAttributes findElementInParent(By parentBy, By targetBy) {
         LOG.debug("find element by [{}][{}]", parentBy, targetBy);
 
         Check.notNull(parentBy, "By predicate can't be null");
         Check.notNull(targetBy, "By predicate can't be null");
 
         WebElement element = getCurrentDriver().findElement(parentBy);
-
-        if (element == null) {
-            LOG.warn("No parent element found [{}]", parentBy);
-            return null;
-        }
 
         element = element.findElement(targetBy);
 
@@ -71,7 +68,7 @@ public class CoreWebTestFixture {
         return wrapWebElement(element);
     }
 
-    public WebElement findElementInParent(WebElement element, By targetBy) {
+    public WebElementWithAllAttributes findElementInParent(WebElement element, By targetBy) {
         LOG.debug("find element by [{}][{}]", element, targetBy);
 
         Check.notNull(element, "Element can't be null");
@@ -84,7 +81,7 @@ public class CoreWebTestFixture {
         return wrapWebElement(element);
     }
 
-    public WebElement findElement(By by) {
+    public WebElementWithAllAttributes findElement(By by) {
         LOG.debug("find element by [{}]", by);
 
         Check.notNull(by, "By predicate can't be null");
@@ -96,32 +93,28 @@ public class CoreWebTestFixture {
         return wrapWebElement(element);
     }
 
-    public List<WebElement> findElements(By by) {
+    public List<WebElementWithAllAttributes> findElements(By by) {
         LOG.debug("find element by [{}]", by);
 
         Check.notNull(by, "By predicate can't be null");
 
         List<WebElement> elements = getCurrentDriver().findElements(by);
+        List<WebElementWithAllAttributes> resultList =
+                new ArrayList<WebElementWithAllAttributes>(elements.size());
 
-        if (elements != null && !elements.isEmpty()) {
-            List<WebElement> wrappedElementsList = new ArrayList<WebElement>(elements.size());
-            for (WebElement element : elements) {
-                wrappedElementsList.add(wrapWebElement(element));
-            }
-            elements = wrappedElementsList;
+        for (WebElement element : elements) {
+            resultList.add(wrapWebElement(element));
         }
 
         LOG.debug("Found elements [{}]", elements);
-        return elements;
+        return resultList;
     }
 
-    private WebElement wrapWebElement(WebElement element) {
-        if (element == null)
-            return null;
-        return new AllAttributesElement(element);
+    private WebElementWithAllAttributes wrapWebElement(WebElement element) {
+        return new WebElementWithAllAttributes(element);
     }
 
-    public WebElement findElementByClassName(String className) {
+    public WebElementWithAllAttributes findElementByClassName(String className) {
         By byClassName = createByClassName(className);
         return findElement(byClassName);
     }
@@ -135,7 +128,7 @@ public class CoreWebTestFixture {
         return By.className(className);
     }
 
-    public WebElement findElementByCssSelector(String cssSelector) {
+    public WebElementWithAllAttributes findElementByCssSelector(String cssSelector) {
         By byCssSelector = createByCssSelector(cssSelector);
         return findElement(byCssSelector);
     }
@@ -149,7 +142,7 @@ public class CoreWebTestFixture {
         return By.cssSelector(ByCssSelector);
     }
 
-    public WebElement findElementById(String id) {
+    public WebElementWithAllAttributes findElementById(String id) {
         By byId = createById(id);
         return findElement(byId);
     }
@@ -163,7 +156,7 @@ public class CoreWebTestFixture {
         return By.id(Id);
     }
 
-    public WebElement findElementByLinkText(String linkText) {
+    public WebElementWithAllAttributes findElementByLinkText(String linkText) {
         By byLinkText = createByLinkText(linkText);
         return findElement(byLinkText);
     }
@@ -177,7 +170,7 @@ public class CoreWebTestFixture {
         return By.linkText(linkText);
     }
 
-    public WebElement findElementByName(String name) {
+    public WebElementWithAllAttributes findElementByName(String name) {
         By byName = createByName(name);
         return findElement(byName);
     }
@@ -191,7 +184,7 @@ public class CoreWebTestFixture {
         return By.name(name);
     }
 
-    public WebElement findElementByPartialLinkText(String partialLinkText) {
+    public WebElementWithAllAttributes findElementByPartialLinkText(String partialLinkText) {
         By byPartialLinkText = createByPartialLinkText(partialLinkText);
         return findElement(byPartialLinkText);
     }
@@ -205,7 +198,7 @@ public class CoreWebTestFixture {
         return By.partialLinkText(partialLinkText);
     }
 
-    public WebElement findElementByTagName(String tagName) {
+    public WebElementWithAllAttributes findElementByTagName(String tagName) {
         By byTagName = createByTagName(tagName);
         return findElement(byTagName);
     }
@@ -219,7 +212,7 @@ public class CoreWebTestFixture {
         return By.tagName(tagName);
     }
 
-    public WebElement findElementByXpath(String xpath) {
+    public WebElementWithAllAttributes findElementByXpath(String xpath) {
         By byXpath = createByXpath(xpath);
         return findElement(byXpath);
     }
