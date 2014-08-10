@@ -3,7 +3,6 @@ bin/
 *.iml
 *.ipr
 *.log.*
-testResults/
+results/
 logs/
 target/
-resources/testing.xml
