@@ -41,7 +41,6 @@ public class AsyncSpecExecutionCallable implements Runnable {
         }
     }
 
-
     public AsyncSpecExecutionCallable(TestContext contextToClone, CommandCall commandCall, ResultRecorder resultRecorder) {
         Check.notNull(contextToClone, "Context to clone must be specified");
         Check.isFalse(TestContext.isDestroyedContext(contextToClone), "Provided context is destroyed");

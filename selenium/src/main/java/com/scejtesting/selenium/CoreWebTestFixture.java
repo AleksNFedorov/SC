@@ -54,7 +54,7 @@ public class CoreWebTestFixture {
     }
 
     public WebElementWithAllAttributes findElementInParent(By parentBy, By targetBy) {
-        LOG.debug("find element by [{}][{}]", parentBy, targetBy);
+        LOG.debug("find element in parent by [{}][{}]", parentBy, targetBy);
 
         Check.notNull(parentBy, "By predicate can't be null");
         Check.notNull(targetBy, "By predicate can't be null");
@@ -69,7 +69,7 @@ public class CoreWebTestFixture {
     }
 
     public WebElementWithAllAttributes findElementInParent(WebElement element, By targetBy) {
-        LOG.debug("find element by [{}][{}]", element, targetBy);
+        LOG.debug("find element in parent by [{}][{}]", element, targetBy);
 
         Check.notNull(element, "Element can't be null");
         Check.notNull(targetBy, "By predicate can't be null");

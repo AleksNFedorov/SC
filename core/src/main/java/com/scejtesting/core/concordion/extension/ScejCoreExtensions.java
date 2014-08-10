@@ -35,6 +35,7 @@ public class ScejCoreExtensions implements ConcordionExtension {
         LOG.debug("method invoked");
         try {
             addFailFastExceptions(concordionExtender);
+            convertToConcordionBuilder(concordionExtender).withEvaluatorFactory(new CoreOgnlEvaluatorFactory());
             concordionExtender.withSpecificationLocator(new HierarchySpecificationLocator());
             concordionExtender.withTarget(new FileTargetWithCustomPrefix());
             concordionExtender.withDocumentParsingListener(new DocumentParsingListenerFacade());
