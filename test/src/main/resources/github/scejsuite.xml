@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite>
+
+    <test name="GitHub" defaultTestClass="com.scejtesting.selenium.SpecificationWebTest"
+          substitutionDictionary="github/dictionary.properties">
+        <specification location="/github/GitHubSpecification.html"/>
+    </test>
+
+</suite>
