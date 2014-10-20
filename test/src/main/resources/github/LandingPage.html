@@ -10,12 +10,6 @@
 <h2>Панель с формой поиска и ссылками</h2>
 
 
-<!--<span style="display: none"-->
-<!--concordion:set="#panelRootElementBy = createByXpath(#TEXT)">/html/body/div[1]/div[1]/div</span>-->
-<!--<span style="display: none" concordion:set="#logoBy = createByClassName(#TEXT)">header-logo-wordmark</span>-->
-<!--<span style="display: none" concordion:set="#searchPanelBy = createByTagName(#TEXT)">input</span>-->
-<!--<span style="display: none" concordion:set="#signInButtonBy = createByLinkText(#TEXT)">Sign in</span>-->
-
 На <span scej:checkExistAndSet="{'xpath', '/html/body/div[1]/div[1]/div', 'panelRootElementBy' }">панели</span> должны
 находиться
 
@@ -23,8 +17,7 @@
 
 <span scej:checkExistInParentAndSet="{#panelRootElementBy,'xpath', '//input[@type=\'text\']', 'searchPanel'}">поле для воода строки поиска</span>
 с подсказкой
-<span scej:checkAttributeContainsText="{#searchPanel, 'placeholder', #TEXT}">Search GitHub</span>,
-<span concordion:assertEquals="#searchPanel.placeholder"> Search  G itHub</span>,
+<span concordion:assertEquals="#searchPanel.placeholder"> Search GitHub</span>,
 4 основные ссылки
 
 <div>
@@ -64,10 +57,11 @@
 
 
 </div>
-<!--
-И кнопка для входа <span concordion:assertTrue="checkChildExist(#panelRootElementBy, #signInButtonBy)">
-        <span concordion:set="#signInButtonBy = createByLinkText(#TEXT)">Sign in</span>
-</span>
+
+И кнопка (<span scej:checkExistInParentAndSet="{#panelRootElementBy, 'linkText', #TEXT, 'singInButton'}">Sign in</span>)
+для
+<span concordion:assertTrue="#singInButton.href == '${github.url.prefix}/login'">входа</span>
+
 
 <div>
 
@@ -76,29 +70,59 @@
 
 <div>
 
-    <p>
-        На панели находится слоган крупным тесктом (<span scej:checkElementSelected="#unknownElementBy">h1</span>)
-        “Build software better, together.”,
-    </p>
+</div>
+На <span scej:checkExistAndSet="{'className', 'site', 'secondPanelRoot'}">панели</span> находится слоган крупным тесктом
+(<span scej:checkExistInParentAndSet="{#secondPanelRoot, 'tagName', #TEXT, 'bigText'}">h1</span>)
+“<span scej:checkElementContainsText="{#bigText, #TEXT}">Build software better, together.</span>”,
+<div>
 
-    далее текст “Powerful collaboration, code review, and code management for open source and private projects. Need
-    private repositories?”
 
-    и ссылка на тарифные планы “Upgraded plans start at $7/mo.”
+    далее текст “<span scej:checkElementContainsText="{#secondPanelRoot, #TEXT}">Powerful collaboration, code review, and code management for open source and private projects. Need private repositories?</span>”
 
-    Справа от слогана находится панель регистрации, со следующими элементами
+    и ссылка на тарифные планы “<span
+        scej:checkExistInParentAndSet="{#secondPanelRoot, 'linkText', #TEXT, 'ratePlans'}">Upgraded plans start at $7/mo.</span>”
+    <div>
 
-    Поле ввода имени пользователя с подсказкой
-    Поле ввода email пользователя с подсказкой
 
-    Поле ввода пароля с подсказкой и правилом “Use at least one lowercase letter, one numeral, and seven characters.”
+        Справа от слогана находится панель регистрации, со следующими элементами
 
-    Кнопка регистрации ниже которой находится текст с ссылками на правила пользования и политику безопастности
+        <table concordion:execute="#result = #element">
+            <tr>
+                <th scej:checkExistInParentAndSet="{#secondPanelRoot, 'name', #TEXT,  'element'}">Поле ввода</th>
+                <th concordion:assertEquals="#result.type">Тип</th>
+                <th concordion:assertEquals="#result.placeholder">Подсказка</th>
+            </tr>
+            <tr>
+                <td>user[login]</td>
+                <td>text</td>
+                <td>Pick a username</td>
+            </tr>
+            <tr>
+                <td>user[email]</td>
+                <td>text</td>
+                <td>Your email</td>
+            </tr>
+            <tr>
+                <td>user[password]</td>
+                <td>password</td>
+                <td>Create a password</td>
+            </tr>
+        </table>
+
+        Ниже находится правило ввода пароля "<span scej:checkElementContainsText="{#secondPanelRoot, #TEXT}">Use at least one lowercase letter, one numeral, and seven characters.</span>”
+
+        Кнопка <span
+            scej:checkExistInParentAndSet="{#secondPanelRoot, 'tagName', 'button', 'singUpButton'}">регистрации</span>
+        c текстом "<span concordion:assertEquals="#singUpButton.text">Sign up for GitHub</span>"ниже которой находится
+        текст с ссылками на <span
+            scej:checkExistInParentAndSet="{#secondPanelRoot, 'linkText', 'terms of service', 'termsOfService'}">правила пользования</span>
+        и <span scej:checkExistInParentAndSet="{#secondPanelRoot, 'linkText', 'privacy policy', 'privacyPolicy'}">политику безопастности</span>
+    </div>
 
 </div>
 
 <h2>Панель со слоганом и формой регистрации</h2>
--->
+
 
 </body>
 </html>
