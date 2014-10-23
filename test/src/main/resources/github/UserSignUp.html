@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:scej="http://www.scejtesting.com/2014">
+<body>
+
+<h1>Сценарий регистрации</h1>
+
+Переходим на главную страницу <span scej:goToUrl="#TEXT">https://www.github.com</span>
+
+На <span scej:checkExistAndSet="{'className', 'site', 'signUpPanel'}">панели</span> со слоганом находятся поля ввода
+данных:
+<ul>
+    <li scej:checkExistInParentAndSet="{#signUpPanel,  'name', 'user[login]', 'userNameField'}">Имя пользователя</li>
+    <li scej:checkExistInParentAndSet="{#signUpPanel,  'name', 'user[email]', 'userEmailField'}">EMail пользователя</li>
+    <li scej:checkExistInParentAndSet="{#signUpPanel,  'name', 'user[password]', 'userPasswordField'}">Пароль</li>
+</ul>
+
+о новом пользователе и <span
+        scej:checkExistInParentAndSet="{#signUpPanel, 'tagName', 'button', 'singUpButton'}">кнопка</span>
+<span concordion:assertEquals="#singUpButton.text">Sign up for GitHub</span>
+
+<h2>Валидация ввода данных в полях регистрации</h2>
+
+<h3>Поле ввода имени пользователя</h3>
+
+<table concordion:execute="#result = #element">
+    <tr>
+        <th scej:setValueAndWaitSeconds="{#userNameField, #TEXT, '500'}">Имя пользователя</th>
+        <th style="display:none" scej:checkExistInParentAndSet="{#signUpPanel, 'className', 'error', 'error'}">Ошибка
+        </th>
+        <th concordion:assertEquals="#error.text">Текст ошибки</th>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td style="display:none"></td>
+        <td>Username is already taken</td>
+    </tr>
+    <tr>
+        <td>a1</td>
+        <td style="display:none"></td>
+        <td>Username is already taken</td>
+    </tr>
+    <tr>
+        <td>аш</td>
+        <td style="display:none"></td>
+        <td>Username may only contain alphanumeric characters or dashes and cannot begin with a dash</td>
+    </tr>
+    <tr>
+        <td>1%</td>
+        <td style="display:none">text</td>
+        <td>Username may only contain alphanumeric characters or dashes and cannot begin with a dash</td>
+    </tr>
+</table>
+
+После этого вводим валидное имя пользователя, который не
+существует (<span
+        scej:setValueAndWaitSeconds="{#userNameField, #TEXT, '500'}">SomeValidUnExistedUserName11231233312</span>)
+
+и проверяем что валидация прошла успешно (
+<scej scej:checkNoElementInParent="{#signUpPanel,  'className', 'error'}">successed</scej>
+)
+
+<h3>Поле ввода Email пользователя</h3>
+
+<table concordion:execute="#result = #element">
+    <tr>
+        <th scej:setValueAndWaitSeconds="{#userEmailField, #TEXT, '500'}">Имя пользователя</th>
+        <th style="display:none" scej:checkExistInParentAndSet="{#signUpPanel, 'className', 'error', 'error'}">Ошибка
+        </th>
+        <th concordion:assertEquals="#error.text">Текст ошибки</th>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td style="display:none"></td>
+        <td>Email is invalid or already taken</td>
+    </tr>
+    <tr>
+        <td>aleks@</td>
+        <td style="display:none"></td>
+        <td>Email is invalid or already taken</td>
+    </tr>
+    <tr>
+        <td>aleks@gmail.com</td>
+        <td style="display:none"></td>
+        <td>Email is invalid or already taken</td>
+    </tr>
+</table>
+
+
+После этого вводим валидное имя пользователя, который не
+существует (
+<span scej:setValueAndWaitSeconds="{#userEmailField, #TEXT, '500'}">aleks1234411@gmail.com</span>)
+
+и проверяем что валидация прошла успешно (
+<scej scej:checkNoElementInParent="{#signUpPanel,  'className', 'error'}">successed</scej>
+)
+
+<h3>Поле ввода пароля пользователя</h3>
+
+<table concordion:execute="#result = #element">
+    <tr>
+        <th scej:setValueAndWaitSeconds="{#userPasswordField, #TEXT, '500'}">Пароль пользователя</th>
+        <th style="display:none" scej:checkExistInParentAndSet="{#signUpPanel, 'className', 'error', 'error'}">Ошибка
+        </th>
+        <th concordion:assertEquals="#error.text">Текст ошибки</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td style="display:none"></td>
+        <td>Password is too short (minimum is 7 characters) and needs at least one lowercase letter</td>
+    </tr>
+    <tr>
+        <td>1234567</td>
+        <td style="display:none"></td>
+        <td>Password needs at least one lowercase letter</td>
+    </tr>
+    <tr>
+        <td>aaaaaaa</td>
+        <td style="display:none"></td>
+        <td>Password needs at least one number</td>
+    </tr>
+
+</table>
+
+
+После этого вводим валидное имя пользователя, который не
+существует (<span scej:setValueAndWaitSeconds="{#userPasswordField, #TEXT, '500'}">123456As</span>)
+
+и проверяем что валидация прошла успешно (
+<scej scej:checkNoElementInParent="{#signUpPanel, 'className', 'error'}">successed</scej>
+)
+
+
+<h2>Вввод данных и проверка мастера регистрации</h2>
+
+Вводим
+
+<ul>
+    <li>
+        Имя пользователя <span
+            scej:setValueAndWaitSeconds="{#userNameField, #TEXT, '500'}">ValidUserName${timestamp}</span>
+    </li>
+    <li>
+        Email - <span
+            scej:setValueAndWaitSeconds="{#userEmailField, #TEXT, '500'}">validUserName@i${timestamp}.com</span>
+    </li>
+    <li>
+        Пароль - <span scej:setValueAndWaitSeconds="{#userPasswordField, #TEXT, '500'}">123456As</span>
+    </li>
+</ul>
+
+Затем нажимаем на кнопку <span scej:click="#singUpButton">Sign up to GitHub</span>, в результате мы должны перейти на
+страницу
+
+<span scej:checkUrlContains="#TEXT">https://github.com/join/plan</span>.
+
+
+<h3>Валидация страницы нового пользователя</h3>
+
+На <span scej:checkExistAndSet="{'className', 'container', 'signUpPanel'}">панели</span> со строкой поиска должно быть
+указано
+
+<span scej:checkExistInParentAndSet="{#signUpPanel,  'className', 'css-truncate-target', 'userLogin'}">логин</span>
+(<span concordion:assertEquals="#userLogin.text">ValidUserName${timestamp}</span>) нового пользователя
+
+
+По умолачанию выбран тарифный план
+<span scej:checkAttributeContainsText="{#selectedPlan, 'class', 'plan-row free-plan js-plan-row selected'}">
+<span scej:checkExistInParentAndSet="{#signUpPanel,  'xpath', '//*[@id=\'site-container\']/div/div[2]/div/form/table/tbody/tr[5]', 'selectedPlan'}">
+free
+</span>
+</span>,
+
+Выбираем тарифный план
+<span scej:clickAndWait="{#newPlan, '1500'}">
+    <span scej:checkExistInParentAndSet="{#signUpPanel, 'xpath', '//*[@id=\'site-container\']/div/div[2]/div/form/table/tbody/tr[4]/td[4]/label/span', 'newPlan'}">
+        Micro
+    </span>
+</span>
+
+
+должны появится дополнительные
+поля для ввода платежной информации и переключатель между вариантами выбора, который по умолчанияю включен на Crdit card
+
+Дополнительные поля
+
+<table concordion:execute="#result = #element">
+    <tr>
+        <th>Название</th>
+        <th scej:checkExistAndSet="{'id', #TEXT, 'element'}">Id элемента</th>
+        <th concordion:assertEquals="#result.type">Тип</th>
+    </tr>
+    <tr>
+        <td>CardNumber</td>
+        <td>billing-number-ValidUserName${timestamp}</td>
+        <td>text</td>
+    </tr>
+    <tr>
+        <td>CVV</td>
+        <td>billing-cvv-ValidUserName${timestamp}</td>
+        <td>text</td>
+    </tr>
+    <tr>
+        <td>Country</td>
+        <td>credit-card-ValidUserName${timestamp}_billing_country</td>
+        <td>select-one</td>
+    </tr>
+
+</table>
+
+
+</body>
+</html>
