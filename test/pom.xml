@@ -15,6 +15,12 @@
 
         <dependency>
             <groupId>com.scejtesting</groupId>
+            <artifactId>browserstack</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.scejtesting</groupId>
             <artifactId>chrome</artifactId>
             <version>${parent.version}</version>
         </dependency>

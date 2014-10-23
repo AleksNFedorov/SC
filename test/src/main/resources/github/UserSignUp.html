@@ -148,7 +148,8 @@
     </li>
 </ul>
 
-Затем нажимаем на кнопку <span scej:click="#singUpButton">Sign up to GitHub</span>, в результате мы должны перейти на
+Затем нажимаем на кнопку <span scej:clickAndWait="{#singUpButton, '1000'}">Sign up to GitHub</span>, в результате мы
+должны перейти на
 страницу
 
 <span scej:checkUrlContains="#TEXT">https://github.com/join/plan</span>.

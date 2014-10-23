@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:scej="http://www.scejtesting.com/2014">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Тестирование функциональности в браузере ${browser.firefox}</title>
+</head>
+<body>
+
+<div>
+    Запустили драйвер браузера <span scej:openDriver="#TEXT">${browser.firefox}</span>
+</div>
+
+
+<div>
+    Проверили сценарий <a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner"
+                          href="LandingPage.html">Главная страница</a>
+</div>
+
+
+<div>
+    Проверили сценарий <a scej:run="com.scejtesting.core.concordion.ChildSpecificationRunner"
+                          href="UserSignUp.html">Регистрация пользователя</a>
+</div>
+
+<div>
+    Завершили драйвер браузера <span scej:closeCurrentDriver="">${browser.firefox}</span>
+</div>
+
+</body>
+</html>
